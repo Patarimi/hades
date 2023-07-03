@@ -3,6 +3,8 @@ from pathlib import Path
 from .devices import Mos
 import gdstk
 import yaml
+from os.path import join
+from os import makedirs
 
 
 app = Typer()
@@ -24,6 +26,14 @@ def generate_cli(design_yaml: Path = "./design.yml"):
     lib.write_gds(conf["name"] + ".gds")
 
 
-@app.command("template")
-def template(name: str):
-    ...
+@app.command("new")
+def template(project_name: Path = "./working_dir"):
+    template_file = """
+        name: #insert name of the design
+        techno: #path to the yaml tech files
+        design:
+            
+    """
+    makedirs(project_name)
+    with open(join(project_name, "design.yml"), "w") as f:
+        yaml.dump(yaml.load(template_file, yaml.Loader), f)

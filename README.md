@@ -15,6 +15,7 @@ stateDiagram
     app --> pc: dimensions
     sim: accurate model
     pc --> sim: geometries
+    pdk --> sim
     cal: calibrator
     state atSpec <<choice>>
     sim --> atSpec: accurate behavior

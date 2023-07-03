@@ -5,9 +5,15 @@ description = ""
 authors = ["Patarimi <38954040+Patarimi@users.noreply.github.com>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+hades = "hades.main:app"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 poethepoet = "^0.20.0"
+typer = "^0.9.0"
+gdstk = "^0.9.42"
+setuptools = "^68.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

@@ -1,25 +1,27 @@
 from typer import Typer
-from .devices import Mos, generate
+from pathlib import Path
+from .devices import Mos
 import gdstk
+import yaml
+
 
 app = Typer()
-layers_set = {"poly": (0, 0),
-              "pplus": (1, 0)}
-
-dimensions = {"n": 1,
-              "w": 130,
-              "l": 140,
-              }
 
 
 @app.command("generate")
-def generate_cli(name: str, device: str):
+def generate_cli(design_yaml: Path = "./design.yml"):
     lib = gdstk.Library()
-    if device == "mos":
+    with open(design_yaml) as f:
+        conf = yaml.load(f, Loader=yaml.Loader)
+    with open(conf["techno"]) as f:
+        tech = yaml.load(f, Loader=yaml.Loader)
+    layers_set = tech["layers"]
+    design = conf["design"]
+    if design["device"] == "mos":
         mos = Mos()
-        cell = mos.set_geometries(dimensions, layers=layers_set)
+        cell = mos.set_geometries(design["dimensions"], layers=layers_set)
         lib.add(cell)
-    lib.write_gds(name+".gds")
+    lib.write_gds(conf["name"] + ".gds")
 
 
 @app.command("template")

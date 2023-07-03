@@ -14,6 +14,7 @@ poethepoet = "^0.20.0"
 typer = "^0.9.0"
 gdstk = "^0.9.42"
 setuptools = "^68.0.0"
+pyyaml = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

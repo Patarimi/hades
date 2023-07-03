@@ -1,0 +1,8 @@
+name: mos_g
+techno: ../tech_test/mock.yml
+design:
+  device: mos
+  dimensions:
+    w: 130
+    l: 140
+    n: 2

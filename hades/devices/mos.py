@@ -3,12 +3,15 @@ from .devices import Parameters
 
 
 class Mos:
-    def set_dimensions(
-        self, specifications: Parameters, parameters: Parameters
-    ) -> Parameters:
-        ...
+    specifications: Parameters
+    dimensions: Parameters
+    parameters: Parameters
 
-    def set_geometries(self, dimensions: Parameters, layers: dict):
+    def update_model(self, specifications: Parameters) -> Parameters:
+            #calculate geometries from gm/id and Vds constraint
+
+    def update_cell(self, dimensions: Parameters, layers: dict) -> gdstk.Cell:
+        self.dimensions = dimensions
         mos = gdstk.Cell("mos")
         n = dimensions["n"]
         w = dimensions["w"]
@@ -26,13 +29,11 @@ class Mos:
                     layer=int(layers["poly"][0]),
                 )
             )
-
         return mos
 
-    def get_accurate(
-        self,
-    ):
-        ...
+    def update_accurate(self, cell: gdstk.Cell) -> Parameters:
+        #extract spice schematic from gds (?)
+        #run spice simulation, output gm/id, vds
 
-    def recalibrate(self):
-        ...
+    def recalibrate_model(self, performances: Parameters) -> Parameters:
+        #update model parameter

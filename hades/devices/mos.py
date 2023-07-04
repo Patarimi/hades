@@ -8,7 +8,8 @@ class Mos:
     parameters: Parameters
 
     def update_model(self, specifications: Parameters) -> Parameters:
-            #calculate geometries from gm/id and Vds constraint
+        # calculate geometries from gm/id and Vds constraint
+        ...
 
     def update_cell(self, dimensions: Parameters, layers: dict) -> gdstk.Cell:
         self.dimensions = dimensions
@@ -32,8 +33,10 @@ class Mos:
         return mos
 
     def update_accurate(self, cell: gdstk.Cell) -> Parameters:
-        #extract spice schematic from gds (?)
-        #run spice simulation, output gm/id, vds
+        # extract spice schematic from gds (?)
+        # run spice simulation, output gm/id, vds
+        ...
 
     def recalibrate_model(self, performances: Parameters) -> Parameters:
-        #update model parameter
+        # update model parameter
+        ...

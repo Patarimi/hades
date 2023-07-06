@@ -1,10 +1,13 @@
 from typing import Protocol, Union
 import gdstk
+from pathlib import Path
+
 
 Parameters = dict[str, Union[int, float, str]]
 
 
 class Device(Protocol):
+    name: str
     specifications: Parameters
     dimensions: Parameters
     parameters: Parameters
@@ -15,17 +18,34 @@ class Device(Protocol):
     def update_cell(self, dimensions: Parameters, layers: dict) -> gdstk.Cell:
         ...
 
-    def update_accurate(self, cell: gdstk.Cell) -> Parameters:
+    def update_accurate(self, sim_file: Path, option: dict) -> Parameters:
         ...
 
     def recalibrate_model(self, performances: Parameters) -> Parameters:
         ...
 
 
-def generate(device: Device, specification, layers_set) -> Parameters:
-    dimensions = device.update_model(specification)
-    cell = device.update_cell(dimensions, layers_set)
-    perf = device.update_accurate(cell)
-    parameters = device.recalibrate_model(perf)
-
-    return dimensions
+def generate(
+    dut: Device,
+    specifications: Parameters,
+    layers_set,
+    dimensions: Parameters,
+    stop: str,
+) -> Parameters:
+    for i in range(3):
+        print(specifications)
+        dimensions.update(dut.update_model(specifications))
+        print(dimensions)
+        if stop == "dimensions":
+            break
+        cell = dut.update_cell(dimensions, layers=layers_set)
+        lib = gdstk.Library()
+        lib.add(cell)
+        lib.write_gds(dut.name + ".gds")
+        if stop == "geometries":
+            break
+        res = dut.update_accurate(Path(dut.name + ".gds"))
+        print(f"Accurate model completed with: {res}")
+        dut.recalibrate_model(res)
+        print(f"model recalibrate with {dut.parameters}")
+    return dut.dimensions

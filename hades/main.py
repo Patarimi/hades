@@ -1,7 +1,7 @@
 from typer import Typer
 from pathlib import Path
-from .devices import Mos
-import gdstk
+from .devices import *
+from .simulator import *
 import yaml
 from os.path import join
 from os import makedirs
@@ -11,8 +11,7 @@ app = Typer()
 
 
 @app.command("generate")
-def generate_cli(design_yaml: Path = "./design.yml"):
-    lib = gdstk.Library()
+def generate_cli(design_yaml: Path = "./design.yml", stop: str = ""):
     with open(design_yaml) as f:
         conf = yaml.load(f, Loader=yaml.Loader)
     with open(conf["techno"]) as f:
@@ -20,10 +19,11 @@ def generate_cli(design_yaml: Path = "./design.yml"):
     layers_set = tech["layers"]
     design = conf["design"]
     if design["device"] == "mos":
-        mos = Mos()
-        cell = mos.set_geometries(design["dimensions"], layers=layers_set)
-        lib.add(cell)
-    lib.write_gds(conf["name"] + ".gds")
+        dut = Mos()
+    if design["device"] == "inductor":
+        dut = Inductor(name=conf["name"], proc_file=tech["process"])
+    dimensions = design["dimensions"]
+    generate(dut, design["specifications"], layers_set, dimensions, stop)
 
 
 @app.command("new")

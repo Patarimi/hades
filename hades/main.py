@@ -5,7 +5,7 @@ from .simulator import *
 import yaml
 from os.path import join
 from os import makedirs
-
+import hades.techno as techno
 
 app = Typer()
 
@@ -14,16 +14,14 @@ app = Typer()
 def generate_cli(design_yaml: Path = "./design.yml", stop: str = ""):
     with open(design_yaml) as f:
         conf = yaml.load(f, Loader=yaml.Loader)
-    with open(conf["techno"]) as f:
-        tech = yaml.load(f, Loader=yaml.Loader)
-    layers_set = tech["layers"]
+    tech = techno.load(conf["techno"])
     design = conf["design"]
     if design["device"] == "mos":
         dut = Mos()
     if design["device"] == "inductor":
-        dut = Inductor(name=conf["name"], proc_file=tech["process"])
+        dut = Inductor(name=conf["name"], proc_file=join(tech["base_dir"], tech["process"]))
     dimensions = design["dimensions"]
-    generate(dut, design["specifications"], layers_set, dimensions, stop)
+    generate(dut, design["specifications"], conf["techno"], dimensions, stop)
 
 
 @app.command("new")

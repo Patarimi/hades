@@ -1,9 +1,10 @@
 from .devices import Parameters
 import gdstk
-from math import sqrt, pi, tan
+from math import pi, tan
 from pathlib import Path
 from scipy.optimize import minimize_scalar
 from ..simulator import Emx
+from hades.techno import get_layer
 
 
 class Inductor:
@@ -45,10 +46,10 @@ class Inductor:
         d_avg = (d_o + d_i) / 2
         return k1 * u_0 * d_avg / (1 + k2 * rho)
 
-    def update_cell(self, dimensions: Parameters, layers: dict) -> gdstk.Cell:
+    def update_cell(self, dimensions: Parameters, techno: str) -> gdstk.Cell:
         self.dimensions = dimensions
-        m_top = dimensions["m_path"]
-        m_bott = dimensions["m_bridge"]
+        m_top = get_layer(techno, dimensions["m_path"])
+        m_bott = get_layer(techno, dimensions["m_bridge"])
         ind = gdstk.Cell(self.name)
         d_i = dimensions["d_i"] * 1e6
         w = dimensions["W"] * 1e6
@@ -58,14 +59,14 @@ class Inductor:
         turn = gdstk.RobustPath(
             (-p_ext, p_gap),
             w,
-            layer=layers[m_top]["layer"],
-            datatype=layers[m_top]["type"],
+            layer=m_top[0],
+            datatype=m_top[1]
         )
         turn2 = gdstk.RobustPath(
             (-p_ext, -p_gap),
             w,
-            layer=layers[m_top]["layer"],
-            datatype=layers[m_top]["type"],
+            layer=m_top[0],
+            datatype=m_top[1]
         )
         path = (
             (0, p_gap),
@@ -81,12 +82,12 @@ class Inductor:
         ind.add(turn, turn2)
         ind.add(
             gdstk.Label(
-                "P1", (-p_ext, p_gap), layer=layers[m_top]["layer"], texttype=132
+                "P1", (-p_ext, p_gap), layer=m_top[0], texttype=m_top[1]
             )
         )
         ind.add(
             gdstk.Label(
-                "P2", (-p_ext, -p_gap), layer=layers[m_top]["layer"], texttype=132
+                "P2", (-p_ext, -p_gap), layer=m_top[0], texttype=m_top[1]
             )
         )
 

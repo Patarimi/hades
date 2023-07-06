@@ -15,10 +15,10 @@ class Device(Protocol):
     def update_model(self, specifications: Parameters) -> Parameters:
         ...
 
-    def update_cell(self, dimensions: Parameters, layers: dict) -> gdstk.Cell:
+    def update_cell(self, dimensions: Parameters, techno: str) -> gdstk.Cell:
         ...
 
-    def update_accurate(self, sim_file: Path, option: dict) -> Parameters:
+    def update_accurate(self, sim_file: Path, option: dict = None) -> Parameters:
         ...
 
     def recalibrate_model(self, performances: Parameters) -> Parameters:
@@ -28,7 +28,7 @@ class Device(Protocol):
 def generate(
     dut: Device,
     specifications: Parameters,
-    layers_set,
+    techno,
     dimensions: Parameters,
     stop: str,
 ) -> Parameters:
@@ -38,7 +38,7 @@ def generate(
         print(dimensions)
         if stop == "dimensions":
             break
-        cell = dut.update_cell(dimensions, layers=layers_set)
+        cell = dut.update_cell(dimensions, techno=techno)
         lib = gdstk.Library()
         lib.add(cell)
         lib.write_gds(dut.name + ".gds")

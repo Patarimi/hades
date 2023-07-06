@@ -37,3 +37,11 @@ def template(project_name: Path = "./working_dir"):
     makedirs(project_name)
     with open(join(project_name, "design.yml"), "w") as f:
         yaml.dump(yaml.load(template_file, yaml.Loader), f)
+
+
+@app.command("config")
+def setup(simulator_name: str):
+    if simulator_name == "emx":
+        sim = Emx()
+    path = sim.setup(base_dir=Path("."))
+    print(f"Configuration save at {path}")

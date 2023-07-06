@@ -16,6 +16,7 @@ gdstk = "^0.9.42"
 setuptools = "^68.0.0"
 pyyaml = "^6.0"
 scipy = "^1.11.1"
+python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

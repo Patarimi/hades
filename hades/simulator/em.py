@@ -2,6 +2,7 @@ from pathlib import Path
 from .simulator import write_conf, load_conf
 from subprocess import run
 from os.path import join
+from dotenv import load_dotenv
 
 
 class Emx:
@@ -13,6 +14,7 @@ class Emx:
         return conf_path
 
     def prepare(self, proc: Path):
+        load_dotenv()
         self.proc = proc
 
     def compute(self, input_file: Path, cell_name: str, f_0: float):

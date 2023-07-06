@@ -1,2 +1,3 @@
 .idea/
 /hades/simulator/simulator.yml
+*.env

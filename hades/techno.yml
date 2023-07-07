@@ -1,4 +1,4 @@
-asap7:
-  base_dir: ../pdk/asap7
-  layermap: asap7_TechLib_08.layermap
+sky130a:
+  base_dir: ../pdk/sky130a/share/sky130A/libs.tech
+  layermap: \klayout\tech\sky130A.map
   process: asap7_fake.proc

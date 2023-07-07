@@ -1,0 +1,4 @@
+asap7:
+  base_dir: ../pdk/asap7
+  layermap: asap7_TechLib_08.layermap
+  process: asap7_fake.proc

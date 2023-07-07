@@ -1,8 +1,10 @@
-name: mos_g
-techno: ../tech_test/mock.yml
+name: ind
+techno: asap7
 design:
-  device: mos
+  device: inductor
+  specifications:
+    L: 1e-9
+    f_0: 1e9
   dimensions:
-    w: 130
-    l: 140
-    n: 2
+    m_path: M9
+    m_bridge: M8

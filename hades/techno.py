@@ -12,8 +12,10 @@ def load(techno: str):
 
 def get_layer(techno: str, name: str, datatype: str = "drawing"):
     process = load(techno)
-    with open(join(process["base_dir"], process["layermap"]), "r") as f:
+    with open(
+        join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
+    ) as f:
         for line in f:
-            if re.match(rf"{name}[ ]*{datatype}", line, re.IGNORECASE) is not None:
+            if re.match(rf"{name}\s*{datatype}", line, re.IGNORECASE) is not None:
                 res = list(filter(None, line.split()))
                 return int(res[2]), int(res[3])

@@ -1,0 +1,13 @@
+site_name: HADes
+site_url: https://patarimi.github.io/hades
+nav:
+  - Home: index.md
+
+theme:
+  name: material
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

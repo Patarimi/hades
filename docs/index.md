@@ -10,7 +10,7 @@ Installation using pipx:
 pipx install git+https://github.com/Patarimi/hades
 ```
 
-### Design flow
+## Design flow
 Starting from the specifications written in a design.yml file, the following flow is run (see #working_dir).
 ```mermaid
 stateDiagram
@@ -31,7 +31,7 @@ stateDiagram
 ```
 When finished, a gds file is available for further design.
 
-### Simulators and PDKs configuration
+## Simulators and PDKs configuration
 The simulator can be configured using:
 ```shell
 hades config <simulator_name>
@@ -54,7 +54,7 @@ techno_name:
   process: path to the process file (-proc option in emx)
 ```
 
-### Working directory
+## Working directory
 Configuration file design.yml. This file can be generated using:
 ```shell
 hades template

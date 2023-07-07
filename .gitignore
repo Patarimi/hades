@@ -2,3 +2,4 @@
 /hades/simulator/simulator.yml
 *.env
 /hades/techno.yml
+/site/

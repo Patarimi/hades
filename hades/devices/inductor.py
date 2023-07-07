@@ -15,7 +15,7 @@ class Inductor:
 
     def __init__(self, name: str, proc_file: Path, L: float = 1e-9, f_0: float = 1e9):
         self.name = name
-        self.specifications = {"L": L, "f_0": f_0}
+        self.specifications = {"L": float(L), "f_0": float(f_0)}
         self.parameters = {"K1": 2.3, "K2": 3.83}
         self.em = Emx()
         self.em.prepare(proc_file)
@@ -27,7 +27,8 @@ class Inductor:
 
         def ind_di(x):
             return abs(
-                self.ind_value(x, self.parameters["K1"]) - self.specifications["L"]
+                self.ind_value(x, self.parameters["K1"])
+                - float(self.specifications["L"])
             )
 
         res = minimize_scalar(ind_di, bounds=(0, 1e-3))

@@ -23,13 +23,18 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: STEP = "") -> None:
     if design["device"] == "mos":
         dut = Mos()
     if design["device"] == "inductor":
-        dut = Inductor(name=conf["name"], proc_file=join(tech["base_dir"], tech["process"]))
+        dut = Inductor(
+            name=conf["name"], proc_file=join(tech["base_dir"], tech["process"])
+        )
     dimensions = design["dimensions"]
     generate(dut, design["specifications"], conf["techno"], dimensions, stop)
 
 
 @app.command("new")
 def template(project_name: Path = "./working_dir"):
+    """
+    Create a template directory called _project_name_.
+    """
     template_file = """
         name: #insert name of the design
         techno: #path to the yaml tech files

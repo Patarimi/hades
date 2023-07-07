@@ -57,18 +57,8 @@ class Inductor:
         d_a = d_i + w
         si = d_a * tan(pi / 8) / 2
         p_ext, p_gap = 20, 10
-        turn = gdstk.RobustPath(
-            (-p_ext, p_gap),
-            w,
-            layer=m_top[0],
-            datatype=m_top[1]
-        )
-        turn2 = gdstk.RobustPath(
-            (-p_ext, -p_gap),
-            w,
-            layer=m_top[0],
-            datatype=m_top[1]
-        )
+        turn = gdstk.RobustPath((-p_ext, p_gap), w, layer=m_top[0], datatype=m_top[1])
+        turn2 = gdstk.RobustPath((-p_ext, -p_gap), w, layer=m_top[0], datatype=m_top[1])
         path = (
             (0, p_gap),
             (0, si),
@@ -81,16 +71,8 @@ class Inductor:
             turn.segment(pts)
             turn2.segment((pts[0], -pts[1]))
         ind.add(turn, turn2)
-        ind.add(
-            gdstk.Label(
-                "P1", (-p_ext, p_gap), layer=m_top[0], texttype=m_top[1]
-            )
-        )
-        ind.add(
-            gdstk.Label(
-                "P2", (-p_ext, -p_gap), layer=m_top[0], texttype=m_top[1]
-            )
-        )
+        ind.add(gdstk.Label("P1", (-p_ext, p_gap), layer=m_top[0], texttype=m_top[1]))
+        ind.add(gdstk.Label("P2", (-p_ext, -p_gap), layer=m_top[0], texttype=m_top[1]))
 
         return ind
 

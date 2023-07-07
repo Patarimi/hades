@@ -2,10 +2,12 @@ site_name: HADes
 site_url: https://patarimi.github.io/hades
 nav:
   - Home: README.md
+  - CLI-Command: CLI-ref.md
 
 theme:
   name: material
 markdown_extensions:
+  - mkdocs-typer
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

@@ -423,6 +423,22 @@ files = [
 ]
 
 [[package]]
+name = "mkdocs-typer"
+version = "0.0.3"
+description = "An MkDocs extension to generate documentation for Typer command line applications"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "mkdocs_typer-0.0.3-py3-none-any.whl", hash = "sha256:b2a9a44da590a7100114fde4de9123fedfea692d229379984db20ee3b3f12d7c"},
+    {file = "mkdocs_typer-0.0.3.tar.gz", hash = "sha256:4dd37f024190a82aaf0f6c984faafb15167d34eab7e29a6a85e61362423a4eb7"},
+]
+
+[package.dependencies]
+markdown = ">=3.0.0,<4.0.0"
+typer = "<1.0.0"
+
+[[package]]
 name = "mypy-extensions"
 version = "1.0.0"
 description = "Type system extensions for programs checked with the mypy type checker."
@@ -959,4 +975,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "5174590852a8e1a6b7026e5dee3b8dcd204de723cdda8d70b256823f052fff3e"
+content-hash = "509c10b119b8d6b70a1619b589dc70349fde4a6880b29dec703a21c87c6a00fe"

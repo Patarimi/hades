@@ -11,7 +11,11 @@ app = Typer()
 
 
 @app.command("generate")
-def generate_cli(design_yaml: Path = "./design.yml", stop: str = ""):
+def generate_cli(design_yaml: Path = "./design.yml", stop: STEP = "") -> None:
+    """
+    Main command. Run the flow until convergence using _design_yaml_.
+    The design can be stopped at a specific step using the _stop_ option.
+    """
     with open(design_yaml) as f:
         conf = yaml.load(f, Loader=yaml.Loader)
     tech = techno.load(conf["techno"])

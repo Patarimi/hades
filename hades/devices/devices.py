@@ -1,9 +1,12 @@
 from typing import Protocol, Union
+from enum import StrEnum
 import gdstk
 from pathlib import Path
 
 
 Parameters = dict[str, Union[int, float, str]]
+
+STEP = StrEnum("Step", ["dimensions", "geometries"])
 
 
 class Device(Protocol):
@@ -30,7 +33,7 @@ def generate(
     specifications: Parameters,
     techno,
     dimensions: Parameters,
-    stop: str,
+    stop: STEP,
 ) -> Parameters:
     for i in range(3):
         print(specifications)

@@ -1,7 +1,6 @@
 import re
 import yaml
 from os.path import join, dirname
-from pathlib import Path
 
 
 def load(techno: str):

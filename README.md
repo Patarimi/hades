@@ -3,10 +3,15 @@
 This project is a prototype. Its goal is to create a technological and
 software-agnostic design flow, from device sizing to layout and implementation.
 
-## Structure
-### Logiciel
-- créer un nouveau dossier de travail
-- lance une conception dans une technologie choisie
+## How to get started
+Installation using pipx:
+
+```shell
+pipx install git+https://github.com/Patarimi/hades
+```
+
+### Design flow
+Starting from the specifications written in a design.yml file, the following flow is run (see #working_dir).
 ```mermaid
 stateDiagram
     [*] --> app: specifications
@@ -24,42 +29,43 @@ stateDiagram
     app --> cal: dimensions
     cal --> app: updated parameters
 ```
-- visualise le résultat (performance, gdsII, ...)
+When finished, a gds file is available for further design.
 
-### Bibliothèques partagées
- - Composants génériques
-   - cellule paramétrique
-     - entrée: dimension
-     - sortie: géométrie ou schema
-   - modèle approché
-     - entrée: specification et paramètres
-     - sortie: dimension
-   - modèle précis
-     - entrée: géométrie ou schema et fichier technologique
-     - sortie: comportement
-   - ajusteur:
-     - entrée: comportement et dimension
-     - sortie: paramètres
- - Kit technologique
-   - version des logiciels
-   - configuration des composants
-   - pdk gds factory ?
+### Simulators and PDKs configuration
+The simulator can be configured using:
+```shell
+hades config <simulator_name>
+```
+This command will write a simulator.yml file in the installation directory of hades.
+The structure is the following:
+```yaml
+simulator_name:
+  base_dir: path to root directory
+  name: name of the binary file
+  option:
+    - list of option to configure the run
+```
 
-### Dossier de travail
-- configuration
-  - techno cible
-  - specification cible
-  - racine
-- schema racine
-- layout racine
+Similarly, a techno.yml file can be created at hades root with the following structure:
+```yaml
+techno_name:
+  base_dir: path to the pdk directory root
+  layer_map: path to the layermap (relative to the base_dir)
+  process: path to the process file (-proc option in emx)
+```
 
-## Flow envisagé
-Pour la partie "bloc" (schéma contenant des composants électronique)
-- Saisie d'une architecture avec visualisation du schéma.
-- Dimensionnement des composants (méthode gm/id, optimisation, ...). On crée 
-le lien entre spécifications (gain, consommation, ...) et dimension (largeur, longueur de grille, ...)
-- Placement des composants (système de matrice) et routage par directive (fils XX placé sur la 3ième ligne).
-- Implémentation dans une technologie cible avec execution en boucle des étapes suivante + extraction des parasites.
+### Working directory
+Configuration file design.yml. This file can be generated using:
+```shell
+hades template
+```
+It must contain at least:
 
-## Pour la partie "module" (schéma contenant uniquement des blocs)
-- 
+```yaml
+name: name of the output file
+design:
+  name: name of the component in the library
+  specifications:
+    key: pair of specification
+techno:
+```

@@ -22,10 +22,12 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: STEP = "") -> None:
     design = conf["design"]
     if design["device"] == "mos":
         dut = Mos()
-    if design["device"] == "inductor":
+    elif design["device"] == "inductor":
         dut = Inductor(
             name=conf["name"], proc_file=join(tech["base_dir"], tech["process"])
         )
+    else:
+        raise RuntimeError("Unknown device, choice are mos, inductor")
     dimensions = design["dimensions"]
     generate(dut, design["specifications"], conf["techno"], dimensions, stop)
 

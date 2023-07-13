@@ -1,12 +1,16 @@
+import enum
 from typing import Protocol, Union
-from enum import StrEnum
+from enum import Enum
 import gdstk
 from pathlib import Path
 
 
 Parameters = dict[str, Union[int, float, str]]
 
-STEP = StrEnum("Step", ["dimensions", "geometries"])
+
+class Step(Enum):
+    dimensions = enum.auto()
+    geometries = enum.auto()
 
 
 class Device(Protocol):
@@ -33,19 +37,19 @@ def generate(
     specifications: Parameters,
     techno,
     dimensions: Parameters,
-    stop: STEP,
+    stop: Step,
 ) -> Parameters:
     for i in range(3):
         print(specifications)
         dimensions.update(dut.update_model(specifications))
         print(dimensions)
-        if stop == "dimensions":
+        if stop == Step.dimensions:
             break
         cell = dut.update_cell(dimensions, techno=techno)
         lib = gdstk.Library()
         lib.add(cell)
         lib.write_gds(dut.name + ".gds")
-        if stop == "geometries":
+        if stop == Step.geometries:
             break
         res = dut.update_accurate(Path(dut.name + ".gds"))
         print(f"Accurate model completed with: {res}")

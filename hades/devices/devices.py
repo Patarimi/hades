@@ -9,6 +9,7 @@ Parameters = dict[str, Union[int, float, str]]
 
 
 class Step(Enum):
+    full = enum.auto()
     dimensions = enum.auto()
     geometries = enum.auto()
 

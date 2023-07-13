@@ -12,7 +12,7 @@ app.add_typer(techno.pkd_app, name="pdk")
 
 
 @app.command("generate")
-def generate_cli(design_yaml: Path = "./design.yml", stop: Step = "") -> None:
+def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None:
     """
     Main command. Run the flow until convergence using _design_yaml_.
     The design can be stopped at a specific step using the _stop_ option.
@@ -30,7 +30,7 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: Step = "") -> None:
     else:
         raise RuntimeError("Unknown device, choice are mos, inductor")
     dimensions = design["dimensions"]
-    generate(dut, design["specifications"], conf["techno"], dimensions, stop)
+    generate(dut, design["specifications"], conf["techno"], dimensions, Step[stop])
 
 
 @app.command("new")

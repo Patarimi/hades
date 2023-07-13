@@ -38,7 +38,10 @@ def install(pdk_name: str):
 
 
 @pkd_app.command("list")
-def list_pdk():
+def list_pdk() -> None:
+    """
+    Display the list of available pdks.
+    """
     tech_yml = join(dirname(__file__), "techno.yml")
     with open(tech_yml, "r") as f:
         process_d = yaml.load(f, Loader=yaml.Loader)

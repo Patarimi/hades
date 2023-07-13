@@ -1,5 +1,5 @@
 name: ind
-techno: asap7
+techno: sky130a
 design:
   device: inductor
   specifications:

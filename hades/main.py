@@ -8,6 +8,7 @@ from os import makedirs
 import hades.techno as techno
 
 app = Typer()
+app.add_typer(techno.pkd_app, name="pdk")
 
 
 @app.command("generate")

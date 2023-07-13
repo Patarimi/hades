@@ -1,5 +1,11 @@
 sky130a:
+  source_url: https://anaconda.org/LiteX-Hub/open_pdks.sky130a/1.0.421_0_gb662727/download/noarch/open_pdks.sky130a-1.0.421_0_gb662727-20230606_125334.tar.bz2
   base_dir: ../pdk/sky130a/share/sky130A/libs.tech
   layermap: \klayout\tech\sky130A.map
   process: not_found.proc
-  # a generer à partir de libs.ref\...\*.tlef
+  # à generer à partir de libs.ref\...\*.tlef
+asap7:
+  source_url: https://github.com/The-OpenROAD-Project/asap7/archive/refs/heads/master.zip
+  base_dir: ../pdk/asap7
+  layermap: asap7_TechLib_08.layermap
+  process: not_found.proc

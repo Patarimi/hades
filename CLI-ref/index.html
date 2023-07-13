@@ -274,8 +274,8 @@ The design can be stopped at a specific step using the <em>stop</em> option.</p>
 <div class="highlight"><pre><span></span><code> generate [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  --design-yaml PATH              [default: ./design.yml]
-  --stop [dimensions|geometries]
+<div class="highlight"><pre><span></span><code>  --design-yaml PATH  [default: ./design.yml]
+  --stop TEXT         [default: full]
 </code></pre></div>
 <h2 id="new">new</h2>
 <p>Create a template directory called <em>project_name</em>.</p>
@@ -284,6 +284,15 @@ The design can be stopped at a specific step using the <em>stop</em> option.</p>
 </code></pre></div>
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  --project-name PATH  [default: ./working_dir]
+</code></pre></div>
+<h2 id="pdk">pdk</h2>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> pdk [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="install">install</h3>
+<p>install the sky130a technology in its default location.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> pdk install [OPTIONS]
 </code></pre></div>
 
 

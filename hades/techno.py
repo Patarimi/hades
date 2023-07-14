@@ -42,23 +42,14 @@ def list_pdk() -> None:
     """
     Display the list of available pdks.
     """
-    tech_yml = join(dirname(__file__), "techno.yml")
-    with open(tech_yml, "r") as f:
-        process_d = yaml.load(f, Loader=yaml.Loader)
+    process_d = _read_tech()
     print("Available PDKs are:")
     for k in process_d:
         print(f"- {k}")
 
 
-def load(techno: str):
-    tech_yml = join(dirname(__file__), "techno.yml")
-    with open(tech_yml, "r") as f:
-        process_d = yaml.load(f, Loader=yaml.Loader)
-    return process_d[techno]
-
-
 def get_layer(techno: str, name: str, datatype: str = "drawing"):
-    process = load(techno)
+    process = _read_tech()[techno]
     with open(
         join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
     ) as f:
@@ -66,3 +57,10 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
             if re.match(rf"{name}\s*{datatype}", line, re.IGNORECASE) is not None:
                 res = list(filter(None, line.split()))
                 return int(res[2]), int(res[3])
+
+
+def _read_tech() -> dict:
+    tech_yml = join(dirname(__file__), "techno.yml")
+    with open(tech_yml, "r") as f:
+        process_d = yaml.load(f, Loader=yaml.Loader)
+    return process_d

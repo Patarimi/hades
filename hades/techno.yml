@@ -10,3 +10,10 @@ asap7:
   base_dir: ../pdk/asap7
   layermap: asap7_TechLib_08.layermap
   process: not_found.proc
+gf180mcu:
+  source_url: volare
+  version: 78b7bc32ddb4b6f14f76883c2e2dc5b5de9d1cbc
+  base_dir: ../pdk/gf180mcuA/libs.tech
+  layermap: \klayout\tech\gf180mcu.map
+  process: not_found.proc
+  # à generer à partir de libs.ref\gf180mcu_fd_sc_mcu7t5v0\*.tlef

@@ -16,7 +16,7 @@ def install(pdk_name: str):
     install the sky130a technology in its default location.
     """
     base_install = join(dirname(__file__), "../pdk/")
-    tech = _read_tech()[pdk_name]
+    tech = load(pdk_name)
     base_url = tech["source_url"]
     if base_url == "volare":
         os.system(f"volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}")
@@ -60,6 +60,10 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
             if re.match(rf"{name}\s*{datatype}", line, re.IGNORECASE) is not None:
                 res = list(filter(None, line.split()))
                 return int(res[2]), int(res[3])
+
+
+def load(pdk_name: str):
+    return _read_tech()[pdk_name]
 
 
 def _read_tech() -> dict:

@@ -16,8 +16,11 @@ def install(pdk_name: str):
     install the sky130a technology in its default location.
     """
     base_install = join(dirname(__file__), "../pdk/")
-    tech = load(pdk_name)
+    tech = _read_tech()[pdk_name]
     base_url = tech["source_url"]
+    if base_url == "volare":
+        os.system(f"volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}")
+        return
     if not (isdir(base_install + pdk_name)):
         makedirs(base_install + pdk_name)
     opener = urllib.request.build_opener()

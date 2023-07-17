@@ -1,5 +1,6 @@
-sky130a:
-  source_url: https://anaconda.org/LiteX-Hub/open_pdks.sky130a/1.0.421_0_gb662727/download/noarch/open_pdks.sky130a-1.0.421_0_gb662727-20230606_125334.tar.bz2
+sky130:
+  source_url: volare
+  version: 78b7bc32ddb4b6f14f76883c2e2dc5b5de9d1cbc
   base_dir: ../pdk/sky130a/share/sky130A/libs.tech
   layermap: \klayout\tech\sky130A.map
   process: not_found.proc

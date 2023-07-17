@@ -52,7 +52,7 @@ def list_pdk() -> None:
 
 
 def get_layer(techno: str, name: str, datatype: str = "drawing"):
-    process = _read_tech()[techno]
+    process = load(techno)
     with open(
         join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
     ) as f:
@@ -63,11 +63,18 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
 
 
 def load(pdk_name: str):
-    return _read_tech()[pdk_name]
+    try:
+        tech = _read_tech()[pdk_name]
+    except KeyError:
+        tech = _read_tech(os.getcwd()+'/design.yml')[pdk_name]
+    return tech
 
 
-def _read_tech() -> dict:
-    tech_yml = join(dirname(__file__), "techno.yml")
+def _read_tech(tech_file: str = None) -> dict:
+    if tech_file is None:
+        tech_yml = join(dirname(__file__), "techno.yml")
+    else:
+        tech_yml = tech_file
     with open(tech_yml, "r") as f:
         process_d = yaml.load(f, Loader=yaml.Loader)
     return process_d

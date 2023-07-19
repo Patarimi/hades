@@ -19,16 +19,23 @@ def install(pdk_name: str):
     tech = load(pdk_name)
     base_url = tech["source_url"]
     if base_url == "volare":
-        os.system(f"volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}")
+        os.system(
+            f"volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}"
+        )
         return
     if not (isdir(base_install + pdk_name)):
         makedirs(base_install + pdk_name)
     opener = urllib.request.build_opener()
-    opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)')]
+    opener.addheaders = [
+        (
+            "User-Agent",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)",
+        )
+    ]
     urllib.request.install_opener(opener)
     print("downloading files, might take some times...")
     ext = ".zip" if ".zip" in base_url else ".tar.bz2"
-    file_name=base_install+pdk_name+ext
+    file_name = base_install + pdk_name + ext
     urllib.request.urlretrieve(base_url, file_name)
     print("extracting, please wait...")
     if ext == ".tar.bz2":
@@ -36,7 +43,7 @@ def install(pdk_name: str):
             bz.extractall(base_install + pdk_name)
     else:
         with zipfile.open(file_name, mode="r") as zp:
-            zp.extractall(base_install+pdk_name)
+            zp.extractall(base_install + pdk_name)
     os.remove(file_name)
 
 
@@ -66,7 +73,7 @@ def load(pdk_name: str):
     try:
         tech = _read_tech()[pdk_name]
     except KeyError:
-        tech = _read_tech(os.getcwd()+'/design.yml')[pdk_name]
+        tech = _read_tech(os.getcwd() + "/design.yml")[pdk_name]
     return tech
 
 

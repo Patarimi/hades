@@ -4,9 +4,9 @@ from numpy import pi
 WHEELER_REF = {"hexagonal": (2.3, 3.83)}
 
 
-def wheeler(n: int, d_avg: float, rho: float, k: tuple, shape: str = "custom"):
+def wheeler(n: int, d_avg: float, rho: float, shape: str = "custom", k: tuple = None):
     u_0 = 4 * pi * 1e-7
-    if shape == "custom":
+    if shape == "custom" or k is not None:
         k1, k2 = k
     else:
         try:

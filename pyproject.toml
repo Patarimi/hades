@@ -26,6 +26,8 @@ volare = "^0.8.0"
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 poethepoet = "^0.21.0"
+pytest = "^7.4.0"
+pytest-sugar = "^0.9.7"
 
 
 [tool.poetry.group.doc.dependencies]

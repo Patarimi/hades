@@ -12,13 +12,15 @@ class Inductor:
     specifications: Parameters
     dimensions: Parameters  # n, W, G, d_i
     parameters: Parameters
+    techno: str
 
-    def __init__(self, name: str, proc_file: Path, L: float = 1e-9, f_0: float = 1e9):
+    def __init__(self, name: str, techno: str, L: float = 1e-9, f_0: float = 1e9):
         self.name = name
         self.specifications = {"L": float(L), "f_0": float(f_0)}
         self.parameters = {"K1": 2.3, "K2": 3.83}
+        self.techno = techno
         self.em = Emx()
-        self.em.prepare(proc_file)
+        self.em.prepare(techno)
 
     def update_model(self, specifications: Parameters = None) -> Parameters:
         if specifications is not None:
@@ -47,10 +49,10 @@ class Inductor:
         d_avg = (d_o + d_i) / 2
         return k1 * u_0 * d_avg / (1 + k2 * rho)
 
-    def update_cell(self, dimensions: Parameters, techno: str) -> gdstk.Cell:
+    def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
-        m_top = get_layer(techno, dimensions["m_path"])
-        m_bott = get_layer(techno, dimensions["m_bridge"])
+        m_top = get_layer(self.techno, dimensions["m_path"])
+        m_bott = get_layer(self.techno, dimensions["m_bridge"])
         ind = gdstk.Cell(self.name)
         d_i = dimensions["d_i"] * 1e6
         w = dimensions["W"] * 1e6

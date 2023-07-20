@@ -19,11 +19,12 @@ class Device(Protocol):
     specifications: Parameters
     dimensions: Parameters
     parameters: Parameters
+    techno: str
 
     def update_model(self, specifications: Parameters) -> Parameters:
         ...
 
-    def update_cell(self, dimensions: Parameters, techno: str) -> gdstk.Cell:
+    def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         ...
 
     def update_accurate(self, sim_file: Path, option: dict = None) -> Parameters:
@@ -46,7 +47,7 @@ def generate(
         print(dimensions)
         if stop == Step.dimensions:
             break
-        cell = dut.update_cell(dimensions, techno=techno)
+        cell = dut.update_cell(dimensions)
         lib = gdstk.Library()
         lib.add(cell)
         lib.write_gds(dut.name + ".gds")

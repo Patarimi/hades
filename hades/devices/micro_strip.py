@@ -22,7 +22,7 @@ class MicroStrip:
     ):
         self.name = name
         self.specifications = {"z_c": float(z_c), "f_c": float(f_c), "phi": float(phi)}
-        self.parameters = {"eps": 4, "height": 5e-6}
+        self.parameters = {"eps": 4, "height": 9.11e-6}
         self.techno = techno
         self.em = Emx()
         self.em.prepare(techno)
@@ -36,14 +36,15 @@ class MicroStrip:
         height = float(self.parameters["height"])
 
         def cost(x):
-            z_c, _ = wheeler(x, height, sqrt(eps), 3e-6)
+            z_c, _ = wheeler(x, height, eps, 3e-6)
             return abs(z_c - specifications["z_c"])
 
         res = minimize_scalar(cost)
         self.dimensions["w"] = res.x
         # delay = specifications["phi"] / (360*float(self.specifications["f_c"]))
         # res = minimize_scalar(lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1]-delay)*1e9, bounds=(0, 1e-3))
-        self.dimensions["l"] = 50e-6  # res.x
+        # /!\ impedance is not accurate close to l/4 ou l/2
+        self.dimensions["l"] = 40e-6  # res.x
         return self.dimensions
 
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
@@ -76,7 +77,7 @@ class MicroStrip:
             z, delay = wheeler(
                 width=self.dimensions["w"],
                 height=self.parameters['height'],
-                k=sqrt(eps),
+                k=eps,
                 thick=3e-6,
                 length=self.dimensions["l"],
             )

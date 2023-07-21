@@ -42,7 +42,7 @@ def generate(
     stop: Step,
 ) -> Parameters:
     print(f"Generation started with :{specifications}")
-    for i in range(3):
+    for i in range(5):
         dimensions.update(dut.update_model(specifications))
         print(f"\t{dimensions=}")
         if stop == Step.dimensions:

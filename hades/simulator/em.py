@@ -19,14 +19,19 @@ class Emx:
         tech = load(techno)
         self.proc = join(tech["base_dir"], tech["process"])
 
-    def compute(self, input_file: Path, cell_name: str, f_0: float):
+    def compute(self, input_file: Path, cell_name: str, f_0: float, **options):
         conf = load_conf(key="emx")
         emx_base = join(conf["base_dir"], conf["name"])
-        proc = run(
-            [emx_base, input_file, cell_name, self.proc, f_0] + conf["options"],
-            capture_output=True,
-            encoding="latin",
-        )
+        cmd = [emx_base, input_file, cell_name, self.proc, f_0]
+        if "port" in options:
+            for port in options["port"]:
+                cmd += ["--port=" + port]
+        if "debug" in options and options["debug"]:
+            str_cmd = "Running EMX with command:\n\t"
+            for elt in cmd:
+                str_cmd += str(elt) + " "
+            print(str_cmd)
+        proc = run(cmd + conf["options"], capture_output=True, encoding="latin")
         y_param = parse(proc.stderr)
         return y_param
 

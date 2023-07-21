@@ -1,10 +1,11 @@
+import numpy as np
 from numpy import log, sqrt, pi, e
 
 z_0 = 376.73031366857
 c_0 = 2.99e8
 
 
-def wheeler(width: float, height: float, k: float, thick: float = 0, length: float = 0):
+def wheeler(width: float, height: float, k: float, thick: float = 1e-6, length: float = 0):
     """
     :param width: Width of the line
     :param height: Height of the dielectric
@@ -13,6 +14,8 @@ def wheeler(width: float, height: float, k: float, thick: float = 0, length: flo
     :param length: length of the line
     :return: the characteristic impedance of a micro-strip line using Wheeler equation
     """
+    if k <= 1:
+        return np.Inf, 0
     w_t = width / thick
     t_h = thick / height
     w_eff = width + thick * (1 + 1 / k) / (2 * pi) * log(

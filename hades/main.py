@@ -23,13 +23,13 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None
     if design["device"] == "mos":
         dut = Mos()
     elif design["device"] == "inductor":
-        dut = Inductor(
-            name=conf["name"], techno=conf["techno"]
-        )
+        dut = Inductor(name=conf["name"], techno=conf["techno"])
+    elif design["device"] == "micro-strip":
+        dut = MicroStrip(name=conf["name"], techno=conf["techno"])
     else:
         raise RuntimeError("Unknown device, choice are mos, inductor")
     dimensions = design["dimensions"]
-    generate(dut, design["specifications"], conf["techno"], dimensions, Step[stop])
+    generate(dut, design["specifications"], dimensions, Step[stop])
 
 
 @app.command("new")

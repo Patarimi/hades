@@ -78,9 +78,9 @@ class Inductor:
 
         return ind
 
-    def update_accurate(self, input_file: Path) -> Parameters:
+    def update_accurate(self, sim_file: Path) -> Parameters:
         f_0 = self.specifications["f_0"]
-        Y = self.em.compute(input_file, self.name, f_0)
+        Y = self.em.compute(sim_file, self.name, f_0)
         return {"L": -(1 / Y[1]).imag / (2 * pi * float(f_0)), "f_0": f_0}
 
     def recalibrate_model(self, performances: Parameters) -> Parameters:

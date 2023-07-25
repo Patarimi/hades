@@ -7,7 +7,7 @@ from pathlib import Path
 from ..equation.micro_strip import wheeler
 from scipy.optimize import minimize_scalar, minimize
 from ..techno import get_layer
-from numpy import angle, sqrt, pi
+from numpy import angle, sqrt, pi, arccosh, NaN
 
 
 class MicroStrip:
@@ -41,8 +41,9 @@ class MicroStrip:
 
         res = minimize_scalar(cost)
         self.dimensions["w"] = res.x
-        # delay = specifications["phi"] / (360*float(self.specifications["f_c"]))
-        # res = minimize_scalar(lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1]-delay)*1e9, bounds=(0, 1e-3))
+        delay = specifications["phi"] / (360*float(self.specifications["f_c"]))
+        res = minimize_scalar(lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1]-delay))
+        print(res.x)
         # /!\ impedance is not accurate close to l/4 ou l/2
         self.dimensions["l"] = 40e-6  # res.x
         return self.dimensions
@@ -67,9 +68,10 @@ class MicroStrip:
 
     def update_accurate(self, sim_file: Path) -> Parameters:
         f_0 = self.specifications["f_c"]
-        Y = self.em.compute(sim_file, self.name, f_0, port=("P1=S1:G1", "P2=S2:G2"))
-        phi = angle(Y[1], deg=True)
-        z_c = sqrt(1 / (Y[0] ** 2 - Y[1] ** 2)).real
+        res = self.em.compute(sim_file, self.name, f_0, port=("P1=S1:G1", "P2=S2:G2"))
+        Y_0 = 0.02
+        phi = np.angle(res.s[0, 0, 1], deg=True)
+        z_c = sqrt(1 / (res.y[0,0,0] * res.y[0,1,1] - res.y[0,1,0] * res.y[0,0,1])).real
         return {"z_c": z_c, "f_c": f_0, "phi": phi}
 
     def recalibrate_model(self, performances: Parameters) -> Parameters:
@@ -85,7 +87,7 @@ class MicroStrip:
             return abs(z - performances["z_c"])
 
         res = minimize_scalar(cost)
-        if res.x is np.NaN:
+        if res.x is NaN:
             raise ValueError(res)
         self.parameters["eps"] = res.x
         # self.parameters["height"] = res.x[1]

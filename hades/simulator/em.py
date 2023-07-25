@@ -1,4 +1,7 @@
 from pathlib import Path
+
+import numpy as np
+import skrf as rf
 from .simulator import write_conf, load_conf
 from subprocess import run
 from os.path import join
@@ -26,6 +29,8 @@ class Emx:
         if "port" in options:
             for port in options["port"]:
                 cmd += ["--port=" + port]
+        if "mode" in options:
+            cmd += ["--mode="+options["mode"]]
         if "debug" in options and options["debug"]:
             str_cmd = "Running EMX with command:\n\t"
             for elt in cmd:
@@ -36,15 +41,23 @@ class Emx:
         return y_param
 
 
-def parse(stream: str):
+def parse(stream: str) -> rf.Network:
+    f = list()
+    ports = list()
+    y = list()
+    port_list_next = False
     for line in stream.splitlines():
-        words = line.split(
-            " ",
-        )
-        if words[0] == "P2":
-            y1 = complex(words[3])
-            y2 = complex(words[1])
-            break
-    if "y1" in locals():
-        return y1, y2
+        words = line.split()
+        if port_list_next:
+            ports = words
+            port_list_next = False
+        if words[0] == "Frequency":
+            f.append(float(words[1].strip(":"))*1e-9)
+            port_list_next = True
+        if words[0] in ports and len(words) == len(ports)+1:
+            y.append([complex(w) for w in words[1:]])
+    if "y" in locals():
+        y_t = np.squeeze(y)
+        net = rf.Network(f=f, y=y_t, units="Hz")
+        return net
     raise RuntimeError("emx exit with error: " + stream)

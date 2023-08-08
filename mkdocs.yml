@@ -1,8 +1,12 @@
 site_name: HADes
 site_url: https://patarimi.github.io/hades
+watch:
+  - hades
+
 nav:
   - Home: README.md
   - CLI-Command: CLI-ref.md
+  - API-Reference: reference/
 
 theme:
   name: material
@@ -13,3 +17,15 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+plugins:
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - section-index
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: sphinx

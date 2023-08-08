@@ -8,18 +8,24 @@
       
       
       
+        <link rel="canonical" href="https://patarimi.github.io/hades/reference/hades/simulator/">
       
       
-      <link rel="icon" href="/hades/assets/images/favicon.png">
+        <link rel="prev" href="../main/">
+      
+      
+        <link rel="next" href="em/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
-        <title>HADes</title>
+        <title>simulator - HADes</title>
       
     
     
-      <link rel="stylesheet" href="/hades/assets/stylesheets/main.eebd395e.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
       
       
 
@@ -35,9 +41,9 @@
       
     
     
-      <link rel="stylesheet" href="/hades/assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL("/hades/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -58,6 +64,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#hades.simulator" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -70,7 +81,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/hades/." title="HADes" class="md-header__button md-logo" aria-label="HADes" data-md-component="logo">
+    <a href="../../.." title="HADes" class="md-header__button md-logo" aria-label="HADes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -89,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              simulator
             
           </span>
         </div>
@@ -123,7 +134,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/hades/." title="HADes" class="md-nav__button md-logo" aria-label="HADes" data-md-component="logo">
+    <a href="../../.." title="HADes" class="md-nav__button md-logo" aria-label="HADes" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -142,7 +153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Home
       </a>
     </li>
@@ -157,7 +168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/CLI-ref/" class="md-nav__link">
+      <a href="../../../CLI-ref/" class="md-nav__link">
         CLI-Command
       </a>
     </li>
@@ -170,14 +181,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
       
@@ -186,7 +199,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           API-Reference
@@ -197,21 +210,23 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
       
       
       
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="/hades/reference/hades/">hades</a>
+          <a href="../">hades</a>
           
             <label for="__nav_3_1">
               <span class="md-nav__icon md-icon"></span>
@@ -219,7 +234,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
           hades
@@ -244,7 +259,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="/hades/reference/hades/devices/">devices</a>
+          <a href="../devices/">devices</a>
           
             <label for="__nav_3_1_1">
               <span class="md-nav__icon md-icon"></span>
@@ -265,7 +280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/devices/device_v2/" class="md-nav__link">
+      <a href="../devices/device_v2/" class="md-nav__link">
         device_v2
       </a>
     </li>
@@ -279,7 +294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/devices/devices/" class="md-nav__link">
+      <a href="../devices/devices/" class="md-nav__link">
         devices
       </a>
     </li>
@@ -293,7 +308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/devices/inductor/" class="md-nav__link">
+      <a href="../devices/inductor/" class="md-nav__link">
         inductor
       </a>
     </li>
@@ -307,7 +322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/devices/micro_strip/" class="md-nav__link">
+      <a href="../devices/micro_strip/" class="md-nav__link">
         micro_strip
       </a>
     </li>
@@ -321,7 +336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/devices/mos/" class="md-nav__link">
+      <a href="../devices/mos/" class="md-nav__link">
         mos
       </a>
     </li>
@@ -354,7 +369,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="/hades/reference/hades/equation/">equation</a>
+          <a href="../equation/">equation</a>
           
             <label for="__nav_3_1_2">
               <span class="md-nav__icon md-icon"></span>
@@ -375,7 +390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/equation/inductor/" class="md-nav__link">
+      <a href="../equation/inductor/" class="md-nav__link">
         inductor
       </a>
     </li>
@@ -389,7 +404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/equation/matching/" class="md-nav__link">
+      <a href="../equation/matching/" class="md-nav__link">
         matching
       </a>
     </li>
@@ -403,7 +418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/equation/micro_strip/" class="md-nav__link">
+      <a href="../equation/micro_strip/" class="md-nav__link">
         micro_strip
       </a>
     </li>
@@ -424,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/main/" class="md-nav__link">
+      <a href="../main/" class="md-nav__link">
         main
       </a>
     </li>
@@ -436,21 +451,23 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_4" checked>
       
       
       
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="/hades/reference/hades/simulator/">simulator</a>
+        <div class="md-nav__link md-nav__link--index md-nav__link--active">
+          <a href="./">simulator</a>
           
             <label for="__nav_3_1_4">
               <span class="md-nav__icon md-icon"></span>
@@ -458,7 +475,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_4_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3_1_4">
           <span class="md-nav__icon md-icon"></span>
           simulator
@@ -471,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/simulator/em/" class="md-nav__link">
+      <a href="em/" class="md-nav__link">
         em
       </a>
     </li>
@@ -485,7 +502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/simulator/simulator/" class="md-nav__link">
+      <a href="simulator/" class="md-nav__link">
         simulator
       </a>
     </li>
@@ -499,7 +516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/simulator/spice/" class="md-nav__link">
+      <a href="spice/" class="md-nav__link">
         spice
       </a>
     </li>
@@ -520,7 +537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/hades/reference/hades/techno/" class="md-nav__link">
+      <a href="../techno/" class="md-nav__link">
         techno
       </a>
     </li>
@@ -559,6 +576,21 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hades.simulator" class="md-nav__link">
+    hades.simulator
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -569,8 +601,42 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  <h1>simulator</h1>
+
+<div class="doc doc-object doc-module">
+
+
+<a id="hades.simulator"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -602,10 +668,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "/hades/", "features": [], "search": "/hades/assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/hades/assets/javascripts/bundle.220ee61c.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
     
   </body>

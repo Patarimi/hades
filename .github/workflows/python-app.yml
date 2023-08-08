@@ -31,6 +31,3 @@ jobs:
     - name: Test with pytest
       run: |
         poetry run pytest
-    - name: Deploy Doc
-      run: |
-        poetry run poe doc

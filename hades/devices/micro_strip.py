@@ -41,8 +41,10 @@ class MicroStrip:
 
         res = minimize_scalar(cost)
         self.dimensions["w"] = res.x
-        delay = specifications["phi"] / (360*float(self.specifications["f_c"]))
-        res = minimize_scalar(lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1]-delay))
+        delay = specifications["phi"] / (360 * float(self.specifications["f_c"]))
+        res = minimize_scalar(
+            lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1] - delay)
+        )
         print(res.x)
         # /!\ impedance is not accurate close to l/4 ou l/2
         self.dimensions["l"] = 40e-6  # res.x
@@ -71,14 +73,16 @@ class MicroStrip:
         res = self.em.compute(sim_file, self.name, f_0, port=("P1=S1:G1", "P2=S2:G2"))
         Y_0 = 0.02
         phi = np.angle(res.s[0, 0, 1], deg=True)
-        z_c = sqrt(1 / (res.y[0,0,0] * res.y[0,1,1] - res.y[0,1,0] * res.y[0,0,1])).real
+        z_c = sqrt(
+            1 / (res.y[0, 0, 0] * res.y[0, 1, 1] - res.y[0, 1, 0] * res.y[0, 0, 1])
+        ).real
         return {"z_c": z_c, "f_c": f_0, "phi": phi}
 
     def recalibrate_model(self, performances: Parameters) -> Parameters:
         def cost(eps):
             z, delay = wheeler(
                 width=self.dimensions["w"],
-                height=self.parameters['height'],
+                height=self.parameters["height"],
                 k=eps,
                 thick=3e-6,
                 length=self.dimensions["l"],

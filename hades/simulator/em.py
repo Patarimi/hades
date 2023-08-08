@@ -30,7 +30,7 @@ class Emx:
             for port in options["port"]:
                 cmd += ["--port=" + port]
         if "mode" in options:
-            cmd += ["--mode="+options["mode"]]
+            cmd += ["--mode=" + options["mode"]]
         if "debug" in options and options["debug"]:
             str_cmd = "Running EMX with command:\n\t"
             for elt in cmd:
@@ -52,9 +52,9 @@ def parse(stream: str) -> rf.Network:
             ports = words
             port_list_next = False
         if words[0] == "Frequency":
-            f.append(float(words[1].strip(":"))*1e-9)
+            f.append(float(words[1].strip(":")) * 1e-9)
             port_list_next = True
-        if words[0] in ports and len(words) == len(ports)+1:
+        if words[0] in ports and len(words) == len(ports) + 1:
             y.append([complex(w) for w in words[1:]])
     if "y" in locals():
         y_t = np.squeeze(y)

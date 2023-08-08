@@ -5,7 +5,9 @@ z_0 = 376.73031366857
 c_0 = 2.99e8
 
 
-def wheeler(width: float, height: float, k: float, thick: float = 1e-6, length: float = 0):
+def wheeler(
+    width: float, height: float, k: float, thick: float = 1e-6, length: float = 0
+):
     """
     :param width: Width of the line
     :param height: Height of the dielectric

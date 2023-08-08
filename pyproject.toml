@@ -24,6 +24,7 @@ python-dotenv = "^1.0.0"
 volare = "^0.9.0"
 rich = "^12.0"
 scikit-rf = "^0.28.0"
+pydantic = "^2.1.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

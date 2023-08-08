@@ -1,5 +1,6 @@
 import hades.equation.inductor as ind
 import hades.equation.micro_strip as ms
+import hades.equation.matching as mt
 import pytest
 
 
@@ -29,3 +30,11 @@ def test_micro_strip_phase():
     for i, l in enumerate((10, 50, 900)):
         _, delay = ms.wheeler(12e-6, 4e-6, 2, 1e-6, l * 1e-6)
         assert delay == pytest.approx(ref_d[i])
+
+
+def test_lumped_l():
+    z_in = 50
+    z_out = 60 - 80j
+    s1, s2 = mt.lumped_l(z_out, z_in)
+    assert s1 == pytest.approx((0.0011651513899116792, 76.37626158259741))
+    assert s2 == pytest.approx((-0.01716515138991168, -76.37626158259734))

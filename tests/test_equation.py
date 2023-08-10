@@ -35,6 +35,11 @@ def test_micro_strip_phase():
 def test_lumped_l():
     z_in = 50
     z_out = 60 - 80j
+    f = 2e9
     s1, s2 = mt.lumped_l(z_out, z_in)
     assert s1 == pytest.approx((0.0011651513899116792, 76.37626158259741))
     assert s2 == pytest.approx((-0.01716515138991168, -76.37626158259734))
+    assert mt.denorm(s1[0], f) * 1e12 == pytest.approx(0.09271980157741803)
+    assert mt.denorm(s1[1], f) * 1e9 == pytest.approx(6.077829782875002)
+    assert mt.denorm(s2[1], f) * 1e12 == pytest.approx(1.041913677064285)
+    assert mt.denorm(s2[0], f) * 1e9 == pytest.approx(4.635990078870905)

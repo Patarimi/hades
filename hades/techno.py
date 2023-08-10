@@ -22,6 +22,7 @@ def install(pdk_name: str):
         os.system(
             f"volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}"
         )
+
         return
     if not (isdir(base_install + pdk_name)):
         makedirs(base_install + pdk_name)

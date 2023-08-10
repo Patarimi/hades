@@ -1,6 +1,6 @@
 import numpy as np
 
-from .devices import Parameters
+from .device import Parameters
 from ..simulator import Emx
 import gdstk
 from pathlib import Path

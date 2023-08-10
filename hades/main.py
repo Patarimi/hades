@@ -1,6 +1,6 @@
 from typer import Typer
 from pathlib import Path
-from .devices import *
+from .device import *
 from .simulator import *
 import yaml
 from os.path import join

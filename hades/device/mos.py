@@ -1,5 +1,5 @@
 import gdstk
-from .devices import Parameters
+from .device import Parameters
 
 
 class Mos:

@@ -1,4 +1,4 @@
-from .devices import Parameters
+from .device import Parameters
 import gdstk
 from math import pi, tan
 from pathlib import Path

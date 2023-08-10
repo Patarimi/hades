@@ -43,3 +43,17 @@ def test_lumped_l():
     assert mt.denorm(s1[1], f) * 1e9 == pytest.approx(6.077829782875002)
     assert mt.denorm(s2[1], f) * 1e12 == pytest.approx(1.041913677064285)
     assert mt.denorm(s2[0], f) * 1e9 == pytest.approx(4.635990078870905)
+
+
+def test_single_stub():
+    z_in = 50
+    z_out = 60 - 80j
+    f = 2e9
+    d, lo, ls = mt.single_shunt_stub(z_out, z_in)
+    assert d == pytest.approx((0.11042321863830025, 0.2594445306228258))
+    assert lo == pytest.approx((0.34497462163589154, 0.15502537836410857))
+    assert ls == pytest.approx((0.09497462163589154, 0.40502537836410857))
+    d, lo, ls = mt.single_series_stub(z_out, z_in)
+    assert d == pytest.approx((0.3604232186383003, 0.00944453062282582))
+    assert lo == pytest.approx((0.09497462163589143, 0.40502537836410857))
+    assert ls == pytest.approx((0.34497462163589143, 0.15502537836410857))

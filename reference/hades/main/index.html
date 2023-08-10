@@ -280,20 +280,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../devices/device_v2/" class="md-nav__link">
-        device_v2
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../devices/devices/" class="md-nav__link">
         devices
       </a>
@@ -704,10 +690,8 @@
 The design can be stopped at a specific step using the <em>stop</em> option.</p>
 
           <details class="quote">
-            <summary>Source code in <code>hades/main.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
+            <summary>Source code in <code>hades\main.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
@@ -723,7 +707,9 @@ The design can be stopped at a specific step using the <em>stop</em> option.</p>
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;generate&quot;</span><span class="p">)</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;generate&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">generate_cli</span><span class="p">(</span><span class="n">design_yaml</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="s2">&quot;./design.yml&quot;</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main command. Run the flow until convergence using _design_yaml_.</span>
@@ -764,10 +750,8 @@ The design can be stopped at a specific step using the <em>stop</em> option.</p>
       <p>Create a template directory called <em>project_name</em>.</p>
 
           <details class="quote">
-            <summary>Source code in <code>hades/main.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
+            <summary>Source code in <code>hades\main.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
@@ -778,7 +762,9 @@ The design can be stopped at a specific step using the <em>stop</em> option.</p>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
-<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;new&quot;</span><span class="p">)</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;new&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="n">project_name</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="s2">&quot;./working_dir&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a template directory called _project_name_.</span>

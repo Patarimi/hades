@@ -442,6 +442,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#hades.equation.matching.single_series_stub" class="md-nav__link">
+    single_series_stub()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.equation.matching.single_shunt_stub" class="md-nav__link">
+    single_shunt_stub()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -640,6 +654,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#hades.equation.matching.single_series_stub" class="md-nav__link">
+    single_series_stub()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.equation.matching.single_shunt_stub" class="md-nav__link">
+    single_shunt_stub()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -793,7 +821,7 @@
 
 
 <h2 id="hades.equation.matching.lumped_l" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">lumped_l</span><span class="p">(</span><span class="n">z_load</span><span class="p">,</span> <span class="n">r_0</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">lumped_l</span><span class="p">(</span><span class="n">z_load</span><span class="p">,</span> <span class="n">z_0</span><span class="p">)</span></code>
 
 </h2>
 
@@ -832,7 +860,7 @@ can be computed using denorm function.</p>
           </td>
         </tr>
         <tr>
-          <td><code>r_0</code></td>
+          <td><code>z_0</code></td>
           <td>
                 <code>float</code>
           </td>
@@ -900,7 +928,7 @@ can be computed using denorm function.</p>
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">lumped_l</span><span class="p">(</span>
-    <span class="n">z_load</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">r_0</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">z_load</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">z_0</span><span class="p">:</span> <span class="nb">float</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the two solutions to match a complex load to a line. The value of needed capacitor and inductor</span>
@@ -908,23 +936,315 @@ can be computed using denorm function.</p>
 
 <span class="sd">    *Source* : Microwave engineering, Fourth Edition, David Pozar, Chapter 5.1</span>
 <span class="sd">    :param z_load: impedance of the load.</span>
-<span class="sd">    :param r_0: impedance of the line.</span>
+<span class="sd">    :param z_0: impedance of the line.</span>
 <span class="sd">    :return: two tuples (B, X), respectively the shunt and series element of the matching.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">r_l</span> <span class="o">=</span> <span class="n">z_load</span><span class="o">.</span><span class="n">real</span>
     <span class="n">x_l</span> <span class="o">=</span> <span class="n">z_load</span><span class="o">.</span><span class="n">imag</span>
 
-    <span class="k">if</span> <span class="n">r_l</span> <span class="o">&gt;</span> <span class="n">r_0</span><span class="p">:</span>
-        <span class="n">b_n</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r_l</span> <span class="o">/</span> <span class="n">r_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r_0</span> <span class="o">*</span> <span class="n">r_l</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r_l</span> <span class="o">&gt;</span> <span class="n">z_0</span><span class="p">:</span>
+        <span class="n">b_n</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r_l</span> <span class="o">/</span> <span class="n">z_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">z_0</span> <span class="o">*</span> <span class="n">r_l</span><span class="p">)</span>
         <span class="n">b_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_l</span> <span class="o">+</span> <span class="n">b_n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">b_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_l</span> <span class="o">-</span> <span class="n">b_n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">x_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">b_1</span> <span class="o">+</span> <span class="n">x_l</span> <span class="o">*</span> <span class="n">r_0</span> <span class="o">/</span> <span class="n">r_l</span> <span class="o">-</span> <span class="n">r_0</span> <span class="o">/</span> <span class="p">(</span><span class="n">b_1</span> <span class="o">*</span> <span class="n">r_l</span><span class="p">)</span>
-        <span class="n">x_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">b_2</span> <span class="o">+</span> <span class="n">x_l</span> <span class="o">*</span> <span class="n">r_0</span> <span class="o">/</span> <span class="n">r_l</span> <span class="o">-</span> <span class="n">r_0</span> <span class="o">/</span> <span class="p">(</span><span class="n">b_2</span> <span class="o">*</span> <span class="n">r_l</span><span class="p">)</span>
+        <span class="n">x_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">b_1</span> <span class="o">+</span> <span class="n">x_l</span> <span class="o">*</span> <span class="n">z_0</span> <span class="o">/</span> <span class="n">r_l</span> <span class="o">-</span> <span class="n">z_0</span> <span class="o">/</span> <span class="p">(</span><span class="n">b_1</span> <span class="o">*</span> <span class="n">r_l</span><span class="p">)</span>
+        <span class="n">x_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">b_2</span> <span class="o">+</span> <span class="n">x_l</span> <span class="o">*</span> <span class="n">z_0</span> <span class="o">/</span> <span class="n">r_l</span> <span class="o">-</span> <span class="n">z_0</span> <span class="o">/</span> <span class="p">(</span><span class="n">b_2</span> <span class="o">*</span> <span class="n">r_l</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">b_1</span><span class="p">,</span> <span class="n">x_1</span><span class="p">),</span> <span class="p">(</span><span class="n">b_2</span><span class="p">,</span> <span class="n">x_2</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">x_n</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r_l</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_0</span> <span class="o">-</span> <span class="n">r_l</span><span class="p">))</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r_0</span> <span class="o">-</span> <span class="n">r_l</span><span class="p">)</span> <span class="o">/</span> <span class="n">r_l</span><span class="p">)</span> <span class="o">/</span> <span class="n">r_0</span>
+        <span class="n">x_n</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r_l</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_0</span> <span class="o">-</span> <span class="n">r_l</span><span class="p">))</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">z_0</span> <span class="o">-</span> <span class="n">r_l</span><span class="p">)</span> <span class="o">/</span> <span class="n">r_l</span><span class="p">)</span> <span class="o">/</span> <span class="n">z_0</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x_n</span> <span class="o">-</span> <span class="n">x_l</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="p">,</span> <span class="o">-</span><span class="n">x_n</span> <span class="o">-</span> <span class="n">x_l</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="hades.equation.matching.single_series_stub" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">single_series_stub</span><span class="p">(</span><span class="n">z_load</span><span class="p">,</span> <span class="n">z_0</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the solution to match a load <em>z_load</em> to a line of impedance <em>z_0</em> using a series stub.
+Two solutions are given either using an open or a shorted stub.
+This is mainly used with coplanar waveguide.
+<em>Source</em> : Microwave engineering, Fourth Edition, David Pozar, Chapter 5.2</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>z_load</code></td>
+          <td>
+                <code>complex</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>impedance to be matched?</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>z_0</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>impedance of the line.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a tuple containing : - d: the 2 electrical distances from the stub to the load - lo: the 2 electrical length of the open stub - ls: the 2 electrical  length of the shorted stub</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\equation\matching.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">single_series_stub</span><span class="p">(</span><span class="n">z_load</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">z_0</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the solution to match a load *z_load* to a line of impedance *z_0* using a series stub.</span>
+<span class="sd">    Two solutions are given either using an open or a shorted stub.</span>
+<span class="sd">    This is mainly used with coplanar waveguide.</span>
+<span class="sd">    *Source* : Microwave engineering, Fourth Edition, David Pozar, Chapter 5.2</span>
+<span class="sd">    :param z_load: impedance to be matched?</span>
+<span class="sd">    :param z_0: impedance of the line.</span>
+<span class="sd">    :return: a tuple containing :</span>
+<span class="sd">        - d: the 2 electrical distances from the stub to the load</span>
+<span class="sd">        - lo: the 2 electrical length of the open stub</span>
+<span class="sd">        - ls: the 2 electrical  length of the shorted stub</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">single_shunt_stub</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">z_load</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z_0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">lo</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="hades.equation.matching.single_shunt_stub" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">single_shunt_stub</span><span class="p">(</span><span class="n">z_load</span><span class="p">,</span> <span class="n">z_0</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the solution to match a load <em>z_load</em> to a line of impedance <em>z_0</em> using a parallel (shunt) stub.
+This is mainly used with micro-strip lines.
+Two solutions are given either using an open or a shorted stub.
+<em>Source</em> : Microwave engineering, Fourth Edition, David Pozar, Chapter 5.2</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>z_load</code></td>
+          <td>
+                <code>complex</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>impedance to be matched?</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>z_0</code></td>
+          <td>
+                <code>complex</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>impedance of the line.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a tuple containing : - d: the 2 electrical distances from the stub to the load - lo: the 2 electrical length of the open stub - ls: the 2 electrical  length of the shorted stub</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\equation\matching.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">single_shunt_stub</span><span class="p">(</span><span class="n">z_load</span><span class="p">:</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">z_0</span><span class="p">:</span> <span class="nb">complex</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the solution to match a load *z_load* to a line of impedance *z_0* using a parallel (shunt) stub.</span>
+<span class="sd">    This is mainly used with micro-strip lines.</span>
+<span class="sd">    Two solutions are given either using an open or a shorted stub.</span>
+<span class="sd">    *Source* : Microwave engineering, Fourth Edition, David Pozar, Chapter 5.2</span>
+<span class="sd">    :param z_load: impedance to be matched?</span>
+<span class="sd">    :param z_0: impedance of the line.</span>
+<span class="sd">    :return: a tuple containing :</span>
+<span class="sd">        - d: the 2 electrical distances from the stub to the load</span>
+<span class="sd">        - lo: the 2 electrical length of the open stub</span>
+<span class="sd">        - ls: the 2 electrical  length of the shorted stub</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">r_l</span><span class="p">,</span> <span class="n">x_l</span> <span class="o">=</span> <span class="n">z_load</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">z_load</span><span class="o">.</span><span class="n">imag</span>
+    <span class="n">r_0</span><span class="p">,</span> <span class="n">b_0</span> <span class="o">=</span> <span class="n">z_0</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">z_0</span><span class="p">)</span><span class="o">.</span><span class="n">imag</span>
+    <span class="k">if</span> <span class="n">r_l</span> <span class="o">==</span> <span class="n">r_0</span><span class="p">:</span>
+        <span class="n">t_l</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">x_l</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">r_0</span><span class="p">),)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">t_n</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r_l</span> <span class="o">*</span> <span class="p">((</span><span class="n">r_0</span> <span class="o">-</span> <span class="n">r_l</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x_l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">r_0</span><span class="p">)</span>
+        <span class="n">t_l</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">x_l</span> <span class="o">+</span> <span class="n">t_n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_l</span> <span class="o">-</span> <span class="n">r_0</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_l</span> <span class="o">-</span> <span class="n">t_n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_l</span> <span class="o">-</span> <span class="n">r_0</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">lo</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_l</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atan</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">atan</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">))</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span> <span class="n">r_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">r_0</span> <span class="o">-</span> <span class="n">x_l</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_l</span> <span class="o">+</span> <span class="n">r_0</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">r_0</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_l</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x_l</span> <span class="o">+</span> <span class="n">r_0</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">Bs</span> <span class="o">=</span> <span class="n">B</span> <span class="o">-</span> <span class="n">b_0</span>
+        <span class="n">le</span> <span class="o">=</span> <span class="n">atan</span><span class="p">(</span><span class="n">Bs</span> <span class="o">*</span> <span class="n">r_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">pi</span> <span class="o">%</span> <span class="mi">1</span>
+        <span class="n">lo</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">le</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">le</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">%</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">ls</span>
 </code></pre></div></td></tr></table></div>
           </details>
   </div>

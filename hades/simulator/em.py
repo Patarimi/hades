@@ -12,11 +12,6 @@ from ..techno import load
 class Emx:
     proc: Path
 
-    def setup(self, base_dir: Path, name: str = "emx", option: str = ""):
-        conf = {"base_dir": base_dir, "name": name, "option": option}
-        conf_path = write_conf({"emx": conf})
-        return conf_path
-
     def prepare(self, techno: str):
         load_dotenv()
         tech = load(techno)

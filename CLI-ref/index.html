@@ -265,7 +265,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../reference/hades/devices/">devices</a>
+          <a href="../reference/hades/device/">device</a>
           
             <label for="__nav_3_1_1">
               <span class="md-nav__icon md-icon"></span>
@@ -276,7 +276,7 @@
       <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3_1_1">
           <span class="md-nav__icon md-icon"></span>
-          devices
+          device
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -286,8 +286,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/hades/devices/devices/" class="md-nav__link">
-        devices
+      <a href="../reference/hades/device/device/" class="md-nav__link">
+        device
       </a>
     </li>
   
@@ -300,7 +300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/hades/devices/inductor/" class="md-nav__link">
+      <a href="../reference/hades/device/inductor/" class="md-nav__link">
         inductor
       </a>
     </li>
@@ -314,7 +314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/hades/devices/micro_strip/" class="md-nav__link">
+      <a href="../reference/hades/device/micro_strip/" class="md-nav__link">
         micro_strip
       </a>
     </li>
@@ -328,7 +328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/hades/devices/mos/" class="md-nav__link">
+      <a href="../reference/hades/device/mos/" class="md-nav__link">
         mos
       </a>
     </li>
@@ -594,13 +594,6 @@
                                   Show completion for the specified shell, to
                                   copy it or customize the installation.
 </code></pre></div>
-<h2 id="config">config</h2>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><code> config [OPTIONS] SIMULATOR_NAME
-</code></pre></div>
-<p>Options:</p>
-<div class="highlight"><pre><span></span><code>  SIMULATOR_NAME  [required]
-</code></pre></div>
 <h2 id="generate">generate</h2>
 <p>Main command. Run the flow until convergence using <em>design_yaml</em>.
 The design can be stopped at a specific step using the <em>stop</em> option.</p>
@@ -612,7 +605,8 @@ The design can be stopped at a specific step using the <em>stop</em> option.</p>
   --stop TEXT         [default: full]
 </code></pre></div>
 <h2 id="new">new</h2>
-<p>Create a template directory called <em>project_name</em>.</p>
+<p>Create a template directory called <em>project_name</em>.
+TODO: Re-write with cookiecutter</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> new [OPTIONS]
 </code></pre></div>
@@ -640,14 +634,17 @@ The design can be stopped at a specific step using the <em>stop</em> option.</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> sim [OPTIONS] COMMAND [ARGS]...
 </code></pre></div>
-<h3 id="config_1">config</h3>
+<h3 id="config">config</h3>
 <p>Set up the simulator and write all configuration in a config.yml file at hades root.
 :return:</p>
 <p>Usage:</p>
-<div class="highlight"><pre><span></span><code> sim config [OPTIONS] SELF
+<div class="highlight"><pre><span></span><code> sim config [OPTIONS] SIMULATOR
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  SELF    [required]
+<div class="highlight"><pre><span></span><code>  SIMULATOR        [required]
+  --base-dir PATH  [required]
+  --name TEXT      [required]
+  --option TEXT    [required]
 </code></pre></div>
 
 

@@ -42,7 +42,9 @@ def denorm(x: float, f: float) -> float:
         return abs(1 / (x * 2 * pi * f))
 
 
-def single_shunt_stub(z_load: complex, z_0: complex):
+def single_shunt_stub(
+    z_load: complex, z_0: complex
+) -> tuple[list[float, float], list[float, float], list[float, float]]:
     """
     Return the solution to match a load *z_load* to a line of impedance *z_0* using a parallel (shunt) stub.
     This is mainly used with micro-strip lines.
@@ -83,7 +85,9 @@ def single_shunt_stub(z_load: complex, z_0: complex):
     return d, lo, ls
 
 
-def single_series_stub(z_load: complex, z_0: float):
+def single_series_stub(
+    z_load: complex, z_0: float
+) -> tuple[list[float, float], list[float, float], list[float, float]]:
     """
     Return the solution to match a load *z_load* to a line of impedance *z_0* using a series stub.
     Two solutions are given either using an open or a shorted stub.

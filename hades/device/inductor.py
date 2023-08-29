@@ -81,7 +81,7 @@ class Inductor:
     def update_accurate(self, sim_file: Path) -> Parameters:
         f_0 = self.specifications["f_0"]
         Y = self.em.compute(sim_file, self.name, f_0)
-        return {"L": -(1 / Y[1]).imag / (2 * pi * float(f_0)), "f_0": f_0}
+        return {"L": -(1 / Y.y[0,0,1]).imag / (2 * pi * float(f_0)), "f_0": f_0}
 
     def recalibrate_model(self, performances: Parameters) -> Parameters:
         def ind_k1(x):

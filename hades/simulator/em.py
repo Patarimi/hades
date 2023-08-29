@@ -20,7 +20,7 @@ class Emx:
     def compute(self, input_file: Path, cell_name: str, f_0: float, **options):
         conf = load_conf(key="emx")
         emx_base = join(conf["base_dir"], conf["name"])
-        cmd = [emx_base, input_file, cell_name, self.proc, f_0]
+        cmd = [emx_base, str(input_file), cell_name, self.proc, str(f_0)]
         if "port" in options:
             for port in options["port"]:
                 cmd += ["--port=" + port]

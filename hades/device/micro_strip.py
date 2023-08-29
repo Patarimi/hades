@@ -69,7 +69,7 @@ class MicroStrip:
         return ms
 
     def update_accurate(self, sim_file: Path) -> Parameters:
-        f_0 = self.specifications["f_c"]
+        f_0 = float(self.specifications["f_c"])
         res = self.em.compute(sim_file, self.name, f_0, port=("P1=S1:G1", "P2=S2:G2"))
         Y_0 = 0.02
         phi = np.angle(res.s[0, 0, 1], deg=True)

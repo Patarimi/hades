@@ -1,14 +1,15 @@
 from typer import Typer
 from pathlib import Path
 from .device import *
-from .simulator import *
 import yaml
 from os.path import join
 from os import makedirs
 import hades.techno as techno
+import hades.simulator.simulator as sim
 
 app = Typer()
 app.add_typer(techno.pkd_app, name="pdk")
+app.add_typer(sim.sim_app, name="sim")
 
 
 @app.command("generate")
@@ -36,6 +37,7 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None
 def template(project_name: Path = "./working_dir"):
     """
     Create a template directory called _project_name_.
+    TODO: Re-write with cookiecutter
     """
     template_file = """
         name: #insert name of the design
@@ -46,11 +48,3 @@ def template(project_name: Path = "./working_dir"):
     makedirs(project_name)
     with open(join(project_name, "design.yml"), "w") as f:
         yaml.dump(yaml.load(template_file, yaml.Loader), f)
-
-
-@app.command("config")
-def setup(simulator_name: str):
-    if simulator_name == "emx":
-        sim = Emx()
-    path = sim.setup(base_dir=Path("."))
-    print(f"Configuration save at {path}")

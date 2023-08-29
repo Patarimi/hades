@@ -2,17 +2,17 @@ from typing import Protocol
 import yaml
 from os.path import isfile, join, dirname
 from pathlib import Path
+from typer import Typer, Option
+from typing_extensions import Annotated
+
+
+sim_app = Typer()
 
 CONF_PATH = join(dirname(__file__), "simulator.yml")
 
 
 class Simulator(Protocol):
-    def setup(self) -> Path:
-        """
-        Set up the simulator and write all configuration in a config.yml file at hades root.
-        :return:
-        """
-        ...
+    config: dict[str, str]
 
     def prepare(self):
         """
@@ -50,3 +50,19 @@ def load_conf(conf_file: Path = CONF_PATH, key: str = "") -> dict:
     if key in conf:
         return conf[key]
     return conf
+
+
+@sim_app.command("config")
+def setup(
+    simulator: str,
+    base_dir: Annotated[Path, Option(prompt=True)],
+    name: Annotated[str, Option(prompt=True)],
+    option: Annotated[str, Option(prompt=True)],
+) -> None:
+    """
+    Set up the simulator and write all configuration in a config.yml file at hades root.
+    :return:
+    """
+    conf = {"base_dir": str(base_dir), "name": name, "options": option}
+    conf_path = write_conf({simulator: conf})
+    print(f"Configuration save at {conf_path}")

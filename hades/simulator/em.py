@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 import skrf as rf
-from .simulator import write_conf, load_conf
+from .simulator import load_conf
 from subprocess import run
 from os.path import join
 from dotenv import load_dotenv

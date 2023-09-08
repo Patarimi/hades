@@ -41,7 +41,7 @@ jobs:
       run: |
         poetry run hades pdk install sky130
         poetry run hades pdk install gf180mcu
-    - if: ${{ steps.pdk-restore.cache-hit != 'true' }}
+    - if: ${{ steps.pdk-restore.cache-hit == 'true' }}
       name: Save PDK Directory
       id: pdk-save
       uses: actions/cache/save@v3

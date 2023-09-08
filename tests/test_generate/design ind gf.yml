@@ -1,10 +1,10 @@
 name: ind
-techno: sky130a
+techno: gf180mcu
 design:
   device: inductor
   specifications:
     L: 1e-9
     f_0: 1e9
   dimensions:
-    m_path: M9
-    m_bridge: M8
+    m_path: Metal5
+    m_bridge: Metal4

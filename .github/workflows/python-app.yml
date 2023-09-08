@@ -30,4 +30,6 @@ jobs:
         poetry install --with dev,doc
     - name: Test with pytest
       run: |
+        poetry run hades pdk install sky130
+        poetry run hades pdk install gf180mcu
         poetry run pytest

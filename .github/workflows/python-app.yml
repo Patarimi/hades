@@ -43,7 +43,7 @@ jobs:
         poetry run hades pdk install gf180mcu
     - name: Save PDK directory
       id: pdk-save
-      uses: action/cache/save@v3
+      uses: actions/cache/save@v3
       with:
         path: |
           pdk/

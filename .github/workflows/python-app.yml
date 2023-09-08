@@ -36,7 +36,7 @@ jobs:
       with:
         path: |
           pdk/
-        key: ${{ runner.os }}-pdk
+        key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
     - name: Install PDK
       run: |
         poetry run hades pdk install sky130

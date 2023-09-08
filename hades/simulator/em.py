@@ -51,8 +51,8 @@ def parse(stream: str) -> rf.Network:
             port_list_next = True
         if words[0] in ports and len(words) == len(ports) + 1:
             y.append([complex(w) for w in words[1:]])
-    if "y" in locals():
+    if len(y) > 0:
         y_t = np.squeeze(y)
         net = rf.Network(f=f, y=y_t, units="Hz")
         return net
-    raise RuntimeError("emx exit with error: " + stream)
+    raise RuntimeError(stream)

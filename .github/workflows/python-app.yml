@@ -30,8 +30,24 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         poetry install --with dev,doc
-    - name: Test with pytest
+    - name: Restore PDK Directory
+      id: pdk-restore
+      uses: actions/caches/restore@v3
+      with:
+        path: |
+          pdk/
+        key: ${{ runner.os }}-pdk
+    - name: Install PDK
       run: |
         poetry run hades pdk install sky130
         poetry run hades pdk install gf180mcu
+    - name: Save PDK directory
+      id: pdk-save
+      uses: action/cache/save@v3
+      with:
+        path: |
+          pdk/
+        key: ${{ steps.pdk-restore.outputs.cache-primary-key }}
+    - name: Test with pytest
+      run: |
         poetry run pytest

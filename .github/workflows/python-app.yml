@@ -32,7 +32,7 @@ jobs:
         poetry install --with dev,doc
     - name: Restore PDK Directory
       id: pdk-restore
-      uses: actions/caches/restore@v3
+      uses: actions/cache/restore@v3
       with:
         path: |
           pdk/

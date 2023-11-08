@@ -25,6 +25,9 @@ rich = "^12.0"
 scikit-rf = "^0.29.0"
 pydantic = "^2.1.1"
 
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 poethepoet = "^0.24.0"
@@ -32,6 +35,8 @@ pytest = "^7.4.0"
 pytest-sugar = "^0.9.7"
 setuptools = "^68.1.2"
 
+[tool.poetry.group.doc]
+optional = true
 
 [tool.poetry.group.doc.dependencies]
 mkdocs = "^1.4.3"

@@ -1,6 +1,6 @@
 from typer import Typer
 from pathlib import Path
-from .device import *
+from .devices import *
 import yaml
 from os.path import join
 from os import makedirs

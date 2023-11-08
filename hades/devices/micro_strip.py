@@ -4,7 +4,7 @@ from .device import Parameters
 from ..simulator import Emx
 import gdstk
 from pathlib import Path
-from ..equation.micro_strip import wheeler
+from .app_models.micro_strip import wheeler
 from scipy.optimize import minimize_scalar, minimize
 from ..techno import get_layer
 from numpy import angle, sqrt, pi, arccosh, NaN

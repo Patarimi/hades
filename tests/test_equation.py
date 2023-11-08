@@ -1,6 +1,6 @@
-import hades.equation.inductor as ind
-import hades.equation.micro_strip as ms
-import hades.equation.matching as mt
+import hades.devices.app_models.inductor as ind
+import hades.devices.app_models.micro_strip as ms
+import hades.devices.app_models.matching as mt
 import pytest
 
 

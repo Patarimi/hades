@@ -1,7 +1,13 @@
+"""
+This module implements function to ease the design of passive filter using the insertion loss method.
+```mermaid
+flowchart LR
+S[Filter Specifications] --> L[Low-Pass Prototype] --> C["Conversion\nScaling"] --> I[Implementation]
+```
+"""
 import skrf as rf
 import scipy.signal as si
 import numpy as np
-import matplotlib.pyplot as plt
 
 # parametre d'entrée
 R0 = 65
@@ -13,8 +19,6 @@ w_cap_l = (True,)
 epsilon = 4.2
 Z_low = 42
 Z_high = 90
-
-fig, ax = plt.subplots(2, sharex=True)
 
 
 def prototype(order: int, style: str, ripple: float = 0.2):
@@ -45,7 +49,18 @@ def prototype(order: int, style: str, ripple: float = 0.2):
     raise ValueError(f"Unkwon filter type {style}, available are flat, ripple")
 
 
-norm_coeff = coeff(order, style)
+def scaling(prototype: list[float], f: float, R_0: float):
+    """
+    properly scale a low-pass filter prototype.
+    :param prototype:
+    :param f:
+    :param R_0:
+    :return:
+    """
+    return 1
+
+
+norm_coeff = prototype(order, style)
 
 w_c = 2 * np.pi * f_c
 beta = w_c * np.sqrt(epsilon) / rf.c
@@ -86,7 +101,3 @@ for w_cap in w_cap_l:
             cir = cir.copy() ** elm
         cir.name = f"{'cap' if w_cap else 'z_l'} - {'ind' if w_ind else 'z_h'}"
         cir = cir.copy() ** med.line(10, z0=R0)
-
-        cir.plot_s_db(0, 0, ax=ax[1])
-        cir.plot_s_db(0, 1, ax=ax[0])
-ax[1].set_ylim((-50, 1))

@@ -2,97 +2,117 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://patarimi.github.io/hades/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/CLI-ref/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/SUMMARY/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/main/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/techno/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/device/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/device/device/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/device/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/device/inductor/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/inductor/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/device/micro_strip/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/micro_strip/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/device/mos/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/mos/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/equation/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/accu_models/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/equation/inductor/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/equation/matching/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/filter/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/equation/micro_strip/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/inductor/</loc>
+         <lastmod>2023-11-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/matching/</loc>
+         <lastmod>2023-11-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/micro_strip/</loc>
+         <lastmod>2023-11-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/calibrators/</loc>
+         <lastmod>2023-11-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/devices/p_layouts/</loc>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/simulator/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/simulator/em/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/simulator/simulator/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/simulator/spice/</loc>
-         <lastmod>2023-10-20</lastmod>
+         <lastmod>2023-11-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

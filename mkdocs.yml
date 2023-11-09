@@ -12,12 +12,15 @@ theme:
   name: material
 markdown_extensions:
   - mkdocs-typer
+  - toc:
+      permalink: True
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
+  - autorefs
   - gen-files:
       scripts:
         - docs/gen_ref_pages.py

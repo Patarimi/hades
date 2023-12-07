@@ -21,8 +21,8 @@ def lumped_l(
         b_n = sqrt(r_l / r_s) * sqrt(r_l**2 + x_l**2 - r_s * r_l)
         b_1 = (x_l + b_n) / (r_l**2 + x_l**2)
         b_2 = (x_l - b_n) / (r_l**2 + x_l**2)
-        x_1 = 1 / b_1 + x_l * r_s / r_l - r_s / (b_1 * r_l) + x_s
-        x_2 = 1 / b_2 + x_l * r_s / r_l - r_s / (b_2 * r_l) + x_s
+        x_1 = 1 / b_1 + x_l * r_s / r_l - r_s / (b_1 * r_l) - x_s
+        x_2 = 1 / b_2 + x_l * r_s / r_l - r_s / (b_2 * r_l) - x_s
     else:
         b_n = sqrt(r_s**2 * x_l**2 + r_s * (r_l - r_s) * (r_l**2 + x_l**2))
         print(b_n)

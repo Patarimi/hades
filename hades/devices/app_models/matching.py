@@ -14,29 +14,29 @@ def lumped_l(
     :param z_source: impedance of the source.
     :return: two tuples (B, X), respectively the shunt and series element of the matching.
     """
-    r_l, x_l = z_load.real, z_load.imag
-    r_s, x_s = z_source.real, z_source.imag
-    q_l = x_l / r_l
+    r_l, b_l = z_load.real, z_load.imag
+    r_s, b_s = z_source.real, z_source.imag
+    q_l = b_l / r_l
 
     if r_l > r_s:
-        b_n = sqrt(r_l / r_s) * sqrt(r_l**2 + x_l**2 - r_s * r_l)
-        b_1 = (x_l + b_n) / (r_l**2 + x_l**2)
-        b_2 = (x_l - b_n) / (r_l**2 + x_l**2)
-        x_1 = 1 / b_1 + x_l * r_s / r_l - r_s / (b_1 * r_l) - x_s
-        x_2 = 1 / b_2 + x_l * r_s / r_l - r_s / (b_2 * r_l) - x_s
-    else:
-        if x_s == 0:
-            x_n = sqrt(r_l * (r_s - r_l))
-            b = sqrt((r_s - r_l) / r_l) / r_s
-            return (b, x_n - x_l), (-b, -x_n - x_l)
-        if r_s > r_l * (1 + q_l**2):
-            raise ValueError("The source resistance is too high.")
-        b_n = sqrt(r_s**2 * x_l**2 + r_s * (r_l - r_s) * (r_l**2 + x_l**2))
-        b_1 = (-r_s * x_l + b_n) / (r_s - r_l)
-        b_2 = (-r_s * x_l - b_n) / (r_s - r_l)
-        x_1 = b_1 - r_s * (b_1 + x_l) / r_l - x_s
-        x_2 = b_2 - r_s * (b_2 + x_l) / r_l - x_s
-    return (b_1, x_1), (b_2, x_2)
+        b_n = sqrt(r_l / r_s) * sqrt(r_l**2 + b_l**2 - r_s * r_l)
+        b_1 = (b_l + b_n) / (r_l**2 + b_l**2)
+        b_2 = (b_l - b_n) / (r_l**2 + b_l**2)
+        x_1 = 1 / b_1 + b_l * r_s / r_l - r_s / (b_1 * r_l) - b_s
+        x_2 = 1 / b_2 + b_l * r_s / r_l - r_s / (b_2 * r_l) - b_s
+        return (b_1, x_1), (b_2, x_2)
+    if b_s == 0:
+        x_n = sqrt(r_l * (r_s - r_l))
+        b = sqrt((r_s - r_l) / r_l) / r_s
+        return (b, x_n - b_l), (-b, -x_n - b_l)
+    if r_s > r_l * (1 + q_l**2):
+        raise ValueError("The source resistance is too high.")
+    b_n = sqrt(r_s**2 * b_l**2 + r_s * (r_l - r_s) * (r_l**2 + b_l**2))
+    b_1 = (-r_s * b_l + b_n) / (r_s - r_l)
+    b_2 = (-r_s * b_l - b_n) / (r_s - r_l)
+    x_1 = b_1 - r_s * (b_1 + b_l) / r_l - b_s
+    x_2 = b_2 - r_s * (b_2 + b_l) / r_l - b_s
+    return (b_1, 1 / x_1), (b_2, 1 / x_2)
 
 
 def denorm(x: float, f: float) -> float:

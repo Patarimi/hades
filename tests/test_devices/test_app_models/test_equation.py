@@ -47,8 +47,8 @@ def test_lumped_l():
     z_in = 9.3 - 17.16j
     z_out = 11.35 - 20.95j
     s1, s2 = mt.lumped_l(z_in, z_out)
-    assert s1 == pytest.approx((178.178, 2.616774))
-    assert s2 == pytest.approx((11.83755, 39.28322))
+    assert s1 == pytest.approx((178.178, 0.38215))
+    assert s2 == pytest.approx((11.83755, 0.02545615))
 
 
 def test_single_stub():

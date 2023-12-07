@@ -16,6 +16,7 @@ def lumped_l(
     """
     r_l, x_l = z_load.real, z_load.imag
     r_s, x_s = z_source.real, z_source.imag
+    q_l = x_l / r_l
 
     if r_l > r_s:
         b_n = sqrt(r_l / r_s) * sqrt(r_l**2 + x_l**2 - r_s * r_l)
@@ -24,8 +25,13 @@ def lumped_l(
         x_1 = 1 / b_1 + x_l * r_s / r_l - r_s / (b_1 * r_l) - x_s
         x_2 = 1 / b_2 + x_l * r_s / r_l - r_s / (b_2 * r_l) - x_s
     else:
+        if x_s == 0:
+            x_n = sqrt(r_l * (r_s - r_l))
+            b = sqrt((r_s - r_l) / r_l) / r_s
+            return (b, x_n - x_l), (-b, -x_n - x_l)
+        if r_s > r_l * (1 + q_l**2):
+            raise ValueError("The source resistance is too high.")
         b_n = sqrt(r_s**2 * x_l**2 + r_s * (r_l - r_s) * (r_l**2 + x_l**2))
-        print(b_n)
         b_1 = (-r_s * x_l + b_n) / (r_s - r_l)
         b_2 = (-r_s * x_l - b_n) / (r_s - r_l)
         x_1 = b_1 - r_s * (b_1 + x_l) / r_l - x_s

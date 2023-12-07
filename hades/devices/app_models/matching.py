@@ -2,31 +2,35 @@ from math import sqrt, pi, atan
 
 
 def lumped_l(
-    z_load: complex, z_0: float
+    z_load: complex, z_source: complex
 ) -> tuple[tuple[float, float], tuple[float, float]]:
     """
     Return the two solutions to match a complex load to a line. The value of needed capacitor and inductor
     can be computed using denorm function.
 
     *Source* : Microwave engineering, Fourth Edition, David Pozar, Chapter 5.1
+        + original work to include complex z_source.
     :param z_load: impedance of the load.
-    :param z_0: impedance of the line.
+    :param z_source: impedance of the source.
     :return: two tuples (B, X), respectively the shunt and series element of the matching.
     """
-    r_l = z_load.real
-    x_l = z_load.imag
+    r_l, x_l = z_load.real, z_load.imag
+    r_s, x_s = z_source.real, z_source.imag
 
-    if r_l > z_0:
-        b_n = sqrt(r_l / z_0) * sqrt(r_l**2 + x_l**2 - z_0 * r_l)
+    if r_l > r_s:
+        b_n = sqrt(r_l / r_s) * sqrt(r_l**2 + x_l**2 - r_s * r_l)
         b_1 = (x_l + b_n) / (r_l**2 + x_l**2)
         b_2 = (x_l - b_n) / (r_l**2 + x_l**2)
-        x_1 = 1 / b_1 + x_l * z_0 / r_l - z_0 / (b_1 * r_l)
-        x_2 = 1 / b_2 + x_l * z_0 / r_l - z_0 / (b_2 * r_l)
-        return (b_1, x_1), (b_2, x_2)
+        x_1 = 1 / b_1 + x_l * r_s / r_l - r_s / (b_1 * r_l) + x_s
+        x_2 = 1 / b_2 + x_l * r_s / r_l - r_s / (b_2 * r_l) + x_s
     else:
-        x_n = sqrt(r_l * (z_0 - r_l))
-        b = sqrt((z_0 - r_l) / r_l) / z_0
-        return (b, x_n - x_l), (-b, -x_n - x_l)
+        b_n = sqrt(r_s**2 * x_l**2 + r_s * (r_l - r_s) * (r_l**2 + x_l**2))
+        print(b_n)
+        b_1 = (-r_s * x_l + b_n) / (r_s - r_l)
+        b_2 = (-r_s * x_l - b_n) / (r_s - r_l)
+        x_1 = b_1 - r_s * (b_1 + x_l) / r_l - x_s
+        x_2 = b_2 - r_s * (b_2 + x_l) / r_l - x_s
+    return (b_1, x_1), (b_2, x_2)
 
 
 def denorm(x: float, f: float) -> float:

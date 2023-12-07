@@ -44,6 +44,12 @@ def test_lumped_l():
     assert mt.denorm(s2[1], f) * 1e12 == pytest.approx(1.041913677064285)
     assert mt.denorm(s2[0], f) * 1e9 == pytest.approx(4.635990078870905)
 
+    z_in = 9.3 - 17.16j
+    z_out = 11.35 - 20.95j
+    s1, s2 = mt.lumped_l(z_in, z_out)
+    assert s1 == pytest.approx((178.178, 2.616774))
+    assert s2 == pytest.approx((11.83755, 39.28322))
+
 
 def test_single_stub():
     z_in = 50

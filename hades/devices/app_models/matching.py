@@ -24,19 +24,21 @@ def lumped_l(
         b_2 = (b_l - b_n) / (r_l**2 + b_l**2)
         x_1 = 1 / b_1 + b_l * r_s / r_l - r_s / (b_1 * r_l) - b_s
         x_2 = 1 / b_2 + b_l * r_s / r_l - r_s / (b_2 * r_l) - b_s
-        return (b_1, x_1), (b_2, x_2)
-    if b_s == 0:
+    elif b_s == 0:
         x_n = sqrt(r_l * (r_s - r_l))
         b = sqrt((r_s - r_l) / r_l) / r_s
-        return (b, x_n - b_l), (-b, -x_n - b_l)
-    if r_s > r_l * (1 + q_l**2):
+        b_1, b_2 = b, -b
+        x_1, x_2 = x_n - b_l, -x_n - b_l
+    elif r_s > r_l * (1 + q_l**2):
         raise ValueError("The source resistance is too high.")
-    b_n = sqrt(r_s**2 * b_l**2 + r_s * (r_l - r_s) * (r_l**2 + b_l**2))
-    b_1 = (-r_s * b_l + b_n) / (r_s - r_l)
-    b_2 = (-r_s * b_l - b_n) / (r_s - r_l)
-    x_1 = b_1 - r_s * (b_1 + b_l) / r_l - b_s
-    x_2 = b_2 - r_s * (b_2 + b_l) / r_l - b_s
-    return (b_1, 1 / x_1), (b_2, 1 / x_2)
+    else:
+        b_n = sqrt(r_s**2 * b_l**2 + r_s * (r_l - r_s) * (r_l**2 + b_l**2))
+        b_1 = (-r_s * b_l + b_n) / (r_s - r_l)
+        b_2 = (-r_s * b_l - b_n) / (r_s - r_l)
+        x_1 = 1 / (b_1 - r_s * (b_1 + b_l) / r_l - b_s)
+        x_2 = 1 / (b_2 - r_s * (b_2 + b_l) / r_l - b_s)
+    return (b_1, x_1), (b_2, x_2)
+
 
 
 def denorm(x: float, f: float) -> float:

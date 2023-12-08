@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum, auto
+import skrf as rf
 
 
 class ComponentType(Enum):
@@ -28,7 +29,7 @@ class Component:
 
     def __repr__(self) -> str:
         value = self.readable_value()
-        return f"{self.type}{self.name} {self.node[0]} {self.node[1]} {value}{Unit[str(self.type)]}"
+        return f"{self.full_name()} {self.node[0]} {self.node[1]} {value}{Unit[str(self.type)]}"
 
     def readable_value(self) -> str:
         for n, p in PreFix.items():
@@ -36,6 +37,26 @@ class Component:
                 return f"{self.value*10**(-n):.3f} {p}"
         last = list(PreFix)[-1]
         return f"{self.value*10**last:.3f} {PreFix[last]}"
+
+    def full_name(self):
+        return str(self.type) + self.name
+
+    def network(self, media: rf.Media):
+        if "0" in self.node:
+            if self.type == "C":
+                sp = media.shunt_capacitor(self.value, name=self.full_name())
+            elif self.type == "L":
+                sp = media.shunt_inductor(self.value, name=self.full_name())
+            else:
+                raise ValueError("Unsupported type of components.")
+        else:
+            if self.type == "C":
+                sp = media.capacitor(self.value, name=self.full_name())
+            elif self.type == "L":
+                sp = media.inductor(self.value, name=self.full_name())
+            else:
+                raise ValueError("Unsupported type of components.")
+        return sp
 
 
 @dataclass

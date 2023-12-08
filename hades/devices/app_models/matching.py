@@ -1,4 +1,6 @@
 from math import sqrt, pi, atan
+from hades.parser.netlist import Netlist, Component
+from enum import Enum, auto
 
 
 def lumped_l(
@@ -40,18 +42,36 @@ def lumped_l(
     return (b_1, x_1), (b_2, x_2)
 
 
+class Pos(Enum):
+    series = auto()
+    parallel = auto()
 
-def denorm(x: float, f: float) -> float:
+
+def denorm(x: float, f: float, pos: Pos = "series", name: str = "") -> Component:
     """
-    Return the lumped element value (capacity or inductance) of an element reactance.
+    Return a component (capacity or inductance) of an element reactance.
     :param x: reactance
     :param f: frequency
+    :param pos: element placement, can be "series" or "parallel"
+    :param name: name of the component, default value: pos
     :return: capacity or inductance
     """
-    if x > 0:
-        return abs(x / (2 * pi * f))
+    comp = ""
+    value = 0
+    if pos == Pos.series:
+        comp = "C" if x > 0 else "L"
     else:
-        return abs(1 / (x * 2 * pi * f))
+        comp = "C" if x < 0 else "L"
+    if x > 0:
+        value = abs(x / (2 * pi * f))
+    else:
+        value = abs(1 / (x * 2 * pi * f))
+    return Component(
+        comp,
+        pos if name == "" else name,
+        value,
+        ("in", "0" if pos == Pos.series else "out"),
+    )
 
 
 def single_shunt_stub(

@@ -1,4 +1,6 @@
 from math import sqrt, pi, atan
+from hades.parser.netlist import Netlist, Component
+from enum import Enum, auto
 
 
 def lumped_l(
@@ -24,32 +26,52 @@ def lumped_l(
         b_2 = (b_l - b_n) / (r_l**2 + b_l**2)
         x_1 = 1 / b_1 + b_l * r_s / r_l - r_s / (b_1 * r_l) - b_s
         x_2 = 1 / b_2 + b_l * r_s / r_l - r_s / (b_2 * r_l) - b_s
-        return (b_1, x_1), (b_2, x_2)
-    if b_s == 0:
+    elif b_s == 0:
         x_n = sqrt(r_l * (r_s - r_l))
         b = sqrt((r_s - r_l) / r_l) / r_s
-        return (b, x_n - b_l), (-b, -x_n - b_l)
-    if r_s > r_l * (1 + q_l**2):
+        b_1, b_2 = b, -b
+        x_1, x_2 = x_n - b_l, -x_n - b_l
+    elif r_s > r_l * (1 + q_l**2):
         raise ValueError("The source resistance is too high.")
-    b_n = sqrt(r_s**2 * b_l**2 + r_s * (r_l - r_s) * (r_l**2 + b_l**2))
-    b_1 = (-r_s * b_l + b_n) / (r_s - r_l)
-    b_2 = (-r_s * b_l - b_n) / (r_s - r_l)
-    x_1 = b_1 - r_s * (b_1 + b_l) / r_l - b_s
-    x_2 = b_2 - r_s * (b_2 + b_l) / r_l - b_s
-    return (b_1, 1 / x_1), (b_2, 1 / x_2)
+    else:
+        b_n = sqrt(r_s**2 * b_l**2 + r_s * (r_l - r_s) * (r_l**2 + b_l**2))
+        b_1 = (-r_s * b_l + b_n) / (r_s - r_l)
+        b_2 = (-r_s * b_l - b_n) / (r_s - r_l)
+        x_1 = 1 / (b_1 - r_s * (b_1 + b_l) / r_l - b_s)
+        x_2 = 1 / (b_2 - r_s * (b_2 + b_l) / r_l - b_s)
+    return (b_1, x_1), (b_2, x_2)
 
 
-def denorm(x: float, f: float) -> float:
+class Pos(Enum):
+    series = auto()
+    parallel = auto()
+
+
+def denorm(x: float, f: float, pos: Pos = "series", name: str = "") -> Component:
     """
-    Return the lumped element value (capacity or inductance) of an element reactance.
+    Return a component (capacity or inductance) of an element reactance.
     :param x: reactance
     :param f: frequency
+    :param pos: element placement, can be "series" or "parallel"
+    :param name: name of the component, default value: pos
     :return: capacity or inductance
     """
-    if x > 0:
-        return abs(x / (2 * pi * f))
+    comp = ""
+    value = 0
+    if pos == Pos.series:
+        comp = "C" if x > 0 else "L"
     else:
-        return abs(1 / (x * 2 * pi * f))
+        comp = "C" if x < 0 else "L"
+    if x > 0:
+        value = abs(x / (2 * pi * f))
+    else:
+        value = abs(1 / (x * 2 * pi * f))
+    return Component(
+        comp,
+        pos if name == "" else name,
+        value,
+        ("in", "0" if pos == Pos.series else "out"),
+    )
 
 
 def single_shunt_stub(

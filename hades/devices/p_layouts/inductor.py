@@ -2,6 +2,7 @@ from .tools import Layer
 import gdstk
 from numpy import tan, pi
 
+
 def octagonal_inductor(d_i: float, n_turn: int, width: float, gap: float, layer: Layer):
     """
 
@@ -15,7 +16,7 @@ def octagonal_inductor(d_i: float, n_turn: int, width: float, gap: float, layer:
     m_top = layer
     ind = gdstk.Cell("ind")
     w = width * 1e6
-    d_a = d_i*1e6 + w
+    d_a = d_i * 1e6 + w
     si = d_a * tan(pi / 8) / 2
     p_ext, p_gap = 20, 10
     turn = gdstk.RobustPath((-p_ext, p_gap), w, layer=m_top.data, datatype=m_top.d_type)

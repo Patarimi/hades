@@ -47,7 +47,7 @@ class Pos(Enum):
     parallel = auto()
 
 
-def denorm(x: float, f: float, pos: Pos = "series", name: str = "") -> Component:
+def denorm(x: float, f: float, pos: Pos = Pos.series, name: str = "") -> Component:
     """
     Return a component (capacity or inductance) of an element reactance.
     :param x: reactance
@@ -68,7 +68,7 @@ def denorm(x: float, f: float, pos: Pos = "series", name: str = "") -> Component
         value = abs(1 / (x * 2 * pi * f))
     return Component(
         comp,
-        pos if name == "" else name,
+        str(pos) if name == "" else name,
         value,
         ("in", "0" if pos == Pos.series else "out"),
     )

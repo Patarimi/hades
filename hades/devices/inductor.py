@@ -53,6 +53,7 @@ class Inductor:
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
         m_top = get_layer(self.techno, dimensions["m_path"])
+        dimensions.pop("m_path")
         ind = octagonal_inductor(layer=m_top, **dimensions)
 
         return ind

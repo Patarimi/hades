@@ -5,6 +5,8 @@ from pathlib import Path
 from scipy.optimize import minimize_scalar
 from ..simulator import Emx
 from hades.techno import get_layer
+from hades.devices.p_layouts.inductor import octagonal_inductor
+from hades.devices.p_layouts.tools import Layer
 
 
 class Inductor:
@@ -52,29 +54,13 @@ class Inductor:
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
         m_top = get_layer(self.techno, dimensions["m_path"])
-        m_bott = get_layer(self.techno, dimensions["m_bridge"])
-        ind = gdstk.Cell(self.name)
-        d_i = dimensions["d_i"] * 1e6
-        w = dimensions["W"] * 1e6
-        d_a = d_i + w
-        si = d_a * tan(pi / 8) / 2
-        p_ext, p_gap = 20, 10
-        turn = gdstk.RobustPath((-p_ext, p_gap), w, layer=m_top[0], datatype=m_top[1])
-        turn2 = gdstk.RobustPath((-p_ext, -p_gap), w, layer=m_top[0], datatype=m_top[1])
-        path = (
-            (0, p_gap),
-            (0, si),
-            (d_a / 2 - si, d_a / 2),
-            (d_a / 2 + si, d_a / 2),
-            (d_a, si),
-            (d_a, 0),
+        ind = octagonal_inductor(
+            dimensions["d_i"],
+            dimensions["n"],
+            dimensions["W"],
+            1e-6,
+            Layer(m_top[0], m_top[1]),
         )
-        for pts in path:
-            turn.segment(pts)
-            turn2.segment((pts[0], -pts[1]))
-        ind.add(turn, turn2)
-        ind.add(gdstk.Label("P1", (-p_ext, p_gap), layer=m_top[0], texttype=m_top[1]))
-        ind.add(gdstk.Label("P2", (-p_ext, -p_gap), layer=m_top[0], texttype=m_top[1]))
 
         return ind
 

@@ -2,6 +2,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 import os
+from shutil import which
 
 
 @dataclass
@@ -20,8 +21,11 @@ def check_diff(gds1: Path, gds2: Path):
     :param gds2: path of the second gds
     :return: None
     """
-    os.environ["LD_LIBRARY_PATH"] = "/usr/lib/klayout"
-    cmd = f"/usr/lib/klayout/strmxor {gds1} {gds2}"
+    cmd = f"strmxor {gds1} {gds2}"
+    if which("strmxor") is None:
+        # for CI
+        os.environ["LD_LIBRARY_PATH"] = "/usr/lib/klayout"
+        cmd = "/usr/lib/klayout/" + cmd
     c = subprocess.run(cmd, shell=True, capture_output=True)
     if c.returncode != 0:
         raise ValueError(c.stderr)

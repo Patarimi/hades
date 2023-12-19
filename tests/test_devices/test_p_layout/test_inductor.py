@@ -1,3 +1,6 @@
+import os
+from os.path import dirname
+
 from hades.devices.p_layouts.inductor import octagonal_inductor
 from hades.devices.p_layouts.tools import Layer, check_diff
 import gdstk
@@ -12,4 +15,6 @@ def test_inductor():
     lib = gdstk.Library()
     lib.add(ind)
     lib.write_gds("ind.gds")
-    check_diff("ind.gds", "./tests/test_devices/test_p_layout/ind_ref.gds")
+    ref_path = dirname(__file__)
+    gen_path = os.getcwd()
+    check_diff(gen_path + "ind.gds", ref_path + "ind_ref.gds")

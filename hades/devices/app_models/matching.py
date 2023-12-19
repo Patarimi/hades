@@ -1,6 +1,6 @@
 from math import sqrt, pi, atan
 from hades.parser.netlist import Netlist, Component
-from enum import Enum, auto
+from enum import Enum
 
 
 def lumped_l(
@@ -43,8 +43,8 @@ def lumped_l(
 
 
 class Pos(Enum):
-    series = auto()
-    parallel = auto()
+    series = "series"
+    parallel = "parallel"
 
 
 def denorm(x: float, f: float, pos: Pos = Pos.series, name: str = "") -> Component:

@@ -10,8 +10,8 @@ hades = "hades.main:app"
 
 [tool.poe.tasks]
 update = "poetry show -l -o"
-publish     = "poetry publish --build --username __token__ --password $PYPI_TOKEN"
-doc         = "mkdocs gh-deploy"
+publish = "poetry publish --build --username __token__ --password $PYPI_TOKEN"
+doc = "mkdocs gh-deploy"
 
 [tool.poetry.dependencies]
 python = "^3.10,<3.13"

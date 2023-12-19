@@ -1,7 +1,7 @@
 .idea/
 /hades/simulator/simulator.yml
 *.env
-*.gds
 /hades/techno.yml
 /site/
 /pdk/
+/tests/test_generate/*.gds

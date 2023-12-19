@@ -6,6 +6,7 @@ from os import makedirs
 import urllib.request
 import tarfile, zipfile
 from typer import Typer
+from hades.devices.p_layouts.tools import Layer
 
 pkd_app = Typer()
 
@@ -62,7 +63,7 @@ def list_pdk() -> None:
 def get_layer(techno: str, name: str, datatype: str = "drawing"):
     process = load(techno)
     with open(
-        join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
+            join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
     ) as f:
         for line in f:
             # for proc files
@@ -72,7 +73,7 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
             # for tech files
             if re.match(rf"{name}\s*[A-Z,]*", line, re.IGNORECASE) is not None:
                 res = list(filter(None, line.split()))
-                return int(res[2]), int(res[3])
+                return Layer(int(res[2]), int(res[3]))
     raise ValueError(f"{name} not found in file {techno}")
 
 

@@ -789,55 +789,6 @@ files = [
 ]
 
 [[package]]
-name = "klayout"
-version = "0.28.14"
-description = "KLayout standalone Python package"
-category = "dev"
-optional = false
-python-versions = "*"
-files = [
-    {file = "klayout-0.28.14-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a8c823d94dcc4a3197ca3472a2badf5d8c9de97738b45eb7a1c617e2d29ad706"},
-    {file = "klayout-0.28.14-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:d73af14028cf7f105f3cbfa500b300bff53fb527ca9d1583406d2c9193575c2e"},
-    {file = "klayout-0.28.14-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4e601356aa1b8d88ffa0c5b4706f1a7a46cdb332e0a0236b46f3616dc467532c"},
-    {file = "klayout-0.28.14-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:93d8d58a67edc6350cc83109007d57e03a6e492dd361e6f28d4a87caf938a433"},
-    {file = "klayout-0.28.14-cp310-cp310-win32.whl", hash = "sha256:73958a50f7a896a2304d4d174f925150ff0964890a3198e4a54e49c87020c058"},
-    {file = "klayout-0.28.14-cp310-cp310-win_amd64.whl", hash = "sha256:728fd2ca4739b28498bad9c1a7fd94747facac5a7aea7645fd5c1209a27d9faa"},
-    {file = "klayout-0.28.14-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:751641417453731ef7b26691298c8809a8d168b1b56f5415b6e9d21917ee2aea"},
-    {file = "klayout-0.28.14-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:9d61348cd3d8d0a26f465f242575dc8ed7de3eead691de3fd4ee53b02712c2cb"},
-    {file = "klayout-0.28.14-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3f24d4f381b18167d432b61e36747309c689fe80398b3a5519464531223e23b9"},
-    {file = "klayout-0.28.14-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:8d3b42890680dc1f8815336066eadf89a12ef752fa59d30558c3cca80a90531a"},
-    {file = "klayout-0.28.14-cp311-cp311-win32.whl", hash = "sha256:7a359c4ca6fa412dc9f251a7aa0d34d95db4233755c7be9857698c5c1c99a4a5"},
-    {file = "klayout-0.28.14-cp311-cp311-win_amd64.whl", hash = "sha256:cd0274ed76a1a09a132ccfd4016c720d9a914369531c7577e1ea328e851a2423"},
-    {file = "klayout-0.28.14-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:c0e7c95316ef34192feab401f0e1c3e01f351f2942f84a6f4f698ad7d3de8044"},
-    {file = "klayout-0.28.14-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:71e73b53fff64d22762d5465b7f28a502bdba0950659c26feca9df2e5b67796f"},
-    {file = "klayout-0.28.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9779be3377f81a0e48be2624f0e43dd7689e4c815be52c88b09add14de22dc9d"},
-    {file = "klayout-0.28.14-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:5d7f21cd27d9c60da3463fef1361824bf40531b5df1c6e0ca255de46feac9a10"},
-    {file = "klayout-0.28.14-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f65e18b1d9891662179cb8f8fae02c87c4ad4b122c8b24091768ad929b613cc5"},
-    {file = "klayout-0.28.14-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7305de676f4b17d690a90d2357b4471e5f2aa5be060b77b7d3598813088bc431"},
-    {file = "klayout-0.28.14-cp36-cp36m-musllinux_1_1_x86_64.whl", hash = "sha256:7220cd7abe798457d1a0c0f2e9ce49f5f7845f14c10d5e6fd6e7bcfd105d7c31"},
-    {file = "klayout-0.28.14-cp36-cp36m-win32.whl", hash = "sha256:570e4243341b8b2ad43eb4ca8e5cf44e46a0072eccde2699ccdc696feeedf631"},
-    {file = "klayout-0.28.14-cp36-cp36m-win_amd64.whl", hash = "sha256:dc399f66745f7c3350b9bbffcc32e55e74e8d19b7a79b9b0fbf5b162588e4598"},
-    {file = "klayout-0.28.14-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:d34bcb16e7ac2b300ef8f0e9bee49744ef4fd4852b6ec12c1709f32958c5446a"},
-    {file = "klayout-0.28.14-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c347cef4f2f24d76d323d0cefee676df20d0f7da14966a1fd77fb496e49ada76"},
-    {file = "klayout-0.28.14-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:4d2cf551a41a01a90f5682cbca661e1dc6122e158fdc7c9eec6a6eb5cb55b443"},
-    {file = "klayout-0.28.14-cp37-cp37m-win32.whl", hash = "sha256:4189254bf77e8a617add6c68907289ac3d5b0aee1c55bad30085c74f56992d40"},
-    {file = "klayout-0.28.14-cp37-cp37m-win_amd64.whl", hash = "sha256:2ce4a03101b07af8e2a5f58302026f459a6617d0b5dd2c8360c069dc0fa62562"},
-    {file = "klayout-0.28.14-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:eeb7c0a90d19514805f381f1fe886fc15d787baf0b691e531c3de3525cec256b"},
-    {file = "klayout-0.28.14-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:62eafa673450c3d3ec2cc6e45e5be69d039547caf63b8ddbf9fda2c69d3b014e"},
-    {file = "klayout-0.28.14-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:affbe4521d1abc3e29e02409ad4c4725849723c66792aa03b11d153b1de9b04e"},
-    {file = "klayout-0.28.14-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:5998a74279816b8cf69f153dd765346b21ff9145c35dee96b21b6b6dc124e0bd"},
-    {file = "klayout-0.28.14-cp38-cp38-win32.whl", hash = "sha256:4a1b1843cfee7a329ea9ea7e4293b0c3984afe65f2ec4d94202386b0d270aec4"},
-    {file = "klayout-0.28.14-cp38-cp38-win_amd64.whl", hash = "sha256:8e48bd21ef448a2bdf36f95be587e871ebb7837f2417bee7ebffcade676cef8f"},
-    {file = "klayout-0.28.14-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:37a2dcc3cf71be0f836764dc7297c01717a08364c0c9f5c5ec11dcd611318699"},
-    {file = "klayout-0.28.14-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:4dfbe7ecdc67f8eb6a697e23848415385f352e4ea985749aade09da69c2b065d"},
-    {file = "klayout-0.28.14-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9343658176ed3ade1e1a35fcc97720968147d85371a4253a28d0ffe9db9ffe21"},
-    {file = "klayout-0.28.14-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:56b8c8ed72fc8bf8110dc5d8b06b821a36709339b0cf40cf6f703c15092d74a8"},
-    {file = "klayout-0.28.14-cp39-cp39-win32.whl", hash = "sha256:f3de0f59a23629a50c608fbaea6a421cd2b9c390853087bac2714a9e2faf6431"},
-    {file = "klayout-0.28.14-cp39-cp39-win_amd64.whl", hash = "sha256:521506630c1179f5db0f0c77d117015de2bb9189fd052c78be612b61edfa812f"},
-    {file = "klayout-0.28.14.tar.gz", hash = "sha256:ad5337e332c84f56252d53b5c9752fc9ca30afe030254e61e96ad4988a9c4521"},
-]
-
-[[package]]
 name = "markdown"
 version = "3.5.1"
 description = "Python implementation of John Gruber's Markdown."
@@ -2378,4 +2329,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "9489b9b9434a79e7c6f9d2d9c92542c0f28b2a64e65f1e56a79026a1ca070b12"
+content-hash = "d1c612add6d989c4fce6d2eead3fb27b36ddf8e94539c8298c9f088fe58e0cd7"

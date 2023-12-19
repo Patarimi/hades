@@ -10,8 +10,8 @@ hades = "hades.main:app"
 
 [tool.poe.tasks]
 update = "poetry show -l -o"
-publish     = "poetry publish --build --username __token__ --password $PYPI_TOKEN"
-doc         = "mkdocs gh-deploy"
+publish = "poetry publish --build --username __token__ --password $PYPI_TOKEN"
+doc = "mkdocs gh-deploy"
 
 [tool.poetry.dependencies]
 python = "^3.10,<3.13"
@@ -35,7 +35,6 @@ poethepoet = "^0.24.0"
 pytest = "^7.4.0"
 pytest-sugar = "^0.9.7"
 setuptools = "^69.0.0"
-klayout = "^0.28.14"
 
 [tool.poetry.group.doc]
 optional = true

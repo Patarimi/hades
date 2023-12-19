@@ -22,4 +22,4 @@ def check_diff(gds1: Path, gds2: Path):
     cmd = f"strmxor {gds1} {gds2}"
     c = subprocess.run(cmd, shell=True, capture_output=True)
     if c.returncode != 0:
-        raise ValueError(c.stdout)
+        raise ValueError(c.stderr)

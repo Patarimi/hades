@@ -1,6 +1,7 @@
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
+import os
 
 
 @dataclass
@@ -19,6 +20,7 @@ def check_diff(gds1: Path, gds2: Path):
     :param gds2: path of the second gds
     :return: None
     """
+    os.environ["LD_LIBRARY_PATH"] = "/usr/lib/klayout"
     cmd = f"/usr/lib/klayout/strmxor {gds1} {gds2}"
     c = subprocess.run(cmd, shell=True, capture_output=True)
     if c.returncode != 0:

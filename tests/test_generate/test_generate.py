@@ -17,7 +17,9 @@ def test_generation():
             conf = yaml.load(f, Loader=yaml.Loader)
         pdk = conf["techno"]
         try:
-            get_layer(pdk, "M6")
+            get_layer(pdk, "toto")
         except FileNotFoundError:
             pytest.skip(f"The pdk {pdk} is not installed. Skipping")
+        except ValueError:
+            pass
         generate_cli(design_yaml=design, stop="geometries")

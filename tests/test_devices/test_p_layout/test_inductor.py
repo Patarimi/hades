@@ -6,7 +6,7 @@ from hades.devices.p_layouts.tools import Layer, check_diff
 import gdstk
 
 
-def test_inductor():
+def test_inductor(tmp_path):
     ind = octagonal_inductor(120e-6,
                              1,
                              5e-6,
@@ -14,7 +14,6 @@ def test_inductor():
                              Layer(10, 2))
     lib = gdstk.Library()
     lib.add(ind)
-    lib.write_gds("ind.gds")
+    lib.write_gds(tmp_path / "ind.gds")
     ref_path = dirname(__file__)
-    gen_path = os.getcwd()
-    check_diff(join(gen_path, "ind.gds"), join(ref_path, "ind_ref.gds"))
+    check_diff(tmp_path / "ind.gds", join(ref_path, "ind_ref.gds"))

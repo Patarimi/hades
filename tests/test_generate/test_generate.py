@@ -1,5 +1,4 @@
 import os
-import warnings
 from hades.main import generate_cli
 from hades.techno import get_layer
 from os import chdir

@@ -8,6 +8,7 @@ from .app_models.micro_strip import wheeler
 from scipy.optimize import minimize_scalar, minimize
 from ..techno import get_layer
 from numpy import angle, sqrt, pi, arccosh, NaN
+from hades.devices.p_layouts.microstrip import straight_line
 
 
 class MicroStrip:
@@ -18,7 +19,7 @@ class MicroStrip:
     techno: str
 
     def __init__(
-        self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
+            self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
     ):
         self.name = name
         self.specifications = {"z_c": float(z_c), "f_c": float(f_c), "phi": float(phi)}
@@ -54,18 +55,8 @@ class MicroStrip:
         self.dimensions = dimensions
         m_top = get_layer(self.techno, dimensions["m_path"])
         m_bott = get_layer(self.techno, dimensions["m_gnd"])
-        ms = gdstk.Cell(self.name)
-        le = dimensions["l"] * 1e6
-        w = dimensions["w"] * 1e6
-        rf = gdstk.RobustPath((0, 0), w, layer=m_top[0], datatype=m_top[1])
-        rf.segment((le, 0))
-        gnd = gdstk.RobustPath((0, 0), 3 * w, layer=m_bott[0], datatype=m_bott[1])
-        gnd.segment((le, 0))
-        ms.add(rf, gnd)
-        ms.add(gdstk.Label("S1", (0, 0), layer=m_top[0], texttype=m_top[1]))
-        ms.add(gdstk.Label("S2", (le, 0), layer=m_top[0], texttype=m_top[1]))
-        ms.add(gdstk.Label("G1", (0, 0), layer=m_bott[0], texttype=m_bott[1]))
-        ms.add(gdstk.Label("G2", (le, 0), layer=m_bott[0], texttype=m_bott[1]))
+        ms = straight_line(width=dimensions["w"], length=dimensions["l"],
+                           top_metal=m_top, bot_metal=m_bott)
         return ms
 
     def update_accurate(self, sim_file: Path) -> Parameters:

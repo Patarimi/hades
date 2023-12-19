@@ -59,7 +59,7 @@ class Inductor:
             dimensions["n"],
             dimensions["W"],
             1e-6,
-            Layer(m_top[0], m_top[1]),
+            m_top,
         )
 
         return ind

@@ -19,7 +19,7 @@ def check_diff(gds1: Path, gds2: Path):
     :param gds2: path of the second gds
     :return: None
     """
-    cmd = f"strmxor {gds1} {gds2}"
+    cmd = f"/usr/lib/klayout/strmxor {gds1} {gds2}"
     c = subprocess.run(cmd, shell=True, capture_output=True)
     if c.returncode != 0:
         raise ValueError(c.stderr)

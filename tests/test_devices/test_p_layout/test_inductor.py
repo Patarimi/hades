@@ -1,5 +1,5 @@
 import os
-from os.path import dirname
+from os.path import dirname, join
 
 from hades.devices.p_layouts.inductor import octagonal_inductor
 from hades.devices.p_layouts.tools import Layer, check_diff
@@ -17,4 +17,4 @@ def test_inductor():
     lib.write_gds("ind.gds")
     ref_path = dirname(__file__)
     gen_path = os.getcwd()
-    check_diff(gen_path + "ind.gds", ref_path + "ind_ref.gds")
+    check_diff(join(gen_path, "ind.gds"), join(ref_path, "ind_ref.gds"))

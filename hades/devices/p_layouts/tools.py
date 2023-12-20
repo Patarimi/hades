@@ -14,6 +14,16 @@ class Layer:
         return f"{self.data}/{self.d_type}"
 
 
+@dataclass
+class Port:
+    name: str
+    ref: str = None
+
+    def __post_init__(self):
+        if self.ref is None:
+            self.ref = self.name + "_r"
+
+
 def check_diff(gds1: Path, gds2: Path):
     """
     Test if the 2 gds files are the same. Raise error if they differe.

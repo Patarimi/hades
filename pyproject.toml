@@ -32,7 +32,7 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
 poethepoet = "^0.24.0"
-pytest = "^7.4.0"
+pytest = "^7.4.4"
 pytest-sugar = "^0.9.7"
 setuptools = "^69.0.0"
 

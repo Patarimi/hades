@@ -1147,8 +1147,7 @@
 
             <details class="quote">
               <summary>Source code in <code>hades/simulator/em.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
-<span class="normal">13</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
@@ -1188,11 +1187,37 @@
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Emx</span><span class="p">:</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Emx</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for emx simulation.</span>
 <span class="sd">    :param proc: path to the process file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">proc</span><span class="p">:</span> <span class="n">Path</span>
 
     <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techno</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -1216,19 +1241,42 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">conf</span> <span class="o">=</span> <span class="n">load_conf</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;emx&quot;</span><span class="p">)</span>
         <span class="n">emx_base</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;base_dir&quot;</span><span class="p">],</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">emx_base</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_file</span><span class="p">),</span> <span class="n">cell_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">f_0</span><span class="p">)]</span>
+        <span class="n">path_file</span> <span class="o">=</span> <span class="s2">&quot;res.s4p&quot;</span>
+        <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">path_file</span><span class="p">):</span>
+            <span class="n">remove</span><span class="p">(</span><span class="n">path_file</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># adding header to sNp file</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;# Hz S RI R 50</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">emx_base</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">input_file</span><span class="p">),</span>
+            <span class="n">cell_name</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="p">,</span>
+            <span class="s2">&quot;--sweep&quot;</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">f_0</span><span class="p">),</span>
+            <span class="s2">&quot;--s-file=&quot;</span> <span class="o">+</span> <span class="n">path_file</span><span class="p">,</span>
+            <span class="s2">&quot;--touchstone&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--s-impedance=50&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
         <span class="k">if</span> <span class="s2">&quot;port&quot;</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">]:</span>
-                <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--port=&quot;</span> <span class="o">+</span> <span class="n">port</span><span class="p">]</span>
+                <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-p &quot;</span> <span class="o">+</span> <span class="n">port</span><span class="p">]</span>
         <span class="k">if</span> <span class="s2">&quot;mode&quot;</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
             <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--mode=&quot;</span> <span class="o">+</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;mode&quot;</span><span class="p">]]</span>
         <span class="k">if</span> <span class="s2">&quot;debug&quot;</span> <span class="ow">in</span> <span class="n">options</span> <span class="ow">and</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;debug&quot;</span><span class="p">]:</span>
             <span class="n">str_cmd</span> <span class="o">=</span> <span class="s2">&quot;Running EMX with command:</span><span class="se">\n\t</span><span class="s2">&quot;</span>
             <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">cmd</span><span class="p">:</span>
                 <span class="n">str_cmd</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">elt</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">str_cmd</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cmd</span> <span class="o">+</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">])</span>
         <span class="n">proc</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">cmd</span> <span class="o">+</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin&quot;</span><span class="p">)</span>
-        <span class="n">y_param</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;% &quot;</span><span class="p">,</span> <span class="s2">&quot;! &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">y_param</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="s2">&quot;res.s4p&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">y_param</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -1357,9 +1405,7 @@
 
           <details class="quote">
             <summary>Source code in <code>hades/simulator/em.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
@@ -1381,7 +1427,32 @@
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">cell_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">f_0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">cell_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">f_0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run the simulation</span>
 <span class="sd">    :param input_file: gds file to be simulated.</span>
@@ -1392,19 +1463,42 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">conf</span> <span class="o">=</span> <span class="n">load_conf</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;emx&quot;</span><span class="p">)</span>
     <span class="n">emx_base</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;base_dir&quot;</span><span class="p">],</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">emx_base</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_file</span><span class="p">),</span> <span class="n">cell_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">f_0</span><span class="p">)]</span>
+    <span class="n">path_file</span> <span class="o">=</span> <span class="s2">&quot;res.s4p&quot;</span>
+    <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">path_file</span><span class="p">):</span>
+        <span class="n">remove</span><span class="p">(</span><span class="n">path_file</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="c1"># adding header to sNp file</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;# Hz S RI R 50</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">emx_base</span><span class="p">,</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">input_file</span><span class="p">),</span>
+        <span class="n">cell_name</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="p">,</span>
+        <span class="s2">&quot;--sweep&quot;</span><span class="p">,</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">f_0</span><span class="p">),</span>
+        <span class="s2">&quot;--s-file=&quot;</span> <span class="o">+</span> <span class="n">path_file</span><span class="p">,</span>
+        <span class="s2">&quot;--touchstone&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--s-impedance=50&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
     <span class="k">if</span> <span class="s2">&quot;port&quot;</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">]:</span>
-            <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--port=&quot;</span> <span class="o">+</span> <span class="n">port</span><span class="p">]</span>
+            <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-p &quot;</span> <span class="o">+</span> <span class="n">port</span><span class="p">]</span>
     <span class="k">if</span> <span class="s2">&quot;mode&quot;</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--mode=&quot;</span> <span class="o">+</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;mode&quot;</span><span class="p">]]</span>
     <span class="k">if</span> <span class="s2">&quot;debug&quot;</span> <span class="ow">in</span> <span class="n">options</span> <span class="ow">and</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;debug&quot;</span><span class="p">]:</span>
         <span class="n">str_cmd</span> <span class="o">=</span> <span class="s2">&quot;Running EMX with command:</span><span class="se">\n\t</span><span class="s2">&quot;</span>
         <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">cmd</span><span class="p">:</span>
             <span class="n">str_cmd</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">elt</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">str_cmd</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cmd</span> <span class="o">+</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">])</span>
     <span class="n">proc</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">cmd</span> <span class="o">+</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin&quot;</span><span class="p">)</span>
-    <span class="n">y_param</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;% &quot;</span><span class="p">,</span> <span class="s2">&quot;! &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">y_param</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="s2">&quot;res.s4p&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">y_param</span>
 </code></pre></div></td></tr></table></div>
           </details>
@@ -1483,15 +1577,15 @@
 
           <details class="quote">
             <summary>Source code in <code>hades/simulator/em.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techno</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techno</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Automatically set the process file for the given technology.</span>
 <span class="sd">    :param techno:</span>

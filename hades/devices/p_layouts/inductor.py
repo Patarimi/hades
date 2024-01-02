@@ -20,7 +20,9 @@ def octagonal_inductor(d_i: float, n_turn: int, width: float, gap: float, layer:
     si = d_a * tan(pi / 8) / 2
     p_ext, p_gap = 20, 10
     turn = gdstk.RobustPath((-p_ext, p_gap), w, layer=m_top.data, datatype=m_top.d_type)
-    turn2 = gdstk.RobustPath((-p_ext, -p_gap), w, layer=m_top.data, datatype=m_top.d_type)
+    turn2 = gdstk.RobustPath(
+        (-p_ext, -p_gap), w, layer=m_top.data, datatype=m_top.d_type
+    )
     path = (
         (0, p_gap),
         (0, si),
@@ -34,6 +36,8 @@ def octagonal_inductor(d_i: float, n_turn: int, width: float, gap: float, layer:
         turn2.segment((pts[0], -pts[1]))
     ind.add(turn, turn2)
     ind.add(gdstk.Label("P1", (-p_ext, p_gap), layer=m_top.data, texttype=m_top.d_type))
-    ind.add(gdstk.Label("P2", (-p_ext, -p_gap), layer=m_top.data, texttype=m_top.d_type))
+    ind.add(
+        gdstk.Label("P2", (-p_ext, -p_gap), layer=m_top.data, texttype=m_top.d_type)
+    )
 
     return ind

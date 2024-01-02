@@ -8,7 +8,7 @@ def straight_line(
         top_metal: Layer,
         bot_metal: Layer,
         ports: [Port, Port] = (Port("S1"), Port("S2")),
-        name: str = "ms"
+        name: str = "ms",
 ) -> gdstk.Cell:
     """
     Generate a micro-strip straight line cell. Can be exported as a gds files.
@@ -39,11 +39,19 @@ def straight_line(
     return ms
 
 
-def_port = [Port(name) for name in ("in", "out", "cpl", "iso")]
+def_port = tuple(Port(name) for name in ("in", "out", "cpl", "iso"))
 
 
-def coupled_line(width1: float, length: float, gap: float, top_metal: Layer, bot_metal: Layer, width2: float = -1,
-                 ports: [Port, ] = def_port, name: str = "cpl"):
+def coupled_lines(
+        width1: float,
+        length: float,
+        gap: float,
+        top_metal: Layer,
+        bot_metal: Layer,
+        width2: float = -1,
+        ports: list[Port] = def_port,
+        name: str = "cpl",
+):
     w2 = width2 if width2 > 0 else width1
     ms1 = straight_line(width1, length, top_metal, bot_metal, ports[0:2])
     ms2 = straight_line(w2, length, top_metal, bot_metal, ports[2:])

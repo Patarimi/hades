@@ -63,7 +63,7 @@ def list_pdk() -> None:
 def get_layer(techno: str, name: str, datatype: str = "drawing"):
     process = load(techno)
     with open(
-            join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
+        join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
     ) as f:
         for line in f:
             # for proc files

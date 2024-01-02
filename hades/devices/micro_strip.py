@@ -19,7 +19,7 @@ class MicroStrip:
     techno: str
 
     def __init__(
-            self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
+        self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
     ):
         self.name = name
         self.specifications = {"z_c": float(z_c), "f_c": float(f_c), "phi": float(phi)}
@@ -55,8 +55,12 @@ class MicroStrip:
         self.dimensions = dimensions
         m_top = get_layer(self.techno, dimensions["m_path"])
         m_bott = get_layer(self.techno, dimensions["m_gnd"])
-        ms = straight_line(width=dimensions["w"], length=dimensions["l"],
-                           top_metal=m_top, bot_metal=m_bott)
+        ms = straight_line(
+            width=dimensions["w"],
+            length=dimensions["l"],
+            top_metal=m_top,
+            bot_metal=m_bott,
+        )
         return ms
 
     def update_accurate(self, sim_file: Path) -> Parameters:

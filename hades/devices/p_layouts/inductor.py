@@ -5,7 +5,7 @@ from numpy import tan, pi
 
 def octagonal_inductor(d_i: float, n_turn: int, width: float, gap: float, layer: Layer):
     """
-
+    generate a one-turn octagonal inductor.
     :param d_i: inner diameter in micron
     :param n_turn: number of turn
     :param width: width of the track

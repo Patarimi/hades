@@ -29,7 +29,7 @@ class Emx:
         self.proc = join(tech["base_dir"], tech["process"])
 
     def compute(
-            self, input_file: Path, cell_name: str, freq: float | tuple[float], **options
+        self, input_file: Path, cell_name: str, freq: float | tuple[float], **options
     ):
         """
         Run the simulation
@@ -53,18 +53,18 @@ class Emx:
         # %d enable automatic numbering matching the port number
         path_file = "res.s%dp"
         cmd = (
-                [
-                    emx_base,
-                    str(input_file),
-                    cell_name,
-                    self.proc,
-                    "--sweep",
-                ]
-                + f_s
-                + [
-                    "--format=touchstone",
-                    "-s" + path_file,
-                ]
+            [
+                emx_base,
+                str(input_file),
+                cell_name,
+                self.proc,
+                "--sweep",
+            ]
+            + f_s
+            + [
+                "--format=touchstone",
+                "-s" + path_file,
+            ]
         )
         if "port" in options:
             for port in options["port"]:

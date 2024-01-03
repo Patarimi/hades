@@ -38,4 +38,5 @@ def check_diff(gds1: Path, gds2: Path):
         cmd = "/usr/lib/klayout/" + cmd
     c = subprocess.run(cmd, shell=True, capture_output=True)
     if c.returncode != 0:
-        raise ValueError(c.stderr)
+        err_mess = c.stdout.decode("latin")
+        raise ValueError(err_mess)

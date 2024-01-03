@@ -40,7 +40,10 @@ def straight_line(
     return ms
 
 
-def_port = tuple(Port(name) for name in ("in", "out", "cpl", "iso"))
+def_port = tuple(
+    Port(name, ref)
+    for name, ref in (("in", "ref1"), ("out", "ref1"), ("cpl", "ref2"), ("iso", "ref2"))
+)
 
 
 def coupled_lines(

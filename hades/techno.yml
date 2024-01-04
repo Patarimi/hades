@@ -13,7 +13,7 @@ asap7:
 gf180mcu:
   source_url: volare
   version: cd1748bb197f9b7af62a54507de6624e30363943
-  base_dir: ../pdk/gf180mcuA/libs.tech
+  base_dir: ../pdk/gf180mcuD/libs.tech
   layermap: klayout/tech/gf180mcu.map
   process: not_found.proc
   # à generer à partir de libs.ref\gf180mcu_fd_sc_mcu7t5v0\*.tlef

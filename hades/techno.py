@@ -7,7 +7,7 @@ import urllib.request
 import tarfile, zipfile
 from typer import Typer
 
-# from hades.devices.p_layouts.tools import Layer
+from hades.devices.p_layouts.tools import Layer
 
 pkd_app = Typer()
 
@@ -82,7 +82,7 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
             # for tech files
             if re.match(rf"{name}\s*[A-Z,]*", line, re.IGNORECASE) is not None:
                 res = list(filter(None, line.split()))
-                return int(res[2]), int(res[3])
+                return Layer(int(res[2]), int(res[3]))
     raise ValueError(f"{name} not found in file {techno}")
 
 

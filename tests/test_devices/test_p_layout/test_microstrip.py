@@ -28,7 +28,7 @@ def test_coupler(tmp_path):
     check_diff(tmp_path / "cpl.gds", join(ref_path, "cpl_ref.gds"))
 
 
-def test_coupler(tmp_path):
+def test_lange(tmp_path):
     mt = Layer(37, 140)
     via = Layer(56, 140)
     mb = Layer(36, 140)

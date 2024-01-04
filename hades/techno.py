@@ -6,7 +6,8 @@ from os import makedirs
 import urllib.request
 import tarfile, zipfile
 from typer import Typer
-from hades.devices.p_layouts.tools import Layer
+
+# from hades.devices.p_layouts.tools import Layer
 
 pkd_app = Typer()
 
@@ -17,7 +18,7 @@ def install(pdk_name: str):
     install the sky130a technology in its default location.
     """
     base_install = join(dirname(__file__), "../pdk/")
-    tech = load(pdk_name)
+    tech = load_pdk(pdk_name)
     base_url = tech["source_url"]
     if base_url == "volare":
         os.system(
@@ -50,7 +51,7 @@ def install(pdk_name: str):
 
 
 @pkd_app.command("list")
-def list_pdk() -> None:
+def list_pdk() -> list:
     """
     Display the list of available pdks.
     """
@@ -58,9 +59,17 @@ def list_pdk() -> None:
     print("Available PDKs are:")
     for k in process_d:
         print(f"- {k}")
+    return list(process_d.keys())
 
 
 def get_layer(techno: str, name: str, datatype: str = "drawing"):
+    """
+    to be moved in map.py
+    :param techno:
+    :param name:
+    :param datatype:
+    :return:
+    """
     process = load(techno)
     with open(
         join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
@@ -77,7 +86,7 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
     raise ValueError(f"{name} not found in file {techno}")
 
 
-def load(pdk_name: str):
+def load_pdk(pdk_name: str):
     try:
         tech = _read_tech()[pdk_name]
     except KeyError:

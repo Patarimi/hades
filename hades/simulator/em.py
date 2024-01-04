@@ -6,7 +6,7 @@ from .simulator import load_conf
 from subprocess import run
 from os.path import join
 from dotenv import load_dotenv
-from ..techno import load
+from ..techno import load_pdk
 import glob
 
 
@@ -25,7 +25,7 @@ class Emx:
         :return:
         """
         load_dotenv()
-        tech = load(techno)
+        tech = load_pdk(techno)
         self.proc = join(tech["base_dir"], tech["process"])
 
     def compute(

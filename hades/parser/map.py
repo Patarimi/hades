@@ -49,5 +49,5 @@ def get_number(techno: str, name: str, datatype: str = "drawing") -> tuple[int, 
             return datatypes[d_type]
     raise KeyError(
         f"Datatype {datatype} not found for layer {name} in {techno}.\n"
-        "Available datatypes are: {datatypes.keys()}."
+        f"Available datatypes are: {datatypes.keys()}."
     )

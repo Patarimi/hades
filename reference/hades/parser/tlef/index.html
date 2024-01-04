@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://patarimi.github.io/hades/reference/hades/parser/netlist/">
+        <link rel="canonical" href="https://patarimi.github.io/hades/reference/hades/parser/tlef/">
       
       
-        <link rel="prev" href="../map/">
+        <link rel="prev" href="../netlist/">
       
       
-        <link rel="next" href="../tlef/">
+        <link rel="next" href="../../simulator/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>netlist - HADes</title>
+        <title>tlef - HADes</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hades.parser.netlist" class="md-skip">
+        <a href="#hades.parser.tlef" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              netlist
+              tlef
             
           </span>
         </div>
@@ -823,6 +823,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../netlist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    netlist
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -837,7 +858,7 @@
           
   
   <span class="md-ellipsis">
-    netlist
+    tlef
   </span>
   
 
@@ -848,7 +869,7 @@
         
   
   <span class="md-ellipsis">
-    netlist
+    tlef
   </span>
   
 
@@ -868,27 +889,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hades.parser.netlist" class="md-nav__link">
+  <a href="#hades.parser.tlef" class="md-nav__link">
     <span class="md-ellipsis">
-      netlist
+      tlef
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.parser.netlist.Component" class="md-nav__link">
+  <a href="#hades.parser.tlef.get_all_by_type" class="md-nav__link">
     <span class="md-ellipsis">
-      Component
+      get_all_by_type()
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.parser.netlist.Netlist" class="md-nav__link">
+  <a href="#hades.parser.tlef.get_by_type" class="md-nav__link">
     <span class="md-ellipsis">
-      Netlist
+      get_by_type()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.parser.tlef.get_metal" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_metal()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.parser.tlef.get_via" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_via()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.parser.tlef.load_tlef" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_tlef()
     </span>
   </a>
   
@@ -898,27 +946,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tlef/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    tlef
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1109,27 +1136,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hades.parser.netlist" class="md-nav__link">
+  <a href="#hades.parser.tlef" class="md-nav__link">
     <span class="md-ellipsis">
-      netlist
+      tlef
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.parser.netlist.Component" class="md-nav__link">
+  <a href="#hades.parser.tlef.get_all_by_type" class="md-nav__link">
     <span class="md-ellipsis">
-      Component
+      get_all_by_type()
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.parser.netlist.Netlist" class="md-nav__link">
+  <a href="#hades.parser.tlef.get_by_type" class="md-nav__link">
     <span class="md-ellipsis">
-      Netlist
+      get_by_type()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.parser.tlef.get_metal" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_metal()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.parser.tlef.get_via" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_via()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.parser.tlef.load_tlef" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_tlef()
     </span>
   </a>
   
@@ -1150,14 +1204,17 @@
                   
 
 
-  <h1>netlist</h1>
+  <h1>tlef</h1>
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="hades.parser.netlist"></a>
+<a id="hades.parser.tlef"></a>
   <div class="doc doc-contents first">
+  
+      <p>List of function to parse technological lef (TLEF) files.
+TLEF files give the information on the back-end composition and associated design rules.</p>
 
   
 
@@ -1170,40 +1227,94 @@
 
 
 
-<div class="doc doc-object doc-class">
+
+
+<div class="doc doc-object doc-function">
 
 
 
 
-<h2 id="hades.parser.netlist.Component" class="doc doc-heading">
-          <code>Component</code>
+<h2 id="hades.parser.tlef.get_all_by_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">get_all_by_type</span><span class="p">(</span><span class="n">l_type</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">)</span></code>
 
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#hades.parser.netlist.Component" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#hades.parser.tlef.get_all_by_type" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
   <div class="doc doc-contents ">
-
   
-      <p>Represents a component.</p>
+      <p>Return the layers of the given type.</p>
 
-            <details class="quote">
-              <summary>Source code in <code>hades\parser\netlist.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>l_type</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>type of the layer</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tlef_path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>path to the TLEF file</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" href="../../../../CLI-ref/#list">list</a>[str]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>list of layer names for the given type</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\parser\tlef.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
@@ -1215,10 +1326,126 @@
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_all_by_type</span><span class="p">(</span><span class="n">l_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the layers of the given type.</span>
+<span class="sd">    :param l_type: type of the layer</span>
+<span class="sd">    :param tlef_path: path to the TLEF file</span>
+<span class="sd">    :return: list of layer names for the given type</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">full_stack</span> <span class="o">=</span> <span class="n">load_tlef</span><span class="p">(</span><span class="n">tlef_path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">full_stack</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">full_stack</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">l_type</span><span class="p">:</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">layers</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="hades.parser.tlef.get_by_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">get_by_type</span><span class="p">(</span><span class="n">l_type</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">,</span> <span class="n">nbr</span><span class="p">)</span></code>
+
+<a href="#hades.parser.tlef.get_by_type" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the $nbr^{th}$ layer of the given type.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>l_type</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>layer type</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tlef_path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>path to the TLEF file</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>nbr</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>indice of the layer to return if nbr is negative, the last layer of the given type is returned</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>layer name</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\parser\tlef.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
@@ -1229,156 +1456,312 @@
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Component</span><span class="p">:</span>
+<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_by_type</span><span class="p">(</span><span class="n">l_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">nbr</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Represents a component.</span>
+<span class="sd">    Return the $nbr^{th}$ layer of the given type.</span>
+<span class="sd">    :param l_type: layer type</span>
+<span class="sd">    :param tlef_path: path to the TLEF file</span>
+<span class="sd">    :param nbr: indice of the layer to return</span>
+<span class="sd">        if nbr is negative, the last layer of the given type is returned</span>
+<span class="sd">    :return: layer name</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="nb">type</span><span class="p">:</span> <span class="n">ComponentType</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">node</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readable_value</span><span class="p">()</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">value</span><span class="si">}{</span><span class="n">Unit</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)]</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="k">def</span> <span class="nf">readable_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PreFix</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
-                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">last</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">PreFix</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="n">last</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">PreFix</span><span class="p">[</span><span class="n">last</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="k">def</span> <span class="nf">full_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-
-    <span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">media</span><span class="p">:</span> <span class="n">rf</span><span class="o">.</span><span class="n">Media</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s2">&quot;0&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
-                <span class="n">sp</span> <span class="o">=</span> <span class="n">media</span><span class="o">.</span><span class="n">shunt_capacitor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">())</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
-                <span class="n">sp</span> <span class="o">=</span> <span class="n">media</span><span class="o">.</span><span class="n">shunt_inductor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">())</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported type of components.&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
-                <span class="n">sp</span> <span class="o">=</span> <span class="n">media</span><span class="o">.</span><span class="n">capacitor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">())</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
-                <span class="n">sp</span> <span class="o">=</span> <span class="n">media</span><span class="o">.</span><span class="n">inductor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">())</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported type of components.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sp</span>
+    <span class="k">if</span> <span class="n">nbr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;nbr cannot be 0&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_all_by_type</span><span class="p">(</span><span class="n">l_type</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">)[</span><span class="n">nbr</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">nbr</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">nbr</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
+          </details>
   </div>
 
 </div>
 
-<div class="doc doc-object doc-class">
+
+<div class="doc doc-object doc-function">
 
 
 
 
-<h2 id="hades.parser.netlist.Netlist" class="doc doc-heading">
-          <code>Netlist</code>
+<h2 id="hades.parser.tlef.get_metal" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">get_metal</span><span class="p">(</span><span class="n">nbr</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">)</span></code>
 
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#hades.parser.netlist.Netlist" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#hades.parser.tlef.get_metal" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
   <div class="doc doc-contents ">
-
   
-      <p>Represents a Netlist. The connexion graph is stored in circuit.
-The spice netlist can be generated using the spice function.</p>
+      <p>Return the name of the $nbr^{th}$ metal (starting at 1).</p>
 
-            <details class="quote">
-              <summary>Source code in <code>hades\parser\netlist.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">62</span>
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>nbr</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>metal layer number</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of the metal layer</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\parser\tlef.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
 <span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
+<span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_metal</span><span class="p">(</span><span class="n">nbr</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the name of the $nbr^{th}$ metal (starting at 1).</span>
+<span class="sd">    :param nbr: metal layer number</span>
+<span class="sd">    :return: name of the metal layer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_by_type</span><span class="p">(</span><span class="s2">&quot;ROUTING&quot;</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">,</span> <span class="n">nbr</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="hades.parser.tlef.get_via" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">get_via</span><span class="p">(</span><span class="n">nbr</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">)</span></code>
+
+<a href="#hades.parser.tlef.get_via" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the name of the $nbr^{th}$ via (starting at 1).</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>nbr</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>via layer number</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tlef_path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>path to the TLEF file</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of the via layer</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\parser\tlef.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span>
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Netlist</span><span class="p">:</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_via</span><span class="p">(</span><span class="n">nbr</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Represents a Netlist. The connexion graph is stored in circuit.</span>
-<span class="sd">    The spice netlist can be generated using the spice function.</span>
+<span class="sd">    Return the name of the $nbr^{th}$ via (starting at 1).</span>
+<span class="sd">    :param nbr: via layer number</span>
+<span class="sd">    :param tlef_path: path to the TLEF file</span>
+<span class="sd">    :return: name of the via layer</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">circuit</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Component</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Component</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">spice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">spice</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;#</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
-            <span class="n">spice</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">comp</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="n">spice</span>
+    <span class="k">return</span> <span class="n">get_by_type</span><span class="p">(</span><span class="s2">&quot;CUT&quot;</span><span class="p">,</span> <span class="n">tlef_path</span><span class="p">,</span> <span class="n">nbr</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
+          </details>
   </div>
 
 </div>
 
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="hades.parser.tlef.load_tlef" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">load_tlef</span><span class="p">(</span><span class="n">tlef_path</span><span class="p">)</span></code>
+
+<a href="#hades.parser.tlef.load_tlef" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Load a TLEF file and return a dictionary of layer names.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>tlef_path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>path to the TLEF file</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\parser\tlef.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_tlef</span><span class="p">(</span><span class="n">tlef_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a TLEF file and return a dictionary of layer names.</span>
+<span class="sd">    :param tlef_path: path to the TLEF file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tlef_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">layer_name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;LAYER&quot;</span><span class="p">):</span>
+            <span class="n">layer_name</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;END&quot;</span><span class="p">):</span>
+            <span class="n">layer_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;TYPE&quot;</span><span class="p">):</span>
+            <span class="n">layer_type</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer_type</span>
+    <span class="k">return</span> <span class="n">layers</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
 
 
 

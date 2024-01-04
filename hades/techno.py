@@ -1,20 +1,12 @@
 import os
-import re
-import yaml
-from os.path import join, dirname, isdir
-from os import makedirs
+import tarfile
 import urllib.request
-import tarfile, zipfile
+import zipfile
+from os import makedirs
+from os.path import join, dirname, isdir
+
+import yaml
 from typer import Typer
-from dataclasses import dataclass
-
-
-# to be deleted during map.py rewrite.
-@dataclass
-class Layer:
-    data: int
-    d_type: int = 0
-
 
 pkd_app = Typer()
 
@@ -67,30 +59,6 @@ def list_pdk() -> list:
     for k in process_d:
         print(f"- {k}")
     return list(process_d.keys())
-
-
-def get_layer(techno: str, name: str, datatype: str = "drawing"):
-    """
-    to be moved in map.py
-    :param techno:
-    :param name:
-    :param datatype:
-    :return:
-    """
-    process = load_pdk(techno)
-    with open(
-        join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
-    ) as f:
-        for line in f:
-            # for proc files
-            if re.match(rf"{name}\s*{datatype}", line, re.IGNORECASE) is not None:
-                res = list(filter(None, line.split()))
-                return int(res[2]), int(res[3])
-            # for tech files
-            if re.match(rf"{name}\s*[A-Z,]*", line, re.IGNORECASE) is not None:
-                res = list(filter(None, line.split()))
-                return Layer(int(res[2]), int(res[3]))
-    raise ValueError(f"{name} not found in file {techno}")
 
 
 def load_pdk(pdk_name: str):

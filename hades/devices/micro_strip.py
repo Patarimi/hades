@@ -5,10 +5,11 @@ from ..simulator import Emx
 import gdstk
 from pathlib import Path
 from .app_models.micro_strip import wheeler
-from scipy.optimize import minimize_scalar, minimize
-from ..techno import get_layer
-from numpy import angle, sqrt, pi, arccosh, NaN
+from scipy.optimize import minimize_scalar
+from ..parser.map import get_number
+from numpy import sqrt, NaN
 from hades.devices.p_layouts.microstrip import straight_line
+from hades.devices.p_layouts.tools import Layer
 
 
 class MicroStrip:
@@ -53,13 +54,13 @@ class MicroStrip:
 
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
-        m_top = get_layer(self.techno, dimensions["m_path"])
-        m_bott = get_layer(self.techno, dimensions["m_gnd"])
+        m_top = get_number(self.techno, dimensions["m_path"], "NET")
+        m_bott = get_number(self.techno, dimensions["m_gnd"], "NET")
         ms = straight_line(
             width=dimensions["w"],
             length=dimensions["l"],
-            top_metal=m_top,
-            bot_metal=m_bott,
+            top_metal=Layer(m_top[0], m_top[1]),
+            bot_metal=Layer(m_bott[1], m_bott[0]),
         )
         return ms
 
@@ -89,5 +90,4 @@ class MicroStrip:
         if res.x is NaN:
             raise ValueError(res)
         self.parameters["eps"] = res.x
-        # self.parameters["height"] = res.x[1]
         return self.parameters

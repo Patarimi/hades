@@ -6,6 +6,7 @@ from scipy.optimize import minimize_scalar
 from ..simulator import Emx
 from hades.parser.map import get_number
 from hades.devices.p_layouts.inductor import octagonal_inductor
+from hades.devices.p_layouts.tools import Layer
 
 
 class Inductor:
@@ -58,7 +59,7 @@ class Inductor:
             dimensions["n"],
             dimensions["W"],
             1e-6,
-            m_top,
+            Layer(m_top[0], m_top[1]),
         )
 
         return ind

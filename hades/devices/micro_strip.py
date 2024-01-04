@@ -9,6 +9,7 @@ from scipy.optimize import minimize_scalar
 from ..parser.map import get_number
 from numpy import sqrt, NaN
 from hades.devices.p_layouts.microstrip import straight_line
+from hades.devices.p_layouts.tools import Layer
 
 
 class MicroStrip:
@@ -58,8 +59,8 @@ class MicroStrip:
         ms = straight_line(
             width=dimensions["w"],
             length=dimensions["l"],
-            top_metal=m_top,
-            bot_metal=m_bott,
+            top_metal=Layer(m_top[0], m_top[1]),
+            bot_metal=Layer(m_bott[1], m_bott[0]),
         )
         return ms
 
@@ -89,5 +90,4 @@ class MicroStrip:
         if res.x is NaN:
             raise ValueError(res)
         self.parameters["eps"] = res.x
-        # self.parameters["height"] = res.x[1]
         return self.parameters

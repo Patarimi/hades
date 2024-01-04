@@ -70,7 +70,7 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
     :param datatype:
     :return:
     """
-    process = load(techno)
+    process = load_pdk(techno)
     with open(
         join(dirname(__file__), process["base_dir"], process["layermap"]), "r"
     ) as f:
@@ -82,7 +82,7 @@ def get_layer(techno: str, name: str, datatype: str = "drawing"):
             # for tech files
             if re.match(rf"{name}\s*[A-Z,]*", line, re.IGNORECASE) is not None:
                 res = list(filter(None, line.split()))
-                return Layer(int(res[2]), int(res[3]))
+                return int(res[2]), int(res[3])
     raise ValueError(f"{name} not found in file {techno}")
 
 

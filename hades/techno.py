@@ -6,8 +6,15 @@ from os import makedirs
 import urllib.request
 import tarfile, zipfile
 from typer import Typer
+from dataclasses import dataclass
 
-from hades.devices.p_layouts.tools import Layer
+
+# to be deleted during map.py rewrite.
+@dataclass
+class Layer:
+    data: int
+    d_type: int = 0
+
 
 pkd_app = Typer()
 
@@ -53,7 +60,7 @@ def install(pdk_name: str):
 @pkd_app.command("list")
 def list_pdk() -> list:
     """
-    Display the list of available pdks.
+    Display the list of available PDK.
     """
     process_d = _read_tech()
     print("Available PDKs are:")

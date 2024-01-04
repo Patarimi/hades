@@ -15,7 +15,7 @@ pipx install git+https://github.com/Patarimi/hades
 
 ## Design flow
 
-Starting from the specifications written in a design.yml file, the following flow is run (see #working_dir).
+Starting from the specifications written in a design.yml file, the following flow is run [see](#working-directory).
 
 ```mermaid
 stateDiagram

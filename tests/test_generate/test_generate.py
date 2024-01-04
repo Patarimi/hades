@@ -1,6 +1,6 @@
 import os
 from hades.main import generate_cli
-from hades.techno import get_layer
+from hades.parser.map import get_number
 from os import chdir
 import yaml
 import pytest
@@ -15,7 +15,7 @@ def test_generation():
             conf = yaml.load(f, Loader=yaml.Loader)
         pdk = conf["techno"]
         try:
-            get_layer(pdk, "toto")
+            get_number(pdk, "toto")
         except FileNotFoundError:
             pytest.skip(f"The pdk {pdk} is not installed. Skipping")
         except ValueError:

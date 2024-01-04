@@ -1,12 +1,11 @@
 from .device import Parameters
 import gdstk
-from math import pi, tan
+from math import pi
 from pathlib import Path
 from scipy.optimize import minimize_scalar
 from ..simulator import Emx
-from hades.techno import get_layer
+from hades.parser.map import get_number
 from hades.devices.p_layouts.inductor import octagonal_inductor
-from hades.devices.p_layouts.tools import Layer
 
 
 class Inductor:
@@ -53,7 +52,7 @@ class Inductor:
 
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
-        m_top = get_layer(self.techno, dimensions["m_path"])
+        m_top = get_number(self.techno, dimensions["m_path"])
         ind = octagonal_inductor(
             dimensions["d_i"],
             dimensions["n"],

@@ -18,6 +18,6 @@ def test_generation():
             get_number(pdk, "toto")
         except FileNotFoundError:
             pytest.skip(f"The pdk {pdk} is not installed. Skipping")
-        except ValueError:
+        except KeyError:
             pass
         generate_cli(design_yaml=design, stop="geometries")

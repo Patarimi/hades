@@ -26,7 +26,7 @@ class Port:
 
 def check_diff(gds1: Path, gds2: Path):
     """
-    Test if the 2 gds files are the same. Raise error if they differe.
+    Test if the 2 gds files are the same. Raise error if they differ.
     :param gds1: path of the first gds
     :param gds2: path of the second gds
     :return: None

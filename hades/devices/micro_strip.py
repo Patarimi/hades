@@ -54,8 +54,8 @@ class MicroStrip:
 
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
-        m_top = get_number(self.techno, dimensions["m_path"])
-        m_bott = get_number(self.techno, dimensions["m_gnd"])
+        m_top = get_number(self.techno, dimensions["m_path"], "NET")
+        m_bott = get_number(self.techno, dimensions["m_gnd"], "NET")
         ms = straight_line(
             width=dimensions["w"],
             length=dimensions["l"],

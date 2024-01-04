@@ -1,12 +1,12 @@
 import pytest
 from hades.parser.tlef import load_tlef, get_metal, get_via
 from hades.techno import load_pdk
-from os.path import join
+from os.path import join, dirname
 
 
 def test_load_tlef():
     pdk = load_pdk("gf180mcu")
-    path = join("./hades", pdk["base_dir"], pdk["techlef"])
+    path = join(dirname(dirname(__file__)), pdk["base_dir"], pdk["techlef"])
     layers = load_tlef(path)
     print(layers)
 

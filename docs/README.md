@@ -19,16 +19,16 @@ Starting from the specifications written in a design.yml file, the following flo
 
 ```mermaid
 stateDiagram
-    [*] --> app: specifications
+    [*] --> app: specifications (.yml)
     app: approx. model
     pc: parametric cells
     app --> pc: dimensions
     sim: accurate model
-    pc --> sim: geometries
+    pc --> sim: geometries (.gdsII)
     pdk --> sim
     cal: calibrator
     state atSpec <<choice>>
-    sim --> atSpec: accurate behavior
+    sim --> atSpec: accurate behavior (.sNp)
     atSpec --> [*]: at spec
     atSpec --> cal: not at spec
     app --> cal: dimensions

@@ -1,7 +1,9 @@
 import pytest
 from hades.parser.tlef import load_tlef, get_metal, get_via
 from hades.techno import load_pdk
-from os.path import join, dirname
+from os.path import join, dirname, isdir
+
+pytestmark = pytest.mark.skipif(not (isdir("./pdk")), reason="PDK not installed.")
 
 
 def test_load_tlef():

@@ -1162,7 +1162,7 @@
 
 
 <h2 id="hades.devices.p_layouts.inductor.octagonal_inductor" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">octagonal_inductor</span><span class="p">(</span><span class="n">d_i</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">octagonal_inductor</span><span class="p">(</span><span class="n">d_i</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layer_stack</span><span class="p">)</span></code>
 
 <a href="#hades.devices.p_layouts.inductor.octagonal_inductor" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1241,13 +1241,13 @@
           </td>
         </tr>
         <tr>
-          <td><code>layer</code></td>
+          <td><code>layer_stack</code></td>
           <td>
-                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
+                <code><span title="hades.devices.p_layouts.tools.LayerStack">LayerStack</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the inductor will be drawn on this layer</p>
+              <p>the inductor will be drawn on the highest layer of the stack.</p>
             </div>
           </td>
           <td>
@@ -1319,17 +1319,21 @@
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">octagonal_inductor</span><span class="p">(</span><span class="n">d_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">octagonal_inductor</span><span class="p">(</span>
+    <span class="n">d_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">layer_stack</span><span class="p">:</span> <span class="n">LayerStack</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    generate a one-turn octagonal inductor.</span>
 <span class="sd">    :param d_i: inner diameter in micron</span>
 <span class="sd">    :param n_turn: number of turn</span>
 <span class="sd">    :param width: width of the track</span>
 <span class="sd">    :param gap: gap between the track</span>
-<span class="sd">    :param layer: the inductor will be drawn on this layer</span>
+<span class="sd">    :param layer_stack: the inductor will be drawn on the highest layer of the stack.</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">m_top</span> <span class="o">=</span> <span class="n">layer</span>
+    <span class="n">m_top</span> <span class="o">=</span> <span class="n">layer_stack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ind</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;ind&quot;</span><span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span>
     <span class="n">d_a</span> <span class="o">=</span> <span class="n">d_i</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">w</span>

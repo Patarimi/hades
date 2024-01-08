@@ -1198,7 +1198,7 @@
 
 
 <h2 id="hades.devices.p_layouts.microstrip.coupled_lines" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">coupled_lines</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">width2</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cpl&#39;</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">coupled_lines</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">width2</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cpl&#39;</span><span class="p">)</span></code>
 
 <a href="#hades.devices.p_layouts.microstrip.coupled_lines" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1263,27 +1263,13 @@
           </td>
         </tr>
         <tr>
-          <td><code>top_metal</code></td>
+          <td><code>layerstack</code></td>
           <td>
-                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
+                <code><span title="hades.devices.p_layouts.tools.LayerStack">LayerStack</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Layer of the signal track.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>bot_metal</code></td>
-          <td>
-                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Layer of the reference track.</p>
+              <p>LayerStack object. The highest metal layer will be used for the signal line. The lowest metal layer will be used for the ground plane.</p>
             </div>
           </td>
           <td>
@@ -1361,7 +1347,8 @@
 
           <details class="quote">
             <summary>Source code in <code>hades\devices\p_layouts\microstrip.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
+<span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
@@ -1388,33 +1375,30 @@
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">coupled_lines</span><span class="p">(</span>
-        <span class="n">width1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">top_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
-        <span class="n">bot_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
-        <span class="n">width2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpl&quot;</span><span class="p">,</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">coupled_lines</span><span class="p">(</span>
+    <span class="n">width1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">layerstack</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span>
+    <span class="n">width2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpl&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.</span>
 <span class="sd">    :param width1: width of the first line.</span>
 <span class="sd">    :param length: length of the two lines.</span>
 <span class="sd">    :param gap: gap between the two lines.</span>
-<span class="sd">    :param top_metal: Layer of the signal track.</span>
-<span class="sd">    :param bot_metal: Layer of the reference track.</span>
+<span class="sd">    :param layerstack: LayerStack object. The highest metal layer will be used for the signal line.</span>
+<span class="sd">    The lowest metal layer will be used for the ground plane.</span>
 <span class="sd">    :param width2: width of the second line.</span>
 <span class="sd">    :param ports: name of each port.</span>
 <span class="sd">    :param name: name of the cell.</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">w2</span> <span class="o">=</span> <span class="n">width2</span> <span class="k">if</span> <span class="n">width2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">width1</span>
-    <span class="n">ms1</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">ms2</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="n">ms1</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ms2</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
     <span class="n">cpl</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">ms_rf</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">ms1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">width1</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
     <span class="n">ms_rf2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">ms2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">w2</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
@@ -1433,7 +1417,7 @@
 
 
 <h2 id="hades.devices.p_layouts.microstrip.lange_coupler" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">lange_coupler</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;lange&#39;</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">lange_coupler</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;lange&#39;</span><span class="p">)</span></code>
 
 <a href="#hades.devices.p_layouts.microstrip.lange_coupler" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1498,27 +1482,13 @@
           </td>
         </tr>
         <tr>
-          <td><code>top_metal</code></td>
+          <td><code>layerstack</code></td>
           <td>
-                <code>tuple[<span title="hades.devices.p_layouts.tools.Layer">Layer</span>]</code>
+                <code><span title="hades.devices.p_layouts.tools.LayerStack">LayerStack</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>tuple with the main metal, the via and the metal for bridging.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>bot_metal</code></td>
-          <td>
-                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>lower reference metal (ground plane).</p>
+              <p>LayerStack object. The highest metal layer will be used for the signal line. The lowest metal layer will be used for the ground plane. The second higher metal layer will be used for bridging.</p>
             </div>
           </td>
           <td>
@@ -1582,7 +1552,9 @@
 
           <details class="quote">
             <summary>Source code in <code>hades\devices\p_layouts\microstrip.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
 <span class="normal"> 82</span>
 <span class="normal"> 83</span>
 <span class="normal"> 84</span>
@@ -1667,33 +1639,37 @@
 <span class="normal">163</span>
 <span class="normal">164</span>
 <span class="normal">165</span>
-<span class="normal">166</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">lange_coupler</span><span class="p">(</span>
-        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">top_metal</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span>
-        <span class="n">bot_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
-        <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lange&quot;</span><span class="p">,</span>
+<span class="normal">166</span>
+<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">lange_coupler</span><span class="p">(</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">layerstack</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span>
+    <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lange&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a flat symmetrical lange coupler.</span>
 <span class="sd">    :param width: track width (in µm)</span>
 <span class="sd">    :param length: total length of the lines.</span>
 <span class="sd">    :param gap: space between each track.</span>
-<span class="sd">    :param top_metal: tuple with the main metal, the via and the metal for bridging.</span>
-<span class="sd">    :param bot_metal: lower reference metal (ground plane).</span>
+<span class="sd">    :param layerstack: LayerStack object. The highest metal layer will be used for the signal line.</span>
+<span class="sd">    The lowest metal layer will be used for the ground plane. The second higher metal layer will be used for bridging.</span>
 <span class="sd">    :param ports: name of each port.</span>
 <span class="sd">    :param name: name of the returned cell.</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ext</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">w</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">length</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span>
+    <span class="n">top_metal</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">bridge</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">top_via</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">bot_metal</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">first_met</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
         <span class="n">w</span><span class="p">,</span>
-        <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+        <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
         <span class="n">ends</span><span class="o">=</span><span class="s2">&quot;extended&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">first_met</span><span class="o">.</span><span class="n">horizontal</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1701,14 +1677,14 @@
     <span class="n">first_met</span><span class="o">.</span><span class="n">horizontal</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">first_met</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">port</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span>
+        <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">d_type</span>
     <span class="p">)</span>
     <span class="n">port</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">sec_met</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
         <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))],</span>
         <span class="n">w</span><span class="p">,</span>
-        <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+        <span class="n">layer</span><span class="o">=</span><span class="n">bridge</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">datatype</span><span class="o">=</span><span class="n">bridge</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
         <span class="n">ends</span><span class="o">=</span><span class="s2">&quot;extended&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">via_w</span> <span class="o">=</span> <span class="mf">0.4</span>
@@ -1717,7 +1693,7 @@
     <span class="n">rep</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">w</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">via_s</span> <span class="o">-</span> <span class="n">via_w</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">shift</span> <span class="o">=</span> <span class="o">-</span><span class="n">via_w</span> <span class="o">-</span> <span class="p">(</span><span class="n">rep</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">)</span>
     <span class="n">via</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">via_w</span><span class="p">,</span> <span class="n">via_w</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">via_w</span><span class="p">,</span> <span class="n">via_w</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_via</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_via</span><span class="o">.</span><span class="n">d_type</span>
     <span class="p">)</span>
     <span class="n">via</span><span class="o">.</span><span class="n">repetition</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Repetition</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">rep</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">,</span> <span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">))</span>
     <span class="n">via</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">shift</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">shift</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
@@ -1740,8 +1716,8 @@
         <span class="n">lab</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
             <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-            <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">texttype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+            <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">texttype</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">ref</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
             <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">layer</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">d_type</span>
@@ -1766,7 +1742,7 @@
 
 
 <h2 id="hades.devices.p_layouts.microstrip.straight_line" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">straight_line</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S1&#39;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S2&#39;</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">straight_line</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S1&#39;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S2&#39;</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span></code>
 
 <a href="#hades.devices.p_layouts.microstrip.straight_line" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1831,27 +1807,13 @@
           </td>
         </tr>
         <tr>
-          <td><code>top_metal</code></td>
+          <td><code>layerstack</code></td>
           <td>
-                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
+                <code><span title="hades.devices.p_layouts.tools.LayerStack">LayerStack</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Layer of the signal line</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>bot_metal</code></td>
-          <td>
-                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Layer of the reference line</p>
+              <p>LayerStack object. The highest metal layer will be used for the signal line. The lowest metal layer will be used for the ground plane.</p>
             </div>
           </td>
           <td>
@@ -1934,27 +1896,25 @@
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">straight_line</span><span class="p">(</span>
-        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">top_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
-        <span class="n">bot_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
-        <span class="n">ports</span><span class="p">:</span> <span class="p">[</span><span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S1&quot;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S2&quot;</span><span class="p">)),</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">straight_line</span><span class="p">(</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">layerstack</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span>
+    <span class="n">ports</span><span class="p">:</span> <span class="p">[</span><span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S1&quot;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S2&quot;</span><span class="p">)),</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a micro-strip straight line cell. Can be exported as a gds files.</span>
 <span class="sd">    :param name: name of the cell generated</span>
 <span class="sd">    :param width: Width of the signal line (Reference line is three time wider).</span>
 <span class="sd">    :param length: Length of the micro-strip.</span>
-<span class="sd">    :param top_metal: Layer of the signal line</span>
-<span class="sd">    :param bot_metal: Layer of the reference line</span>
+<span class="sd">    :param layerstack: LayerStack object. The highest metal layer will be used for the signal line.</span>
+<span class="sd">    The lowest metal layer will be used for the ground plane.</span>
 <span class="sd">    :param ports: name of the ports</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">m_top</span> <span class="o">=</span> <span class="n">top_metal</span>
-    <span class="n">m_bott</span> <span class="o">=</span> <span class="n">bot_metal</span>
+    <span class="n">m_top</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">m_bott</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ms</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">le</span> <span class="o">=</span> <span class="n">length</span> <span class="o">*</span> <span class="mf">1e6</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span>

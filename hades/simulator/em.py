@@ -21,8 +21,8 @@ class Emx:
     def prepare(self, techno: str):
         """
         Automatically set the process file for the given technology.
-        :param techno:
-        :return:
+        :param techno: name of technology to be used in the simulation.
+        :return: None
         """
         load_dotenv()
         tech = load_pdk(techno)
@@ -37,7 +37,7 @@ class Emx:
         :param cell_name: name of the cell to simulate.
         :param freq: simulation frequency.
             - If one frequency is given, simulate from 0 to the given frequency.
-            - If two frequecies are given, simulate in-between the two frequencies.
+            - If two frequencies are given, simulate in-between the two frequencies.
             - If more frequencies are given, simulate only at the given frequencies.
         :param options:
         :return: Scikit RF data structure.

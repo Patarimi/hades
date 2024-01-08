@@ -4,12 +4,12 @@ import math
 
 
 def straight_line(
-    width: float,
-    length: float,
-    top_metal: Layer,
-    bot_metal: Layer,
-    ports: [Port, Port] = (Port("S1"), Port("S2")),
-    name: str = "ms",
+        width: float,
+        length: float,
+        top_metal: Layer,
+        bot_metal: Layer,
+        ports: [Port, Port] = (Port("S1"), Port("S2")),
+        name: str = "ms",
 ) -> gdstk.Cell:
     """
     Generate a micro-strip straight line cell. Can be exported as a gds files.
@@ -47,15 +47,27 @@ def_port = tuple(
 
 
 def coupled_lines(
-    width1: float,
-    length: float,
-    gap: float,
-    top_metal: Layer,
-    bot_metal: Layer,
-    width2: float = -1,
-    ports: list[Port] = def_port,
-    name: str = "cpl",
-):
+        width1: float,
+        length: float,
+        gap: float,
+        top_metal: Layer,
+        bot_metal: Layer,
+        width2: float = -1,
+        ports: list[Port] = def_port,
+        name: str = "cpl",
+) -> gdstk.Cell:
+    """
+    Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.
+    :param width1: width of the first line.
+    :param length: length of the two lines.
+    :param gap: gap between the two lines.
+    :param top_metal: Layer of the signal track.
+    :param bot_metal: Layer of the reference track.
+    :param width2: width of the second line.
+    :param ports: name of each port.
+    :param name: name of the cell.
+    :return:
+    """
     w2 = width2 if width2 > 0 else width1
     ms1 = straight_line(width1, length, top_metal, bot_metal, ports[0:2])
     ms2 = straight_line(w2, length, top_metal, bot_metal, ports[2:])
@@ -67,14 +79,25 @@ def coupled_lines(
 
 
 def lange_coupler(
-    width: float,
-    length: float,
-    gap: float,
-    top_metal: tuple[Layer],
-    bot_metal: Layer,
-    ports: list[Port] = def_port,
-    name: str = "lange",
-):
+        width: float,
+        length: float,
+        gap: float,
+        top_metal: tuple[Layer],
+        bot_metal: Layer,
+        ports: list[Port] = def_port,
+        name: str = "lange",
+) -> gdstk.Cell:
+    """
+    Generate a flat symmetrical lange coupler.
+    :param width: track width (in µm)
+    :param length: total length of the lines.
+    :param gap: space between each track.
+    :param top_metal: tuple with the main metal, the via and the metal for bridging.
+    :param bot_metal: lower reference metal (ground plane).
+    :param ports: name of each port.
+    :param name: name of the returned cell.
+    :return:
+    """
     ext = 5
     w, l, g = width * 1e6, length * 1e6, gap * 1e6
     first_met = gdstk.FlexPath(

@@ -1,19 +1,21 @@
-from .tools import Layer
+from .tools import LayerStack
 import gdstk
 from numpy import tan, pi
 
 
-def octagonal_inductor(d_i: float, n_turn: int, width: float, gap: float, layer: Layer):
+def octagonal_inductor(
+    d_i: float, n_turn: int, width: float, gap: float, layer_stack: LayerStack
+):
     """
     generate a one-turn octagonal inductor.
     :param d_i: inner diameter in micron
     :param n_turn: number of turn
     :param width: width of the track
     :param gap: gap between the track
-    :param layer: the inductor will be drawn on this layer
+    :param layer_stack: the inductor will be drawn on the highest layer of the stack.
     :return:
     """
-    m_top = layer
+    m_top = layer_stack.get_metal_layer(-1)
     ind = gdstk.Cell("ind")
     w = width * 1e6
     d_a = d_i * 1e6 + w

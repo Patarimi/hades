@@ -2,7 +2,6 @@
 List of function to parse layer map file.
 Layer map files give the link between layer name and (data, data-type) numbers for gdsii generation.
 """
-from pathlib import Path
 from hades.techno import load_pdk
 from os.path import join, dirname, isabs
 

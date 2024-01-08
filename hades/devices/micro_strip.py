@@ -9,7 +9,7 @@ from scipy.optimize import minimize_scalar
 from ..parser.map import get_number
 from numpy import sqrt, NaN
 from hades.devices.p_layouts.microstrip import straight_line
-from hades.devices.p_layouts.tools import Layer
+from hades.devices.p_layouts.tools import LayerStack
 
 
 class MicroStrip:
@@ -59,8 +59,7 @@ class MicroStrip:
         ms = straight_line(
             width=dimensions["w"],
             length=dimensions["l"],
-            top_metal=Layer(m_top[0], m_top[1]),
-            bot_metal=Layer(m_bott[1], m_bott[0]),
+            layerstack=LayerStack(self.techno),
         )
         return ms
 

@@ -6,7 +6,7 @@ from scipy.optimize import minimize_scalar
 from ..simulator import Emx
 from hades.parser.map import get_number
 from hades.devices.p_layouts.inductor import octagonal_inductor
-from hades.devices.p_layouts.tools import Layer
+from hades.devices.p_layouts.tools import LayerStack
 
 
 class Inductor:
@@ -53,13 +53,14 @@ class Inductor:
 
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
+        layer_stack = LayerStack(self.techno)
         m_top = get_number(self.techno, dimensions["m_path"], "NET")
         ind = octagonal_inductor(
             dimensions["d_i"],
             dimensions["n"],
             dimensions["W"],
             1e-6,
-            Layer(m_top[0], m_top[1]),
+            layer_stack,
         )
 
         return ind

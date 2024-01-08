@@ -7,10 +7,11 @@ from hades.devices.p_layouts.microstrip import (
     coupled_lines,
     lange_coupler,
 )
-from hades.devices.p_layouts.tools import LayerStack, check_diff, Layer
+from hades.devices.p_layouts.tools import LayerStack, check_diff
 
 
 layerstack = LayerStack("gf180mcu")
+REF_PATH = dirname(__file__)
 
 
 def test_straight_line(tmp_path):
@@ -18,23 +19,20 @@ def test_straight_line(tmp_path):
     lib = gdstk.Library()
     lib.add(ms)
     lib.write_gds(tmp_path / "ms.gds")
-    ref_path = dirname(__file__)
-    check_diff(tmp_path / "ms.gds", join(ref_path, "ms_ref.gds"))
+    check_diff(tmp_path / "ms.gds", join(REF_PATH, "ms_ref.gds"))
 
 
 def test_coupler(tmp_path):
-    ref_path = dirname(__file__)
     ms = coupled_lines(10e-6, 50e-6, 20e-6, layerstack)
     lib = gdstk.Library()
     lib.add(ms)
     lib.write_gds(join(tmp_path, "cpl.gds"))
-    check_diff(tmp_path / "cpl.gds", join(ref_path, "cpl_ref.gds"))
+    check_diff(tmp_path / "cpl.gds", join(REF_PATH, "cpl_ref.gds"))
 
 
 def test_lange(tmp_path):
-    ref_path = dirname(__file__)
     ms = lange_coupler(1.3e-6, 405e-6, 3.7e-6, layerstack)
     lib = gdstk.Library()
     lib.add(ms)
     lib.write_gds(join(tmp_path, "lange.gds"))
-    check_diff(tmp_path / "lange.gds", join(ref_path, "lange_ref.gds"))
+    check_diff(tmp_path / "lange.gds", join(REF_PATH, "lange_ref.gds"))

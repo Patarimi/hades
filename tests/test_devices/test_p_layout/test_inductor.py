@@ -4,6 +4,8 @@ from hades.devices.p_layouts.inductor import octagonal_inductor
 from hades.devices.p_layouts.tools import LayerStack, check_diff
 import gdstk
 
+REF_PATH = dirname(__file__)
+
 
 def test_inductor(tmp_path):
     layerstack = LayerStack("gf180mcu")
@@ -11,5 +13,4 @@ def test_inductor(tmp_path):
     lib = gdstk.Library()
     lib.add(ind)
     lib.write_gds(tmp_path / "ind.gds")
-    ref_path = dirname(__file__)
-    check_diff(tmp_path / "ind.gds", join(ref_path, "ind_ref.gds"))
+    check_diff(tmp_path / "ind.gds", join(REF_PATH, "ind_ref.gds"))

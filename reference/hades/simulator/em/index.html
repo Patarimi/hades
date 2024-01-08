@@ -1331,8 +1331,8 @@
     <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techno</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Automatically set the process file for the given technology.</span>
-<span class="sd">        :param techno:</span>
-<span class="sd">        :return:</span>
+<span class="sd">        :param techno: name of technology to be used in the simulation.</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">load_dotenv</span><span class="p">()</span>
         <span class="n">tech</span> <span class="o">=</span> <span class="n">load_pdk</span><span class="p">(</span><span class="n">techno</span><span class="p">)</span>
@@ -1347,7 +1347,7 @@
 <span class="sd">        :param cell_name: name of the cell to simulate.</span>
 <span class="sd">        :param freq: simulation frequency.</span>
 <span class="sd">            - If one frequency is given, simulate from 0 to the given frequency.</span>
-<span class="sd">            - If two frequecies are given, simulate in-between the two frequencies.</span>
+<span class="sd">            - If two frequencies are given, simulate in-between the two frequencies.</span>
 <span class="sd">            - If more frequencies are given, simulate only at the given frequencies.</span>
 <span class="sd">        :param options:</span>
 <span class="sd">        :return: Scikit RF data structure.</span>
@@ -1472,7 +1472,7 @@
           </td>
           <td>
             <div class="doc-md-description">
-              <p>simulation frequency. - If one frequency is given, simulate from 0 to the given frequency. - If two frequecies are given, simulate in-between the two frequencies. - If more frequencies are given, simulate only at the given frequencies.</p>
+              <p>simulation frequency. - If one frequency is given, simulate from 0 to the given frequency. - If two frequencies are given, simulate in-between the two frequencies. - If more frequencies are given, simulate only at the given frequencies.</p>
             </div>
           </td>
           <td>
@@ -1583,7 +1583,7 @@
 <span class="sd">    :param cell_name: name of the cell to simulate.</span>
 <span class="sd">    :param freq: simulation frequency.</span>
 <span class="sd">        - If one frequency is given, simulate from 0 to the given frequency.</span>
-<span class="sd">        - If two frequecies are given, simulate in-between the two frequencies.</span>
+<span class="sd">        - If two frequencies are given, simulate in-between the two frequencies.</span>
 <span class="sd">        - If more frequencies are given, simulate only at the given frequencies.</span>
 <span class="sd">    :param options:</span>
 <span class="sd">    :return: Scikit RF data structure.</span>
@@ -1671,7 +1671,7 @@
           </td>
           <td>
             <div class="doc-md-description">
-              
+              <p>name of technology to be used in the simulation.</p>
             </div>
           </td>
           <td>
@@ -1697,7 +1697,7 @@
           </td>
           <td>
             <div class="doc-md-description">
-              
+              <p>None</p>
             </div>
           </td>
         </tr>
@@ -1717,8 +1717,8 @@
 <span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techno</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Automatically set the process file for the given technology.</span>
-<span class="sd">    :param techno:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param techno: name of technology to be used in the simulation.</span>
+<span class="sd">    :return: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">load_dotenv</span><span class="p">()</span>
     <span class="n">tech</span> <span class="o">=</span> <span class="n">load_pdk</span><span class="p">(</span><span class="n">techno</span><span class="p">)</span>

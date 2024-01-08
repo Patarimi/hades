@@ -734,6 +734,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hades.devices.p_layouts.microstrip.coupled_lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      coupled_lines()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.devices.p_layouts.microstrip.lange_coupler" class="md-nav__link">
+    <span class="md-ellipsis">
+      lange_coupler()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hades.devices.p_layouts.microstrip.straight_line" class="md-nav__link">
     <span class="md-ellipsis">
       straight_line()
@@ -1111,6 +1129,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hades.devices.p_layouts.microstrip.coupled_lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      coupled_lines()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.devices.p_layouts.microstrip.lange_coupler" class="md-nav__link">
+    <span class="md-ellipsis">
+      lange_coupler()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hades.devices.p_layouts.microstrip.straight_line" class="md-nav__link">
     <span class="md-ellipsis">
       straight_line()
@@ -1154,6 +1190,574 @@
 
 
 
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="hades.devices.p_layouts.microstrip.coupled_lines" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">coupled_lines</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">width2</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cpl&#39;</span><span class="p">)</span></code>
+
+<a href="#hades.devices.p_layouts.microstrip.coupled_lines" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>width1</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>width of the first line.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>length</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>length of the two lines.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gap</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>gap between the two lines.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>top_metal</code></td>
+          <td>
+                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Layer of the signal track.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>bot_metal</code></td>
+          <td>
+                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Layer of the reference track.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>width2</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>width of the second line.</p>
+            </div>
+          </td>
+          <td>
+                <code>-1</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>ports</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" href="../../../../../CLI-ref/#list">list</a>[<span title="hades.devices.p_layouts.tools.Port">Port</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of each port.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="hades.devices.p_layouts.microstrip.def_port">def_port</span></code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of the cell.</p>
+            </div>
+          </td>
+          <td>
+                <code>&#39;cpl&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="gdstk.Cell">Cell</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\devices\p_layouts\microstrip.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">coupled_lines</span><span class="p">(</span>
+        <span class="n">width1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">top_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
+        <span class="n">bot_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
+        <span class="n">width2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpl&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.</span>
+<span class="sd">    :param width1: width of the first line.</span>
+<span class="sd">    :param length: length of the two lines.</span>
+<span class="sd">    :param gap: gap between the two lines.</span>
+<span class="sd">    :param top_metal: Layer of the signal track.</span>
+<span class="sd">    :param bot_metal: Layer of the reference track.</span>
+<span class="sd">    :param width2: width of the second line.</span>
+<span class="sd">    :param ports: name of each port.</span>
+<span class="sd">    :param name: name of the cell.</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">w2</span> <span class="o">=</span> <span class="n">width2</span> <span class="k">if</span> <span class="n">width2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">width1</span>
+    <span class="n">ms1</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ms2</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="n">cpl</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">ms_rf</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">ms1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">width1</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">ms_rf2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">ms2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">w2</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">cpl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ms_rf</span><span class="p">,</span> <span class="n">ms_rf2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cpl</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="hades.devices.p_layouts.microstrip.lange_coupler" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">lange_coupler</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">top_metal</span><span class="p">,</span> <span class="n">bot_metal</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;lange&#39;</span><span class="p">)</span></code>
+
+<a href="#hades.devices.p_layouts.microstrip.lange_coupler" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Generate a flat symmetrical lange coupler.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>width</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>track width (in µm)</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>length</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>total length of the lines.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gap</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>space between each track.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>top_metal</code></td>
+          <td>
+                <code>tuple[<span title="hades.devices.p_layouts.tools.Layer">Layer</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>tuple with the main metal, the via and the metal for bridging.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>bot_metal</code></td>
+          <td>
+                <code><span title="hades.devices.p_layouts.tools.Layer">Layer</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>lower reference metal (ground plane).</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>ports</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" href="../../../../../CLI-ref/#list">list</a>[<span title="hades.devices.p_layouts.tools.Port">Port</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of each port.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="hades.devices.p_layouts.microstrip.def_port">def_port</span></code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of the returned cell.</p>
+            </div>
+          </td>
+          <td>
+                <code>&#39;lange&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="gdstk.Cell">Cell</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades\devices\p_layouts\microstrip.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">lange_coupler</span><span class="p">(</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">top_metal</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span>
+        <span class="n">bot_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
+        <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lange&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a flat symmetrical lange coupler.</span>
+<span class="sd">    :param width: track width (in µm)</span>
+<span class="sd">    :param length: total length of the lines.</span>
+<span class="sd">    :param gap: space between each track.</span>
+<span class="sd">    :param top_metal: tuple with the main metal, the via and the metal for bridging.</span>
+<span class="sd">    :param bot_metal: lower reference metal (ground plane).</span>
+<span class="sd">    :param ports: name of each port.</span>
+<span class="sd">    :param name: name of the returned cell.</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">length</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span>
+    <span class="n">first_met</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">w</span><span class="p">,</span>
+        <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+        <span class="n">ends</span><span class="o">=</span><span class="s2">&quot;extended&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">first_met</span><span class="o">.</span><span class="n">horizontal</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">first_met</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">first_met</span><span class="o">.</span><span class="n">horizontal</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">first_met</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span>
+    <span class="p">)</span>
+    <span class="n">port</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sec_met</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
+        <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))],</span>
+        <span class="n">w</span><span class="p">,</span>
+        <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+        <span class="n">ends</span><span class="o">=</span><span class="s2">&quot;extended&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">via_w</span> <span class="o">=</span> <span class="mf">0.4</span>
+    <span class="n">via_g</span> <span class="o">=</span> <span class="mf">0.4</span>
+    <span class="n">via_s</span> <span class="o">=</span> <span class="mf">0.02</span>
+    <span class="n">rep</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">w</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">via_s</span> <span class="o">-</span> <span class="n">via_w</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="o">-</span><span class="n">via_w</span> <span class="o">-</span> <span class="p">(</span><span class="n">rep</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">)</span>
+    <span class="n">via</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">via_w</span><span class="p">,</span> <span class="n">via_w</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span>
+    <span class="p">)</span>
+    <span class="n">via</span><span class="o">.</span><span class="n">repetition</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Repetition</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">rep</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">,</span> <span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">))</span>
+    <span class="n">via</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">shift</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">shift</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">via2</span> <span class="o">=</span> <span class="n">via</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">via2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))</span>
+    <span class="n">lange</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">thg</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;thg&quot;</span><span class="p">)</span>
+    <span class="n">thg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">first_met</span><span class="p">,</span> <span class="n">sec_met</span><span class="p">,</span> <span class="n">via</span><span class="p">,</span> <span class="n">via2</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="n">cpl</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">thg</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">l</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))</span>
+    <span class="n">thg_r</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">thg</span><span class="p">)</span>
+    <span class="n">lange</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cpl</span><span class="p">,</span> <span class="n">thg_r</span><span class="p">)</span>
+    <span class="n">lange</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">coord</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ext</span> <span class="o">+</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">ext</span> <span class="o">+</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="n">ext</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">l</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="n">ext</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">lab</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
+            <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">texttype</span><span class="o">=</span><span class="n">top_metal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
+            <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">layer</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">d_type</span>
+        <span class="p">)</span>
+        <span class="n">lange</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">lange</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
+    <span class="n">gnd</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
+        <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">layer</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">d_type</span>
+    <span class="p">)</span>
+    <span class="n">lange</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gnd</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lange</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
 
 
 <div class="doc doc-object doc-function">
@@ -1332,12 +1936,12 @@
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">straight_line</span><span class="p">(</span>
-    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">top_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
-    <span class="n">bot_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
-    <span class="n">ports</span><span class="p">:</span> <span class="p">[</span><span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S1&quot;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S2&quot;</span><span class="p">)),</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">top_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
+        <span class="n">bot_metal</span><span class="p">:</span> <span class="n">Layer</span><span class="p">,</span>
+        <span class="n">ports</span><span class="p">:</span> <span class="p">[</span><span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S1&quot;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S2&quot;</span><span class="p">)),</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a micro-strip straight line cell. Can be exported as a gds files.</span>

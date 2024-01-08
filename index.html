@@ -1211,18 +1211,18 @@ software-agnostic design flow, from device sizing to layout and implementation.<
 <div class="highlight"><pre><span></span><code>pipx<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Patarimi/hades
 </code></pre></div>
 <h2 id="design-flow">Design flow<a class="headerlink" href="#design-flow" title="Permanent link">&para;</a></h2>
-<p>Starting from the specifications written in a design.yml file, the following flow is run (see #working_dir).</p>
+<p>Starting from the specifications written in a design.yml file, the following flow is run <a href="#working-directory">see</a>.</p>
 <pre class="mermaid"><code>stateDiagram
-    [*] --&gt; app: specifications
+    [*] --&gt; app: specifications (.yml)
     app: approx. model
     pc: parametric cells
     app --&gt; pc: dimensions
     sim: accurate model
-    pc --&gt; sim: geometries
+    pc --&gt; sim: geometries (.gdsII)
     pdk --&gt; sim
     cal: calibrator
     state atSpec &lt;&lt;choice&gt;&gt;
-    sim --&gt; atSpec: accurate behavior
+    sim --&gt; atSpec: accurate behavior (.sNp)
     atSpec --&gt; [*]: at spec
     atSpec --&gt; cal: not at spec
     app --&gt; cal: dimensions

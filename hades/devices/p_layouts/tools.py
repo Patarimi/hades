@@ -33,7 +33,7 @@ class LayerStack:
         layer_map = load_map(self.techno)
         self.stack = []
         for layer in layers:
-            if layer in layer_map:
+            if layer in layer_map and layers[layer]["type"] in ("ROUTING", "CUT"):
                 dt = get_number(self.techno, layer, "VIA")
                 self.stack.append(Layer(dt[0], dt[1], layer))
 

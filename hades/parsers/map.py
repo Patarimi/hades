@@ -24,6 +24,8 @@ def load_map(techno: str) -> dict:
         part = line.split()
         if len(part) < 4 or part[0] in ("NAME", "DIEAREA"):
             continue
+        if line[0] == "#":
+            continue
         if part[0] not in layer_info:
             layer_info[part[0]] = {part[1]: (int(part[2]), int(part[3]))}
         else:
@@ -44,9 +46,9 @@ def get_number(techno: str, name: str, datatype: str = "drawing") -> tuple[int, 
         raise KeyError(f"Layer {name} not found in {techno}")
     datatypes = layer_info[name]
     for d_type in datatypes:
-        if datatype in d_type.split(","):
+        if datatype.lower() in d_type.lower().split(","):
             return datatypes[d_type]
     raise KeyError(
-        f"Datatype {datatype} not found for layer {name} in {techno}.\n"
+        f"Datatype {datatype} not found for layer {name} in {techno}. "
         f"Available datatypes are: {datatypes.keys()}."
     )

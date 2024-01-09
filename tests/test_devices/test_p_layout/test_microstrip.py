@@ -1,7 +1,7 @@
-from os.path import dirname, join
+from os.path import dirname, join, isdir
 
 import gdstk
-
+import pytest
 from hades.layouts.microstrip import (
     straight_line,
     coupled_lines,
@@ -9,9 +9,11 @@ from hades.layouts.microstrip import (
 )
 from hades.layouts.tools import LayerStack, check_diff
 
+pytestmark = pytest.mark.skipif(not isdir("./pdk"), reason="PDK not installed.")
 
-layerstack = LayerStack("gf180mcu")
-REF_PATH = dirname(__file__)
+if isdir("./pdk"):
+    layerstack = LayerStack("gf180mcu")
+    REF_PATH = dirname(__file__)
 
 
 def test_straight_line(tmp_path):

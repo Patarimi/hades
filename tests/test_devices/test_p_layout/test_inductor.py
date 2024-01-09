@@ -1,10 +1,11 @@
-from os.path import dirname, join
-
+from os.path import dirname, join, isdir
+import pytest
 from hades.layouts.inductor import octagonal_inductor
 from hades.layouts.tools import LayerStack, check_diff
 import gdstk
 
 REF_PATH = dirname(__file__)
+pytestmark = pytest.mark.skipif(not isdir("./pdk"), reason="PDK not installed.")
 
 
 def test_inductor(tmp_path):

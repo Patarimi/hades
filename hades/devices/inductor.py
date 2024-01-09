@@ -3,10 +3,10 @@ import gdstk
 from math import pi
 from pathlib import Path
 from scipy.optimize import minimize_scalar
-from ..simulator import Emx
-from hades.parser.map import get_number
-from hades.devices.p_layouts.inductor import octagonal_inductor
-from hades.devices.p_layouts.tools import LayerStack
+from ..simulators import Emx
+from hades.parsers.map import get_number
+from ..layouts.inductor import octagonal_inductor
+from ..layouts.tools import LayerStack
 
 
 class Inductor:

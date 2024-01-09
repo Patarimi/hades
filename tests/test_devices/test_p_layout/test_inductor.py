@@ -1,7 +1,7 @@
 from os.path import dirname, join
 
-from hades.devices.p_layouts.inductor import octagonal_inductor
-from hades.devices.p_layouts.tools import LayerStack, check_diff
+from hades.layouts.inductor import octagonal_inductor
+from hades.layouts.tools import LayerStack, check_diff
 import gdstk
 
 REF_PATH = dirname(__file__)

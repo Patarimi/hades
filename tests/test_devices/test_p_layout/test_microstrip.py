@@ -2,12 +2,12 @@ from os.path import dirname, join
 
 import gdstk
 
-from hades.devices.p_layouts.microstrip import (
+from hades.layouts.microstrip import (
     straight_line,
     coupled_lines,
     lange_coupler,
 )
-from hades.devices.p_layouts.tools import LayerStack, check_diff
+from hades.layouts.tools import LayerStack, check_diff
 
 
 layerstack = LayerStack("gf180mcu")

@@ -1,4 +1,4 @@
-from hades.parser.netlist import Component, Netlist
+from hades.parsers.netlist import Component, Netlist
 from skrf import DefinedGammaZ0, Frequency, c
 
 

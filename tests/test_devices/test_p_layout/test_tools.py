@@ -1,7 +1,7 @@
 from os.path import dirname, join
 import os
 
-from hades.devices.p_layouts import tools
+from hades.layouts import tools
 
 
 def test_tools():

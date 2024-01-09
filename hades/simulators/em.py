@@ -80,8 +80,8 @@ class Emx:
                 str_cmd += str(elt) + " "
         proc = run(cmd + conf["options"], capture_output=True, encoding="latin")
         if proc.returncode != 0:
-            print(cmd + conf["options"])
-            print(proc.stderr)
+            RuntimeWarning(cmd + conf["options"])
+            raise RuntimeError(proc.stderr)
         # get back the real name.
         res_path = glob.glob(path_file.replace("%d", "[0-9]"))
         y_param = rf.Network(res_path[0])

@@ -65,7 +65,7 @@ def load_pdk(pdk_name: str):
     try:
         tech = _read_tech()[pdk_name]
     except KeyError:
-        tech = _read_tech(os.getcwd() + "/design.yml")[pdk_name]
+        tech = _read_tech(join(os.getcwd(), "design.yml"))[pdk_name]
     return tech
 
 

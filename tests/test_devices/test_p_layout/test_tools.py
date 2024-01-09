@@ -15,7 +15,7 @@ def test_tools():
     tools.check_diff(ref, ref)
 
 
-@pytest.mark.skipif(not isdir("./pdk/gf180mcu"), reason="PDK not installed.")
+@pytest.mark.skipif(not isdir("./pdk/gf180mcu"), reason="The PDK gf180mcu not installed.")
 def test_layer_stack_gf():
     layer_stack = tools.LayerStack("gf180mcu")
     print(layer_stack)
@@ -29,7 +29,7 @@ def test_layer_stack_gf():
     assert layer_stack.get_via_layer(-1) == tools.Layer(41, 0, "Via4")
 
 
-@pytest.mark.skipif(not isdir("./pdk/sky130"), reason="PDK not installed.")
+@pytest.mark.skipif(not isdir("./pdk/sky130"), reason="The PDK sky130 not installed.")
 def test_layer_stack_sw():
     layer_stack = tools.LayerStack("sky130")
     print(layer_stack)

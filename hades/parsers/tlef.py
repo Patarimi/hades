@@ -22,7 +22,7 @@ def load_tlef(tlef_path: str | Path) -> dict:
             layer_name = None
         elif line.lstrip().startswith("TYPE"):
             layer_type = line.split()[1]
-            layers[layer_name]["type"] = layer_type
+            layers[layer_name]["type"] = layer_type.rstrip(";")
     return layers
 
 

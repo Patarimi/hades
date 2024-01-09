@@ -3,11 +3,11 @@ from hades.parsers.tlef import load_tlef, get_metal, get_via
 from hades.techno import load_pdk
 from os.path import join, dirname, isdir
 
-pytestmark = pytest.mark.skipif(not (isdir("./pdk")), reason="PDK not installed.")
+pytestmark = pytest.mark.skipif(not (isdir("./pdk/mock")), reason="PDK not installed.")
 
 
 def test_load_tlef():
-    pdk = load_pdk("gf180mcu")
+    pdk = load_pdk("mock")
     path = join(dirname(dirname(__file__)), pdk["base_dir"], pdk["techlef"])
     layers = load_tlef(path)
     print(layers)

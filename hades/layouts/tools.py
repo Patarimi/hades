@@ -32,12 +32,14 @@ class LayerStack:
         self.stack = []
         for layer in layers:
             if layer in layer_map and layers[layer]["type"] in ("ROUTING", "CUT"):
-                for dtype in ("VIA", "net"):
+                if layer[0] not in ("M", "V"):
+                    continue
+                for dtype in ("VIA", "net", "drawing"):
                     try:
                         dt = get_number(self.techno, layer, dtype)
                     except KeyError:
                         continue
-                if not "dt" in locals():
+                if "dt" not in locals():
                     raise KeyError(f"Type not found in stack. Available type are {list(layer_map[layer].keys())}.")
                 self.stack.append(Layer(dt[0], dt[1], layer))
 

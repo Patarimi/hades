@@ -5,8 +5,8 @@ from pathlib import Path
 import os
 from shutil import which
 from hades.techno import load_pdk
-from hades.parser.tlef import load_tlef
-from hades.parser.map import load_map, get_number
+from hades.parsers.tlef import load_tlef
+from hades.parsers.map import load_map, get_number
 
 
 @dataclass
@@ -26,9 +26,7 @@ class LayerStack:
 
     def __post_init__(self):
         pdk = load_pdk(self.techno)
-        path = realpath(
-            join(dirname(__file__), "../..", pdk["base_dir"], pdk["techlef"])
-        )
+        path = realpath(join(dirname(__file__), "../", pdk["base_dir"], pdk["techlef"]))
         layers = load_tlef(path)
         layer_map = load_map(self.techno)
         self.stack = []
@@ -58,7 +56,7 @@ class Port:
             self.ref = self.name + "_r"
 
 
-def check_diff(gds1: Path, gds2: Path):
+def check_diff(gds1: str | Path, gds2: str | Path):
     """
     Test if the 2 gds files are the same. Raise error if they differ.
     :param gds1: path of the first gds

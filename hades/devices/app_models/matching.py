@@ -1,5 +1,5 @@
 from math import sqrt, pi, atan
-from hades.parser.netlist import Netlist, Component
+from hades.parsers.netlist import Component
 from enum import Enum
 
 

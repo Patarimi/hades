@@ -5,7 +5,7 @@ TLEF files give the information on the back-end composition and associated desig
 from pathlib import Path
 
 
-def load_tlef(tlef_path: Path) -> dict:
+def load_tlef(tlef_path: str | Path) -> dict:
     """
     Load a TLEF file and return a dictionary of layer names.
     :param tlef_path: path to the TLEF file

@@ -2,9 +2,11 @@ import os.path
 
 import pytest
 
-from hades.parser.map import load_map, get_number
+from hades.parsers.map import load_map, get_number
 
-pytestmark = pytest.mark.skipif(not (os.path.isdir("./pdk")), reason="PDK not installed.")
+pytestmark = pytest.mark.skipif(
+    not (os.path.isdir("./pdk")), reason="PDK not installed."
+)
 
 
 def test_load_map():

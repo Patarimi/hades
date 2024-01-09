@@ -1,15 +1,14 @@
 import numpy as np
 
 from .device import Parameters
-from ..simulator import Emx
+from ..simulators import Emx
 import gdstk
 from pathlib import Path
 from .app_models.micro_strip import wheeler
 from scipy.optimize import minimize_scalar
-from ..parser.map import get_number
 from numpy import sqrt, NaN
-from hades.devices.p_layouts.microstrip import straight_line
-from hades.devices.p_layouts.tools import LayerStack
+from ..layouts.microstrip import straight_line
+from ..layouts.tools import LayerStack
 
 
 class MicroStrip:

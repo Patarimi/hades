@@ -1,4 +1,4 @@
-from hades.simulator.em import Emx
+from hades.simulators.em import Emx
 
 
 def test_emx():

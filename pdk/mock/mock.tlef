@@ -1,0 +1,43 @@
+LAYER CON
+    TYPE CUT;
+END CON
+
+LAYER Metal1
+    TYPE ROUTING;
+END Metal1
+
+LAYER Via1
+    TYPE CUT;
+END Via1
+
+LAYER Metal2
+    TYPE ROUTING;
+END Metal2
+
+LAYER Via2
+    TYPE CUT;
+END Via2
+
+LAYER Metal3
+    TYPE ROUTING;
+END Metal3
+
+LAYER Via3
+    TYPE CUT;
+END Via3
+
+LAYER Metal4
+    TYPE ROUTING ;
+END Metal4
+
+LAYER Via4
+    TYPE CUT ;
+END Via4
+
+LAYER Metal5
+    TYPE ROUTING ;
+END Metal5
+
+LAYER Via5
+    TYPE CUT ;
+END Via5

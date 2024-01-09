@@ -49,7 +49,10 @@ class Emx:
         else:
             f_s = [str(f) for f in freq]
         conf = load_conf(key="emx")
-        emx_base = join(conf["base_dir"], conf["name"])
+        try:
+            emx_base = join(conf["base_dir"], conf["name"])
+        except KeyError:
+            raise KeyError(f'key not found in {conf.keys()}')
         # %d enable automatic numbering matching the port number
         path_file = "res.s%dp"
         cmd = (

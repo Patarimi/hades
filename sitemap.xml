@@ -2,157 +2,157 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://patarimi.github.io/hades/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/CLI-ref/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/SUMMARY/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/main/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/techno/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/device/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/inductor/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/micro_strip/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/mos/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/accu_models/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/filter/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/inductor/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/loaded_line/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/matching/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/micro_strip/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/calibrators/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/p_layouts/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/layouts/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/p_layouts/inductor/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/layouts/inductor/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/p_layouts/microstrip/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/layouts/microstrip/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/p_layouts/tools/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/layouts/tools/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/parser/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/parsers/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/parser/map/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/parsers/map/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/parser/netlist/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/parsers/netlist/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/parser/tlef/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/parsers/tlef/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/simulator/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/simulators/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/simulator/em/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/simulators/em/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/simulator/simulator/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/simulators/simulator/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/simulator/spice/</loc>
-         <lastmod>2024-01-08</lastmod>
+         <loc>https://patarimi.github.io/hades/reference/hades/simulators/spice/</loc>
+         <lastmod>2024-01-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

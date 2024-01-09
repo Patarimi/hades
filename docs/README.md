@@ -20,12 +20,13 @@ Starting from the specifications written in a design.yml file, the following flo
 ```mermaid
 stateDiagram
     [*] --> app: specifications (.yml)
-    app: approx. model
-    pc: parametric cells
-    app --> pc: dimensions
+    app: approximate model
+    pl: parametric layouts
+    app --> pl: dimensions
     sim: accurate model
-    pc --> sim: geometries (.gdsII)
-    pdk --> sim
+    pl --> sim: geometries (.gdsII)
+    pdk --> sim: process (.proc)
+    pdk --> pl: LayerStack
     cal: calibrator
     state atSpec <<choice>>
     sim --> atSpec: accurate behavior (.sNp)
@@ -64,6 +65,7 @@ techno_name:
   layer_map: path to the layermap (relative to the base_dir)
   process: path to the process file (-proc option in emx)
 ```
+A techno.yml file with three open source PDK is already supplied.
 
 ## Working directory
 
@@ -84,9 +86,11 @@ design:
 techno:
 ```
 
+It is also possible to create custom devices using a python file. *To be written*.
+
 ## Tests configuration
 
-The layout testing need klayout to be install and the program strmxor to be accessible.
+The layout testing needs [klayout](klayout.de) to be installed and the program *strmxor* to be accessible.
 Install hades with optional group dev :
 
 ```shell
@@ -94,7 +98,6 @@ poetry install git+https://github.com/Patarimi/hades --with dev
 ```
 
 Then run pytest in a shell
-
 ```shell
 poetry run pytest
 ```

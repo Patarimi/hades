@@ -9,10 +9,10 @@ from hades.layouts.microstrip import (
 )
 from hades.layouts.tools import LayerStack, check_diff
 
-pytestmark = pytest.mark.skipif(not isdir("./pdk"), reason="PDK not installed.")
+pytestmark = pytest.mark.skipif(not isdir("./pdk/mock"), reason="PDK not installed.")
 
-if isdir("./pdk"):
-    layerstack = LayerStack("gf180mcu")
+if isdir("./pdk/mock"):
+    layerstack = LayerStack("mock")
     REF_PATH = dirname(__file__)
 
 

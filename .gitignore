@@ -1,5 +1,5 @@
 .idea/
-/hades/simulator/simulator.yml
+/hades/simulators/simulator.yml
 *.env
 /hades/techno.yml
 /site/

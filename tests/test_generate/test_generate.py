@@ -6,10 +6,12 @@ import yaml
 import pytest
 
 
+@pytest.mark.skipif(
+    os.name == "nt",
+    reason="Windows system not supported for local generation. Skipping Test",
+)
 def test_generation():
     chdir("./tests/test_generate/")
-    if os.name == "nt":
-        pytest.skip("Windows system not supported for local generation. Skipping Test")
     for design in ("./design ind gf.yml", "./design ms sky.yml"):
         with open(design) as f:
             conf = yaml.load(f, Loader=yaml.Loader)

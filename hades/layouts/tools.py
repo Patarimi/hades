@@ -31,8 +31,13 @@ class LayerStack:
         layer_map = load_map(self.techno)
         self.stack = []
         for layer in layers:
-            if layer in layer_map and layers[layer]["type"] in ("ROUTING", "CUT"):
-                if layer[0] not in ("M", "V"):
+            if layer in layer_map:
+                is_met_or_via = False
+                if layers[layer]["type"] == "ROUTING" and layer[0].upper() == "M":
+                    is_met_or_via = True
+                if layers[layer]["type"] == "CUT" and layer[0].upper() == "V":
+                    is_met_or_via = True
+                if not is_met_or_via:
                     continue
                 for dtype in ("VIA", "net", "drawing"):
                     try:
@@ -40,7 +45,9 @@ class LayerStack:
                     except KeyError:
                         continue
                 if "dt" not in locals():
-                    raise KeyError(f"Type not found in stack. Available type are {list(layer_map[layer].keys())}.")
+                    raise KeyError(
+                        f"Type not found in stack. Available type are {list(layer_map[layer].keys())}."
+                    )
                 self.stack.append(Layer(dt[0], dt[1], layer))
 
     def get_metal_layer(self, num: int):

@@ -64,6 +64,7 @@ techno_name:
   base_dir: path to the pdk directory root
   layer_map: path to the layermap (relative to the base_dir)
   process: path to the process file (-proc option in emx)
+  techlef: path to the tlef file
 ```
 A techno.yml file with three open source PDK is already supplied.
 

@@ -50,6 +50,9 @@ class LayerStack:
                     )
                 self.stack.append(Layer(dt[0], dt[1], layer))
 
+    def __len__(self):
+        return len(self.stack)
+
     def get_metal_layer(self, num: int):
         if num == 0:
             raise ValueError("nbr cannot be 0")

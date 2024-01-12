@@ -73,8 +73,8 @@ def ground_plane(
         gdstk.rectangle(
             (0, 0),
             size,
-            layer=layers.get_metal_layer(0).data,
-            datatype=layers.get_metal_layer(0).d_type,
+            layer=layers.get_metal_layer(id_gnd).data,
+            datatype=layers.get_metal_layer(id_gnd).d_type,
         )
     )
     return gnd

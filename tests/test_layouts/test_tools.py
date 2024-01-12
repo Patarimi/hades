@@ -10,9 +10,11 @@ def test_tools():
     lay2 = tools.Layer(141)
     assert str(lay2) == "141/0"
     base_path = dirname(__file__)
-    ref = join(base_path, "ind_ref.gds")
+    ref = join(base_path, "ref_ind.gds")
     print(os.name)
     tools.check_diff(ref, ref)
+    with pytest.raises(ValueError):
+        tools.check_diff(ref, join(base_path, "ref_ms.gds"))
 
 
 @pytest.mark.skipif(

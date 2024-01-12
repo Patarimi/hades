@@ -15,14 +15,30 @@ def load_tlef(tlef_path: str | Path) -> dict:
     layers = {}
     layer_name = None
     for line in lines:
-        if line.startswith("LAYER"):
-            layer_name = line.split()[1]
-            layers[layer_name] = {}
-        elif line.startswith("END"):
-            layer_name = None
-        elif line.lstrip().startswith("TYPE"):
-            layer_type = line.split()[1]
-            layers[layer_name]["type"] = layer_type.rstrip(";")
+        remove_comment = line.split("#")[0]
+        if not remove_comment:
+            continue
+        line_slip = remove_comment.upper().replace(";", "").split()
+        match line_slip:
+            case "LAYER", _:
+                layer_name = line.split()[1]
+                if layer_name not in layers:
+                    layers[layer_name] = {}
+            case "END", _:
+                layer_name = None
+            case "TYPE", y:
+                layers[layer_name]["TYPE"] = y
+            case "WIDTH", width:
+                layers[layer_name]["WIDTH"] = float(width)
+            case "SPACING", spacing:
+                layers[layer_name]["SPACING"] = float(spacing)
+            case "ENCLOSURE", *y:
+                if y[0] in ("BELOW", "ABOVE"):
+                    layers[layer_name]["ENCLOSURE"] = float(y[1])
+                else:
+                    layers[layer_name]["ENCLOSURE"] = float(y[0])
+            case _:
+                pass
     return layers
 
 
@@ -36,7 +52,7 @@ def get_all_by_type(l_type: str, tlef_path: Path) -> list[str]:
     layers = list()
     full_stack = load_tlef(tlef_path)
     for layer in full_stack:
-        if full_stack[layer]["type"] == l_type:
+        if full_stack[layer]["TYPE"] == l_type:
             layers.append(layer)
     return layers
 

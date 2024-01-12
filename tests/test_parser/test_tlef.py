@@ -17,3 +17,5 @@ def test_load_tlef():
     with pytest.raises(ValueError):
         get_metal(0, path)
     assert get_via(1, path) == "CON"
+
+    assert layers["Via2"]["WIDTH"] == 0.4

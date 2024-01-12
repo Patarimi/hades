@@ -21,7 +21,7 @@ def test_straight_line(tmp_path):
     lib = gdstk.Library()
     lib.add(ms)
     lib.write_gds(tmp_path / "ms.gds")
-    check_diff(tmp_path / "ms.gds", join(REF_PATH, "ms_ref.gds"))
+    check_diff(tmp_path / "ms.gds", join(REF_PATH, "ref_ms.gds"))
 
 
 def test_coupler(tmp_path):
@@ -29,7 +29,7 @@ def test_coupler(tmp_path):
     lib = gdstk.Library()
     lib.add(ms)
     lib.write_gds(join(tmp_path, "cpl.gds"))
-    check_diff(tmp_path / "cpl.gds", join(REF_PATH, "cpl_ref.gds"))
+    check_diff(tmp_path / "cpl.gds", join(REF_PATH, "ref_cpl.gds"))
 
 
 def test_lange(tmp_path):
@@ -37,4 +37,4 @@ def test_lange(tmp_path):
     lib = gdstk.Library()
     lib.add(ms)
     lib.write_gds(join(tmp_path, "lange.gds"))
-    check_diff(tmp_path / "lange.gds", join(REF_PATH, "lange_ref.gds"))
+    check_diff(tmp_path / "lange.gds", join(REF_PATH, "ref_lange.gds"))

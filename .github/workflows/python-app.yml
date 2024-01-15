@@ -18,6 +18,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Restore PDK Directory
+      id: pdk-restore
+      uses: actions/cache/restore@v3
+      with:
+        path: |
+          pdk/
+        key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
     - uses: actions/checkout@v4
     - name: Install poetry
       run: pipx install poetry
@@ -33,13 +40,6 @@ jobs:
         python -m pip install --upgrade pip
         poetry install --with dev,doc
         poetry run pwd
-    - name: Restore PDK Directory
-      id: pdk-restore
-      uses: actions/cache/restore@v3
-      with:
-        path: |
-          pdk/
-        key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
     - name: Install PDK
       run: |
         poetry run hades pdk install sky130

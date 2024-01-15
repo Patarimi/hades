@@ -33,9 +33,14 @@ class LayerStack:
         for layer in layers:
             if layer in layer_map:
                 is_met_or_via = False
-                if layers[layer]["type"] == "ROUTING" and layer[0].upper() == "M":
+                if "TYPE" not in layers[layer]:
+                    raise KeyError(
+                        f"Type not found in {layer}. Available option are {list(layers[layer].keys())}."
+                        f"full layer stack is {layers}"
+                    )
+                if layers[layer]["TYPE"] == "ROUTING" and layer[0].upper() == "M":
                     is_met_or_via = True
-                if layers[layer]["type"] == "CUT" and layer[0].upper() == "V":
+                if layers[layer]["TYPE"] == "CUT" and layer[0].upper() == "V":
                     is_met_or_via = True
                 if not is_met_or_via:
                     continue

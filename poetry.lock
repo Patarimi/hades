@@ -2089,13 +2089,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "volare"
-version = "0.15.2"
+version = "0.16.0"
 description = "An open_pdks PDK builder/version manager"
 optional = false
 python-versions = ">3.6"
 files = [
-    {file = "volare-0.15.2-py3-none-any.whl", hash = "sha256:79815d637e46f89fae8c2662e12db8009b87c9e5331fad1660dae7819b2d73e5"},
-    {file = "volare-0.15.2.tar.gz", hash = "sha256:8710bc0fb53e95dd40ab220ea175305a43c852a30dff1505b1fe9d2c7e334874"},
+    {file = "volare-0.16.0-py3-none-any.whl", hash = "sha256:2da80b37be699f310e10776c8ebc877296e0436775ebc4384dd6eb32385bff8a"},
+    {file = "volare-0.16.0.tar.gz", hash = "sha256:50da5abd82c0f4c9cc4eddf0e4b92bb8ecc61b8b934058134abc383d9b6b962c"},
 ]
 
 [package.dependencies]
@@ -2209,4 +2209,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "06d9177ac883ec1857434c4585321f977962fa002d0eb2d1adad088a4fe166e4"
+content-hash = "d20a5e6dfd241dcd91e5ba51b6d6eb92997f24fbb8605c350d63209338fdae50"

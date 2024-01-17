@@ -1,4 +1,5 @@
-from .tools import LayerStack, Port, Layer
+from .tools import LayerStack, Port
+from .general import via_stack
 import gdstk
 import math
 
@@ -83,6 +84,79 @@ def coupled_lines(
     return cpl.flatten()
 
 
+diff_port = tuple(
+    Port(name, ref)
+    for name, ref in (("in", "ref1"), ("out_p", "ref2"), ("out_n", "ref2"))
+)
+
+
+def marchand_balun(
+    width: float,
+    length: float,
+    gap: float,
+    space: float,
+    layerstack: LayerStack,
+    widths: float = -1,
+    ports: list[Port] = diff_port,
+    name: str = "marchand",
+) -> gdstk.Cell:
+    """
+    Implements a marchand balun, for a 50Ω balun, 2 -4.8 dB 90° coupler are required.
+    :param width: width of the signal lines.
+    :param length: length of the signal line (the coupler length is twice this value).
+    :param gap: gap between the two lines.
+    :param space: space between the two couplers.
+    :param layerstack: LayerStack object. The highest metal layer will be used for the signal line.
+        The lowest metal layer will be used for the ground plane.
+    :param widths: width of the line in-between the two couplers.
+    :param ports: name of each port.
+    :param name: name of the cell.
+    :return: a gdstk.Cell object with the marchand balun.
+    """
+    m_top = layerstack.get_metal_layer(-1)
+    m_bott = layerstack.get_metal_layer(1)
+    w, l, g, s = width * 1e6, length * 1e6, gap * 1e6, space * 1e6
+    ws = w if widths < 0 else widths * 1e6
+    bln = gdstk.Cell(name)
+    emp_port = Port("", "")
+    cpl = lange_coupler(width, length, gap, layerstack, [emp_port for k in range(4)])
+    cpl1 = gdstk.Reference(cpl, (0, 0))
+    cpl2 = gdstk.Reference(cpl, (l + s, 0))
+    r1 = gdstk.rectangle(
+        (l, (ws + g + w) / 2),
+        (l + s, (-ws + g + w) / 2),
+        layer=m_top.data,
+        datatype=m_top.d_type,
+    )
+    r2 = gdstk.rectangle(
+        cpl1.bounding_box()[0],
+        cpl2.bounding_box()[1],
+        layer=m_bott.data,
+        datatype=m_bott.d_type,
+    )
+    bln.add(cpl1, cpl2, r1, r2)
+    for i in range(3):
+        coord = (
+            (0, g / 2 + w / 2),
+            (l, -g / 2 - w / 2),
+            (l + s, -g / 2 - w / 2),
+        )
+        lab = gdstk.Label(
+            ports[i].name,
+            coord[i],
+            layer=m_top.data,
+            texttype=m_top.d_type,
+        )
+        bln.add(lab)
+    bln.add(gdstk.Reference(via_stack(layerstack, -1, 1, (2, w)), (0, (-g / 2 - w))))
+    bln.add(
+        gdstk.Reference(
+            via_stack(layerstack, -1, 1, (2, w)), (2 * l + s - 2, (-g / 2 - w))
+        )
+    )
+    return bln.flatten()
+
+
 def lange_coupler(
     width: float,
     length: float,
@@ -92,7 +166,7 @@ def lange_coupler(
     name: str = "lange",
 ) -> gdstk.Cell:
     """
-    Generate a flat symmetrical lange coupler.
+    Generate a flat symmetrical lange coupler with two strips per track.
     :param width: track width (in µm)
     :param length: total length of the lines.
     :param gap: space between each track.

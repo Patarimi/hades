@@ -29,6 +29,7 @@ rich = "^13.0"
 scikit-rf = "^0.30.0"
 pydantic = "^2.1.1"
 matplotlib = "^3.8.2"
+lark = "^1.1.9"
 
 [tool.poetry.group.dev]
 optional = true

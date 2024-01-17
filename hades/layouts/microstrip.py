@@ -1,3 +1,5 @@
+from numpy import pi
+
 from .tools import LayerStack, Port
 from .general import via_stack
 import gdstk
@@ -5,11 +7,11 @@ import math
 
 
 def straight_line(
-    width: float,
-    length: float,
-    layerstack: LayerStack,
-    ports: [Port, Port] = (Port("S1"), Port("S2")),
-    name: str = "ms",
+        width: float,
+        length: float,
+        layerstack: LayerStack,
+        ports: [Port, Port] = (Port("S1"), Port("S2")),
+        name: str = "ms",
 ) -> gdstk.Cell:
     """
     Generate a micro-strip straight line cell. Can be exported as a gds files.
@@ -54,13 +56,13 @@ def_port = tuple(
 
 
 def coupled_lines(
-    width1: float,
-    length: float,
-    gap: float,
-    layerstack: LayerStack,
-    width2: float = -1,
-    ports: list[Port] = def_port,
-    name: str = "cpl",
+        width1: float,
+        length: float,
+        gap: float,
+        layerstack: LayerStack,
+        width2: float = -1,
+        ports: list[Port] = def_port,
+        name: str = "cpl",
 ) -> gdstk.Cell:
     """
     Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.
@@ -91,14 +93,14 @@ diff_port = tuple(
 
 
 def marchand_balun(
-    width: float,
-    length: float,
-    gap: float,
-    space: float,
-    layerstack: LayerStack,
-    widths: float = -1,
-    ports: list[Port] = diff_port,
-    name: str = "marchand",
+        width: float,
+        length: float,
+        gap: float,
+        space: float,
+        layerstack: LayerStack,
+        widths: float = -1,
+        ports: list[Port] = diff_port,
+        name: str = "marchand",
 ) -> gdstk.Cell:
     """
     Implements a marchand balun, for a 50Ω balun, 2 -4.8 dB 90° coupler are required.
@@ -118,28 +120,31 @@ def marchand_balun(
     w, l, g, s = width * 1e6, length * 1e6, gap * 1e6, space * 1e6
     ws = w if widths < 0 else widths * 1e6
     bln = gdstk.Cell(name)
-    emp_port = Port("", "")
+    emp_port = Port("")
     cpl = lange_coupler(width, length, gap, layerstack, [emp_port for k in range(4)])
-    cpl1 = gdstk.Reference(cpl, (0, 0))
-    cpl2 = gdstk.Reference(cpl, (l + s, 0))
+    cpl1 = gdstk.Reference(cpl, (0, -l), pi / 2, x_reflection=True)
+    cpl1_bb = cpl1.bounding_box()
+    cpl2 = gdstk.Reference(cpl, (s + cpl1_bb[1][0] - cpl1_bb[0][0], -w - g), -pi / 2)
+    cpl2_bb = cpl2.bounding_box()
     r1 = gdstk.rectangle(
-        (l, (ws + g + w) / 2),
-        (l + s, (-ws + g + w) / 2),
+        (cpl1_bb[1][0], cpl1_bb[0][1] + 1.5 * w + g + ws / 2),
+        (cpl2_bb[0][0], cpl2_bb[0][1] + 1.5 * w + g - ws / 2),
         layer=m_top.data,
         datatype=m_top.d_type,
     )
+    bln.add(cpl1, cpl2, r1)
     r2 = gdstk.rectangle(
-        cpl1.bounding_box()[0],
-        cpl2.bounding_box()[1],
+        bln.bounding_box()[0],
+        bln.bounding_box()[1],
         layer=m_bott.data,
         datatype=m_bott.d_type,
     )
-    bln.add(cpl1, cpl2, r1, r2)
+    bln.add(r2)
     for i in range(3):
         coord = (
-            (0, g / 2 + w / 2),
-            (l, -g / 2 - w / 2),
-            (l + s, -g / 2 - w / 2),
+            (cpl1_bb[1][0], cpl1_bb[1][1] - w / 2),
+            (cpl1_bb[0][0], cpl1_bb[0][1] + w / 2),
+            (cpl2_bb[1][0], cpl2_bb[0][1] + w / 2),
         )
         lab = gdstk.Label(
             ports[i].name,
@@ -148,22 +153,22 @@ def marchand_balun(
             texttype=m_top.d_type,
         )
         bln.add(lab)
-    bln.add(gdstk.Reference(via_stack(layerstack, -1, 1, (2, w)), (0, (-g / 2 - w))))
+    bln.add(gdstk.Reference(via_stack(layerstack, -1, 1, (5, -w)), (cpl1_bb[0][0], cpl1_bb[1][1] - g - w)))
     bln.add(
         gdstk.Reference(
-            via_stack(layerstack, -1, 1, (2, w)), (2 * l + s - 2, (-g / 2 - w))
+            via_stack(layerstack, -1, 1, (-5, -w)), (cpl2_bb[1][0], cpl2_bb[1][1] - g - w)
         )
     )
     return bln.flatten()
 
 
 def lange_coupler(
-    width: float,
-    length: float,
-    gap: float,
-    layerstack: LayerStack,
-    ports: list[Port] = def_port,
-    name: str = "lange",
+        width: float,
+        length: float,
+        gap: float,
+        layerstack: LayerStack,
+        ports: list[Port] = def_port,
+        name: str = "lange",
 ) -> gdstk.Cell:
     """
     Generate a flat symmetrical lange coupler with two strips per track.
@@ -230,6 +235,8 @@ def lange_coupler(
             (-w - g, -ext - 1.5 * w - g),
             (l - w - g, -ext - 1.5 * w - g),
         )
+        if ports[i].name == "":
+            continue
         lab = gdstk.Label(
             ports[i].name,
             coord[i],

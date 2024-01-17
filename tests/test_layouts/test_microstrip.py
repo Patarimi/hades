@@ -5,7 +5,7 @@ import pytest
 from hades.layouts.microstrip import (
     straight_line,
     coupled_lines,
-    lange_coupler,
+    lange_coupler, marchand_balun,
 )
 from hades.layouts.tools import LayerStack, check_diff
 
@@ -38,3 +38,11 @@ def test_lange(tmp_path):
     lib.add(ms)
     lib.write_gds(join(tmp_path, "lange.gds"))
     check_diff(tmp_path / "lange.gds", join(REF_PATH, "ref_lange.gds"))
+
+
+def test_marchand(tmp_path):
+    ms = marchand_balun(2e-6, 400e-6, 4e-6, 66e-6, layerstack, widths=25e-6)
+    lib = gdstk.Library()
+    lib.add(ms)
+    lib.write_gds(join(tmp_path, "marchand.gds"))
+    check_diff(tmp_path / "marchand.gds", join(REF_PATH, "ref_marchand.gds"))

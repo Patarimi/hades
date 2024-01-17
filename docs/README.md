@@ -66,6 +66,7 @@ techno_name:
   process: path to the process file (-proc option in emx)
   techlef: path to the tlef file
 ```
+
 A techno.yml file with three open source PDK is already supplied.
 
 ## Working directory
@@ -91,7 +92,7 @@ It is also possible to create custom devices using a python file. *To be written
 
 ## Tests configuration
 
-The layout testing needs [klayout](klayout.de) to be installed and the program *strmxor* to be accessible.
+The layout testing needs [klayout](http://www.klayout.de) to be installed and the program *strmxor* to be accessible.
 Install hades with optional group dev :
 
 ```shell
@@ -99,6 +100,7 @@ poetry install git+https://github.com/Patarimi/hades --with dev
 ```
 
 Then run pytest in a shell
+
 ```shell
 poetry run pytest
 ```

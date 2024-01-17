@@ -1213,13 +1213,13 @@ The structure is the following:</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">list of option to configure the run</span>
 </code></pre></div>
 <p>Similarly, a techno.yml file can be created at hades root with the following structure:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nt">techno_name</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="nt">techno_name</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">base_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path to the pdk directory root</span>
 <span class="w">  </span><span class="nt">layer_map</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path to the layermap (relative to the base_dir)</span>
 <span class="w">  </span><span class="nt">process</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path to the process file (-proc option in emx)</span>
 <span class="w">  </span><span class="nt">techlef</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path to the tlef file</span>
 </code></pre></div>
-A techno.yml file with three open source PDK is already supplied.</p>
+<p>A techno.yml file with three open source PDK is already supplied.</p>
 <h2 id="working-directory">Working directory<a class="headerlink" href="#working-directory" title="Permanent link">&para;</a></h2>
 <p>Configuration file design.yml. This file can be generated using:</p>
 <div class="highlight"><pre><span></span><code>hades<span class="w"> </span>template
@@ -1234,13 +1234,13 @@ A techno.yml file with three open source PDK is already supplied.</p>
 </code></pre></div>
 <p>It is also possible to create custom devices using a python file. <em>To be written</em>.</p>
 <h2 id="tests-configuration">Tests configuration<a class="headerlink" href="#tests-configuration" title="Permanent link">&para;</a></h2>
-<p>The layout testing needs <a href="klayout.de">klayout</a> to be installed and the program <em>strmxor</em> to be accessible.
+<p>The layout testing needs <a href="http://www.klayout.de">klayout</a> to be installed and the program <em>strmxor</em> to be accessible.
 Install hades with optional group dev :</p>
 <div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Patarimi/hades<span class="w"> </span>--with<span class="w"> </span>dev
 </code></pre></div>
-<p>Then run pytest in a shell
+<p>Then run pytest in a shell</p>
 <div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>run<span class="w"> </span>pytest
-</code></pre></div></p>
+</code></pre></div>
 
 
 

@@ -30,12 +30,19 @@ def straight_line(
     gnd = gdstk.RobustPath((0, 0), 3 * w, layer=m_bott.data, datatype=m_bott.d_type)
     gnd.segment((le, 0))
     ms.add(rf, gnd)
-    ms.add(gdstk.Label(ports[0].name, (0, 0), layer=m_top.data, texttype=m_top.d_type))
-    ms.add(gdstk.Label(ports[1].name, (le, 0), layer=m_top.data, texttype=m_top.d_type))
-    ms.add(gdstk.Label(ports[0].ref, (0, 0), layer=m_bott.data, texttype=m_bott.d_type))
-    ms.add(
-        gdstk.Label(ports[1].ref, (le, 0), layer=m_bott.data, texttype=m_bott.d_type)
-    )
+    for i in range(2):
+        if ports[i].name == "":
+            continue
+        ms.add(
+            gdstk.Label(
+                ports[i].name, (i * le, 0), layer=m_top.data, texttype=m_top.d_type
+            )
+        )
+        ms.add(
+            gdstk.Label(
+                ports[i].ref, (i * le, 0), layer=m_bott.data, texttype=m_bott.d_type
+            )
+        )
     return ms
 
 

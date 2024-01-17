@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://patarimi.github.io/hades/reference/hades/layouts/inductor/">
+        <link rel="canonical" href="https://patarimi.github.io/hades/reference/hades/layouts/general/">
       
       
-        <link rel="prev" href="../general/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../microstrip/">
+        <link rel="next" href="../inductor/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>inductor - HADes</title>
+        <title>general - HADes</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hades.layouts.inductor" class="md-skip">
+        <a href="#hades.layouts.general" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              inductor
+              general
             
           </span>
         </div>
@@ -637,26 +637,6 @@
                 
   
   
-  
-    <li class="md-nav__item">
-      <a href="../general/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    general
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -670,7 +650,7 @@
           
   
   <span class="md-ellipsis">
-    inductor
+    general
   </span>
   
 
@@ -681,7 +661,7 @@
         
   
   <span class="md-ellipsis">
-    inductor
+    general
   </span>
   
 
@@ -701,15 +681,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hades.layouts.inductor" class="md-nav__link">
-    inductor
+  <a href="#hades.layouts.general" class="md-nav__link">
+    general
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.layouts.inductor.octagonal_inductor" class="md-nav__link">
-    octagonal_inductor()
+  <a href="#hades.layouts.general.ground_plane" class="md-nav__link">
+    ground_plane()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.layouts.general.via" class="md-nav__link">
+    via()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.layouts.general.via_stack" class="md-nav__link">
+    via_stack()
   </a>
   
 </li>
@@ -718,6 +712,26 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inductor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    inductor
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1091,15 +1105,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hades.layouts.inductor" class="md-nav__link">
-    inductor
+  <a href="#hades.layouts.general" class="md-nav__link">
+    general
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.layouts.inductor.octagonal_inductor" class="md-nav__link">
-    octagonal_inductor()
+  <a href="#hades.layouts.general.ground_plane" class="md-nav__link">
+    ground_plane()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.layouts.general.via" class="md-nav__link">
+    via()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hades.layouts.general.via_stack" class="md-nav__link">
+    via_stack()
   </a>
   
 </li>
@@ -1119,14 +1147,17 @@
                   
 
 
-  <h1>inductor</h1>
+  <h1>general</h1>
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="hades.layouts.inductor"></a>
+<a id="hades.layouts.general"></a>
   <div class="doc doc-contents first">
+  
+      <p>This module contains function to generate general purpose cells.
+(Via, via stack, ground plane, etc.)</p>
 
   
 
@@ -1146,15 +1177,15 @@
 
 
 
-<h2 id="hades.layouts.inductor.octagonal_inductor" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">octagonal_inductor</span><span class="p">(</span><span class="n">d_i</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layer_stack</span><span class="p">)</span></code>
+<h2 id="hades.layouts.general.ground_plane" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">ground_plane</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">id_gnd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
-<a href="#hades.layouts.inductor.octagonal_inductor" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#hades.layouts.general.ground_plane" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
   <div class="doc doc-contents ">
   
-      <p>generate a one-turn octagonal inductor.</p>
+      <p>This function generates a ground plane cell.</p>
 
 
 
@@ -1170,69 +1201,192 @@
     </thead>
     <tbody>
         <tr>
-          <td><code>d_i</code></td>
-          <td>
-                <code>float</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>inner diameter in micron</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>n_turn</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>number of turn</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>width</code></td>
-          <td>
-                <code>float</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>width of the track</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>gap</code></td>
-          <td>
-                <code>float</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>gap between the track</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>layer_stack</code></td>
+          <td><code>layers</code></td>
           <td>
                 <code><span title="hades.layouts.tools.LayerStack">LayerStack</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the inductor will be drawn on the highest layer of the stack.</p>
+              <p>The stack of layers to use.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>size</code></td>
+          <td>
+                <code>[float, float]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>size (length and width) of the ground plane.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>id_gnd</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>id of the ground metal layer.</p>
+            </div>
+          </td>
+          <td>
+                <code>1</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="gdstk.Cell">Cell</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades/layouts/general.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">ground_plane</span><span class="p">(</span>
+    <span class="n">layers</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">id_gnd</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function generates a ground plane cell.</span>
+<span class="sd">    :param layers: The stack of layers to use.</span>
+<span class="sd">    :param size: size (length and width) of the ground plane.</span>
+<span class="sd">    :param id_gnd: id of the ground metal layer.</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># option vertical/horizontal/both</span>
+    <span class="c1"># gestion of density</span>
+    <span class="c1"># option substrate connection</span>
+    <span class="n">gnd</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;ground&quot;</span><span class="p">)</span>
+    <span class="n">gnd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">size</span><span class="p">,</span>
+            <span class="n">layer</span><span class="o">=</span><span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">id_gnd</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">datatype</span><span class="o">=</span><span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">id_gnd</span><span class="p">)</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">gnd</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="hades.layouts.general.via" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">via</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">id_via</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></code>
+
+<a href="#hades.layouts.general.via" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>This function generates a via cell.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>layer</code></td>
+          <td>
+                <code><span title="hades.layouts.tools.LayerStack">LayerStack</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The stack of layers to use.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>id_via</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the via in the stack.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>size</code></td>
+          <td>
+                <code>[float, float]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>tuple of the size (length and width) of the via.</p>
             </div>
           </td>
           <td>
@@ -1255,10 +1409,11 @@
     <tbody>
         <tr>
           <td>
+                <code><span title="gdstk.Cell">Cell</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              
+              <p>a gdstk.Cell containing the via.</p>
             </div>
           </td>
         </tr>
@@ -1266,13 +1421,8 @@
   </table>
 
           <details class="quote">
-            <summary>Source code in <code>hades/layouts/inductor.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
+            <summary>Source code in <code>hades/layouts/general.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
@@ -1289,10 +1439,145 @@
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">via</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span> <span class="n">id_via</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function generates a via cell.</span>
+<span class="sd">    :param layer: The stack of layers to use.</span>
+<span class="sd">    :param id_via: The id of the via in the stack.</span>
+<span class="sd">    :param size: tuple of the size (length and width) of the via.</span>
+<span class="sd">    :return: a gdstk.Cell containing the via.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;via&quot;</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">size</span><span class="p">,</span>
+            <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="n">id_via</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">datatype</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="n">id_via</span><span class="p">)</span><span class="o">.</span><span class="n">d_type</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">v</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="hades.layouts.general.via_stack" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">via_stack</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">id_top</span><span class="p">,</span> <span class="n">id_bot</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></code>
+
+<a href="#hades.layouts.general.via_stack" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>This function generates a via stack cell.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>layers</code></td>
+          <td>
+                <code><span title="hades.layouts.tools.LayerStack">LayerStack</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The stack of layers to use.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>id_top</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>id of the top metal layer.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>id_bot</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>id of the bottom metal layer.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>size</code></td>
+          <td>
+                <code>[float, float]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>tuple of the size (length and width) of the via.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="gdstk.Cell">Cell</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a gdstk.Cell containing the via stack.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>hades/layouts/general.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
@@ -1306,46 +1591,41 @@
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">octagonal_inductor</span><span class="p">(</span>
-    <span class="n">d_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">layer_stack</span><span class="p">:</span> <span class="n">LayerStack</span>
-<span class="p">):</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">via_stack</span><span class="p">(</span>
+    <span class="n">layers</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span>
+    <span class="n">id_top</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">id_bot</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    generate a one-turn octagonal inductor.</span>
-<span class="sd">    :param d_i: inner diameter in micron</span>
-<span class="sd">    :param n_turn: number of turn</span>
-<span class="sd">    :param width: width of the track</span>
-<span class="sd">    :param gap: gap between the track</span>
-<span class="sd">    :param layer_stack: the inductor will be drawn on the highest layer of the stack.</span>
-<span class="sd">    :return:</span>
+<span class="sd">    This function generates a via stack cell.</span>
+<span class="sd">    :param layers: The stack of layers to use.</span>
+<span class="sd">    :param id_top: id of the top metal layer.</span>
+<span class="sd">    :param id_bot: id of the bottom metal layer.</span>
+<span class="sd">    :param size: tuple of the size (length and width) of the via.</span>
+<span class="sd">    :return: a gdstk.Cell containing the via stack.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">m_top</span> <span class="o">=</span> <span class="n">layer_stack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">ind</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;ind&quot;</span><span class="p">)</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span>
-    <span class="n">d_a</span> <span class="o">=</span> <span class="n">d_i</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">w</span>
-    <span class="n">si</span> <span class="o">=</span> <span class="n">d_a</span> <span class="o">*</span> <span class="n">tan</span><span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">8</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="n">p_ext</span><span class="p">,</span> <span class="n">p_gap</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span>
-    <span class="n">turn</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">RobustPath</span><span class="p">((</span><span class="o">-</span><span class="n">p_ext</span><span class="p">,</span> <span class="n">p_gap</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">d_type</span><span class="p">)</span>
-    <span class="n">turn2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">RobustPath</span><span class="p">(</span>
-        <span class="p">(</span><span class="o">-</span><span class="n">p_ext</span><span class="p">,</span> <span class="o">-</span><span class="n">p_gap</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">d_type</span>
-    <span class="p">)</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p_gap</span><span class="p">),</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">si</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">d_a</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">si</span><span class="p">,</span> <span class="n">d_a</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">d_a</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">si</span><span class="p">,</span> <span class="n">d_a</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">d_a</span><span class="p">,</span> <span class="n">si</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">d_a</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-    <span class="p">)</span>
-    <span class="k">for</span> <span class="n">pts</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
-        <span class="n">turn</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
-        <span class="n">turn2</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-    <span class="n">ind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">turn</span><span class="p">,</span> <span class="n">turn2</span><span class="p">)</span>
-    <span class="n">ind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;P1&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">p_ext</span><span class="p">,</span> <span class="n">p_gap</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">d_type</span><span class="p">))</span>
-    <span class="n">ind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-        <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;P2&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">p_ext</span><span class="p">,</span> <span class="o">-</span><span class="n">p_gap</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">d_type</span><span class="p">)</span>
-    <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">ind</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;via&quot;</span><span class="p">)</span>
+    <span class="n">id_top</span> <span class="o">=</span> <span class="n">id_top</span> <span class="k">if</span> <span class="n">id_top</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">id_top</span><span class="p">)</span>
+    <span class="n">id_bot</span> <span class="o">=</span> <span class="n">id_bot</span> <span class="k">if</span> <span class="n">id_bot</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">id_bot</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">id_bot</span><span class="p">,</span> <span class="n">id_top</span><span class="p">):</span>
+        <span class="n">lyr</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">lyr</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">lyr</span><span class="o">.</span><span class="n">d_type</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">id_top</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">lyr</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">lyr</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">lyr</span><span class="o">.</span><span class="n">d_type</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">v</span>
 </code></pre></div></td></tr></table></div>
           </details>
   </div>

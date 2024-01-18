@@ -29,10 +29,10 @@ def via(layer: LayerStack, id_via: int, size: [float, float]) -> gdstk.Cell:
 
 
 def via_stack(
-    layers: LayerStack,
-    id_top: int,
-    id_bot: int,
-    size: [float, float],
+        layers: LayerStack,
+        id_top: int,
+        id_bot: int,
+        size: [float, float],
 ) -> gdstk.Cell:
     """
     This function generates a via stack cell.
@@ -43,12 +43,12 @@ def via_stack(
     :return: a gdstk.Cell containing the via stack.
     """
     v = gdstk.Cell("via")
-    id_top = id_top if id_top > 0 else int((len(layers) + 1) / 2 + id_top)
+    id_top = id_top if id_top > 0 else int((len(layers) + 1) / 2 + id_top + 1)
     id_bot = id_bot if id_bot > 0 else int((len(layers) + 1) / 2 + id_bot)
-    for i in range(id_bot, id_top):
+    for i in range(id_bot, id_top + 1):
         lyr = layers.get_metal_layer(i)
         v.add(gdstk.rectangle((0, 0), size, layer=lyr.data, datatype=lyr.d_type))
-        if i == id_top - 1:
+        if i == id_top:
             continue
         lyr = layers.get_via_layer(i)
         v.add(gdstk.rectangle((0, 0), size, layer=lyr.data, datatype=lyr.d_type))
@@ -56,7 +56,7 @@ def via_stack(
 
 
 def ground_plane(
-    layers: LayerStack, size: [float, float], id_gnd: int = 1
+        layers: LayerStack, size: [float, float], id_gnd: int = 1
 ) -> gdstk.Cell:
     """
     This function generates a ground plane cell.

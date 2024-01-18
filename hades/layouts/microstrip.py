@@ -169,6 +169,7 @@ def lange_coupler(
         layerstack: LayerStack,
         ports: list[Port] = def_port,
         name: str = "lange",
+        ext: float = 5
 ) -> gdstk.Cell:
     """
     Generate a flat symmetrical lange coupler with two strips per track.
@@ -179,9 +180,9 @@ def lange_coupler(
     The lowest metal layer will be used for the ground plane. The second higher metal layer will be used for bridging.
     :param ports: name of each port.
     :param name: name of the returned cell.
+    :param ext: extension of the ports
     :return:
     """
-    ext = 5
     w, l, g = width * 1e6, length * 1e6, gap * 1e6
     top_metal = layerstack.get_metal_layer(-1)
     bridge = layerstack.get_metal_layer(-2)

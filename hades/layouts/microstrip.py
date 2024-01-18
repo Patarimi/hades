@@ -28,9 +28,9 @@ def straight_line(
     ms = gdstk.Cell(name)
     le = length * 1e6
     w = width * 1e6
-    rf = gdstk.RobustPath((0, 0), w, layer=m_top.data, datatype=m_top.d_type)
+    rf = gdstk.RobustPath((0, 0), w, layer=m_top.layer, datatype=m_top.datatype)
     rf.segment((le, 0))
-    gnd = gdstk.RobustPath((0, 0), 3 * w, layer=m_bott.data, datatype=m_bott.d_type)
+    gnd = gdstk.RobustPath((0, 0), 3 * w, layer=m_bott.layer, datatype=m_bott.datatype)
     gnd.segment((le, 0))
     ms.add(rf, gnd)
     for i in range(2):
@@ -38,12 +38,12 @@ def straight_line(
             continue
         ms.add(
             gdstk.Label(
-                ports[i].name, (i * le, 0), layer=m_top.data, texttype=m_top.d_type
+                ports[i].name, (i * le, 0), layer=m_top.layer, texttype=m_top.datatype
             )
         )
         ms.add(
             gdstk.Label(
-                ports[i].ref, (i * le, 0), layer=m_bott.data, texttype=m_bott.d_type
+                ports[i].ref, (i * le, 0), layer=m_bott.layer, texttype=m_bott.datatype
             )
         )
     return ms
@@ -129,15 +129,15 @@ def marchand_balun(
     r1 = gdstk.rectangle(
         (cpl1_bb[1][0], cpl1_bb[0][1] + 1.5 * w + g + ws / 2),
         (cpl2_bb[0][0], cpl2_bb[0][1] + 1.5 * w + g - ws / 2),
-        layer=m_top.data,
-        datatype=m_top.d_type,
+        layer=m_top.layer,
+        datatype=m_top.datatype,
     )
     bln.add(cpl1, cpl2, r1)
     r2 = gdstk.rectangle(
         bln.bounding_box()[0],
         bln.bounding_box()[1],
-        layer=m_bott.data,
-        datatype=m_bott.d_type,
+        layer=m_bott.layer,
+        datatype=m_bott.datatype,
     )
     bln.add(r2)
     for i in range(3):
@@ -149,8 +149,8 @@ def marchand_balun(
         lab = gdstk.Label(
             ports[i].name,
             coord[i],
-            layer=m_top.data,
-            texttype=m_top.d_type,
+            layer=m_top.layer,
+            texttype=m_top.datatype,
         )
         bln.add(lab)
     bln.add(
@@ -197,8 +197,8 @@ def lange_coupler(
     first_met = gdstk.FlexPath(
         (0, 0),
         w,
-        layer=top_metal.data,
-        datatype=top_metal.d_type,
+        layer=top_metal.layer,
+        datatype=top_metal.datatype,
         ends="extended",
     )
     first_met.horizontal(l, relative=True)
@@ -206,14 +206,14 @@ def lange_coupler(
     first_met.horizontal(-l, relative=True)
     first_met.vertical(ext, relative=True)
     port = gdstk.FlexPath(
-        (l, 2.5 * w + 2 * g), w, layer=top_metal.data, datatype=top_metal.d_type
+        (l, 2.5 * w + 2 * g), w, layer=top_metal.layer, datatype=top_metal.datatype
     )
     port.vertical(ext, relative=True)
     sec_met = gdstk.FlexPath(
         [(0, 0), (0, 2 * (w + g))],
         w,
-        layer=bridge.data,
-        datatype=bridge.d_type,
+        layer=bridge.layer,
+        datatype=bridge.datatype,
         ends="extended",
     )
     via_w = 0.4
@@ -222,7 +222,7 @@ def lange_coupler(
     rep = math.floor((w - 2 * via_s - via_w) / (via_w + via_g)) + 1
     shift = -via_w - (rep - 1) * (via_w + via_g)
     via = gdstk.rectangle(
-        (0, 0), (via_w, via_w), layer=top_via.data, datatype=top_via.d_type
+        (0, 0), (via_w, via_w), layer=top_via.layer, datatype=top_via.datatype
     )
     via.repetition = gdstk.Repetition(rep, rep, spacing=(via_g + via_w, via_g + via_w))
     via.translate(shift / 2, shift / 2)
@@ -247,16 +247,16 @@ def lange_coupler(
         lab = gdstk.Label(
             ports[i].name,
             coord[i],
-            layer=top_metal.data,
-            texttype=top_metal.d_type,
+            layer=top_metal.layer,
+            texttype=top_metal.datatype,
         )
         ref = gdstk.Label(
-            ports[i].ref, coord[i], layer=bot_metal.data, texttype=bot_metal.d_type
+            ports[i].ref, coord[i], layer=bot_metal.layer, texttype=bot_metal.datatype
         )
         lange.add(lab, ref)
     dim = lange.bounding_box()
     gnd = gdstk.rectangle(
-        dim[0], dim[1], layer=bot_metal.data, datatype=bot_metal.d_type
+        dim[0], dim[1], layer=bot_metal.layer, datatype=bot_metal.datatype
     )
     lange.add(gnd)
     return lange

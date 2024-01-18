@@ -7,16 +7,23 @@ from shutil import which
 from hades.techno import load_pdk
 from hades.parsers.tlef import load_tlef
 from hades.parsers.map import load_map, get_number
+from enum import IntEnum, auto
+
+
+class LayerType(IntEnum):
+    VIA = auto()
+    METAL = auto()
 
 
 @dataclass
 class Layer:
-    data: int
-    d_type: int = 0
+    layer: int
+    datatype: int = 0
     name: str = None
+    type: LayerType = LayerType(1)
 
     def __str__(self):
-        return f"{self.name}: {self.data}/{self.d_type}"
+        return f"{self.name}: {self.layer}/{self.datatype}"
 
 
 @dataclass
@@ -32,17 +39,17 @@ class LayerStack:
         self.stack = []
         for layer in layers:
             if layer in layer_map:
-                is_met_or_via = False
+                layer_type = None
                 if "TYPE" not in layers[layer]:
                     raise KeyError(
                         f"Type not found in {layer}. Available option are {list(layers[layer].keys())}."
                         f"full layer stack is {layers}"
                     )
                 if layers[layer]["TYPE"] == "ROUTING" and layer[0].upper() == "M":
-                    is_met_or_via = True
+                    layer_type = LayerType.METAL
                 if layers[layer]["TYPE"] == "CUT" and layer[0].upper() == "V":
-                    is_met_or_via = True
-                if not is_met_or_via:
+                    layer_type = LayerType.VIA
+                if layer_type is None:
                     continue
                 for dtype in ("VIA", "net", "drawing"):
                     try:
@@ -53,7 +60,9 @@ class LayerStack:
                     raise KeyError(
                         f"Type not found in stack. Available type are {list(layer_map[layer].keys())}."
                     )
-                self.stack.append(Layer(dt[0], dt[1], layer))
+                self.stack.append(
+                    Layer(layer=dt[0], datatype=dt[1], name=layer, type=layer_type)
+                )
 
     def __len__(self):
         return len(self.stack)

@@ -20,8 +20,8 @@ def via(layer: Layer, size: [float, float]) -> gdstk.Cell:
         gdstk.rectangle(
             (0, 0),
             size,
-            layer=layer.data,
-            datatype=layer.d_type,
+            layer=layer.layer,
+            datatype=layer.datatype,
         )
     )
     return v
@@ -46,7 +46,7 @@ def via_stack(
     id_bot = id_bot if id_bot > 0 else int((len(layers) + 1) / 2 + id_bot)
     for i in range(id_bot, id_top + 1):
         lyr = layers.get_metal_layer(i)
-        v.add(gdstk.rectangle((0, 0), size, layer=lyr.data, datatype=lyr.d_type))
+        v.add(gdstk.rectangle((0, 0), size, layer=lyr.layer, datatype=lyr.datatype))
         if i == id_top:
             continue
         lyr = layers.get_via_layer(i)
@@ -72,8 +72,8 @@ def ground_plane(
         gdstk.rectangle(
             (0, 0),
             size,
-            layer=layers.get_metal_layer(id_gnd).data,
-            datatype=layers.get_metal_layer(id_gnd).d_type,
+            layer=layers.get_metal_layer(id_gnd).layer,
+            datatype=layers.get_metal_layer(id_gnd).datatype,
         )
     )
     return gnd

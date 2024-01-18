@@ -23,10 +23,16 @@ def test_tools():
 def test_layer_stack_gf():
     layer_stack = tools.LayerStack("gf180mcu")
     print(layer_stack)
-    assert layer_stack.stack[0].data == 34
-    assert layer_stack.get_metal_layer(1) == tools.Layer(34, 0, "Metal1")
-    assert layer_stack.get_metal_layer(2) == tools.Layer(36, 0, "Metal2")
-    assert layer_stack.get_metal_layer(-1) == tools.Layer(81, 0, "Metal5")
+    assert layer_stack.stack[0].layer == 34
+    assert layer_stack.get_metal_layer(1) == tools.Layer(
+        34, 0, "Metal1", tools.LayerType.METAL
+    )
+    assert layer_stack.get_metal_layer(2) == tools.Layer(
+        36, 0, "Metal2", tools.LayerType.METAL
+    )
+    assert layer_stack.get_metal_layer(-1) == tools.Layer(
+        81, 0, "Metal5", tools.LayerType.METAL
+    )
 
     assert layer_stack.get_via_layer(1) == tools.Layer(35, 0, "Via1")
     assert layer_stack.get_via_layer(2) == tools.Layer(38, 0, "Via2")
@@ -37,10 +43,16 @@ def test_layer_stack_gf():
 def test_layer_stack_sw():
     layer_stack = tools.LayerStack("sky130")
     print(layer_stack)
-    assert layer_stack.stack[0].data == 68
-    assert layer_stack.get_metal_layer(1) == tools.Layer(68, 20, "met1")
-    assert layer_stack.get_metal_layer(2) == tools.Layer(69, 20, "met2")
-    assert layer_stack.get_metal_layer(-1) == tools.Layer(72, 20, "met5")
+    assert layer_stack.stack[0].layer == 68
+    assert layer_stack.get_metal_layer(1) == tools.Layer(
+        68, 20, "met1", tools.LayerType.METAL
+    )
+    assert layer_stack.get_metal_layer(2) == tools.Layer(
+        69, 20, "met2", tools.LayerType.METAL
+    )
+    assert layer_stack.get_metal_layer(-1) == tools.Layer(
+        72, 20, "met5", tools.LayerType.METAL
+    )
 
     assert layer_stack.get_via_layer(1) == tools.Layer(68, 44, "via")
     assert layer_stack.get_via_layer(2) == tools.Layer(69, 44, "via2")

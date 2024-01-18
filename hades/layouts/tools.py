@@ -7,12 +7,6 @@ from shutil import which
 from hades.techno import load_pdk
 from hades.parsers.tlef import load_tlef
 from hades.parsers.map import load_map, get_number
-from enum import IntEnum, auto
-
-
-class LayerType(IntEnum):
-    VIA = auto()
-    METAL = auto()
 
 
 @dataclass
@@ -20,10 +14,16 @@ class Layer:
     layer: int
     datatype: int = 0
     name: str = None
-    type: LayerType = LayerType(1)
+    width: float = 0
+    space: float = 0
 
     def __str__(self):
         return f"{self.name}: {self.layer}/{self.datatype}"
+
+
+@dataclass
+class ViaLayer(Layer):
+    enclosure: float | list[float, float] = 0
 
 
 @dataclass
@@ -46,9 +46,9 @@ class LayerStack:
                         f"full layer stack is {layers}"
                     )
                 if layers[layer]["TYPE"] == "ROUTING" and layer[0].upper() == "M":
-                    layer_type = LayerType.METAL
+                    layer_type = "Metal"
                 if layers[layer]["TYPE"] == "CUT" and layer[0].upper() == "V":
-                    layer_type = LayerType.VIA
+                    layer_type = "Via"
                 if layer_type is None:
                     continue
                 for dtype in ("VIA", "net", "drawing"):
@@ -60,9 +60,11 @@ class LayerStack:
                     raise KeyError(
                         f"Type not found in stack. Available type are {list(layer_map[layer].keys())}."
                     )
-                self.stack.append(
-                    Layer(layer=dt[0], datatype=dt[1], name=layer, type=layer_type)
-                )
+                if layer_type == "Metal":
+                    lyr = Layer(layer=dt[0], datatype=dt[1], name=layer)
+                else:
+                    lyr = ViaLayer(layer=dt[0], datatype=dt[1], name=layer)
+                self.stack.append(lyr)
 
     def __len__(self):
         return len(self.stack)

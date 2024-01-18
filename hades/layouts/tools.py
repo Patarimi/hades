@@ -16,7 +16,7 @@ class Layer:
     name: str = None
 
     def __str__(self):
-        return f"{self.data}/{self.d_type}"
+        return f"{self.name}: {self.data}/{self.d_type}"
 
 
 @dataclass
@@ -77,6 +77,11 @@ class Port:
     def __post_init__(self):
         if self.ref is None:
             self.ref = self.name + "_r"
+
+    def __str__(self):
+        if self.ref == "":
+            return self.name
+        return f"{self.name}={self.name}:{self.ref}"
 
 
 def check_diff(gds1: str | Path, gds2: str | Path):

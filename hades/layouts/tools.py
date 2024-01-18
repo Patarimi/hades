@@ -15,7 +15,7 @@ class Layer:
     datatype: int = 0
     name: str = None
     width: float = 0
-    space: float = 0
+    spacing: float = 0
 
     def __str__(self):
         return f"{self.name}: {self.layer}/{self.datatype}"
@@ -61,13 +61,24 @@ class LayerStack:
                         f"Type not found in stack. Available type are {list(layer_map[layer].keys())}."
                     )
                 if layer_type == "Metal":
-                    lyr = Layer(layer=dt[0], datatype=dt[1], name=layer)
+                    lyr = Layer(
+                        layer=dt[0],
+                        datatype=dt[1],
+                        name=layer,
+                        width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
+                        spacing=layers[layer]["SPACING"]
+                        if "SPACING" in layers[layer]
+                        else 0,
+                    )
                 else:
                     lyr = ViaLayer(
                         layer=dt[0],
                         datatype=dt[1],
                         name=layer,
                         width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
+                        spacing=layers[layer]["SPACING"]
+                        if "SPACING" in layers[layer]
+                        else 0,
                     )
                 self.stack.append(lyr)
 

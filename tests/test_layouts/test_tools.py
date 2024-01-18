@@ -28,9 +28,9 @@ def test_layer_stack_gf():
     assert layer_stack.get_metal_layer(2) == tools.Layer(36, 0, "Metal2")
     assert layer_stack.get_metal_layer(-1) == tools.Layer(81, 0, "Metal5")
 
-    assert layer_stack.get_via_layer(1) == tools.ViaLayer(35, 0, "Via1")
-    assert layer_stack.get_via_layer(2) == tools.ViaLayer(38, 0, "Via2")
-    assert layer_stack.get_via_layer(-1) == tools.ViaLayer(41, 0, "Via4")
+    assert layer_stack.get_via_layer(1) == tools.ViaLayer(35, 0, "Via1", 0.26)
+    assert layer_stack.get_via_layer(2) == tools.ViaLayer(38, 0, "Via2", 0.26)
+    assert layer_stack.get_via_layer(-1) == tools.ViaLayer(41, 0, "Via4", 0.26)
 
 
 @pytest.mark.skipif(not isdir("./pdk/sky130A"), reason="The PDK sky130 not installed.")
@@ -42,6 +42,6 @@ def test_layer_stack_sw():
     assert layer_stack.get_metal_layer(2) == tools.Layer(69, 20, "met2")
     assert layer_stack.get_metal_layer(-1) == tools.Layer(72, 20, "met5")
 
-    assert layer_stack.get_via_layer(1) == tools.ViaLayer(68, 44, "via")
-    assert layer_stack.get_via_layer(2) == tools.ViaLayer(69, 44, "via2")
-    assert layer_stack.get_via_layer(-1) == tools.ViaLayer(71, 44, "via4")
+    assert layer_stack.get_via_layer(1) == tools.ViaLayer(68, 44, "via", 0.15)
+    assert layer_stack.get_via_layer(2) == tools.ViaLayer(69, 44, "via2", 0.2)
+    assert layer_stack.get_via_layer(-1) == tools.ViaLayer(71, 44, "via4", 0.8)

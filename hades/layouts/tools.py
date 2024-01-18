@@ -63,7 +63,12 @@ class LayerStack:
                 if layer_type == "Metal":
                     lyr = Layer(layer=dt[0], datatype=dt[1], name=layer)
                 else:
-                    lyr = ViaLayer(layer=dt[0], datatype=dt[1], name=layer)
+                    lyr = ViaLayer(
+                        layer=dt[0],
+                        datatype=dt[1],
+                        name=layer,
+                        width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
+                    )
                 self.stack.append(lyr)
 
     def __len__(self):

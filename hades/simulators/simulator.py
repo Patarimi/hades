@@ -53,10 +53,10 @@ def load_conf(conf_file: Path = CONF_PATH, key: str = "") -> dict:
 
 @sim_app.command("config")
 def setup(
-        simulator: str,
-        base_dir: Annotated[Path, Option(prompt=True)],
-        name: Annotated[str, Option(prompt=True)],
-        option: Annotated[str, Option(prompt=True)],
+    simulator: str,
+    base_dir: Annotated[Path, Option(prompt=True)],
+    name: Annotated[str, Option(prompt=True)],
+    option: Annotated[str, Option(prompt=True)],
 ) -> None:
     """
     Set up the simulator and write all configuration in a config.yml file at hades root.

@@ -20,6 +20,10 @@ class Layer:
     def __str__(self):
         return f"{self.name}: {self.layer}/{self.datatype}"
 
+    @property
+    def map(self):
+        return {"layer": self.layer, "datatype": self.datatype}
+
 
 @dataclass
 class ViaLayer(Layer):

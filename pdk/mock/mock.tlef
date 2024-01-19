@@ -8,6 +8,10 @@ END Metal1
 
 LAYER Via1
     TYPE CUT;
+    SPACING 0.26;
+    WIDTH 0.4;
+    ENCLOSURE BELOW 0.2;
+    ENCLOSURE ABOVE 0.2;
 END Via1
 
 LAYER Metal2

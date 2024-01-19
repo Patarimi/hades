@@ -155,14 +155,14 @@ def marchand_balun(
         bln.add(lab)
     bln.add(
         gdstk.Reference(
-            via_stack(layerstack, -1, 1, (5, -w)),
-            (cpl1_bb[0][0], cpl1_bb[1][1] - g - w),
+            via_stack(layerstack, -1, 1, (5, w)),
+            (cpl1_bb[0][0], cpl1_bb[1][1] - g - 2 * w),
         )
     )
     bln.add(
         gdstk.Reference(
-            via_stack(layerstack, -1, 1, (-5, -w)),
-            (cpl2_bb[1][0], cpl2_bb[1][1] - g - w),
+            via_stack(layerstack, -1, 1, (5, w)),
+            (cpl2_bb[1][0] - 5, cpl2_bb[1][1] - g - 2 * w),
         )
     )
     return bln.flatten()

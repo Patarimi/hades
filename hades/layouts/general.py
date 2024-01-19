@@ -2,28 +2,40 @@
 This module contains function to generate general purpose cells.
 (Via, via stack, ground plane, etc.)
 """
+import math
 
 import gdstk
 
-from hades.layouts.tools import LayerStack, Layer
+from hades.layouts.tools import LayerStack, ViaLayer
 
 
-def via(layer: Layer, size: [float, float]) -> gdstk.Cell:
+def via(layer: ViaLayer, size: [float, float]) -> gdstk.Cell:
     """
     This function generates a via cell.
     :param layer: The Layers to use.
-    :param size: tuple of the size (length and width) of the via.
+    :param size: tuple of the size (length and width) of the via array to be made.
     :return: a gdstk.Cell containing the via.
     """
     v = gdstk.Cell("via")
-    v.add(
-        gdstk.rectangle(
-            (0, 0),
-            size,
-            layer=layer.layer,
-            datatype=layer.datatype,
+    if layer.width == 0:
+        rec = gdstk.rectangle((0, 0), size, **layer.map)
+    else:
+        via_w = layer.width
+        via_g = layer.spacing
+        via_s = layer.enclosure
+
+        def repetition(length: float) -> int:
+            return math.floor((length - 2 * via_s - via_w) / (via_w + via_g)) + 1
+
+        rep_x, rep_y = repetition(size[0]), repetition(size[1])
+        rec = gdstk.rectangle((0, 0), (via_w, via_w), **layer.map)
+        rec.repetition = gdstk.Repetition(
+            rep_x, rep_y, spacing=(via_g + via_w, via_g + via_w)
         )
-    )
+        shift = [via_w + (r - 1) * (via_w + via_g) for r in (rep_x, rep_y)]
+        rec.translate((size[0] - shift[0]) / 2, (size[1] - shift[1]) / 2)
+        [v.add(p) for p in rec.apply_repetition()]
+    v.add(rec)
     return v
 
 

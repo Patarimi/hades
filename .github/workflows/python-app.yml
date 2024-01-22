@@ -20,7 +20,7 @@ jobs:
     steps:
     - name: Restore PDK Directory
       id: pdk-restore
-      uses: actions/cache/restore@v3
+      uses: actions/cache/restore@v4
       with:
         path: |
           pdk/
@@ -47,7 +47,7 @@ jobs:
     - if: ${{ steps.pdk-restore.outputs.cache-hit != 'true' }}
       name: Save PDK Directory
       id: pdk-save
-      uses: actions/cache/save@v3
+      uses: actions/cache/save@v4
       with:
         path: |
           pdk/

@@ -1,6 +1,6 @@
 import os
 from hades.main import generate_cli
-from hades.parsers.map import get_number
+from hades.parsers.layermap import get_number
 from os import chdir
 import yaml
 import pytest

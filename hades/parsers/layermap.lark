@@ -1,0 +1,15 @@
+start: (layer)+
+
+layer: NAME _SEP (SETOFTYPE | TYPE) _SEP INTEGER _SEP INTEGER _NL
+    | "NAME" _SEP NAME "/" TYPE ("," NAME "/" TYPE)* _SEP INTEGER _SEP INTEGER _NL
+
+INTEGER: /[0-9]+/
+SETOFTYPE: (TYPE ",")*TYPE
+TYPE: WORD
+NAME: WORD
+_SEP: (" "+)
+WORD: LETTER (LETTER|"0".."9")*
+COMMENT: "#" /[^\n]/*
+%ignore COMMENT
+%import common.LETTER
+%import common.NEWLINE -> _NL

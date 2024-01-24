@@ -4,7 +4,7 @@ from math import pi
 from pathlib import Path
 from scipy.optimize import minimize_scalar
 from ..simulators import Emx
-from hades.parsers.map import get_number
+from hades.parsers.layermap import get_number
 from ..layouts.inductor import octagonal_inductor
 from ..layouts.tools import LayerStack
 

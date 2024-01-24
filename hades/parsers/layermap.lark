@@ -1,7 +1,7 @@
 start: (layer)+
 
 layer: NAME _SEP (SETOFTYPE | TYPE) _SEP INTEGER _SEP INTEGER _SEP? ("cut" _SEP?)? _NL
-    | "NAME" _SEP NAME "/" TYPE ("," NAME "/" TYPE)* _SEP INTEGER _SEP INTEGER _SEP? ("cut" _SEP)? _NL
+    | "NAME" _SEP NAME "/" TYPE ("," NAME "/" TYPE)* _SEP INTEGER _SEP INTEGER _SEP? ("cut" _SEP?)? _NL
 
 INTEGER: /[0-9]+/
 SETOFTYPE: (TYPE ",")*TYPE

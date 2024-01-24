@@ -38,9 +38,9 @@ LAYER Metal4
     TYPE ROUTING ;
 END Metal4
 
-LAYER Via4
+LAYER Vi_4
     TYPE CUT ;
-END Via4
+END Vi_4
 
 LAYER Metal5
     TYPE ROUTING ;

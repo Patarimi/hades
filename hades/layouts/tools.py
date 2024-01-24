@@ -6,7 +6,7 @@ import os
 from shutil import which
 from hades.techno import load_pdk
 from hades.parsers.tlef import load_tlef
-from hades.parsers.map import load_map, get_number
+from hades.parsers.layermap import load_map, get_number
 
 
 @dataclass

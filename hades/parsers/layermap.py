@@ -8,6 +8,12 @@ from hades.techno import load_pdk
 
 @dataclass
 class Map:
+    """
+    Store one layer of a layermap file.
+    :param layer: The layer number
+    :param types: The list of type numbers and their corresponding datatype.
+    """
+
     types: dict[int, list[str]]
     layer: int
 
@@ -41,11 +47,7 @@ class LayerMap(Transformer):
         for layer in start:
             name = layer[0]
             if name in map_d.keys():
-                datatype = layer[-1]
-                if datatype in map_d[name].types.keys():
-                    map_d[name].types[datatype] += layer[1]
-                else:
-                    map_d[name].types[datatype] = layer[1]
+                map_d[name].types.update({layer[-1]: layer[1]})
             else:
                 map_d[name] = Map({layer[-1]: layer[1]}, layer[-2])
         return map_d

@@ -5,6 +5,10 @@ from os import chdir
 import yaml
 import pytest
 
+pytestmark = pytest.mark.skipif(
+    not (os.path.isdir("./pdk/sky130")) or not (os.path.isdir("./pdk/gf180mcu")), reason="PDK not installed."
+)
+
 
 @pytest.mark.skipif(
     os.name == "nt",

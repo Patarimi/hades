@@ -11,6 +11,6 @@ _SEP: (" "|/\t/)+
 WORD: LETTER (LETTER|"0".."9"|"_")*
 COMMENT: "#" /.+/ _NL
 %ignore COMMENT
-%ignore "cut"
+%ignore "cut" _SEP?
 %import common.LETTER
 %import common.NEWLINE -> _NL

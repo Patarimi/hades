@@ -17,13 +17,14 @@ def test_load_map():
 
 
 def test_get_number():
-    layer, datatype = get_number("mock", "Via1", "VIA")
+    layers = load_map("mock")
+    layer, datatype = get_number(layers, "Via1", "VIA")
     assert layer == 35
     assert datatype == 0
 
-    layer, datatype = get_number("mock", "Metal1", "NET")
+    layer, datatype = get_number(layers, "Metal1", "NET")
     assert layer == 34
     assert datatype == 0
 
     with pytest.raises(KeyError):
-        get_number("mock", "Via1", "NET")
+        get_number(layers, "Via1", "NET")

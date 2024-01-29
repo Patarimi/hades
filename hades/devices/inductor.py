@@ -4,7 +4,6 @@ from math import pi
 from pathlib import Path
 from scipy.optimize import minimize_scalar
 from ..simulators import Emx
-from hades.parsers.layermap import get_number
 from ..layouts.inductor import octagonal_inductor
 from ..layouts.tools import LayerStack
 
@@ -54,7 +53,6 @@ class Inductor:
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
         layer_stack = LayerStack(self.techno)
-        m_top = get_number(self.techno, dimensions["m_path"], "NET")
         ind = octagonal_inductor(
             dimensions["d_i"],
             dimensions["n"],

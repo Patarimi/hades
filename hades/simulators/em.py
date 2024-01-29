@@ -30,12 +30,12 @@ class Emx:
         self.proc = join(tech["base_dir"], tech["process"])
 
     def compute(
-        self,
-        input_file: Path,
-        cell_name: str,
-        freq: float | tuple[float],
-        ports: list[Port | str] = None,
-        **options,
+            self,
+            input_file: Path,
+            cell_name: str,
+            freq: float | tuple[float],
+            ports: list[Port | str] = None,
+            **options,
     ):
         """
         Run the simulation
@@ -65,18 +65,18 @@ class Emx:
         # %d enable automatic numbering matching the port number
         path_file = "res.s%dp"
         cmd = (
-            [
-                emx_base,
-                str(input_file),
-                cell_name,
-                self.proc,
-                "--sweep",
-            ]
-            + f_s
-            + [
-                "--format=touchstone",
-                "-s" + path_file,
-            ]
+                [
+                    emx_base,
+                    str(input_file),
+                    cell_name,
+                    self.proc,
+                    "--sweep",
+                ]
+                + f_s
+                + [
+                    "--format=touchstone",
+                    "-s" + path_file,
+                ]
         )
         if ports is not None:
             for port in ports:
@@ -84,12 +84,13 @@ class Emx:
                     cmd += [f"-p {port}"]
                 else:
                     cmd += [f"-p{port}"]
-        if "mode" in options:
-            cmd += ["--mode=" + options["mode"]]
         if "debug" in options and options["debug"]:
+            options.pop("debug")
             str_cmd = "Running EMX with command:\n\t"
             for elt in cmd:
                 str_cmd += str(elt) + " "
+        for key in options:
+            cmd += [command(key, options[key])]
         proc = run(cmd + conf["options"], capture_output=True, encoding="latin")
         if proc.returncode != 0:
             RuntimeWarning(str(cmd + conf["options"]))
@@ -99,6 +100,12 @@ class Emx:
         res_path = glob.glob(path_file.replace("%d", nw))
         y_param = rf.Network(res_path[0])
         return y_param
+
+
+def command(key: str, value: str) -> str:
+    if len(key) > 1:
+        return f"--{key}={value}"
+    return f"-{key} {value}"
 
 
 def parse(stream: str) -> rf.Network:

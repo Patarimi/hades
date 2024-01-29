@@ -55,9 +55,10 @@ class LayerStack:
                     layer_type = "Via"
                 if layer_type is None:
                     continue
-                for dtype in ("VIA", "net", "drawing"):
+                for dtype in ("VIA", "drawing", "pin", "net"):
                     try:
                         dt = get_number(self.techno, layer, dtype)
+                        break
                     except KeyError:
                         continue
                 if "dt" not in locals():

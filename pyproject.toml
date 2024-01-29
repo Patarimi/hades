@@ -9,7 +9,7 @@ readme = "docs/README.md"
 hades = "hades.main:app"
 
 [tool.poe.tasks]
-update = "poetry show -l -o"
+update = "poetry show -T -o"
 publish = "poetry publish --build --username __token__ --password $PYPI_TOKEN"
 doc = "mkdocs gh-deploy"
 

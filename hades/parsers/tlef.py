@@ -4,42 +4,69 @@ TLEF files give the information on the back-end composition and associated desig
 """
 from pathlib import Path
 
+import lark
+
+from .tools import parse
+from lark import Transformer
+
+
+class TechLef(Transformer):
+    NAME = str
+    FLOAT = float
+    WORD = str
+    BLOCKNAME = str
+
+    def setting(self, setting):
+        if len(setting) > 2:
+            if setting[1] == "RANGE":
+                return {setting[0]: setting[2]}
+            if setting[0] in ("BELOW", "ABOVE"):
+                return {setting[0]: setting[1:]}
+            else:
+                return setting
+        return setting[0] if len(setting) == 1 else {setting[0]: setting[1]}
+
+    def item(self, item):
+        return {item[0]: item[1]}
+
+    def lef58_property(self, lef58_property):
+        return {lef58_property[2]: lef58_property[3]}
+
+    def block(self, block):
+        if block[0] == "LAYER":
+            item_dict = dict()
+            for item in block[2:-1]:
+                key = list(item.keys())[0]
+                if key in item_dict:
+                    if isinstance(item_dict[key], list):
+                        item_dict[key].append(item[key])
+                    elif isinstance(item_dict[key], dict):
+                        item_dict[key].update(item[key])
+                    else:
+                        item_dict.update({key: [item_dict[key], item[key]]})
+                else:
+                    item_dict.update(item)
+            return {block[1]: item_dict}
+        return block
+
+    def start(self, start):
+        ss = dict()
+        for layer in start:
+            if isinstance(layer, list):
+                continue
+            if list(layer.keys())[0] in ("VERSION", "USEMINSPACING"):
+                continue
+            ss.update(layer)
+        return ss
+
 
 def load_tlef(tlef_path: str | Path) -> dict:
     """
     Load a TLEF file and return a dictionary of layer names.
     :param tlef_path: path to the TLEF file
     """
-    with open(tlef_path) as f:
-        lines = f.readlines()
-    layers = {}
-    layer_name = None
-    for line in lines:
-        remove_comment = line.split("#")[0]
-        if not remove_comment:
-            continue
-        line_slip = remove_comment.upper().replace(";", "").split()
-        match line_slip:
-            case "LAYER", _:
-                layer_name = line.split()[1]
-                if layer_name not in layers:
-                    layers[layer_name] = {}
-            case "END", _:
-                layer_name = None
-            case "TYPE", y:
-                layers[layer_name]["TYPE"] = y
-            case "WIDTH", width:
-                layers[layer_name]["WIDTH"] = float(width)
-            case "SPACING", spacing:
-                layers[layer_name]["SPACING"] = float(spacing)
-            case "ENCLOSURE", *y:
-                if y[0] in ("BELOW", "ABOVE"):
-                    layers[layer_name]["ENCLOSURE"] = float(y[1])
-                else:
-                    layers[layer_name]["ENCLOSURE"] = float(y[0])
-            case _:
-                pass
-    return layers
+    t = parse(tlef_path, "tlef")
+    return TechLef().transform(t)
 
 
 def get_all_by_type(l_type: str, tlef_path: Path) -> list[str]:

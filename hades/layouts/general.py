@@ -22,7 +22,11 @@ def via(layer: ViaLayer, size: [float, float]) -> gdstk.Cell:
     else:
         via_w = layer.width
         via_g = layer.spacing
-        via_s = layer.enclosure
+        via_s = (
+            layer.enclosure
+            if type(layer.enclosure) is float
+            else layer.enclosure["BELOW"]
+        )
 
         def repetition(length: float) -> int:
             return math.floor((length - 2 * via_s - via_w) / (via_w + via_g)) + 1

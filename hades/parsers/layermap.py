@@ -64,15 +64,14 @@ def load_map(techno: str) -> dict[str, Map]:
     return map_list
 
 
-def get_number(techno: str, name: str, datatype: str = "drawing") -> tuple[int, int]:
+def get_number(layer_data: dict[str, Map], name: str, datatype: str = "drawing") -> tuple[int, int]:
     """
     Read layer information (layer number and datatype) from layermap file.
-    :param techno: name of the selected technology.
+    :param layer_data: a dict with oll layer map data.
     :param name: name of the layer
     :param datatype: type of the data (drawing, pin, etc.)
     :return: layer number and datatype
     """
-    layer_info = load_map(techno)
-    if name not in layer_info:
-        raise KeyError(f"Layer {name} not found in {techno}")
-    return layer_info[name][datatype]
+    if name not in layer_data:
+        raise KeyError(f"Layer {name} not found in layer data")
+    return layer_data[name][datatype]

@@ -57,7 +57,7 @@ class LayerStack:
                     continue
                 for dtype in ("VIA", "drawing", "pin", "net"):
                     try:
-                        dt = get_number(self.techno, layer, dtype)
+                        dt = get_number(layer_map, layer, dtype)
                         break
                     except KeyError:
                         continue

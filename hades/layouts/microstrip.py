@@ -121,7 +121,7 @@ def marchand_balun(
     ws = w if widths < 0 else widths * 1e6
     bln = gdstk.Cell(name)
     emp_port = Port("")
-    cpl = lange_coupler(width, length, gap, layerstack, [emp_port for k in range(4)])
+    cpl = lange_coupler(width, length, gap, layerstack, [emp_port for k in range(4)], ext=0)
     cpl1 = gdstk.Reference(cpl, (0, -l), pi / 2, x_reflection=True)
     cpl1_bb = cpl1.bounding_box()
     cpl2 = gdstk.Reference(cpl, (s + cpl1_bb[1][0] - cpl1_bb[0][0], -w - g), -pi / 2)
@@ -142,9 +142,9 @@ def marchand_balun(
     bln.add(r2)
     for i in range(3):
         coord = (
-            (cpl1_bb[1][0], cpl1_bb[1][1] - w / 2),
-            (cpl1_bb[0][0], cpl1_bb[0][1] + w / 2),
-            (cpl2_bb[1][0], cpl2_bb[0][1] + w / 2),
+            (cpl1_bb[1][0]-1.5*w-g, cpl1_bb[1][1]),
+            (cpl1_bb[0][0]+1.5*w+g, cpl1_bb[0][1]),
+            (cpl2_bb[1][0]-1.5*w-g, cpl2_bb[0][1]),
         )
         lab = gdstk.Label(
             ports[i].name,
@@ -155,14 +155,14 @@ def marchand_balun(
         bln.add(lab)
     bln.add(
         gdstk.Reference(
-            via_stack(layerstack, -1, 1, (5, w)),
+            via_stack(layerstack, -2, 1, (2*g+3*w, w)),
             (cpl1_bb[0][0], cpl1_bb[1][1] - g - 2 * w),
         )
     )
     bln.add(
         gdstk.Reference(
-            via_stack(layerstack, -1, 1, (5, w)),
-            (cpl2_bb[1][0] - 5, cpl2_bb[1][1] - g - 2 * w),
+            via_stack(layerstack, -2, 1, (2*g+3*w, w)),
+            (cpl2_bb[1][0] - 2*g-3*w, cpl2_bb[1][1] - g - 2 * w),
         )
     )
     return bln.flatten()

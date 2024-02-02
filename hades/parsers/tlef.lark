@@ -4,13 +4,13 @@ block: _SEP? BLOCKNAME _NL (item)* "END" _SEP BLOCKNAME _NL
     | _SEP? BLOCKNAME _SEP NAME (_SEP TYPE)? _NL (item)* _SEP? "END" _SEP NAME _SEP? _NL
 
 item: _SEP? WORD setting _SEP? ";" _NL
-    | _SEP? "PROPERTY LEF58_" WORD _SEP /"/ (_SEP|NEWLINE)* (WORD|FLOAT) setting? _SEP? ";" _SEP? /"/ _SEP? ";" _NL -> lef58_property
+    | _SEP? ("PROPERTY"|"LIBRARY") " LEF58_" WORD _SEP? "STRING"? NEWLINE? _SEP? /"/ _SEP* NEWLINE* (WORD|FLOAT) setting? (_SEP|NEWLINE)* ";" _SEP? /"/ _SEP? ";" _NL -> lef58_property
     | _table
     | _list
 
 setting: (_SEP FLOAT| _SEP WORD)+
 _table: _SEP? "SPACINGTABLE" _SEP? NEWLINE (setting _NL?)+ _SEP? ";" _NL
-_list: _SEP? "ANTENNADIFF"("SIDE")?"AREARATIO PWL" _SEP? "(" _SEP? ("(" _SEP? FLOAT _SEP FLOAT _SEP? ")" _SEP? )+")" _SEP? ";" _NL
+_list: _SEP? "ANTENNA"("CUM")?"DIFF"("SIDE")?"AREARATIO PWL" _SEP? "(" _SEP? ("(" _SEP? FLOAT _SEP FLOAT _SEP? ")" _SEP? )+")" _SEP? ";" _NL
 
 BLOCKNAME: ("UNITS"|"SITE"|"LAYER"|"PROPERTYDEFINITIONS"|"VIA"|"VIARULE")
 TYPE: ("DEFAULT"|"GENERATE")
@@ -18,7 +18,7 @@ NAME: WORD
 WORD: LETTER (LETTER|"0".."9"|"_")*
 FLOAT: "-"? ("0".."9")+ "."? ("0".."9")* ("e"|"E")? ("-"|"0".."9")*
 COMMENT: _SEP? "#" /./* NEWLINE
-_SEP: (" "|/\t/)+
+_SEP: (" "|/\t/|NEWLINE)+
 _NL: _SEP? (COMMENT | _SEP? NEWLINE)+
 %import common.NEWLINE
 %import common.LETTER

@@ -38,7 +38,7 @@ optional = true
 black = "^24.1.1"
 poethepoet = "^0.24.0"
 pytest = "^8.0.0"
-pytest-sugar = "^0.9.7"
+pytest-sugar = "^1.0.0"
 setuptools = "^69.0.0"
 
 [tool.poetry.group.doc]

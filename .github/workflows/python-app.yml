@@ -40,6 +40,9 @@ jobs:
         python -m pip install --upgrade pip
         poetry install --with dev,doc
         poetry run pwd
+    - name: MyPy Report
+      run: |
+        poetry run mypy ./hades
     - name: Install PDK
       run: |
         poetry run hades pdk install sky130

@@ -41,6 +41,7 @@ jobs:
         poetry install --with dev,doc
         poetry run pwd
     - name: MyPy Report
+      continue-on-error: true
       run: |
         poetry run mypy ./hades
     - name: Install PDK

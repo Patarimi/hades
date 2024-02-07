@@ -43,7 +43,7 @@ def via_stack(
     layers: LayerStack,
     id_top: int,
     id_bot: int,
-    size: [float, float],
+    size: tuple[float, float],
 ) -> gdstk.Cell:
     """
     This function generates a via stack cell.
@@ -67,7 +67,7 @@ def via_stack(
 
 
 def ground_plane(
-    layers: LayerStack, size: [float, float], id_gnd: int = 1
+    layers: LayerStack, size: tuple[float, float], id_gnd: int = 1
 ) -> gdstk.Cell:
     """
     This function generates a ground plane cell.

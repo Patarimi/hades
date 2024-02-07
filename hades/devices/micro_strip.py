@@ -42,7 +42,7 @@ class MicroStrip:
 
         res = minimize_scalar(cost)
         self.dimensions["w"] = res.x
-        delay = specifications["phi"] / (360 * float(self.specifications["f_c"]))
+        delay = float(specifications["phi"]) / (360 * float(self.specifications["f_c"]))
         res = minimize_scalar(
             lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1] - delay)
         )

@@ -57,7 +57,7 @@ def denorm(x: float, f: float, pos: Pos = Pos.series, name: str = "") -> Compone
     :return: capacity or inductance
     """
     comp = ""
-    value = 0
+    value: float = 0
     if pos == Pos.series:
         comp = "C" if x > 0 else "L"
     else:

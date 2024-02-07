@@ -55,7 +55,7 @@ class Inductor:
         layer_stack = LayerStack(self.techno)
         ind = octagonal_inductor(
             dimensions["d_i"],
-            dimensions["n"],
+            int(dimensions["n"]),
             dimensions["W"],
             1e-6,
             layer_stack,

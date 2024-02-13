@@ -71,9 +71,11 @@ class LayerStack:
                         datatype=dt[1],
                         name=layer,
                         width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
-                        spacing=layers[layer]["SPACING"]
-                        if "SPACING" in layers[layer]
-                        else 0,
+                        spacing=(
+                            layers[layer]["SPACING"]
+                            if "SPACING" in layers[layer]
+                            else 0
+                        ),
                     )
                 else:
                     lyr = ViaLayer(
@@ -81,12 +83,16 @@ class LayerStack:
                         datatype=dt[1],
                         name=layer,
                         width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
-                        spacing=layers[layer]["SPACING"]
-                        if "SPACING" in layers[layer]
-                        else 0,
-                        enclosure=layers[layer]["ENCLOSURE"]
-                        if "ENCLOSURE" in layers[layer]
-                        else 0,
+                        spacing=(
+                            layers[layer]["SPACING"]
+                            if "SPACING" in layers[layer]
+                            else 0
+                        ),
+                        enclosure=(
+                            layers[layer]["ENCLOSURE"]
+                            if "ENCLOSURE" in layers[layer]
+                            else 0
+                        ),
                     )
                 self.stack.append(lyr)
 

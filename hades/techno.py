@@ -15,7 +15,7 @@ pkd_app = Typer()
 @pkd_app.command("install")
 def install(pdk_name: str):
     """
-    install the sky130a technology in its default location.
+    install the _pdk_name_ technology in its default location.
     """
     base_install = join(dirname(__file__), "../pdk/")
     tech = load_pdk(pdk_name)

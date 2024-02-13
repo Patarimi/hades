@@ -7,11 +7,11 @@ import math
 
 
 def straight_line(
-        width: float,
-        length: float,
-        layerstack: LayerStack,
-        ports: [Port, Port] = (Port("S1"), Port("S2")),
-        name: str = "ms",
+    width: float,
+    length: float,
+    layerstack: LayerStack,
+    ports: tuple[Port, Port] = (Port("S1"), Port("S2")),
+    name: str = "ms",
 ) -> gdstk.Cell:
     """
     Generate a micro-strip straight line cell. Can be exported as a gds files.
@@ -56,13 +56,13 @@ def_port = tuple(
 
 
 def coupled_lines(
-        width1: float,
-        length: float,
-        gap: float,
-        layerstack: LayerStack,
-        width2: float = -1,
-        ports: list[Port] = def_port,
-        name: str = "cpl",
+    width1: float,
+    length: float,
+    gap: float,
+    layerstack: LayerStack,
+    width2: float = -1,
+    ports: tuple[Port] = def_port,
+    name: str = "cpl",
 ) -> gdstk.Cell:
     """
     Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.
@@ -93,14 +93,14 @@ diff_port = tuple(
 
 
 def marchand_balun(
-        width: float,
-        length: float,
-        gap: float,
-        space: float,
-        layerstack: LayerStack,
-        widths: float = -1,
-        ports: list[Port] = diff_port,
-        name: str = "marchand",
+    width: float,
+    length: float,
+    gap: float,
+    space: float,
+    layerstack: LayerStack,
+    widths: float = -1,
+    ports: list[Port] = diff_port,
+    name: str = "marchand",
 ) -> gdstk.Cell:
     """
     Implements a marchand balun, for a 50Ω balun, 2 -4.8 dB 90° coupler are required.
@@ -121,7 +121,9 @@ def marchand_balun(
     ws = w if widths < 0 else widths * 1e6
     bln = gdstk.Cell(name)
     emp_port = Port("")
-    cpl = lange_coupler(width, length, gap, layerstack, [emp_port for k in range(4)], ext=0)
+    cpl = lange_coupler(
+        width, length, gap, layerstack, [emp_port for k in range(4)], ext=0
+    )
     cpl1 = gdstk.Reference(cpl, (0, -l), pi / 2, x_reflection=True)
     cpl1_bb = cpl1.bounding_box()
     cpl2 = gdstk.Reference(cpl, (s + cpl1_bb[1][0] - cpl1_bb[0][0], -w - g), -pi / 2)

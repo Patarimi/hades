@@ -2,10 +2,9 @@
 This module contains function to generate general purpose cells.
 (Via, via stack, ground plane, etc.)
 """
+
 import math
-
 import gdstk
-
 from hades.layouts.tools import LayerStack, ViaLayer
 
 

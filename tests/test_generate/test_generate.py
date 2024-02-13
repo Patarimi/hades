@@ -6,7 +6,8 @@ import yaml
 import pytest
 
 pytestmark = pytest.mark.skipif(
-    not (os.path.isdir("./pdk/sky130")) or not (os.path.isdir("./pdk/gf180mcu")), reason="PDK not installed."
+    not (os.path.isdir("./pdk/sky130B")) or not (os.path.isdir("./pdk/gf180mcuD")),
+    reason="PDK not installed.",
 )
 
 

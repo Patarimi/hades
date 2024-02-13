@@ -1,10 +1,11 @@
 from numpy import pi
+from typing import Optional
 
 
 WHEELER_REF = {"hexagonal": (2.3, 3.83)}
 
 
-def wheeler(n: int, d_avg: float, rho: float, shape: str = "custom", k: tuple = None):
+def wheeler(n: int, d_avg: float, rho: float, shape: str = "custom", k: Optional[tuple] = None):
     """
     Estimates the inductance value with the given geometrical parameters.
     :param n: number of turns.

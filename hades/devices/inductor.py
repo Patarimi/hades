@@ -6,6 +6,7 @@ from scipy.optimize import minimize_scalar
 from ..simulators import Emx
 from ..layouts.inductor import octagonal_inductor
 from ..layouts.tools import LayerStack
+from typing import Optional
 
 
 class Inductor:
@@ -23,7 +24,7 @@ class Inductor:
         self.em = Emx()
         self.em.prepare(techno)
 
-    def update_model(self, specifications: Parameters = None) -> Parameters:
+    def update_model(self, specifications: Optional[Parameters] = None) -> Parameters:
         if specifications is not None:
             self.specifications = specifications
         self.dimensions = {"n": 1, "W": 10e-6}

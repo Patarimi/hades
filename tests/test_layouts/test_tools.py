@@ -25,23 +25,23 @@ def test_layer_stack_gf():
     print(layer_stack)
     assert layer_stack.stack[0].layer == 34
     assert layer_stack.get_metal_layer(1) == tools.Layer(
-        34, 0, "Metal1", 0.23, [0.23, {0.3: 10.005}]
+        34, 0, "Metal1", 0.23, [0.23, "UP_TO", 10.005, 0.3, "RANGE", 10.005, 999.0]
     )
     assert layer_stack.get_metal_layer(2) == tools.Layer(
-        36, 0, "Metal2", 0.28, [0.28, {0.3: 10.005}]
+        36, 0, "Metal2", 0.28, [0.28, "UP_TO", 10.005, 0.3, "RANGE", 10.005, 999.0]
     )
     assert layer_stack.get_metal_layer(-1) == tools.Layer(
-        81, 0, "Metal5", 0.44, [0.46, {0.6: 10.005}]
+        81, 0, "Metal5", 0.44, [0.46, "UP_TO", 10.005, 0.6, "RANGE", 10.005, 999.0]
     )
 
     assert layer_stack.get_via_layer(1) == tools.ViaLayer(
-        35, 0, "Via1", 0.26, 0.26, {"BELOW": [0.0, 0.06], "ABOVE": [0.01, 0.06]}
+        35, 0, "Via1", 0.26, 0.26, ["BELOW", 0.0, 0.06, "ABOVE", 0.01, 0.06]
     )
     assert layer_stack.get_via_layer(2) == tools.ViaLayer(
-        38, 0, "Via2", 0.26, 0.26, {"BELOW": [0.01, 0.06], "ABOVE": [0.01, 0.06]}
+        38, 0, "Via2", 0.26, 0.26, ["BELOW", 0.01, 0.06, "ABOVE", 0.01, 0.06]
     )
     assert layer_stack.get_via_layer(-1) == tools.ViaLayer(
-        41, 0, "Via4", 0.26, 0.26, {"BELOW": [0.01, 0.06], "ABOVE": [0.01, 0.06]}
+        41, 0, "Via4", 0.26, 0.26, ["BELOW", 0.01, 0.06, "ABOVE", 0.01, 0.06]
     )
 
 
@@ -55,11 +55,11 @@ def test_layer_stack_sw():
     assert layer_stack.get_metal_layer(-1) == tools.Layer(72, 20, "met5", 1.6)
 
     assert layer_stack.get_via_layer(1) == tools.ViaLayer(
-        68, 44, "via", 0.15, 0.17, {"BELOW": [0.055, 0.085], "ABOVE": [0.055, 0.085]}
+        68, 44, "via", 0.15, 0.17, ["BELOW", 0.055, 0.085, "ABOVE", 0.055, 0.085]
     )
     assert layer_stack.get_via_layer(2) == tools.ViaLayer(
-        69, 44, "via2", 0.2, 0.2, {"BELOW": [0.04, 0.085], "ABOVE": [0.065, 0.065]}
+        69, 44, "via2", 0.2, 0.2, ["BELOW", 0.04, 0.085, "ABOVE", 0.065, 0.065]
     )
     assert layer_stack.get_via_layer(-1) == tools.ViaLayer(
-        71, 44, "via4", 0.8, 0.8, {"BELOW": [0.19, 0.19], "ABOVE": [0.31, 0.31]}
+        71, 44, "via4", 0.8, 0.8, ["BELOW", 0.19, 0.19, "ABOVE", 0.31, 0.31]
     )

@@ -1,6 +1,6 @@
 sky130:
   source_url: volare
-  version: cd1748bb197f9b7af62a54507de6624e30363943
+  version: bdc9412b3e468c102d01b7cf6337be06ec6e9c9a
   base_dir: ../pdk/sky130A/libs.tech
   layermap: klayout/tech/sky130A.map
   techlef: ../libs.ref/sky130_fd_sc_hvl/techlef/sky130_fd_sc_hvl__nom.tlef
@@ -13,7 +13,7 @@ asap7:
   process: not_found.proc
 gf180mcu:
   source_url: volare
-  version: cd1748bb197f9b7af62a54507de6624e30363943
+  version: bdc9412b3e468c102d01b7cf6337be06ec6e9c9a
   base_dir: ../pdk/gf180mcuD/libs.tech
   layermap: klayout/tech/gf180mcu.map
   techlef: ../libs.ref/gf180mcu_fd_sc_mcu9t5v0/techlef/gf180mcu_fd_sc_mcu9t5v0__nom.tlef

@@ -71,9 +71,11 @@ class LayerStack:
                         datatype=dt[1],
                         name=layer,
                         width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
-                        spacing=layers[layer]["SPACING"]
-                        if "SPACING" in layers[layer]
-                        else 0,
+                        spacing=(
+                            layers[layer]["SPACING"]
+                            if "SPACING" in layers[layer]
+                            else 0
+                        ),
                     )
                 else:
                     lyr = ViaLayer(
@@ -81,12 +83,16 @@ class LayerStack:
                         datatype=dt[1],
                         name=layer,
                         width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
-                        spacing=layers[layer]["SPACING"]
-                        if "SPACING" in layers[layer]
-                        else 0,
-                        enclosure=layers[layer]["ENCLOSURE"]
-                        if "ENCLOSURE" in layers[layer]
-                        else 0,
+                        spacing=(
+                            layers[layer]["SPACING"]
+                            if "SPACING" in layers[layer]
+                            else 0
+                        ),
+                        enclosure=(
+                            layers[layer]["ENCLOSURE"]
+                            if "ENCLOSURE" in layers[layer]
+                            else 0
+                        ),
                     )
                 self.stack.append(lyr)
 
@@ -96,7 +102,12 @@ class LayerStack:
     def get_metal_layer(self, num: int):
         if num == 0:
             raise ValueError("nbr cannot be 0")
-        return self.stack[2 * (num - 1) if num > 0 else 2 * num + 1]
+        try:
+            return self.stack[2 * (num - 1) if num > 0 else 2 * num + 1]
+        except IndexError:
+            raise IndexError(
+                f"Layer {num} not found. Available layers are {self.stack}"
+            )
 
     def get_via_layer(self, num: int):
         if num == 0:

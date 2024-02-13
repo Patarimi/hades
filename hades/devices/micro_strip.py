@@ -9,6 +9,7 @@ from scipy.optimize import minimize_scalar
 from numpy import sqrt, NaN
 from ..layouts.microstrip import straight_line
 from ..layouts.tools import LayerStack
+from typing import Optional
 
 
 class MicroStrip:
@@ -28,7 +29,7 @@ class MicroStrip:
         self.em = Emx()
         self.em.prepare(techno)
 
-    def update_model(self, specifications: Parameters = None) -> Parameters:
+    def update_model(self, specifications: Optional[Parameters] = None) -> Parameters:
         if specifications is not None:
             self.specifications = specifications
         # todo: extraire h et epsilon depuis proc_file
@@ -54,8 +55,8 @@ class MicroStrip:
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
         ms = straight_line(
-            width=dimensions["w"],
-            length=dimensions["l"],
+            width=float(dimensions["w"]),
+            length=float(dimensions["l"]),
             layerstack=LayerStack(self.techno),
         )
         return ms

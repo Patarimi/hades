@@ -9,6 +9,7 @@ from os.path import join
 from dotenv import load_dotenv
 from ..techno import load_pdk
 import glob
+from typing import Optional
 
 
 class Emx:
@@ -34,7 +35,7 @@ class Emx:
             input_file: Path,
             cell_name: str,
             freq: float | tuple[float],
-            ports: list[Port | str] = None,
+            ports: Optional[list[Port | str]] = None,
             **options,
     ):
         """

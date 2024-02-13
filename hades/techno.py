@@ -7,6 +7,7 @@ from os.path import join, dirname, isdir
 
 import yaml
 from typer import Typer
+from typing import Optional
 
 pkd_app = Typer()
 
@@ -14,7 +15,7 @@ pkd_app = Typer()
 @pkd_app.command("install")
 def install(pdk_name: str):
     """
-    install the sky130a technology in its default location.
+    install the _pdk_name_ technology in its default location.
     """
     base_install = join(dirname(__file__), "../pdk/")
     tech = load_pdk(pdk_name)
@@ -69,7 +70,7 @@ def load_pdk(pdk_name: str):
     return tech
 
 
-def _read_tech(tech_file: str = None) -> dict:
+def _read_tech(tech_file: Optional[str] = None) -> dict:
     if tech_file is None:
         tech_yml = join(dirname(__file__), "techno.yml")
     else:

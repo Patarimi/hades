@@ -40,10 +40,10 @@ class Inductor:
         return self.dimensions
 
     def ind_value(self, d_i: float, k1: float) -> float:
-        k2 = self.parameters["K2"]
+        k2 = float(self.parameters["K2"])
         u_0 = 4 * pi * 1e-7
         if "W" in self.dimensions:
-            d_o = self.dimensions["W"] + d_i
+            d_o = float(self.dimensions["W"]) + d_i
         else:
             self.dimensions["W"] = 10e-6
             d_o = d_i + 10
@@ -55,9 +55,9 @@ class Inductor:
         self.dimensions = dimensions
         layer_stack = LayerStack(self.techno)
         ind = octagonal_inductor(
-            dimensions["d_i"],
+            float(dimensions["d_i"]),
             int(dimensions["n"]),
-            dimensions["W"],
+            float(dimensions["W"]),
             1e-6,
             layer_stack,
         )
@@ -65,7 +65,7 @@ class Inductor:
         return ind
 
     def update_accurate(self, sim_file: Path) -> Parameters:
-        f_0 = self.specifications["f_0"]
+        f_0 = float(self.specifications["f_0"])
         Y = self.em.compute(sim_file, self.name, f_0)
         return {"L": -(1 / Y.y[0, 0, 1]).imag / (2 * pi * float(f_0)), "f_0": f_0}
 

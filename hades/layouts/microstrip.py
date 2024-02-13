@@ -169,13 +169,13 @@ def marchand_balun(
 
 
 def lange_coupler(
-        width: float,
-        length: float,
-        gap: float,
-        layerstack: LayerStack,
-        ports: list[Port] = def_port,
-        name: str = "lange",
-        ext: float = 5,
+    width: float,
+    length: float,
+    gap: float,
+    layerstack: LayerStack,
+    ports: tuple[Port, Port, Port, Port] = def_port,
+    name: str = "lange",
+    ext: float = 5,
 ) -> gdstk.Cell:
     """
     Generate a flat symmetrical lange coupler with two strips per track.

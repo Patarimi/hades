@@ -55,8 +55,8 @@ class MicroStrip:
     def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
         self.dimensions = dimensions
         ms = straight_line(
-            width=dimensions["w"],
-            length=dimensions["l"],
+            width=float(dimensions["w"]),
+            length=float(dimensions["l"]),
             layerstack=LayerStack(self.techno),
         )
         return ms

@@ -102,7 +102,12 @@ class LayerStack:
     def get_metal_layer(self, num: int):
         if num == 0:
             raise ValueError("nbr cannot be 0")
-        return self.stack[2 * (num - 1) if num > 0 else 2 * num + 1]
+        try:
+            return self.stack[2 * (num - 1) if num > 0 else 2 * num + 1]
+        except IndexError:
+            raise IndexError(
+                f"Layer {num} not found. Available layers are {self.stack}"
+            )
 
     def get_via_layer(self, num: int):
         if num == 0:

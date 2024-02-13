@@ -1,14 +1,14 @@
 import gdstk
+
 from hades.layouts.general import via, via_stack, ground_plane
 from hades.layouts.tools import LayerStack, check_diff
 from os.path import dirname, join
 
-layerstack = LayerStack("mock")
+stack = LayerStack("mock")
 REF_PATH = dirname(__file__)
 
 
 def test_via(tmp_path):
-    stack = LayerStack("mock")
 
     v = via(stack.get_via_layer(2), (3, 4))
     lib = gdstk.Library("toto")
@@ -18,7 +18,6 @@ def test_via(tmp_path):
 
 
 def test_via_stack(tmp_path):
-    stack = LayerStack("mock")
 
     v = via_stack(stack, 2, 1, (3, 4))
     lib = gdstk.Library("toto")
@@ -28,7 +27,6 @@ def test_via_stack(tmp_path):
 
 
 def test_ground_plane(tmp_path):
-    stack = LayerStack("mock")
 
     v = ground_plane(stack, (3, 4), 1)
     lib = gdstk.Library("toto")

@@ -2,7 +2,84 @@
 List of function to parse technological lef (TLEF) files.
 TLEF files give the information on the back-end composition and associated design rules.
 """
+
+import dataclasses
+import logging
+from enum import Enum
 from pathlib import Path
+from .tools import parse
+from lark import Discard, Transformer
+
+logging.basicConfig(level=logging.INFO)
+
+
+@dataclasses.dataclass
+class Layer:
+    name: str
+    ltype: Enum("ROUTING", "CUT")
+    width: float
+
+
+class TechLef(Transformer):
+    NAME = str
+    FLOAT = float
+    WORD = str
+    BLOCKNAME = str
+    KEYWORD = str
+    item = list
+
+    def table(self, _):
+        return Discard
+
+    def list(self, _):
+        return Discard
+
+    def setting(self, setting):
+        return setting[0] if len(setting) == 1 else setting
+
+    def lef58_property(self, _):
+        return Discard
+
+    def block(self, block):
+        if block[0] != "LAYER":
+            # print(f"Discarding block: {block}")
+            return Discard
+        if block[1] != block[-1]:
+            raise ValueError(f"Block name does not match ({block[1]} and {block[-1]}")
+        item_dict = dict()
+        # print(f"In block: {block=}")
+        for item in block[2:-1]:
+            if not item:
+                print("list is empty, skipping")
+                continue
+            # print(f"In block: {item=}")
+            key = item[0]
+            if key in item_dict:
+                print(f"In block: {item_dict[key]=}\t{item[1:]=}")
+                if item_dict[key] == item[1:] or item_dict[key] == item[1]:
+                    # redundant item, skip
+                    continue
+                print(type(item_dict[key]))
+                if isinstance(item_dict[key], float):
+                    # previous item was a float, convert to list
+                    item_dict[key] = [item_dict[key], "UP_TO", item[3]] + item[1:]
+                else:
+                    item_dict[key] += item[1:]
+
+            else:
+                item_dict.update({item[0]: item[1:] if len(item) > 2 else item[1]})
+        # print(f"In block: {item_dict=}")
+        return {block[1]: item_dict}
+
+    def start(self, start):
+        ss = dict()
+        for layer in start:
+            if isinstance(layer, list):
+                continue
+            if list(layer.keys())[0] in ("VERSION", "USEMINSPACING"):
+                continue
+            ss.update(layer)
+        return ss
 
 
 def load_tlef(tlef_path: str | Path) -> dict:
@@ -10,36 +87,8 @@ def load_tlef(tlef_path: str | Path) -> dict:
     Load a TLEF file and return a dictionary of layer names.
     :param tlef_path: path to the TLEF file
     """
-    with open(tlef_path) as f:
-        lines = f.readlines()
-    layers = {}
-    layer_name = None
-    for line in lines:
-        remove_comment = line.split("#")[0]
-        if not remove_comment:
-            continue
-        line_slip = remove_comment.upper().replace(";", "").split()
-        match line_slip:
-            case "LAYER", _:
-                layer_name = line.split()[1]
-                if layer_name not in layers:
-                    layers[layer_name] = {}
-            case "END", _:
-                layer_name = None
-            case "TYPE", y:
-                layers[layer_name]["TYPE"] = y
-            case "WIDTH", width:
-                layers[layer_name]["WIDTH"] = float(width)
-            case "SPACING", spacing:
-                layers[layer_name]["SPACING"] = float(spacing)
-            case "ENCLOSURE", *y:
-                if y[0] in ("BELOW", "ABOVE"):
-                    layers[layer_name]["ENCLOSURE"] = float(y[1])
-                else:
-                    layers[layer_name]["ENCLOSURE"] = float(y[0])
-            case _:
-                pass
-    return layers
+    t = parse(tlef_path, "tlef")
+    return TechLef().transform(t)
 
 
 def get_all_by_type(l_type: str, tlef_path: Path) -> list[str]:
@@ -54,6 +103,8 @@ def get_all_by_type(l_type: str, tlef_path: Path) -> list[str]:
     for layer in full_stack:
         if full_stack[layer]["TYPE"] == l_type:
             layers.append(layer)
+    if not layers:
+        raise ValueError(f"No layer of type {l_type} found in {full_stack}")
     return layers
 
 
@@ -68,7 +119,11 @@ def get_by_type(l_type: str, tlef_path: Path, nbr: int) -> str:
     """
     if nbr == 0:
         raise ValueError("nbr cannot be 0")
-    return get_all_by_type(l_type, tlef_path)[nbr - 1 if nbr > 0 else nbr]
+    layers = get_all_by_type(l_type, tlef_path)
+    try:
+        return layers[nbr - 1 if nbr > 0 else nbr]
+    except IndexError:
+        raise IndexError(f"List out of range with {nbr} in {layers}")
 
 
 def get_metal(nbr: int, tlef_path: Path) -> str:

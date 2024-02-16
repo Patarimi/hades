@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+from pathlib import Path
 from typing import Callable
 
 import gdstk
@@ -40,11 +41,14 @@ class Generator(BaseModel):
     accu_model: Callable[[gdstk.Cell], Parameters]
     calibrator: Callable[[Parameters, Parameters], Parameters]
 
-    def generate(self) -> gdstk.Cell:
+    def generate(self, conf_file: Path | str) -> gdstk.Cell:
         """
         Generate the device.
         :return: a gds cell with the device generated.
         """
+        self.targets = load(conf_file)
+        cell = gdstk.Cell(self.name)
+        return cell
 
 
 if __name__ == "__main__":

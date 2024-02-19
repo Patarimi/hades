@@ -29,7 +29,7 @@ volare = "^0.16.0"
 rich = "^13.0"
 scikit-rf = "^0.31.0"
 pydantic = "^2.6.0"
-matplotlib = "^3.8.2"
+matplotlib = "^3.8.3"
 lark = "^1.1.9"
 
 [tool.poetry.group.dev]

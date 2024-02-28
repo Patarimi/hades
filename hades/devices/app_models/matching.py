@@ -45,6 +45,9 @@ def lumped_l(
 class Pos(Enum):
     series = "series"
     parallel = "parallel"
+    
+    def __str__(self):
+        return self.name
 
 
 def denorm(x: float, f: float, pos: Pos = Pos.series, name: str = "") -> Component:
@@ -59,9 +62,9 @@ def denorm(x: float, f: float, pos: Pos = Pos.series, name: str = "") -> Compone
     comp = ""
     value: float = 0
     if pos == Pos.series:
-        comp = "C" if x > 0 else "L"
-    else:
         comp = "C" if x < 0 else "L"
+    else:
+        comp = "C" if x > 0 else "L"
     if x > 0:
         value = abs(x / (2 * pi * f))
     else:
@@ -70,7 +73,7 @@ def denorm(x: float, f: float, pos: Pos = Pos.series, name: str = "") -> Compone
         comp,
         str(pos) if name == "" else name,
         value,
-        ("in", "0" if pos == Pos.series else "out"),
+        ("in", "out" if pos == Pos.series else "0"),
     )
 
 

@@ -1,5 +1,5 @@
 import numpy as np
-import hades.devices.app_models.matching as mt
+import hades.models.matching as mt
 import pytest
 
 

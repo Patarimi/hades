@@ -1,5 +1,5 @@
 import pytest
-import hades.devices.app_models.inductor as ind
+import hades.models.inductor as ind
 
 
 def test_inductor():

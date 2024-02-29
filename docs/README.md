@@ -23,13 +23,13 @@ stateDiagram
     app: approximate model
     pl: parametric layouts
     app --> pl: dimensions
-    sim: accurate model
+    sim: extraction of obtained spec.
     pl --> sim: geometries (.gdsII)
     pdk --> sim: process (.proc)
     pdk --> pl: LayerStack
     cal: calibrator
     state atSpec <<choice>>
-    sim --> atSpec: accurate behavior (.sNp)
+    sim --> atSpec: obtained specifications (.sNp or dataframe)
     atSpec --> [*]: at spec
     atSpec --> cal: not at spec
     app --> cal: dimensions

@@ -4,7 +4,7 @@ from .device import Parameters
 from ..simulators import Emx
 import gdstk
 from pathlib import Path
-from .app_models.micro_strip import wheeler
+from hades.models.micro_strip import wheeler
 from scipy.optimize import minimize_scalar
 from numpy import sqrt, NaN
 from ..layouts.microstrip import straight_line
@@ -20,7 +20,7 @@ class MicroStrip:
     techno: str
 
     def __init__(
-        self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
+            self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
     ):
         self.name = name
         self.specifications = {"z_c": float(z_c), "f_c": float(f_c), "phi": float(phi)}

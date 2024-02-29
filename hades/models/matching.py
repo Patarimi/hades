@@ -1,7 +1,7 @@
 from math import sqrt, pi, atan
 import numpy as np
 from hades.parsers.netlist import Component
-from hades.devices.app_models.tools import quality
+from hades.models.tools import quality
 from enum import Enum
 
 

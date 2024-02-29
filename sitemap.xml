@@ -26,6 +26,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/calibrators/</loc>
+         <lastmod>2024-02-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/</loc>
          <lastmod>2024-02-29</lastmod>
          <changefreq>daily</changefreq>
@@ -56,42 +61,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/accu_models/</loc>
-         <lastmod>2024-02-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/</loc>
-         <lastmod>2024-02-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/filter/</loc>
-         <lastmod>2024-02-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/inductor/</loc>
-         <lastmod>2024-02-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/matching/</loc>
-         <lastmod>2024-02-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/micro_strip/</loc>
-         <lastmod>2024-02-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/app_models/tools/</loc>
-         <lastmod>2024-02-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://patarimi.github.io/hades/reference/hades/devices/calibrators/</loc>
+         <loc>https://patarimi.github.io/hades/reference/hades/extractors/</loc>
          <lastmod>2024-02-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -117,6 +87,36 @@
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/layouts/tools/</loc>
+         <lastmod>2024-02-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/models/</loc>
+         <lastmod>2024-02-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/models/filter/</loc>
+         <lastmod>2024-02-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/models/inductor/</loc>
+         <lastmod>2024-02-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/models/matching/</loc>
+         <lastmod>2024-02-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/models/micro_strip/</loc>
+         <lastmod>2024-02-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/models/tools/</loc>
          <lastmod>2024-02-29</lastmod>
          <changefreq>daily</changefreq>
     </url>

@@ -1,10 +1,12 @@
 from math import sqrt, pi, atan
+import numpy as np
 from hades.parsers.netlist import Component
+from hades.devices.app_models.tools import quality
 from enum import Enum
 
 
 def lumped_l(
-    z_load: complex, z_source: complex
+        z_load: complex, z_source: complex
 ) -> tuple[tuple[float, float], tuple[float, float]]:
     """
     Return the two solutions to match a complex load to a line. The value of needed capacitor and inductor
@@ -21,9 +23,9 @@ def lumped_l(
     q_l = b_l / r_l
 
     if r_l > r_s:
-        b_n = sqrt(r_l / r_s) * sqrt(r_l**2 + b_l**2 - r_s * r_l)
-        b_1 = (b_l + b_n) / (r_l**2 + b_l**2)
-        b_2 = (b_l - b_n) / (r_l**2 + b_l**2)
+        b_n = sqrt(r_l / r_s) * sqrt(r_l ** 2 + b_l ** 2 - r_s * r_l)
+        b_1 = (b_l + b_n) / (r_l ** 2 + b_l ** 2)
+        b_2 = (b_l - b_n) / (r_l ** 2 + b_l ** 2)
         x_1 = 1 / b_1 + b_l * r_s / r_l - r_s / (b_1 * r_l) - b_s
         x_2 = 1 / b_2 + b_l * r_s / r_l - r_s / (b_2 * r_l) - b_s
     elif b_s == 0:
@@ -31,10 +33,10 @@ def lumped_l(
         b = sqrt((r_s - r_l) / r_l) / r_s
         b_1, b_2 = b, -b
         x_1, x_2 = x_n - b_l, -x_n - b_l
-    elif r_s > r_l * (1 + q_l**2):
+    elif r_s > r_l * (1 + q_l ** 2):
         raise ValueError("The source resistance is too high.")
     else:
-        b_n = sqrt(r_s**2 * b_l**2 + r_s * (r_l - r_s) * (r_l**2 + b_l**2))
+        b_n = sqrt(r_s ** 2 * b_l ** 2 + r_s * (r_l - r_s) * (r_l ** 2 + b_l ** 2))
         b_1 = (-r_s * b_l + b_n) / (r_s - r_l)
         b_2 = (-r_s * b_l - b_n) / (r_s - r_l)
         x_1 = 1 / (b_1 - r_s * (b_1 + b_l) / r_l - b_s)
@@ -45,7 +47,7 @@ def lumped_l(
 class Pos(Enum):
     series = "series"
     parallel = "parallel"
-    
+
     def __str__(self):
         return self.name
 
@@ -78,7 +80,7 @@ def denorm(x: float, f: float, pos: Pos = Pos.series, name: str = "") -> Compone
 
 
 def single_shunt_stub(
-    z_load: complex, z_0: complex
+        z_load: complex, z_0: complex
 ) -> tuple[list[float, float], list[float, float], list[float, float]]:
     """
     Return the solution to match a load *z_load* to a line of impedance *z_0* using a parallel (shunt) stub.
@@ -97,7 +99,7 @@ def single_shunt_stub(
     if r_l == r_0:
         t_l = (-x_l / (2 * r_0),)
     else:
-        t_n = sqrt(r_l * ((r_0 - r_l) ** 2 + x_l**2) / r_0)
+        t_n = sqrt(r_l * ((r_0 - r_l) ** 2 + x_l ** 2) / r_0)
         t_l = (
             (x_l + t_n) / (r_l - r_0),
             (x_l - t_n) / (r_l - r_0),
@@ -110,8 +112,8 @@ def single_shunt_stub(
             d.append(atan(t) / (2 * pi))
         else:
             d.append((atan(t) + pi) / (2 * pi))
-        B = (t * r_l**2 - (r_0 - x_l * t) * (x_l + r_0 * t)) / (
-            r_0 * (r_l**2 + (x_l + r_0 * t) ** 2)
+        B = (t * r_l ** 2 - (r_0 - x_l * t) * (x_l + r_0 * t)) / (
+                r_0 * (r_l ** 2 + (x_l + r_0 * t) ** 2)
         )
         Bs = B - b_0
         le = atan(Bs * r_0) / pi % 1
@@ -121,7 +123,7 @@ def single_shunt_stub(
 
 
 def single_series_stub(
-    z_load: complex, z_0: float
+        z_load: complex, z_0: float
 ) -> tuple[list[float, float], list[float, float], list[float, float]]:
     """
     Return the solution to match a load *z_load* to a line of impedance *z_0* using a series stub.
@@ -137,3 +139,25 @@ def single_series_stub(
     """
     d, lo, ls = single_shunt_stub(1 / z_load, 1 / z_0)
     return d, ls, lo
+
+
+def transformer(z_load: complex, z_source: complex, k: float = 0.8) -> np.ndarray:
+    """
+    Return the two solutions to match two complex load with a transformer.
+    :param z_load: impedance of the load.
+    :param z_source: impedance of the source.
+    :param k: coupling factor.
+    :return:
+    """
+    q_l = -quality(z_load)
+    q_s = -quality(z_source)
+    alpha = (1 - k ** 2) / k ** 2
+    beta = 2 * alpha * q_s + q_s + q_l
+    delta = beta ** 2 - 4 * alpha * (alpha + 1) * (1 + q_s ** 2)
+    print(f"{beta=}\t{delta=}")
+    z_sol = [(beta + i * sqrt(delta)) / (2 * (alpha + 1)) for i in (1, -1)]
+    qxl1 = (z / (1 - k ** 2) for z in z_sol)
+    qxl2 = (z * (1 + q_l ** 2) / (alpha * (1 + (q_s - z) ** 2)) for z in z_sol)
+    sol = tuple((q1 * z_source.real, q2 * z_load.real) for q1, q2 in zip(qxl1, qxl2))
+    print(np.array(sol) / (2 * np.pi * 60e9))
+    return np.array(sol)

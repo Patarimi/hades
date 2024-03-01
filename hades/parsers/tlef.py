@@ -10,14 +10,20 @@ from pathlib import Path
 from .tools import parse
 from lark import Discard, Transformer
 
-logging.basicConfig(level=logging.INFO)
+
+@dataclasses.dataclass
+class Enclosure:
+    below: tuple[float, float] = (0, 0)
+    above: tuple[float, float] = (0, 0)
 
 
 @dataclasses.dataclass
 class Layer:
     name: str
-    ltype: Enum("ROUTING", "CUT")
-    width: float
+    type: Enum("ROUTING", "CUT")
+    width: float = 0
+    enclosure: float = 0
+    spacing: float = 0
 
 
 class TechLef(Transformer):
@@ -42,43 +48,28 @@ class TechLef(Transformer):
 
     def block(self, block):
         if block[0] != "LAYER":
-            # print(f"Discarding block: {block}")
+            logging.warning(f"Discarding block: {block}")
             return Discard
         if block[1] != block[-1]:
             raise ValueError(f"Block name does not match ({block[1]} and {block[-1]}")
-        item_dict = dict()
-        # print(f"In block: {block=}")
+        layer = {"name": block[1]}
         for item in block[2:-1]:
             if not item:
-                print("list is empty, skipping")
                 continue
-            # print(f"In block: {item=}")
             key = item[0]
-            if key in item_dict:
-                print(f"In block: {item_dict[key]=}\t{item[1:]=}")
-                if item_dict[key] == item[1:] or item_dict[key] == item[1]:
-                    # redundant item, skip
-                    continue
-                print(type(item_dict[key]))
-                if isinstance(item_dict[key], float):
-                    # previous item was a float, convert to list
-                    item_dict[key] = [item_dict[key], "UP_TO", item[3]] + item[1:]
-                else:
-                    item_dict[key] += item[1:]
-
-            else:
-                item_dict.update({item[0]: item[1:] if len(item) > 2 else item[1]})
-        # print(f"In block: {item_dict=}")
-        return {block[1]: item_dict}
+            if key in ("WIDTH", "TYPE", "SPACING"):
+                layer[key.lower()] = item[1]
+            if key in ("ENCLOSURE",):
+                layer[key.lower()] = item[2]
+        logging.debug(f"In block: {layer=}")
+        return Layer(**layer)
 
     def start(self, start):
-        ss = dict()
+        ss = list()
         for layer in start:
-            if isinstance(layer, list):
-                continue
-            if list(layer.keys())[0] in ("VERSION", "USEMINSPACING"):
-                continue
-            ss.update(layer)
+            if isinstance(layer, Layer):
+                ss.append(layer)
+        logging.debug(f"In Start: {ss=}")
         return ss
 
 
@@ -101,8 +92,8 @@ def get_all_by_type(l_type: str, tlef_path: Path) -> list[str]:
     layers = list()
     full_stack = load_tlef(tlef_path)
     for layer in full_stack:
-        if full_stack[layer]["TYPE"] == l_type:
-            layers.append(layer)
+        if layer.type == l_type:
+            layers.append(layer.name)
     if not layers:
         raise ValueError(f"No layer of type {l_type} found in {full_stack}")
     return layers
@@ -129,6 +120,7 @@ def get_by_type(l_type: str, tlef_path: Path, nbr: int) -> str:
 def get_metal(nbr: int, tlef_path: Path) -> str:
     """
     Return the name of the $nbr^{th}$ metal (starting at 1).
+    :param tlef_path:
     :param nbr: metal layer number
     :return: name of the metal layer
     """

@@ -19,7 +19,7 @@ def test_load_tlef(tmp_path):
         get_metal(0, path)
     assert get_via(1, path) == "CON"
 
-    assert layers["Via2"]["WIDTH"] == 0.4
+    assert layers[2].width == 0.4
 
 
 if __name__ == "__main__":

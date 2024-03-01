@@ -48,7 +48,7 @@ class TechLef(Transformer):
 
     def block(self, block):
         if block[0] != "LAYER":
-            logging.warning(f"Discarding block: {block}")
+            logging.info(f"Discarding block: {block}")
             return Discard
         if block[1] != block[-1]:
             raise ValueError(f"Block name does not match ({block[1]} and {block[-1]}")

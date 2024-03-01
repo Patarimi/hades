@@ -42,22 +42,17 @@ class LayerStack:
         layer_map = load_map(self.techno)
         self.stack = []
         for layer in layers:
-            if layer in layer_map:
+            if layer.name in layer_map:
                 layer_type = None
-                if "TYPE" not in layers[layer]:
-                    raise KeyError(
-                        f"Type not found in {layer}. Available option are {list(layers[layer].keys())}."
-                        f"full layer stack is {layers}"
-                    )
-                if layers[layer]["TYPE"] == "ROUTING" and layer[0].upper() == "M":
+                if layer.type == "ROUTING" and layer.name[0].upper() == "M":
                     layer_type = "Metal"
-                if layers[layer]["TYPE"] == "CUT" and layer[0].upper() == "V":
+                if layer.type == "CUT" and layer.name[0].upper() == "V":
                     layer_type = "Via"
                 if layer_type is None:
                     continue
                 for dtype in ("VIA", "drawing", "pin", "net"):
                     try:
-                        dt = get_number(layer_map, layer, dtype)
+                        dt = get_number(layer_map, layer.name, dtype)
                         break
                     except KeyError:
                         continue
@@ -69,30 +64,18 @@ class LayerStack:
                     lyr = Layer(
                         layer=dt[0],
                         datatype=dt[1],
-                        name=layer,
-                        width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
-                        spacing=(
-                            layers[layer]["SPACING"]
-                            if "SPACING" in layers[layer]
-                            else 0
-                        ),
+                        name=layer.name,
+                        width=layer.width,
+                        spacing=layer.spacing,
                     )
                 else:
                     lyr = ViaLayer(
                         layer=dt[0],
                         datatype=dt[1],
-                        name=layer,
-                        width=layers[layer]["WIDTH"] if "WIDTH" in layers[layer] else 0,
-                        spacing=(
-                            layers[layer]["SPACING"]
-                            if "SPACING" in layers[layer]
-                            else 0
-                        ),
-                        enclosure=(
-                            layers[layer]["ENCLOSURE"]
-                            if "ENCLOSURE" in layers[layer]
-                            else 0
-                        ),
+                        name=layer.name,
+                        width=layer.width,
+                        spacing=layer.spacing,
+                        enclosure=layer.enclosure,
                     )
                 self.stack.append(lyr)
 

@@ -49,7 +49,7 @@ class MicroStrip:
         res = minimize_scalar(
             lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1] - delay)
         )
-        logging.info(f"{res.x}\t{res.result}")
+        logging.info(f"{res.x}\t{res.message}")
         # /!\ impedance is not accurate close to l/4 ou l/2
         self.dimensions["l"] = 40e-6  # res.x
         return self.dimensions

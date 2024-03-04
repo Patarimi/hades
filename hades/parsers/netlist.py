@@ -41,7 +41,7 @@ class Component:
     def full_name(self):
         return str(self.type) + self.name
 
-    def network(self, media: rf.Media):
+    def network(self, media: rf.media.Media):
         if "0" in self.node:
             if self.type == "C":
                 sp = media.shunt_capacitor(self.value, name=self.full_name())

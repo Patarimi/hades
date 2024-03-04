@@ -40,6 +40,10 @@ END Metal4
 
 LAYER Vi_4
     TYPE CUT ;
+    SPACING 0.5;
+    WIDTH 0.8;
+    ENCLOSURE BELOW 0.2;
+    ENCLOSURE ABOVE 0.2;
 END Vi_4
 
 LAYER Metal5

@@ -34,6 +34,8 @@ class TechLef(Transformer):
     KEYWORD = str
 
     def item(self, item):
+        if item is None or len(item) == 0:
+            return Discard
         if item[0] in ("WIDTH", "TYPE", "SPACING", "ENCLOSURE"):
             return list(item)
         return Discard

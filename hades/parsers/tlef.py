@@ -17,10 +17,13 @@ class Enclosure:
     above: tuple[float, float] = (0, 0)
 
 
+Type = Enum("Type", ("ROUTING", "CUT"))
+
+
 @dataclasses.dataclass
 class Layer:
     name: str
-    type: Enum("ROUTING", "CUT")
+    type: Type
     width: float = 0
     enclosure: float = 0
     spacing: float = 0

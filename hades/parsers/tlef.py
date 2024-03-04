@@ -32,7 +32,11 @@ class TechLef(Transformer):
     WORD = str
     BLOCKNAME = str
     KEYWORD = str
-    item = list
+
+    def item(self, item):
+        if item[0] in ("WIDTH", "TYPE", "SPACING", "ENCLOSURE"):
+            return list(item)
+        return Discard
 
     def table(self, _):
         return Discard
@@ -120,7 +124,7 @@ def get_by_type(l_type: str, tlef_path: Path, nbr: int) -> str:
 def get_metal(nbr: int, tlef_path: Path) -> str:
     """
     Return the name of the $nbr^{th}$ metal (starting at 1).
-    :param tlef_path:
+    :param tlef_path: path to the TLEF file
     :param nbr: metal layer number
     :return: name of the metal layer
     """

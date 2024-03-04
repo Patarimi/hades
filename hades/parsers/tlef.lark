@@ -1,14 +1,14 @@
 start: (item|block)+
 
-block: _SEP? BLOCKNAME _NL (item|table)* "END" _SEP BLOCKNAME _NL
+block.2: _SEP? BLOCKNAME _NL (item|table)* "END" _SEP BLOCKNAME _NL
     | _SEP? BLOCKNAME _SEP NAME (_SEP TYPE)? _NL (item|table)* _SEP? "END" _SEP NAME _SEP? _NL
 
-item.1: _SEP? KEYWORD (_SEP setting)+ _SEP? ";" _NL
-    | _SEP? ("PROPERTY"|"LIBRARY") " LEF58_" WORD _SEP? "STRING"? _SEP? /"/ _SEP* setting (_SEP setting)~1..11 _SEP? ";" _SEP? /"/ _SEP? ";" _NL -> lef58_property
+item.0: _SEP? KEYWORD (_SEP setting)+ _SEP? ";" _NL
+    | _SEP? ("PROPERTY"|"LIBRARY") " LEF58_" WORD _SEP? "STRING"? _SEP? /"/ _SEP* setting (_SEP setting)+ _SEP? ";" _SEP? /"/ _SEP? ";" _NL -> lef58_property
     | list
 
 setting: FLOAT | WORD
-table.0: _SEP? "SPACINGTABLE" (_SEP setting)+ _SEP? ";" _NL
+table.1: _SEP? "SPACINGTABLE" (_SEP setting)+ _SEP? ";" _NL
 list: _SEP? "ANTENNA"("CUM")?"DIFF"("SIDE")?"AREARATIO PWL" _SEP? "(" _SEP? ("(" _SEP? FLOAT _SEP FLOAT _SEP? ")" _SEP? )+")" _SEP? ";" _NL
 
 BLOCKNAME: ("UNITS"|"SITE"|"LAYER"|"PROPERTYDEFINITIONS"|"VIA"|"VIARULE")

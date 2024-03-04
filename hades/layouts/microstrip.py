@@ -61,7 +61,7 @@ def coupled_lines(
     gap: float,
     layerstack: LayerStack,
     width2: float = -1,
-    ports: tuple[Port] = def_port,
+    ports: tuple[Port, Port, Port, Port] = def_port,
     name: str = "cpl",
 ) -> gdstk.Cell:
     """

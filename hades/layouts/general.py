@@ -8,7 +8,7 @@ import gdstk
 from hades.layouts.tools import LayerStack, ViaLayer
 
 
-def via(layer: ViaLayer, size: [float, float]) -> gdstk.Cell:
+def via(layer: ViaLayer, size: tuple[float, float]) -> gdstk.Cell:
     """
     This function generates a via cell.
     :param layer: The Layers to use.

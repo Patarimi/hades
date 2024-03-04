@@ -9,7 +9,7 @@ def test_tools():
     lay = tools.Layer(100, 4, "Via1")
     assert str(lay) == "Via1: 100/4"
     lay2 = tools.Layer(141)
-    assert str(lay2) == "None: 141/0"
+    assert str(lay2) == ": 141/0"
     base_path = dirname(__file__)
     ref = join(base_path, "ref_ind.gds")
     logging.debug(os.name)

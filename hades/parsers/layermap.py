@@ -43,7 +43,7 @@ class LayerMap(Transformer):
         return layer
 
     def start(self, start) -> dict[str, Map]:
-        map_d = dict()
+        map_d: dict[str, Map] = dict()
         for layer in start:
             name = layer[0]
             if name in map_d.keys():
@@ -64,7 +64,9 @@ def load_map(techno: str) -> dict[str, Map]:
     return map_list
 
 
-def get_number(layer_data: dict[str, Map], name: str, datatype: str = "drawing") -> tuple[int, int]:
+def get_number(
+    layer_data: dict[str, Map], name: str, datatype: str = "drawing"
+) -> tuple[int, int]:
     """
     Read layer information (layer number and datatype) from layermap file.
     :param layer_data: a dict with oll layer map data.

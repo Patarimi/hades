@@ -5,7 +5,7 @@ flowchart LR
 S[Filter Specifications] --> L[Low-Pass Prototype] --> C["Conversion\nScaling"] --> I[Implementation]
 ```
 """
-import skrf as rf
+
 import scipy.signal as si
 import numpy as np
 
@@ -38,7 +38,7 @@ def prototype(order: int, style: str, ripple: float = 0.2):
     raise ValueError(f"Unkwon filter type {style}, available are flat, ripple")
 
 
-def scaling(proto: np.array, f: float, r_0: float):
+def scaling(proto: np.ndarray, f: float, r_0: float):
     """
     properly scale a low-pass filter prototype.
     :param proto: list of coefficient of the prototype (see [prototype](#hades.devices.app_models.filter.prototype))
@@ -54,7 +54,9 @@ def scaling(proto: np.array, f: float, r_0: float):
     return np.array(denorm)
 
 
-def to_stepped_impedance(proto: np.array, z_high: float, z_low: float, r_0: float = 50):
+def to_stepped_impedance(
+    proto: np.ndarray, z_high: float, z_low: float, r_0: float = 50
+):
     """
     Convert a low-pass prototype to a stepped_impedance line filter. The exact function is implemented instead of the
      approximation presented in Pozar 2012 chapter. 8.6.

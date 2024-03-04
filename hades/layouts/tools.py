@@ -13,7 +13,7 @@ from hades.parsers.layermap import load_map, get_number
 class Layer:
     layer: int
     datatype: int = 0
-    name: str = None
+    name: str = ""
     width: float = 0
     spacing: float = 0
 
@@ -27,7 +27,7 @@ class Layer:
 
 @dataclass
 class ViaLayer(Layer):
-    enclosure: float | list[float, float] = 0
+    enclosure: float | tuple[float, float] = 0
 
 
 @dataclass

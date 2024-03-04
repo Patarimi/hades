@@ -14,19 +14,19 @@ class Mos:
     def update_cell(self, dimensions: Parameters, layers: dict) -> gdstk.Cell:
         self.dimensions = dimensions
         mos = gdstk.Cell("mos")
-        n = dimensions["n"]
-        w = dimensions["w"]
-        l = dimensions["l"]
+        n = int(dimensions["n"])
+        w = float(dimensions["w"])
+        le = float(dimensions["l"])
         ext_a, ext_g = (100, 80)
         active = gdstk.rectangle(
-            (-ext_a, 0), (n * (w + ext_a), l), layer=int(layers["pplus"][0])
+            (-ext_a, 0), (n * (w + ext_a), le), layer=int(layers["pplus"][0])
         )
         mos.add(active)
         for i in range(n):
             mos.add(
                 gdstk.rectangle(
                     (i * (ext_a + w), -ext_g),
-                    (w + i * (ext_a + w), l + ext_g),
+                    (w + i * (ext_a + w), le + ext_g),
                     layer=int(layers["poly"][0]),
                 )
             )

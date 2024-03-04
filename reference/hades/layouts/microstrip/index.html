@@ -1597,8 +1597,7 @@
 
           <details class="quote">
             <summary>Source code in <code>hades/layouts/microstrip.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">170</span>
-<span class="normal">171</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">171</span>
 <span class="normal">172</span>
 <span class="normal">173</span>
 <span class="normal">174</span>
@@ -1688,7 +1687,8 @@
 <span class="normal">258</span>
 <span class="normal">259</span>
 <span class="normal">260</span>
-<span class="normal">261</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">lange_coupler</span><span class="p">(</span>
+<span class="normal">261</span>
+<span class="normal">262</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">lange_coupler</span><span class="p">(</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -2028,7 +2028,8 @@
 <span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span>
-<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">marchand_balun</span><span class="p">(</span>
+<span class="normal">167</span>
+<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">marchand_balun</span><span class="p">(</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -2064,10 +2065,11 @@
     <span class="n">cpl1_bb</span> <span class="o">=</span> <span class="n">cpl1</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
     <span class="n">cpl2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">cpl</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">),</span> <span class="o">-</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">cpl2_bb</span> <span class="o">=</span> <span class="n">cpl2</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
-    <span class="n">r1</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">via_stack</span><span class="p">(</span><span class="n">layerstack</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                                   <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ws</span><span class="p">),</span>
-                                   <span class="p">),</span>
-                         <span class="p">(</span><span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">w</span><span class="o">*</span><span class="mf">1.5</span><span class="o">+</span><span class="n">g</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">ws</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span> <span class="o">-</span> <span class="n">ws</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="o">**</span><span class="n">m_top</span><span class="o">.</span><span class="n">map</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">bln</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cpl1</span><span class="p">,</span> <span class="n">cpl2</span><span class="p">,</span> <span class="n">r1</span><span class="p">)</span>
     <span class="n">r2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
         <span class="n">bln</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>

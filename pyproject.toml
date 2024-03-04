@@ -16,6 +16,9 @@ doc = "mkdocs gh-deploy"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+log_cli_level = "DEBUG"
+log_file_level = "INFO"
+log_file = "./pytest.log"
 
 
 [tool.poetry.dependencies]

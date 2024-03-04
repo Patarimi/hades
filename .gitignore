@@ -9,3 +9,4 @@
 /dist/hades-*.whl
 !/pdk/mock/
 /tmp/
+*.log

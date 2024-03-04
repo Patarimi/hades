@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 import numpy as np
@@ -54,7 +55,7 @@ class Emx:
         """
         if type(freq) is float:
             f_s = [
-                str(freq),
+                f"{freq:f}",
             ]
         else:
             f_s = [str(f) for f in freq]
@@ -92,6 +93,10 @@ class Emx:
                 str_cmd += str(elt) + " "
         for key in options:
             cmd += [command(key, options[key])]
+        exp = ""
+        for c in cmd:
+            exp += f"{c} "
+        logging.debug(exp)
         proc = run(cmd + conf["options"], capture_output=True, encoding="latin")
         if proc.returncode != 0:
             RuntimeWarning(str(cmd + conf["options"]))

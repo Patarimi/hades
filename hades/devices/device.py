@@ -1,4 +1,5 @@
 import enum
+import logging
 from typing import Protocol, Union
 from enum import Enum
 import gdstk
@@ -22,17 +23,13 @@ class Device(Protocol):
     parameters: Parameters
     techno: str
 
-    def update_model(self, specifications: Parameters) -> Parameters:
-        ...
+    def update_model(self, specifications: Parameters) -> Parameters: ...
 
-    def update_cell(self, dimensions: Parameters) -> gdstk.Cell:
-        ...
+    def update_cell(self, dimensions: Parameters) -> gdstk.Cell: ...
 
-    def update_accurate(self, sim_file: Path) -> Parameters:
-        ...
+    def update_accurate(self, sim_file: Path) -> Parameters: ...
 
-    def recalibrate_model(self, performances: Parameters) -> Parameters:
-        ...
+    def recalibrate_model(self, performances: Parameters) -> Parameters: ...
 
 
 def generate(
@@ -41,10 +38,10 @@ def generate(
     dimensions: Parameters,
     stop: Step,
 ) -> Parameters:
-    print(f"Generation started with :{specifications}")
+    logging.info(f"Generation started with :{specifications}")
     for i in range(5):
         dimensions.update(dut.update_model(specifications))
-        print(f"\t{dimensions=}")
+        logging.info(f"\t{dimensions=}")
         if stop == Step.dimensions:
             break
         cell = dut.update_cell(dimensions)
@@ -54,7 +51,7 @@ def generate(
         if stop == Step.geometries:
             break
         res = dut.update_accurate(Path(dut.name + ".gds"))
-        print(f"\tAccurate model completed with: {res}")
+        logging.info(f"\tAccurate model completed with: {res}")
         dut.recalibrate_model(res)
-        print(f"\tModel recalibrate with: {dut.parameters}")
+        logging.info(f"\tModel recalibrate with: {dut.parameters}")
     return dut.dimensions

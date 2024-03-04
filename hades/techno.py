@@ -1,3 +1,4 @@
+import logging
 import os
 import tarfile
 import urllib.request
@@ -36,11 +37,11 @@ def install(pdk_name: str):
         )
     ]
     urllib.request.install_opener(opener)
-    print("downloading files, might take some times...")
+    logging.info("downloading files, might take some times...")
     ext = ".zip" if ".zip" in base_url else ".tar.bz2"
     file_name = base_install + pdk_name + ext
     urllib.request.urlretrieve(base_url, file_name)
-    print("extracting, please wait...")
+    logging.info("extracting, please wait...")
     if ext == ".tar.bz2":
         with tarfile.open(file_name, mode="r") as bz:
             bz.extractall(base_install + pdk_name)

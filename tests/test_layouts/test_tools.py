@@ -2,6 +2,7 @@ from os.path import dirname, join, isdir
 import os
 import pytest
 from hades.layouts import tools
+import logging
 
 
 def test_tools():
@@ -11,7 +12,7 @@ def test_tools():
     assert str(lay2) == "None: 141/0"
     base_path = dirname(__file__)
     ref = join(base_path, "ref_ind.gds")
-    print(os.name)
+    logging.debug(os.name)
     tools.check_diff(ref, ref)
     with pytest.raises(ValueError):
         tools.check_diff(ref, join(base_path, "ref_ms.gds"))
@@ -22,7 +23,7 @@ def test_tools():
 )
 def test_layer_stack_gf():
     layer_stack = tools.LayerStack("gf180mcu")
-    print(layer_stack)
+    logging.debug(layer_stack)
     assert layer_stack.stack[0].layer == 34
     assert layer_stack.get_metal_layer(1) == tools.Layer(34, 0, "Metal1", 0.23, 0.3)
     assert layer_stack.get_metal_layer(2) == tools.Layer(36, 0, "Metal2", 0.28, 0.3)
@@ -42,7 +43,7 @@ def test_layer_stack_gf():
 @pytest.mark.skipif(not isdir("./pdk/sky130A"), reason="The PDK sky130 not installed.")
 def test_layer_stack_sw():
     layer_stack = tools.LayerStack("sky130")
-    print(layer_stack)
+    logging.debug(layer_stack)
     assert layer_stack.stack[0].layer == 68
     assert layer_stack.get_metal_layer(1) == tools.Layer(68, 20, "met1", 0.14)
     assert layer_stack.get_metal_layer(2) == tools.Layer(69, 20, "met2", 0.14)

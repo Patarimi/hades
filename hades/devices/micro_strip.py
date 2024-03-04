@@ -1,3 +1,5 @@
+import logging
+
 import numpy as np
 
 from .device import Parameters
@@ -20,7 +22,7 @@ class MicroStrip:
     techno: str
 
     def __init__(
-            self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
+        self, name: str, techno: str, z_c: float = 50, f_c: float = 1e9, phi: float = 90
     ):
         self.name = name
         self.specifications = {"z_c": float(z_c), "f_c": float(f_c), "phi": float(phi)}
@@ -47,7 +49,7 @@ class MicroStrip:
         res = minimize_scalar(
             lambda x: abs(wheeler(res.x, height, eps, 3e-6, x)[1] - delay)
         )
-        print(res.x)
+        logging.info(f"{res.x}\t{res.result}")
         # /!\ impedance is not accurate close to l/4 ou l/2
         self.dimensions["l"] = 40e-6  # res.x
         return self.dimensions

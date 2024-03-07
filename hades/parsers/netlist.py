@@ -7,7 +7,7 @@ class ComponentType(Enum):
     L = auto()
     C = auto()
     V = auto()
-    I = auto()
+    I = auto() # noqa
     R = auto()
     T = auto()
 

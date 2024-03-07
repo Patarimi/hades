@@ -3,7 +3,7 @@ import logging
 import numpy as np
 
 from .device import Parameters
-from ..simulators import Emx
+from hades.simulators.em import Emx
 import gdstk
 from pathlib import Path
 from hades.models.micro_strip import wheeler
@@ -66,7 +66,6 @@ class MicroStrip:
     def update_accurate(self, sim_file: Path) -> Parameters:
         f_0 = float(self.specifications["f_c"])
         res = self.em.compute(sim_file, self.name, f_0, port=("P1=S1:G1", "P2=S2:G2"))
-        Y_0 = 0.02
         phi = np.angle(res.s[0, 0, 1], deg=True)
         z_c = sqrt(
             1 / (res.y[0, 0, 0] * res.y[0, 1, 1] - res.y[0, 1, 0] * res.y[0, 0, 1])
@@ -82,7 +81,6 @@ class MicroStrip:
                 thick=3e-6,
                 length=self.dimensions["l"],
             )
-            phi = delay * 360 * float(self.specifications["f_c"])
             return abs(z - performances["z_c"])
 
         res = minimize_scalar(cost)

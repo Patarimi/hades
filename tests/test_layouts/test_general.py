@@ -9,7 +9,6 @@ REF_PATH = dirname(__file__)
 
 
 def test_via(tmp_path):
-
     v = via(stack.get_via_layer(2), (3, 4))
     lib = gdstk.Library("toto")
     lib.add(v)
@@ -18,7 +17,6 @@ def test_via(tmp_path):
 
 
 def test_via_stack(tmp_path):
-
     v = via_stack(stack, 2, 1, (3, 4))
     lib = gdstk.Library("toto")
     lib.add(v)
@@ -27,7 +25,6 @@ def test_via_stack(tmp_path):
 
 
 def test_ground_plane(tmp_path):
-
     v = ground_plane(stack, (3, 4), 1)
     lib = gdstk.Library("toto")
     lib.add(v)

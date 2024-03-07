@@ -7,9 +7,17 @@ import logging
 
 
 def octagonal_inductor(
-        d_i: float, n_turn: int, width: float, gap: float, layer_stack: LayerStack,
-        layer_nb: int = -1, pin_name: [str, str] = ("P1", "P2"), port_ext: float = 15e-6,
-        port_gap: float = -1, bridge_nb: Optional[int] = None) -> gdstk.Cell:
+    d_i: float,
+    n_turn: int,
+    width: float,
+    gap: float,
+    layer_stack: LayerStack,
+    layer_nb: int = -1,
+    pin_name: [str, str] = ("P1", "P2"),
+    port_ext: float = 15e-6,
+    port_gap: float = -1,
+    bridge_nb: Optional[int] = None,
+) -> gdstk.Cell:
     """
     generate a multi-turn octagonal inductor.
     :param d_i: inner diameter in micron
@@ -28,19 +36,23 @@ def octagonal_inductor(
     if bridge_nb == 0:
         m_bridge = Layer(74)
     else:
-        m_bridge = layer_stack.get_metal_layer(layer_nb - 1 if bridge_nb is None else bridge_nb)
+        m_bridge = layer_stack.get_metal_layer(
+            layer_nb - 1 if bridge_nb is None else bridge_nb
+        )
     ind = gdstk.Cell("ind")
     w, g = width * 1e6, gap * 1e6
     d_a = d_i * 1e6 + w
     si = tan(pi / 8) / 2
     p_ext, p_gap = port_ext * 1e6, g + w if port_gap == -1 else port_gap * 1e6 + w
     b_gap = 2 * w + g
-    even_turn = (n_turn % 2 == 0)
+    even_turn = n_turn % 2 == 0
     for i in range(n_turn):
         d_a = d_i * 1e6 + w + 2 * i * (w + g)
-        end = (i == n_turn - 1)
-        start = (i == 0)
-        logging.debug(f"{end=}\t{even_turn=} {0 if (not end) and even_turn else p_gap / 2}")
+        end = i == n_turn - 1
+        start = i == 0
+        logging.debug(
+            f"{end=}\t{even_turn=} {0 if (not end) and even_turn else p_gap / 2}"
+        )
         path = [
             (-i * (w + g), 0 if (not end) and even_turn else p_gap / 2),
             (-i * (w + g), d_a * si),
@@ -60,22 +72,40 @@ def octagonal_inductor(
                     rp.segment((path[-1][0] - w - g, -path[-1][1] + w / 2))
                     rp.segment((path[-1][0] - w - g, -path[-1][1]))
                 else:
-                    cross = gdstk.RobustPath((path[-1][0], -path[-1][1] - w), w, **m_bridge.map)
+                    cross = gdstk.RobustPath(
+                        (path[-1][0], -path[-1][1] - w), w, **m_bridge.map
+                    )
                     cross.segment((path[-1][0], -path[-1][1] + w / 2))
                     cross.segment((path[-1][0] - w - g, path[-1][1] - w / 2))
                     cross.segment((path[-1][0] - w - g, path[-1][1] + w))
-                    via_lyer = layer_stack.get_via_layer(layer_nb) if bridge_nb != 0 else Layer(76)
+                    via_lyer = (
+                        layer_stack.get_via_layer(layer_nb)
+                        if bridge_nb != 0
+                        else Layer(76)
+                    )
                     v1 = via(via_lyer, (w, w))
-                    ind.add(cross,
-                            gdstk.Reference(v1, origin=(path[-1][0] - 1.5 * w - g, path[-1][1])),
-                            gdstk.Reference(v1, origin=(path[-1][0] - w / 2, -path[-1][1] - w))
-                            )
+                    ind.add(
+                        cross,
+                        gdstk.Reference(
+                            v1, origin=(path[-1][0] - 1.5 * w - g, path[-1][1])
+                        ),
+                        gdstk.Reference(
+                            v1, origin=(path[-1][0] - w / 2, -path[-1][1] - w)
+                        ),
+                    )
             ind.add(rp)
     ind.add(
-        gdstk.Label(pin_name[0], (-p_ext, p_gap / 2), layer=m_top.layer, texttype=m_top.datatype)
+        gdstk.Label(
+            pin_name[0], (-p_ext, p_gap / 2), layer=m_top.layer, texttype=m_top.datatype
+        )
     )
     ind.add(
-        gdstk.Label(pin_name[1], (-p_ext, -p_gap / 2), layer=m_top.layer, texttype=m_top.datatype)
+        gdstk.Label(
+            pin_name[1],
+            (-p_ext, -p_gap / 2),
+            layer=m_top.layer,
+            texttype=m_top.datatype,
+        )
     )
 
     return ind.flatten()

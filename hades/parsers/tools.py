@@ -1,6 +1,7 @@
 """
 This package give general tools to help parse file with lark.
 """
+
 from pathlib import Path
 
 from lark import Lark, Tree

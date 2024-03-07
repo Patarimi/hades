@@ -117,14 +117,14 @@ def marchand_balun(
     """
     m_top = layerstack.get_metal_layer(-1)
     m_bott = layerstack.get_metal_layer(1)
-    w, l, g, s = width * 1e6, length * 1e6, gap * 1e6, space * 1e6
+    w, le, g, s = width * 1e6, length * 1e6, gap * 1e6, space * 1e6
     ws = w if widths < 0 else widths * 1e6
     bln = gdstk.Cell(name)
     emp_port = Port("")
     cpl = lange_coupler(
         width, length, gap, layerstack, [emp_port for k in range(4)], ext=0
     )
-    cpl1 = gdstk.Reference(cpl, (0, -l), pi / 2, x_reflection=True)
+    cpl1 = gdstk.Reference(cpl, (0, -le), pi / 2, x_reflection=True)
     cpl1_bb = cpl1.bounding_box()
     cpl2 = gdstk.Reference(cpl, (s + cpl1_bb[1][0] - cpl1_bb[0][0], -w - g), -pi / 2)
     cpl2_bb = cpl2.bounding_box()
@@ -189,7 +189,7 @@ def lange_coupler(
     :param ext: extension of the ports
     :return:
     """
-    w, l, g = width * 1e6, length * 1e6, gap * 1e6
+    w, le, g = width * 1e6, length * 1e6, gap * 1e6
     top_metal = layerstack.get_metal_layer(-1)
     bridge = layerstack.get_metal_layer(-2)
     top_via = layerstack.get_via_layer(-1)
@@ -201,12 +201,12 @@ def lange_coupler(
         datatype=top_metal.datatype,
         ends="extended",
     )
-    first_met.horizontal(l, relative=True)
+    first_met.horizontal(le, relative=True)
     first_met.vertical(2 * (w + g), relative=True)
-    first_met.horizontal(-l, relative=True)
+    first_met.horizontal(-le, relative=True)
     first_met.vertical(ext, relative=True)
     port = gdstk.FlexPath(
-        (l, 2.5 * w + 2 * g), w, layer=top_metal.layer, datatype=top_metal.datatype
+        (le, 2.5 * w + 2 * g), w, layer=top_metal.layer, datatype=top_metal.datatype
     )
     port.vertical(ext, relative=True)
     sec_met = gdstk.FlexPath(
@@ -231,16 +231,16 @@ def lange_coupler(
     lange = gdstk.Cell(name)
     thg = gdstk.Cell("thg")
     thg.add(first_met, sec_met, via, via2, port)
-    cpl = gdstk.Reference(thg, rotation=math.pi, origin=(l - w - g, w + g))
+    cpl = gdstk.Reference(thg, rotation=math.pi, origin=(le - w - g, w + g))
     thg_r = gdstk.Reference(thg)
     lange.add(cpl, thg_r)
     lange.flatten()
     for i in range(4):
         coord = (
             (0, ext + 2.5 * w + 2 * g),
-            (l, ext + 2.5 * w + 2 * g),
+            (le, ext + 2.5 * w + 2 * g),
             (-w - g, -ext - 1.5 * w - g),
-            (l - w - g, -ext - 1.5 * w - g),
+            (le - w - g, -ext - 1.5 * w - g),
         )
         if ports[i].name == "":
             continue

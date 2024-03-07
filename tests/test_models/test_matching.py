@@ -25,7 +25,6 @@ def test_lumped_l():
 def test_single_stub():
     z_in = 50
     z_out = 60 - 80j
-    f = 2e9
     d, lo, ls = mt.single_shunt_stub(z_out, z_in)
     assert d == pytest.approx((0.11042321863830025, 0.2594445306228258))
     assert lo == pytest.approx((0.34497462163589154, 0.15502537836410857))
@@ -41,5 +40,9 @@ def test_transformer():
     zl = 50 - 100j
     f_target = 60e9
     sol = mt.transformer(zs, zl, 0.8)
-    assert pytest.approx(sol[0] / (2 * np.pi * f_target)) == np.array([1552e-12, 3369e-12])
-    assert pytest.approx(sol[1] / (2 * np.pi * f_target)) == np.array([157e-12, 580e-12])
+    assert pytest.approx(sol[0] / (2 * np.pi * f_target)) == np.array(
+        [1552e-12, 3369e-12]
+    )
+    assert pytest.approx(sol[1] / (2 * np.pi * f_target)) == np.array(
+        [157e-12, 580e-12]
+    )

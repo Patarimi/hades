@@ -1,6 +1,7 @@
 """
 module for common rf functions.
 """
+
 import numpy as np
 
 

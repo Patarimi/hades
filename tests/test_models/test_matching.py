@@ -41,5 +41,9 @@ def test_transformer():
     zl = 50 - 100j
     f_target = 60e9
     sol = mt.transformer(zs, zl, 0.8)
-    assert pytest.approx(sol[0] / (2 * np.pi * f_target)) == np.array([1552e-12, 3369e-12])
-    assert pytest.approx(sol[1] / (2 * np.pi * f_target)) == np.array([157e-12, 580e-12])
+    assert pytest.approx(sol[0] / (2 * np.pi * f_target)) == np.array(
+        [1552e-12, 3369e-12]
+    )
+    assert pytest.approx(sol[1] / (2 * np.pi * f_target)) == np.array(
+        [157e-12, 580e-12]
+    )

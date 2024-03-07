@@ -42,10 +42,11 @@ jobs:
         poetry run pwd
     - name: check and format
       continue-on-error: true
-      run: |
-        poetry run mypy ./hades
-    - name: Install PDK
       uses: chartboost/ruff-action@v1
+    - name: Install PDK
+      run: |
+        poetry run hades pdk install sky130
+        poetry run hades pdk install gf180mcu
     - if: ${{ steps.pdk-restore.outputs.cache-hit != 'true' }}
       name: Save PDK Directory
       id: pdk-save

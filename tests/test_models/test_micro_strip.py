@@ -16,6 +16,6 @@ def test_micro_strip_impedance():
 
 def test_micro_strip_phase():
     ref_d = (4.540148543324036e-14, 2.2700742716620183e-13, 4.086133688991633e-12)
-    for i, l in enumerate((10, 50, 900)):
-        _, delay = ms.wheeler(12e-6, 4e-6, 2, 1e-6, l * 1e-6)
+    for i, le in enumerate((10, 50, 900)):
+        _, delay = ms.wheeler(12e-6, 4e-6, 2, 1e-6, le * 1e-6)
         assert delay == pytest.approx(ref_d[i])

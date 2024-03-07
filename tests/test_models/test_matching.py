@@ -25,7 +25,6 @@ def test_lumped_l():
 def test_single_stub():
     z_in = 50
     z_out = 60 - 80j
-    f = 2e9
     d, lo, ls = mt.single_shunt_stub(z_out, z_in)
     assert d == pytest.approx((0.11042321863830025, 0.2594445306228258))
     assert lo == pytest.approx((0.34497462163589154, 0.15502537836410857))

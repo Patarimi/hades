@@ -3,7 +3,7 @@ import logging
 import numpy as np
 
 from .device import Parameters
-from ..simulators import Emx
+from hades.simulators.em import Emx
 import gdstk
 from pathlib import Path
 from hades.models.micro_strip import wheeler

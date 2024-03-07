@@ -4,7 +4,6 @@ from typing import Protocol, Union
 from enum import Enum
 import gdstk
 from pathlib import Path
-from rich import print
 
 
 Parameters = dict[str, Union[int, float, str]]

@@ -23,6 +23,12 @@ def test_via_stack(tmp_path):
     lib.write_gds(tmp_path / "via_stack.gds")
     check_diff(tmp_path / "via_stack.gds", join(REF_PATH, "ref_via_stack.gds"))
 
+    v = via_stack(stack, -3, -4, (3, 4))
+    lib = gdstk.Library("toto")
+    lib.add(v)
+    lib.write_gds(tmp_path / "via_stack_neg.gds")
+    check_diff(tmp_path / "via_stack_neg.gds", join(REF_PATH, "ref_via_stack.gds"))
+
 
 def test_ground_plane(tmp_path):
     v = ground_plane(stack, (3, 4), 1)

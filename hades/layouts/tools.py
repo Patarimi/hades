@@ -1,5 +1,6 @@
+import logging
 import subprocess
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from os.path import join, dirname, realpath
 from pathlib import Path
 import os
@@ -33,20 +34,22 @@ class ViaLayer(Layer):
 @dataclass
 class LayerStack:
     techno: str
-    stack: list[Layer] = None
+    _stack: list[Layer] = field(init=False)
+    _pad: Layer = field(init=False)
+    _gate: Layer = field(init=False)
 
     def __post_init__(self):
         pdk = load_pdk(self.techno)
         path = realpath(join(dirname(__file__), "../", pdk["base_dir"], pdk["techlef"]))
         layers = load_tlef(path)
         layer_map = load_map(self.techno)
-        self.stack = []
+        stack = []
         for layer in layers:
             if layer.name in layer_map:
                 layer_type = None
-                if layer.type == "ROUTING" and layer.name[0].upper() == "M":
+                if layer.type == "ROUTING":
                     layer_type = "Metal"
-                if layer.type == "CUT" and layer.name[0].upper() == "V":
+                if layer.type == "CUT":
                     layer_type = "Via"
                 if layer_type is None:
                     continue
@@ -77,25 +80,33 @@ class LayerStack:
                         spacing=layer.spacing,
                         enclosure=layer.enclosure,
                     )
-                self.stack.append(lyr)
+                stack.append(lyr)
+        self._pad = stack[-1]
+        self._gate = stack[0]
+        logging.info("".join("\t" + lyr.name for lyr in stack[1:-1]))
+        self._stack = stack[1:-1]
 
     def __len__(self):
-        return len(self.stack)
+        return len(self._stack)
 
-    def get_metal_layer(self, num: int):
+    def get_metal_layer(self, num: int) -> Layer:
         if num == 0:
             raise ValueError("nbr cannot be 0")
         try:
-            return self.stack[2 * (num - 1) if num > 0 else 2 * num + 1]
+            return self._stack[2 * (num - 1) if num > 0 else 2 * num]
         except IndexError:
             raise IndexError(
-                f"Layer {num} not found. Available layers are {self.stack}"
+                f"Layer {num} not found. Available layers are {self._stack}"
             )
 
+    def get_pad_layer(self) -> Layer:
+        return self._pad
+
+    def get_gate_layer(self) -> Layer:
+        return self._gate
+
     def get_via_layer(self, num: int):
-        if num == 0:
-            raise ValueError("nbr cannot be 0")
-        return self.stack[2 * num - 1 if num > 0 else 2 * num]
+        return self._stack[2 * num - 1 if num > 0 else 2 * num - 1]
 
 
 @dataclass

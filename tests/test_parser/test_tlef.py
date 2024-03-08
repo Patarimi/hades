@@ -14,7 +14,7 @@ def test_load_tlef(tmp_path):
     logging.debug(layers)
 
     assert get_metal(1, path) == "Metal1"
-    assert get_metal(-1, path) == "Metal5"
+    assert get_metal(-1, path) == "Pad"
     with pytest.raises(ValueError):
         get_metal(0, path)
     assert get_via(1, path) == "CON"

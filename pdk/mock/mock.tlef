@@ -50,6 +50,10 @@ LAYER Metal5
     TYPE ROUTING ;
 END Metal5
 
-LAYER Via5
+LAYER Opening
     TYPE CUT ;
-END Via5
+END Opening
+
+LAYER Pad
+    TYPE ROUTING ;
+END Pad

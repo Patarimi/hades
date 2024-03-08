@@ -79,7 +79,7 @@ def octagonal_inductor(
                     cross.segment((path[-1][0] - w - g, path[-1][1] - w / 2))
                     cross.segment((path[-1][0] - w - g, path[-1][1] + w))
                     via_layer = (
-                        layer_stack.get_via_layer(layer_nb)
+                        layer_stack.get_via_layer(layer_nb-1)
                     )
                     v1 = via(via_layer, (w, w))
                     ind.add(

@@ -34,7 +34,7 @@ def test_layer_stack_gf():
     assert layer_stack.get_via_layer(2) == tools.ViaLayer(
         38, 0, "Via2", 0.26, 0.26, 0.01
     )
-    assert layer_stack.get_via_layer(-1) == tools.ViaLayer(
+    assert layer_stack.get_via_layer(-2) == tools.ViaLayer(
         41, 0, "Via4", 0.26, 0.26, 0.01
     )
 
@@ -53,6 +53,6 @@ def test_layer_stack_sw():
     assert layer_stack.get_via_layer(2) == tools.ViaLayer(
         69, 44, "via2", 0.2, 0.2, 0.065
     )
-    assert layer_stack.get_via_layer(-1) == tools.ViaLayer(
+    assert layer_stack.get_via_layer(-2) == tools.ViaLayer(
         71, 44, "via4", 0.8, 0.8, 0.31
     )

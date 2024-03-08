@@ -81,10 +81,23 @@ class LayerStack:
                         enclosure=layer.enclosure,
                     )
                 stack.append(lyr)
-        self._pad = stack[-1]
-        self._gate = stack[0]
-        logging.info("".join("\t" + lyr.name for lyr in stack[1:-1]))
-        self._stack = stack[1:-1]
+
+        if stack[-1].name[0].lower() in ("m", "v") or isinstance(stack[-1], ViaLayer):
+            logging.warning("No Pad layer detected")
+            logging.debug("".join("\t" + lyr.name for lyr in stack))
+            self._pad = Layer(0, name="NotFound")
+        else:
+            self._pad = stack.pop(-1)
+            logging.debug(f"{self._pad.name} set as Pad layer")
+        if isinstance(stack[0], ViaLayer) or stack[0].name[0].lower() in ("m", "v"):
+            logging.warning("No Gate layer detected")
+            logging.debug("".join("\t" + lyr.name for lyr in stack))
+            self._gate = Layer(0, name="NotFound")
+        else:
+            self._gate = stack.pop(0)
+            logging.debug(f"{self._gate.name} set as Gate layer")
+        logging.info("".join("\t" + lyr.name for lyr in stack))
+        self._stack = stack
 
     def __len__(self):
         return len(self._stack)
@@ -93,7 +106,9 @@ class LayerStack:
         if num == 0:
             raise ValueError("nbr cannot be 0")
         try:
-            return self._stack[2 * (num - 1) if num > 0 else 2 * num]
+            pard = 0 if isinstance(self._stack[-1], ViaLayer) else 1
+            paru = 1 if isinstance(self._stack[0], ViaLayer) else 2
+            return self._stack[2 * num-paru if num > 0 else 2 * num + pard]
         except IndexError:
             raise IndexError(
                 f"Layer {num} not found. Available layers are {self._stack}"
@@ -106,7 +121,14 @@ class LayerStack:
         return self._gate
 
     def get_via_layer(self, num: int):
-        return self._stack[2 * num - 1 if num > 0 else 2 * num - 1]
+        if num == 0 and not isinstance(self._stack[0], ViaLayer):
+            raise ValueError("Contact layer not found. First layer in stack is a metal Layer")
+        if num == -1 and not isinstance(self._stack[0], ViaLayer):
+            raise ValueError("Last Via layer not found. Last layer in stack is a metal Layer\n"
+                             + "".join("\t" + lyr.name for lyr in self._stack))
+        pard = 1 if isinstance(self._stack[-1], ViaLayer) else 2
+        paru = 0 if isinstance(self._stack[0], ViaLayer) else 1
+        return self._stack[2 * num - paru if num > 0 else 2 * num + pard]
 
 
 @dataclass

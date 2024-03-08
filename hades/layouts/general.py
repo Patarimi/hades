@@ -3,6 +3,7 @@ This module contains function to generate general purpose cells.
 (Via, via stack, ground plane, etc.)
 """
 
+import logging
 import math
 import gdstk
 from hades.layouts.tools import LayerStack, ViaLayer
@@ -55,14 +56,17 @@ def via_stack(
     :return: a gdstk.Cell containing the via stack.
     """
     v = gdstk.Cell("via")
-    id_top = id_top if id_top > 0 else int((len(layers) + 1) / 2 + id_top + 1)
+    id_top = id_top if id_top > 0 else int((len(layers) + 1) / 2 + id_top)
     id_bot = id_bot if id_bot > 0 else int((len(layers) + 1) / 2 + id_bot)
+    logging.info(f"Via Stack between : {id_top=}\t{id_bot=}")
     for i in range(id_bot, id_top + 1):
         lyr = layers.get_metal_layer(i)
+        logging.debug("Metal:\t" + lyr.name)
         v.add(gdstk.rectangle((0, 0), size, layer=lyr.layer, datatype=lyr.datatype))
         if i == id_top:
             continue
         lyr = layers.get_via_layer(i)
+        logging.debug("Via:\t" + lyr.name)
         [v.add(p) for p in via(lyr, size).polygons]
     return v
 

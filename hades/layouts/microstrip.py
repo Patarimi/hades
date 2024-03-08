@@ -192,7 +192,7 @@ def lange_coupler(
     w, le, g = width * 1e6, length * 1e6, gap * 1e6
     top_metal = layerstack.get_metal_layer(-1)
     bridge = layerstack.get_metal_layer(-2)
-    top_via = layerstack.get_via_layer(-1)
+    top_via = layerstack.get_via_layer(-2)
     bot_metal = layerstack.get_metal_layer(1)
     first_met = gdstk.FlexPath(
         (0, 0),

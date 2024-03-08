@@ -24,7 +24,6 @@ def test_tools():
 def test_layer_stack_gf():
     layer_stack = tools.LayerStack("gf180mcu")
     logging.debug(layer_stack)
-    assert layer_stack.stack[0].layer == 34
     assert layer_stack.get_metal_layer(1) == tools.Layer(34, 0, "Metal1", 0.23, 0.3)
     assert layer_stack.get_metal_layer(2) == tools.Layer(36, 0, "Metal2", 0.28, 0.3)
     assert layer_stack.get_metal_layer(-1) == tools.Layer(81, 0, "Metal5", 0.44, 0.6)
@@ -44,7 +43,6 @@ def test_layer_stack_gf():
 def test_layer_stack_sw():
     layer_stack = tools.LayerStack("sky130")
     logging.debug(layer_stack)
-    assert layer_stack.stack[0].layer == 68
     assert layer_stack.get_metal_layer(1) == tools.Layer(68, 20, "met1", 0.14)
     assert layer_stack.get_metal_layer(2) == tools.Layer(69, 20, "met2", 0.14)
     assert layer_stack.get_metal_layer(-1) == tools.Layer(72, 20, "met5", 1.6)

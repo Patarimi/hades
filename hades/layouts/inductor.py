@@ -1,4 +1,4 @@
-from .tools import LayerStack, Layer
+from .tools import LayerStack
 from hades.layouts.general import via
 import gdstk
 from numpy import tan, pi
@@ -34,7 +34,7 @@ def octagonal_inductor(
     """
     m_top = layer_stack.get_metal_layer(layer_nb)
     if bridge_nb == 0:
-        m_bridge = Layer(74)
+        m_bridge = layer_stack.get_pad_layer()
     else:
         m_bridge = layer_stack.get_metal_layer(
             layer_nb - 1 if bridge_nb is None else bridge_nb
@@ -78,12 +78,10 @@ def octagonal_inductor(
                     cross.segment((path[-1][0], -path[-1][1] + w / 2))
                     cross.segment((path[-1][0] - w - g, path[-1][1] - w / 2))
                     cross.segment((path[-1][0] - w - g, path[-1][1] + w))
-                    via_lyer = (
+                    via_layer = (
                         layer_stack.get_via_layer(layer_nb)
-                        if bridge_nb != 0
-                        else Layer(76)
                     )
-                    v1 = via(via_lyer, (w, w))
+                    v1 = via(via_layer, (w, w))
                     ind.add(
                         cross,
                         gdstk.Reference(

@@ -108,7 +108,7 @@ class LayerStack:
         try:
             pard = 0 if isinstance(self._stack[-1], ViaLayer) else 1
             paru = 1 if isinstance(self._stack[0], ViaLayer) else 2
-            return self._stack[2 * num-paru if num > 0 else 2 * num + pard]
+            return self._stack[2 * num - paru if num > 0 else 2 * num + pard]
         except IndexError:
             raise IndexError(
                 f"Layer {num} not found. Available layers are {self._stack}"
@@ -122,10 +122,14 @@ class LayerStack:
 
     def get_via_layer(self, num: int):
         if num == 0 and not isinstance(self._stack[0], ViaLayer):
-            raise ValueError("Contact layer not found. First layer in stack is a metal Layer")
+            raise ValueError(
+                "Contact layer not found. First layer in stack is a metal Layer"
+            )
         if num == -1 and not isinstance(self._stack[0], ViaLayer):
-            raise ValueError("Last Via layer not found. Last layer in stack is a metal Layer\n"
-                             + "".join("\t" + lyr.name for lyr in self._stack))
+            raise ValueError(
+                "Last Via layer not found. Last layer in stack is a metal Layer\n"
+                + "".join("\t" + lyr.name for lyr in self._stack)
+            )
         pard = 1 if isinstance(self._stack[-1], ViaLayer) else 2
         paru = 0 if isinstance(self._stack[0], ViaLayer) else 1
         return self._stack[2 * num - paru if num > 0 else 2 * num + pard]

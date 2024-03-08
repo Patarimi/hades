@@ -9,6 +9,8 @@ REF_PATH = dirname(__file__)
 
 
 def test_via(tmp_path):
+    opnng = stack.get_via_layer(0)
+    assert opnng.name == "Opening"
     v = via(stack.get_via_layer(2), (3, 4))
     lib = gdstk.Library("toto")
     lib.add(v)

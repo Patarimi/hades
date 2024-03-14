@@ -21,6 +21,8 @@ def test_load_tlef():
 
     assert layers.layers[2].width == 0.4
 
+    assert layers.unit == 5e-9
+
 
 if __name__ == "__main__":
     test_load_tlef("./tmp")

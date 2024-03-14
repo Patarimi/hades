@@ -29,6 +29,12 @@ class Layer:
     spacing: float = 0
 
 
+@dataclasses.dataclass
+class TechStack:
+    unit: float = 1e-3  # default unit is 1/1000 of a micron
+    layers: list[Layer] = dataclasses.field(default_factory=list)
+
+
 class TechLef(Transformer):
     NAME = str
     FLOAT = float
@@ -40,6 +46,8 @@ class TechLef(Transformer):
         if item is None or len(item) == 0:
             return Discard
         if item[0] in ("WIDTH", "TYPE", "SPACING", "ENCLOSURE"):
+            return list(item)
+        if item[0] in ("MANUFACTURINGGRID",):
             return list(item)
         return Discard
 
@@ -73,16 +81,19 @@ class TechLef(Transformer):
         logging.debug(f"In block: {layer=}")
         return Layer(**layer)
 
-    def start(self, start):
-        ss = list()
+    def start(self, start) -> TechStack:
+        ss = TechStack()
         for layer in start:
             if isinstance(layer, Layer):
-                ss.append(layer)
+                ss.layers.append(layer)
+            if isinstance(layer, list):
+                if layer[0] == "MANUFACTURINGGRID":
+                    ss.unit = float(layer[1])*1e-6
         logging.debug(f"In Start: {ss=}")
         return ss
 
 
-def load_tlef(tlef_path: str | Path) -> dict:
+def load_tlef(tlef_path: str | Path) -> TechStack:
     """
     Load a TLEF file and return a dictionary of layer names.
     :param tlef_path: path to the TLEF file
@@ -100,7 +111,7 @@ def get_all_by_type(l_type: str, tlef_path: Path) -> list[str]:
     """
     layers = list()
     full_stack = load_tlef(tlef_path)
-    for layer in full_stack:
+    for layer in full_stack.layers:
         if layer.type == l_type:
             layers.append(layer.name)
     if not layers:

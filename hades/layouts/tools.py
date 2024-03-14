@@ -37,14 +37,16 @@ class LayerStack:
     _stack: list[Layer] = field(init=False)
     _pad: Layer = field(init=False)
     _gate: Layer = field(init=False)
+    grid: float = 1e-9
 
     def __post_init__(self):
         pdk = load_pdk(self.techno)
         path = realpath(join(dirname(__file__), "../", pdk["base_dir"], pdk["techlef"]))
-        layers = load_tlef(path)
+        t_stack = load_tlef(path)
+        self.grid = t_stack.unit
         layer_map = load_map(self.techno)
         stack = []
-        for layer in layers:
+        for layer in t_stack.layers:
             if layer.name in layer_map:
                 layer_type = None
                 if layer.type == "ROUTING":

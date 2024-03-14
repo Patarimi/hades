@@ -20,7 +20,7 @@ def test_via(tmp_path):
 
 def test_via_stack(tmp_path):
     v = via_stack(stack, 2, 1, (3, 4))
-    lib = gdstk.Library("toto")
+    lib = gdstk.Library("toto", precision=stack.grid)
     lib.add(v)
     lib.write_gds(tmp_path / "via_stack.gds")
     check_diff(tmp_path / "via_stack.gds", join(REF_PATH, "ref_via_stack.gds"))
@@ -34,7 +34,7 @@ def test_via_stack(tmp_path):
 
 def test_ground_plane(tmp_path):
     v = ground_plane(stack, (3, 4), 1)
-    lib = gdstk.Library("toto")
+    lib = gdstk.Library("toto", precision=stack.grid)
     lib.add(v)
     lib.write_gds(tmp_path / "ground_plane.gds")
     check_diff(tmp_path / "ground_plane.gds", join(REF_PATH, "ref_ground_plane.gds"))

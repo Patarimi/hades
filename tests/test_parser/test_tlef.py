@@ -7,7 +7,7 @@ import logging
 pytestmark = pytest.mark.skipif(not (isdir("./pdk/mock")), reason="PDK not installed.")
 
 
-def test_load_tlef(tmp_path):
+def test_load_tlef():
     pdk = load_pdk("mock")
     path = join(dirname(dirname(__file__)), pdk["base_dir"], pdk["techlef"])
     layers = load_tlef(path)
@@ -19,7 +19,9 @@ def test_load_tlef(tmp_path):
         get_metal(0, path)
     assert get_via(1, path) == "CON"
 
-    assert layers[2].width == 0.4
+    assert layers.layers[2].width == 0.4
+
+    assert layers.unit == 5e-9
 
 
 if __name__ == "__main__":

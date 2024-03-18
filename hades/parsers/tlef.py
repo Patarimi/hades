@@ -88,7 +88,7 @@ class TechLef(Transformer):
                 ss.layers.append(layer)
             if isinstance(layer, list):
                 if layer[0] == "MANUFACTURINGGRID":
-                    ss.unit = float(layer[1])*1e-6
+                    ss.unit = float(layer[1]) * 1e-6
         logging.debug(f"In Start: {ss=}")
         return ss
 

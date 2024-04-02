@@ -10,6 +10,7 @@ hades = "hades.main:app"
 
 [tool.poe.tasks]
 update = "poetry show -T -o"
+test = 'pytest --basetemp=tmp'
 install_all = "poetry install --with=dev,doc"
 publish = "poetry publish --build --username __token__ --password $PYPI_TOKEN"
 doc = "mkdocs gh-deploy"
@@ -23,7 +24,6 @@ log_file = "./pytest.log"
 
 [tool.poetry.dependencies]
 python = "^3.10,<3.13"
-typer = "^0.9.0"
 gdstk = "^0.9.48"
 pyyaml = "^6.0"
 scipy = "^1.12.0"
@@ -34,6 +34,7 @@ scikit-rf = "^0.32.0"
 pydantic = "^2.6.0"
 matplotlib = "^3.8.2"
 lark = "^1.1.9"
+typer = "^0.11.0"
 
 [tool.poetry.group.dev]
 optional = true

@@ -44,7 +44,7 @@ poethepoet = "^0.25.0"
 pytest = "^8.1.1"
 pytest-sugar = "^1.0.0"
 setuptools = "^69.0.0"
-ruff = "^0.3.2"
+ruff = "^0.4.1"
 
 [tool.poetry.group.doc]
 optional = true

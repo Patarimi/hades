@@ -43,7 +43,18 @@ def eng(x: float, precision: int = 3, prefix: bool = True) -> str:
     """
     pw = int(np.log10(np.abs(x)) // 3)
     if prefix:
-        ref = {-5: "f", -4: "p", -3: "n", -2: "µ", -1: "m", 0: "", 1: "k", 2: "M", 3: "G", 4: "T"}
+        ref = {
+            -5: "f",
+            -4: "p",
+            -3: "n",
+            -2: "µ",
+            -1: "m",
+            0: "",
+            1: "k",
+            2: "M",
+            3: "G",
+            4: "T",
+        }
         return f"{x * 10 ** (-3 * pw):.{precision}f} {ref[pw]}"
     else:
         return f"{x * 10 ** (-3 * pw):.{precision}f}e{3 * pw}"

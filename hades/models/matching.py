@@ -141,6 +141,12 @@ def single_series_stub(
     return d, ls, lo
 
 
+def __delta(q1: float, q2: float, a: float):
+    beta = 2 * a * q1 + q1 + q2
+    delta = beta**2 - 4 * a * (a + 1) * (1 + q1**2)
+    return delta
+
+
 def transformer(z_load: complex, z_source: complex, k: float = 0.8) -> np.ndarray:
     """
     Return the two solutions to match two complex load with a transformer.
@@ -159,5 +165,4 @@ def transformer(z_load: complex, z_source: complex, k: float = 0.8) -> np.ndarra
     qxl1 = (z / (1 - k**2) for z in z_sol)
     qxl2 = (z * (1 + q_l**2) / (alpha * (1 + (q_s - z) ** 2)) for z in z_sol)
     sol = tuple((q1 * z_source.real, q2 * z_load.real) for q1, q2 in zip(qxl1, qxl2))
-    print(np.array(sol) / (2 * np.pi * 60e9))
     return np.array(sol)

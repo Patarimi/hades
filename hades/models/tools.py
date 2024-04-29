@@ -21,17 +21,12 @@ def db20(*kwargs):
 def quality(z: complex) -> float:
     """
     return the quality factor of an impedance.
-    :param z:
-    :return:
     """
     return z.imag / z.real
 
 
 def norm_diff(a: float, b: float, /) -> float:
     """
-    return the normalized difference of two numbers.
-    :param a:
-    :param b:
-    :return:
+    return the normalized difference of two numbers a and b.
     """
     return abs(a - b) / (abs(a) + abs(b))

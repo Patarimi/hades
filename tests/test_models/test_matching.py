@@ -10,10 +10,10 @@ def test_lumped_l():
     s1, s2 = mt.lumped_l(z_out, z_in)
     assert s1 == pytest.approx((0.0011651513899116792, 76.37626158259741))
     assert s2 == pytest.approx((-0.01716515138991168, -76.37626158259734))
-    assert mt.denorm(s1[0], f).readable_value() == "92.720 f"
-    assert mt.denorm(s1[1], f).readable_value() == "6.078 n"
-    assert mt.denorm(s2[1], f).readable_value() == "1.042 p"
-    assert mt.denorm(s2[0], f).readable_value() == "4.636 n"
+    assert mt.denorm(s1[0], f).readable_value() == "92.720 fH"
+    assert mt.denorm(s1[1], f).readable_value() == "6.078 nH"
+    assert mt.denorm(s2[1], f).readable_value() == "1.042 pF"
+    assert mt.denorm(s2[0], f).readable_value() == "4.636 nF"
 
     z_in = 9.3 - 17.16j
     z_out = 11.35 - 20.95j

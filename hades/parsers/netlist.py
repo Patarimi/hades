@@ -11,9 +11,10 @@ class ComponentType(Enum):
     I = auto()  # noqa
     R = auto()
     T = auto()
+    K = auto()
 
 
-Unit = {"L": "H", "C": "F", "V": "V", "I": "A", "R": "Ω", "T": "rad"}
+Unit = {"L": "H", "C": "F", "V": "V", "I": "A", "R": "Ω", "T": "rad", "K": ""}
 
 
 @dataclass

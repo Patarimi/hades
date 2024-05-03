@@ -160,7 +160,10 @@ def transformer(z_load: complex, z_source: complex, k: float = 0.8) -> np.ndarra
     alpha = (1 - k**2) / k**2
     beta = 2 * alpha * q_s + q_s + q_l
     delta = beta**2 - 4 * alpha * (alpha + 1) * (1 + q_s**2)
-    print(f"{beta=}\t{delta=}")
+    if delta < 0:
+        raise ValueError(
+            "No solution found. Increase quality factor or coupling coefficient !"
+        )
     z_sol = [(beta + i * sqrt(delta)) / (2 * (alpha + 1)) for i in (1, -1)]
     qxl1 = (z / (1 - k**2) for z in z_sol)
     qxl2 = (z * (1 + q_l**2) / (alpha * (1 + (q_s - z) ** 2)) for z in z_sol)

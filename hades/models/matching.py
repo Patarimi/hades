@@ -119,9 +119,6 @@ def single_shunt_stub(
         le = atan(Bs * r_0) / pi % 1
         lo.append((1 - le) / 2)
         ls.append((-0.5 - le) / 2 % 0.5)
-    sol1 = Netlist("sol1")
-    sol1.append(Component("T", "L1", d[0], ("in", "out")))
-    sol1.append(Component("T", "L2", ls[1], ("out", "0")))
     return d, lo, ls
 
 

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from hades.models.tools import eng
 from enum import Enum, auto
 import skrf as rf
 
@@ -10,10 +11,10 @@ class ComponentType(Enum):
     I = auto()  # noqa
     R = auto()
     T = auto()
+    K = auto()
 
 
-PreFix = {-15: "f", -12: "p", -9: "n", -6: "µ", -3: "m", 0: "", 3: "k"}
-Unit = {"L": "H", "C": "F", "V": "V", "I": "A", "R": "Ω", "T": "rad"}
+Unit = {"L": "H", "C": "F", "V": "V", "I": "A", "R": "Ω", "T": "rad", "K": ""}
 
 
 @dataclass
@@ -29,14 +30,10 @@ class Component:
 
     def __repr__(self) -> str:
         value = self.readable_value()
-        return f"{self.full_name()} {self.node[0]} {self.node[1]} {value}{Unit[str(self.type)]}"
+        return f"{self.full_name()} {self.node[0]} {self.node[1]} {value}"
 
     def readable_value(self) -> str:
-        for n, p in PreFix.items():
-            if self.value < 10 ** (n + 3):
-                return f"{self.value*10**(-n):.3f} {p}"
-        last = list(PreFix)[-1]
-        return f"{self.value*10**last:.3f} {PreFix[last]}"
+        return f"{eng(self.value)}{Unit[self.type]}"
 
     def full_name(self):
         return str(self.type) + self.name

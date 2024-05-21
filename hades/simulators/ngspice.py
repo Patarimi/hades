@@ -42,7 +42,7 @@ class NGSpice:
 
 def to_posix(path: Path) -> str:
     if os.name == "posix":
-        return str(path)
+        return str(path.absolute())
     if type(path) is not Path:
         path = Path(path)
     if path.is_absolute():

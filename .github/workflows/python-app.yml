@@ -42,7 +42,9 @@ jobs:
         poetry run pwd
     - name: check and format
       continue-on-error: true
-      uses: chartboost/ruff-action@v1
+      run: |
+        ruff check --output-format=github .
+        ruff format --check .
     - name: Install PDK
       run: |
         poetry run hades pdk install sky130

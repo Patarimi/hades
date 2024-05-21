@@ -43,8 +43,8 @@ jobs:
     - name: check and format
       continue-on-error: true
       run: |
-        ruff check --output-format=github .
-        ruff format --check .
+        poetry run ruff check --output-format=github .
+        poetry run ruff format --check .
     - name: Install PDK
       run: |
         poetry run hades pdk install sky130

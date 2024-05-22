@@ -30,9 +30,11 @@ jobs:
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
     - name: Config Windows
       if: ${{runner.os == 'Windows' }}
-      run:  echo "Configuration for Windows done."        
+      uses: Vampire/setup-wsl@v3
+      with:
+        distribution: Ubuntu-24.04
       env:
-        WSL: wsl
+        WSL: wsl-bash
     - uses: actions/checkout@v4
     - name: Install poetry
       run: pipx install poetry

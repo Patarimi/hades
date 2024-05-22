@@ -13,9 +13,12 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  testing:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Restore PDK Directory
@@ -25,6 +28,10 @@ jobs:
         path: |
           pdk/
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
+    - name: Config Windows
+      if: ${{runner.os == Windows" }}
+      env:
+        WSL: wsl
     - uses: actions/checkout@v4
     - name: Install poetry
       run: pipx install poetry
@@ -35,8 +42,8 @@ jobs:
         cache: 'poetry'
     - name: Install Dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y klayout ngspice
+        $WSL sudo apt-get update
+        $WSL sudo apt-get install -y klayout ngspice
         python -m pip install --upgrade pip
         poetry install --with dev,doc
         poetry run pwd

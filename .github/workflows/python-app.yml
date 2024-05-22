@@ -30,6 +30,7 @@ jobs:
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
     - name: Config Windows
       if: ${{runner.os == Windows" }}
+      run:  echo "Configuration for Windows done."        
       env:
         WSL: wsl
     - uses: actions/checkout@v4

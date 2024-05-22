@@ -28,13 +28,17 @@ jobs:
         path: |
           pdk/
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
-    - name: Config Windows
+    - name: Config Windows - Setup External Tools
       if: ${{runner.os == 'Windows' }}
-      uses: Vampire/setup-wsl@v3
-      with:
-        distribution: Ubuntu-22.04
-      env:
-        WSL: wsl-bash
+      run: |
+        wsl --list
+        wsl sudo apt-get update
+        wsl sudo apt-get install -y klayout ngspice
+    - name: Config Ubuntu - Setup External Tools
+      if: ${{runner.os != 'Windows' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y klayout ngspice
     - uses: actions/checkout@v4
     - name: Install poetry
       run: pipx install poetry
@@ -45,9 +49,6 @@ jobs:
         cache: 'poetry'
     - name: Install Dependencies
       run: |
-        echo $WSL
-        $WSL sudo apt-get update
-        $WSL sudo apt-get install -y klayout ngspice
         python -m pip install --upgrade pip
         poetry install --with dev,doc
         poetry run pwd

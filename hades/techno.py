@@ -6,7 +6,6 @@ import urllib.request
 import zipfile
 from os import makedirs
 from os.path import join, dirname, isdir
-from pyuac import main_requires_admin
 import yaml
 from typer import Typer
 from typing import Optional
@@ -15,7 +14,6 @@ pkd_app = Typer()
 
 
 @pkd_app.command("install")
-@main_requires_admin
 def install(pdk_name: str):
     """
     install the _pdk_name_ technology in its default location.
@@ -24,20 +22,20 @@ def install(pdk_name: str):
     tech = load_pdk(pdk_name)
     base_url = tech["source_url"]
     if base_url == "volare":
-        ret = run(
-            [
-                "poetry",
-                "run",
-                "volare",
-                "enable",
-                "--pdk",
-                pdk_name,
-                "--pdk-root",
-                base_install,
-                tech["version"],
-            ],
-            capture_output=True
-        )
+        cmd = [
+            "poetry",
+            "run",
+            "volare",
+            "install",
+            "--pdk",
+            pdk_name,
+            "--pdk-root",
+            base_install,
+            tech["version"]
+        ]
+        if os.name == "nt":
+            cmd = ["wsl"] + cmd
+        ret = run(cmd, capture_output=True)
         return ret
     if not (isdir(base_install + pdk_name)):
         makedirs(base_install + pdk_name)

@@ -45,6 +45,7 @@ jobs:
         cache: 'poetry'
     - name: Install Dependencies
       run: |
+        echo $WSL
         $WSL sudo apt-get update
         $WSL sudo apt-get install -y klayout ngspice
         python -m pip install --upgrade pip

@@ -32,7 +32,7 @@ jobs:
       if: ${{runner.os == 'Windows' }}
       uses: Vampire/setup-wsl@v3
       with:
-        distribution: Ubuntu-24.04
+        distribution: Ubuntu-22.04
       env:
         WSL: wsl-bash
     - uses: actions/checkout@v4

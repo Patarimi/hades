@@ -5,6 +5,8 @@ import urllib.request
 import zipfile
 from os import makedirs
 from os.path import join, dirname, isdir
+from pyuac import main_requires_admin
+
 
 import yaml
 from typer import Typer
@@ -14,6 +16,7 @@ pkd_app = Typer()
 
 
 @pkd_app.command("install")
+@main_requires_admin
 def install(pdk_name: str):
     """
     install the _pdk_name_ technology in its default location.

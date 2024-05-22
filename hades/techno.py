@@ -20,7 +20,6 @@ def install(pdk_name: str):
     """
     install the _pdk_name_ technology in its default location.
     """
-    logging.basicConfig(filename="install.log", level=logging.INFO)
     base_install = join(dirname(__file__), "../pdk/")
     tech = load_pdk(pdk_name)
     base_url = tech["source_url"]
@@ -39,8 +38,6 @@ def install(pdk_name: str):
             ],
             capture_output=True
         )
-        logging.info(ret.stdout.decode("utf-8"))
-        logging.info(ret.stderr.decode("utf-8"))
         return ret
     if not (isdir(base_install + pdk_name)):
         makedirs(base_install + pdk_name)

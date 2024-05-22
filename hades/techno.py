@@ -1,13 +1,12 @@
 import logging
 import os
+from subprocess import run
 import tarfile
 import urllib.request
 import zipfile
 from os import makedirs
 from os.path import join, dirname, isdir
 from pyuac import main_requires_admin
-
-
 import yaml
 from typer import Typer
 from typing import Optional
@@ -25,8 +24,8 @@ def install(pdk_name: str):
     tech = load_pdk(pdk_name)
     base_url = tech["source_url"]
     if base_url == "volare":
-        os.system(
-            f"volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}"
+        run(
+            f"poetry run volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}"
         )
 
         return

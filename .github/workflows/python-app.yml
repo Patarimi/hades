@@ -28,6 +28,11 @@ jobs:
         path: |
           pdk/
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
+    - name: Config Windows
+      if: ${{runner.os == 'Windows' }}
+      uses: Vampire/setup-wsl@v3
+      with:
+        distribution: Ubuntu-22.04
     - name: Config Windows - Setup External Tools
       if: ${{runner.os == 'Windows' }}
       run: |

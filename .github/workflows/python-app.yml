@@ -63,9 +63,16 @@ jobs:
         poetry run ruff check --output-format=github .
         poetry run ruff format --check .
     - name: Install PDK
+      if: ${{runner.os != 'Windows' }}
       run: |
         poetry run hades pdk install sky130
         poetry run hades pdk install gf180mcu
+    - name: Install PDK - Windows
+      if: ${{runner.os == 'Windows' }}
+      run: |
+        poetry run volare enable --pdk sky130 --pdk-root ./pdk 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
+        poetry run volare enable --pdk gf180muc --pdk-root ./pdk 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
+        poetrty run volare ls
     - if: ${{ steps.pdk-restore.outputs.cache-hit != 'true' }}
       name: Save PDK Directory
       id: pdk-save

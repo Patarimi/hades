@@ -40,10 +40,11 @@ jobs:
       if: ${{runner.os == 'Windows' }}
       run: |
         wsl --list
+        pwd
         wsl sudo apt-get update
         wsl sudo apt-get install -y ngspice
         winget settings --enable LocalManifestFiles
-        winget install -m .\manifests\k\KLayout\KLayout\0.29.1
+        winget install -m .\hades\manifests\k\KLayout\KLayout\0.29.1
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |

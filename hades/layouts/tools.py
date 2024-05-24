@@ -160,7 +160,11 @@ def check_diff(gds1: str | Path, gds2: str | Path):
     :return: None
     """
     cmd = f"strmxor {gds1} {gds2}"
+    logging.info(which("klayout"))
     if which("strmxor") is None:
+        if os.name == "nt":
+            logging.error("strmxor not found. Please install it.")
+            return
         # for CI
         os.environ["LD_LIBRARY_PATH"] = "/usr/lib/klayout"
         cmd = "/usr/lib/klayout/" + cmd

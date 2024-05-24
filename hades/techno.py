@@ -1,11 +1,11 @@
 import logging
 import os
+from subprocess import run
 import tarfile
 import urllib.request
 import zipfile
 from os import makedirs
 from os.path import join, dirname, isdir
-
 import yaml
 from typer import Typer
 from typing import Optional
@@ -22,11 +22,21 @@ def install(pdk_name: str):
     tech = load_pdk(pdk_name)
     base_url = tech["source_url"]
     if base_url == "volare":
-        os.system(
-            f"volare enable --pdk={pdk_name} --pdk-root={base_install} {tech['version']}"
-        )
-
-        return
+        cmd = [
+            "poetry",
+            "run",
+            "volare",
+            "enable",
+            "--pdk",
+            pdk_name,
+            "--pdk-root",
+            base_install,
+            tech["version"]
+        ]
+        if os.name == "nt":
+            cmd = ["wsl"] + cmd
+        ret = run(cmd, capture_output=True)
+        return ret
     if not (isdir(base_install + pdk_name)):
         makedirs(base_install + pdk_name)
     opener = urllib.request.build_opener()

@@ -13,9 +13,12 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  testing:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Restore PDK Directory
@@ -26,6 +29,28 @@ jobs:
           pdk/
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
     - uses: actions/checkout@v4
+    - name: Config WSL for Windows
+      if: ${{runner.os == 'Windows' }}
+      uses: Vampire/setup-wsl@v3
+      with:
+        distribution: Ubuntu-22.04
+    - name: Install winget - Windows
+      if: ${{runner.os == 'Windows' }}
+      uses: Cyberboss/install-winget@v1
+    - name: Config Windows - Setup External Tools
+      if: ${{runner.os == 'Windows' }}
+      run: |
+        wsl --list
+        dir
+        wsl sudo apt-get update
+        wsl sudo apt-get install -y ngspice
+        winget settings --enable LocalManifestFiles
+        winget install -m .\manifests\k\KLayout\KLayout\0.29.1
+    - name: Config Ubuntu - Setup External Tools
+      if: ${{runner.os != 'Windows' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y klayout ngspice
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.10
@@ -35,8 +60,6 @@ jobs:
         cache: 'poetry'
     - name: Install Dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y klayout ngspice
         python -m pip install --upgrade pip
         poetry install --with dev,doc
         poetry run pwd
@@ -49,6 +72,12 @@ jobs:
       run: |
         poetry run hades pdk install sky130
         poetry run hades pdk install gf180mcu
+    - name: Install PDK - Windows
+      if: ${{runner.os == 'Windows' }}
+      run: |
+        poetry run volare enable --pdk sky130 --pdk-root ./pdk 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
+        poetry run volare enable --pdk gf180mcu --pdk-root ./pdk 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
+        poetry run volare ls
     - if: ${{ steps.pdk-restore.outputs.cache-hit != 'true' }}
       name: Save PDK Directory
       id: pdk-save
@@ -62,4 +91,4 @@ jobs:
         poetry run mkdocs build
     - name: Test with Pytest
       run: |
-        poetry run pytest -rxXs
+        poetry run pytest -rxXs --basetemp=tmp

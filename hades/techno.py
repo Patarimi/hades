@@ -26,7 +26,7 @@ def install(pdk_name: str):
             "poetry",
             "run",
             "volare",
-            "install",
+            "enable",
             "--pdk",
             pdk_name,
             "--pdk-root",

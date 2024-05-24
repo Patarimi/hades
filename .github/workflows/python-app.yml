@@ -28,11 +28,14 @@ jobs:
         path: |
           pdk/
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
-    - name: Config Windows
+    - name: Config WSL for Windows
       if: ${{runner.os == 'Windows' }}
       uses: Vampire/setup-wsl@v3
       with:
         distribution: Ubuntu-22.04
+    - name: Install winget - Windows
+      if: ${{runner.os == 'Windows' }}
+      uses: Cyberboss/install-winget@v1
     - name: Config Windows - Setup External Tools
       if: ${{runner.os == 'Windows' }}
       run: |

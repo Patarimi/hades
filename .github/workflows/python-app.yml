@@ -40,7 +40,7 @@ jobs:
       if: ${{runner.os == 'Windows' }}
       run: |
         wsl --list
-        pwd
+        dir
         wsl sudo apt-get update
         wsl sudo apt-get install -y ngspice
         winget settings --enable LocalManifestFiles

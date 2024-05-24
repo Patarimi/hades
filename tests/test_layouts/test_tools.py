@@ -1,5 +1,6 @@
 from os.path import dirname, join, isdir
 import os
+from shutil import which
 import pytest
 from hades.layouts import tools
 import logging
@@ -14,6 +15,9 @@ def test_tools():
     ref = join(base_path, "ref_ind.gds")
     logging.debug(os.name)
     tools.check_diff(ref, ref)
+    if which("strmxor") is None:
+        #skip test if strmxor not installed
+        return
     with pytest.raises(ValueError):
         tools.check_diff(ref, join(base_path, "ref_ms.gds"))
 

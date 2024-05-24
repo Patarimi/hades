@@ -28,6 +28,7 @@ jobs:
         path: |
           pdk/
         key: ${{ runner.os }}-pdk-${{ hashFiles('**/hades/techno.yml') }}
+    - uses: actions/checkout@v4
     - name: Config WSL for Windows
       if: ${{runner.os == 'Windows' }}
       uses: Vampire/setup-wsl@v3
@@ -44,13 +45,12 @@ jobs:
         wsl sudo apt-get update
         wsl sudo apt-get install -y ngspice
         winget settings --enable LocalManifestFiles
-        winget install -m .\hades\manifests\k\KLayout\KLayout\0.29.1
+        winget install -m .\manifests\k\KLayout\KLayout\0.29.1
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |
         sudo apt-get update
         sudo apt-get install -y klayout ngspice
-    - uses: actions/checkout@v4
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.10

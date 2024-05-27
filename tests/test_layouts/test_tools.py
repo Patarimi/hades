@@ -16,7 +16,7 @@ def test_tools():
     logging.debug(os.name)
     tools.check_diff(ref, ref)
     if which("strmxor") is None:
-        #skip test if strmxor not installed
+        # skip test if strmxor not installed
         return
     with pytest.raises(ValueError):
         tools.check_diff(ref, join(base_path, "ref_ms.gds"))

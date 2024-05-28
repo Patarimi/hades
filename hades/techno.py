@@ -31,7 +31,7 @@ def install(pdk_name: str):
             pdk_name,
             "--pdk-root",
             base_install,
-            tech["version"]
+            tech["version"],
         ]
         if os.name == "nt":
             cmd = ["wsl"] + cmd

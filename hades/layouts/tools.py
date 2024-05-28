@@ -172,4 +172,6 @@ def check_diff(gds1: str | Path, gds2: str | Path):
     if c.returncode != 0:
         out_mess = c.stdout.decode("latin")
         err_mess = c.stderr.decode("latin")
-        raise ValueError(cmd+"failed with:\n"+out_mess+"\n"+err_mess+"\n------")
+        raise ValueError(
+            cmd + "failed with:\n" + out_mess + "\n" + err_mess + "\n------"
+        )

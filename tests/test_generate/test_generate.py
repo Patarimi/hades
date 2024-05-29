@@ -11,10 +11,6 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-@pytest.mark.skipif(
-    os.name == "nt",
-    reason="Windows system not supported for local generation. Skipping Test",
-)
 def test_generation():
     cwd = getcwd()
     chdir("./tests/test_generate/")

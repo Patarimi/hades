@@ -1,3 +1,4 @@
+
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
@@ -44,8 +45,7 @@ jobs:
         dir
         wsl sudo apt-get update
         wsl sudo apt-get install -y ngspice
-        winget settings --enable LocalManifestFiles
-        winget install -m .\manifests\k\KLayout\KLayout\0.29.1
+        winget install KLayout --accept-package-agreements --accept-source-agreements --disable-interactivity
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |

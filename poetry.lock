@@ -478,6 +478,16 @@ python-dateutil = ">=2.8.1"
 dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
+name = "gitapi"
+version = "1.0.1"
+description = "Python API to Git using the command-line interface"
+optional = false
+python-versions = "*"
+files = [
+    {file = "gitapi-1.0.1.tar.gz", hash = "sha256:e4dfe1920b3a3ae9d5d32a06a7d7b5b2a4a9b8cc5c479da1fab2b72d225323fc"},
+]
+
+[[package]]
 name = "griffe"
 version = "0.45.2"
 description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
@@ -500,6 +510,16 @@ python-versions = ">=3.7"
 files = [
     {file = "h11-0.14.0-py3-none-any.whl", hash = "sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761"},
     {file = "h11-0.14.0.tar.gz", hash = "sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d"},
+]
+
+[[package]]
+name = "hgapi"
+version = "1.7.4"
+description = "Python API to Mercurial using the command-line interface"
+optional = false
+python-versions = "*"
+files = [
+    {file = "hgapi-1.7.4.tar.gz", hash = "sha256:0b1f20a6a8cefe9e9f72b14a0823b7abdbc88d19cdf815211849067d9ac27ebc"},
 ]
 
 [[package]]
@@ -886,6 +906,21 @@ files = [
     {file = "mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"},
     {file = "mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"},
 ]
+
+[[package]]
+name = "meep"
+version = "1.0.6"
+description = "Very light-weight task runner"
+optional = false
+python-versions = "*"
+files = [
+    {file = "meep-1.0.6-py3-none-any.whl", hash = "sha256:c85a1dc5517819f0517f845097775c39e5081d4f7fad74079e65d1defa9298d5"},
+    {file = "meep-1.0.6.tar.gz", hash = "sha256:e9e6df9833ebfd59e9dc1447348f39172d9fe27adb3fbc68c844793cfec4a615"},
+]
+
+[package.dependencies]
+gitapi = "*"
+hgapi = "*"
 
 [[package]]
 name = "mergedeep"
@@ -2203,4 +2238,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "0de1c87a96a4a29f48504377a62023563a7b9d27e341d4e3ba8a99e8762e7715"
+content-hash = "01089201277faad7c7ecd101c3bc9a6d50cfc947270d71e5a571132a129d504f"

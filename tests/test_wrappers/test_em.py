@@ -1,4 +1,4 @@
-from hades.simulators.em import Emx  # noqa
+from hades.wrappers.em import Emx  # noqa
 
 
 def test_emx():

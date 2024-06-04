@@ -8,7 +8,7 @@ import yaml
 from os.path import join
 from os import makedirs
 import hades.techno as techno
-import hades.simulators.simulator as sim
+import hades.wrappers.simulator as sim
 
 app = Typer()
 app.add_typer(techno.pkd_app, name="pdk")

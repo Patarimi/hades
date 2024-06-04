@@ -37,7 +37,9 @@ class NGSpice:
         proc = run(cmd, capture_output=True, encoding="latin")
         if proc.returncode != 0:
             RuntimeWarning(str(cmd))
-            raise RuntimeError(proc.stderr)
+            with open(output_file) as f:
+                strm = f.readlines()
+            raise RuntimeError(strm)
 
 
 def to_posix(path: Path) -> str:

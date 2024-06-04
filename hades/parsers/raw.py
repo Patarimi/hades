@@ -1,4 +1,3 @@
-import logging
 
 import pandas as pd
 from pathlib import Path
@@ -15,7 +14,9 @@ def parse_raw(results: Path) -> pd.DataFrame:
                 case [ind, *k] if "headers" in locals() and len(k) == len(headers) - 1:
                     for head, val in zip(headers, k):
                         if head not in data.keys():
-                            data[head] = [float(val),]
+                            data[head] = [
+                                float(val),
+                            ]
                         else:
                             data[head].append(float(val))
     df = pd.DataFrame(data=data, dtype=float)

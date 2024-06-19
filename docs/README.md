@@ -7,7 +7,9 @@ software-agnostic design flow, from device sizing to layout and implementation.
 
 ## How to get started
 
-Installation using pipx:
+This application needs nix and python3. For windows, please install NixOS as shown [here](https://nixos.wiki/wiki/WSL).
+
+Installation using [pipx](https://pipx.pypa.io/stable/) is recommended.
 
 ```shell
 pipx install git+https://github.com/Patarimi/hades
@@ -36,7 +38,7 @@ stateDiagram
     cal --> app: updated parameters
 ```
 
-When finished, a gds file is available for further design.
+When finished, a _.gds_ file is available for further design.
 
 ## Simulators and PDKs configuration
 

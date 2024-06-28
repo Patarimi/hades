@@ -1,5 +1,12 @@
+import os
+import shutil
+import subprocess
+
+import logging
+from rich.prompt import Confirm
 from typer import Typer
 from pathlib import Path
+import wget
 from hades.devices.mos import Mos
 from hades.devices.inductor import Inductor
 from hades.devices.micro_strip import MicroStrip
@@ -13,6 +20,14 @@ import hades.wrappers.simulator as sim
 app = Typer()
 app.add_typer(techno.pkd_app, name="pdk")
 app.add_typer(sim.sim_app, name="sim")
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="INFO",
+    format=FORMAT,
+    datefmt="[%X]",
+    handlers=[logging.FileHandler(join(os.getcwd(), "hades.log"))],
+)
 
 
 @app.command("generate")
@@ -51,3 +66,63 @@ def template(project_name: Path = "./working_dir"):
     makedirs(project_name)
     with open(join(project_name, "design.yml"), "w") as f:
         yaml.dump(yaml.load(template_file, yaml.Loader), f)
+
+
+@app.command("init")
+def first_time_run():
+    if os.name == "nt":
+        if shutil.which("wsl") is None:
+            raise SystemError("Please install wsl.")
+        proc = subprocess.run(["wsl", "--list"], capture_output=True)
+        str_out = proc.stdout.decode("utf-16").splitlines()
+        logging.info(str_out)
+        if "NixOS" not in str_out:
+            if not Confirm.ask("NixOS not detected. Install NixOS?"):
+                return None
+            wget.download(
+                "https://github.com/nix-community/NixOS-WSL/releases/download/2311.5.3/nixos-wsl.tar.gz"
+            )
+            subprocess.run(
+                [
+                    "wsl",
+                    "--import",
+                    "NixOS",
+                    ".\\NixOS\\",
+                    "nixos-wsl.tar.gz",
+                    "--version 2",
+                ]
+            )
+            os.remove("nixos-wsl.tar.gz")
+            subprocess.run(
+                [
+                    "wsl",
+                    "-d",
+                    "NixOS",
+                    "sudo nix-channel --add",
+                    "https://nixos.org/channels/nixos-24.05 nixos",
+                ]
+            )
+            subprocess.run(["wsl", "-d", "NixOS", "sudo nix-channel --update"])
+            subprocess.run(["wsl", "-d", "NixOS", "sudo nixos-rebuild switch"])
+    else:
+        if shutil.which("nix-shell") is None:
+            raise SystemError("Please install nix.")
+    run_command("echo Hades successfully Installed !")
+
+
+@app.command("run")
+def run_command(cmd: str, shell: bool = True, base_dir: bool = True):
+    """
+    Run a command in the nix-shell.
+    """
+    if os.name == "nt":
+        bas_cmd = ["wsl", "-d", "NixOS"]
+        if base_dir:
+            bas_cmd.append("--cd")
+            bas_cmd.append(os.path.dirname(os.path.dirname(__file__)))
+        if shell:
+            bas_cmd.append("nix-shell")
+            bas_cmd.append("--run")
+        subprocess.run(bas_cmd + [cmd])
+    else:
+        subprocess.run(["nix-shell", "--run", cmd])

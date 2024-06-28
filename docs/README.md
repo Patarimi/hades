@@ -13,6 +13,7 @@ Installation using [pipx](https://pipx.pypa.io/stable/) is recommended.
 
 ```shell
 pipx install git+https://github.com/Patarimi/hades
+hades init
 ```
 
 ## Design flow

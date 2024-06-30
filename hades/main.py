@@ -93,36 +93,27 @@ def first_time_run():
                 ]
             )
             os.remove("nixos-wsl.tar.gz")
-            subprocess.run(
-                [
-                    "wsl",
-                    "-d",
-                    "NixOS",
-                    "sudo nix-channel --add",
-                    "https://nixos.org/channels/nixos-24.05 nixos",
-                ]
-            )
-            subprocess.run(["wsl", "-d", "NixOS", "sudo nix-channel --update"])
-            subprocess.run(["wsl", "-d", "NixOS", "sudo nixos-rebuild switch"])
+            run_command(["./post_inst.sh"], shell=False, base_dir=False)
     else:
         if shutil.which("nix-shell") is None:
             raise SystemError("Please install nix.")
-    run_command("echo Hades successfully Installed !")
+    run_command(["echo", "Hades successfully Installed !"])
 
 
 @app.command("run")
-def run_command(cmd: str, shell: bool = True, base_dir: bool = True):
+def run_command(cmd: list[str], shell: bool = True, base_dir: bool = True):
     """
     Run a command in the nix-shell.
     """
     if os.name == "nt":
-        bas_cmd = ["wsl", "-d", "NixOS"]
+        base_cmd = ["wsl", "-d", "NixOS"]
         if base_dir:
-            bas_cmd.append("--cd")
-            bas_cmd.append(os.path.dirname(os.path.dirname(__file__)))
+            base_cmd.append("--cd")
+            base_cmd.append(os.path.dirname(os.path.dirname(__file__)))
         if shell:
-            bas_cmd.append("nix-shell")
-            bas_cmd.append("--run")
-        subprocess.run(bas_cmd + [cmd])
+            base_cmd.append("nix-shell")
+            base_cmd.append("--run")
+        subprocess.run(base_cmd + cmd, shell=True)
+        logging.info(base_cmd + cmd)
     else:
-        subprocess.run(["nix-shell", "--run", cmd])
+        subprocess.run(["nix-shell", "--run"] + cmd)

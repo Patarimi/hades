@@ -1,9 +1,8 @@
 import os
 from pathlib import Path
 from typing import Optional
-import gdstk as gds
 
-
+from .nix import run_command
 from hades.layouts.tools import Port
 
 
@@ -30,7 +29,7 @@ class Meep:
         :return:
         """
         if os.name == "nt":
-            return os.subprocess(["poe", "run", "python", "-c", "meeper:main"])
+            return run_command(["python -c 'from hades.wrappers.meeper import main; main()'"])
         else:
             return main()
 

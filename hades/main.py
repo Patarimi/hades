@@ -16,6 +16,7 @@ from os.path import join
 from os import makedirs
 import hades.techno as techno
 import hades.wrappers.simulator as sim
+from hades.wrappers.nix import run_command
 
 app = Typer()
 app.add_typer(techno.pkd_app, name="pdk")
@@ -93,27 +94,12 @@ def first_time_run():
                 ]
             )
             os.remove("nixos-wsl.tar.gz")
-            run_command(["./post_inst.sh"], shell=False, base_dir=False)
+            print(run_command(["./nix/post_inst.sh"], shell=False))
     else:
         if shutil.which("nix-shell") is None:
             raise SystemError("Please install nix.")
-    run_command(["echo", "Hades successfully Installed !"])
+
+    print(run_command(["echo Hades successfully Installed !"]))
 
 
-@app.command("run")
-def run_command(cmd: list[str], shell: bool = True, base_dir: bool = True):
-    """
-    Run a command in the nix-shell.
-    """
-    if os.name == "nt":
-        base_cmd = ["wsl", "-d", "NixOS"]
-        if base_dir:
-            base_cmd.append("--cd")
-            base_cmd.append(os.path.dirname(os.path.dirname(__file__)))
-        if shell:
-            base_cmd.append("nix-shell")
-            base_cmd.append("--run")
-        subprocess.run(base_cmd + cmd, shell=True)
-        logging.info(base_cmd + cmd)
-    else:
-        subprocess.run(["nix-shell", "--run"] + cmd)
+

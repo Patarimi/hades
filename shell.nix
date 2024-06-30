@@ -15,5 +15,5 @@ pkgs.mkShellNoCC {
     imagemagick
     poetry
   ];
-  postInstall = ''poetry install'';
+  postInstall = ''poetry config virtualenvs.create false && poetry install --no-interaction'';
 }

@@ -45,7 +45,7 @@ wget = "^3.2"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-poethepoet = "^0.26.0"
+poethepoet = "^0.27.0"
 pytest = "^8.1.1"
 pytest-sugar = "^1.0.0"
 setuptools = "^70.0.0"

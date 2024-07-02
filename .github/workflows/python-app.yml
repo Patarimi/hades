@@ -38,6 +38,7 @@ jobs:
       run: |
         dir
         winget install KLayout --accept-package-agreements --accept-source-agreements --disable-interactivity
+        winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}

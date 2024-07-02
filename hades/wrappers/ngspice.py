@@ -25,14 +25,12 @@ class NGSpice:
         if output_file is None:
             output_file = input_file.with_suffix(".out")
         cmd = [
-            "ngspice",
+            "ngspice" if os.name != "nt" else "ngspice_con",
             "-b",
-            to_posix(input_file),
+            input_file if type(input_file) == str else str(input_file.absolute()),
             "-o",
-            to_posix(output_file),
+            output_file if type(output_file) == str else str(output_file.absolute()),
         ]
-        if os.name == "nt":
-            cmd = ["wsl"] + cmd
         logging.info(" ".join(cmd))
         proc = run(cmd, capture_output=True, encoding="latin")
         if proc.returncode != 0:
@@ -40,13 +38,3 @@ class NGSpice:
             with open(output_file) as f:
                 strm = f.readlines()
             raise RuntimeError(strm)
-
-
-def to_posix(path: Path) -> str:
-    if type(path) is not Path:
-        path = Path(path)
-    if os.name == "posix":
-        return str(path.absolute())
-    if path.is_absolute():
-        return path.relative_to(os.getcwd()).as_posix()
-    return path.as_posix()

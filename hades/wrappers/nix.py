@@ -1,6 +1,7 @@
 """
-    Run a command in the nix-shell.
+Run a command in the nix-shell.
 """
+
 import logging
 from os import name as os_name
 from os.path import dirname

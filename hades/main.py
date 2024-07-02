@@ -100,6 +100,3 @@ def first_time_run():
             raise SystemError("Please install nix.")
 
     print(run_command(["echo Hades successfully Installed !"]))
-
-
-

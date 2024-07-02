@@ -29,7 +29,9 @@ class Meep:
         :return:
         """
         if os.name == "nt":
-            return run_command(["python -c 'from hades.wrappers.meeper import main; main()'"])
+            return run_command(
+                ["python -c 'from hades.wrappers.meeper import main; main()'"]
+            )
         else:
             return main()
 

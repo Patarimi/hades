@@ -1,5 +1,6 @@
 import logging
 import os
+import shutil
 from subprocess import run
 from pathlib import Path
 
@@ -24,6 +25,12 @@ class NGSpice:
         """
         if output_file is None:
             output_file = input_file.with_suffix(".out")
+        if type(output_file) == str:
+            output_file = Path(output_file)
+
+        if shutil.which("ngspice") is None:
+            raise RuntimeError("NGSpice is not installed.")
+
         cmd = [
             "ngspice" if os.name != "nt" else "ngspice_con",
             "-b",

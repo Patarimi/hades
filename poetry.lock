@@ -394,56 +394,41 @@ woff = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "zopfli (>=0.1.4)"]
 
 [[package]]
 name = "gdstk"
-version = "0.9.52"
+version = "0.9.53"
 description = "Python module for creation and manipulation of GDSII files."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "gdstk-0.9.52-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:011a1f0262e98560235ec3ad0b4fd5bcd8e2edfcbddbff2461639a41a6d5c636"},
-    {file = "gdstk-0.9.52-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:c067e3210100572535aeeb799a3394ee5568f22bdfc8f8cd0cf6af7c93c5acca"},
-    {file = "gdstk-0.9.52-cp310-cp310-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f5c671e3ae43a4add65e621b62509eb8a180786df39084e8a32788eb87b789c5"},
-    {file = "gdstk-0.9.52-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:87f71699f9e2b57f4d2446aee200f3eaf2177371f3487dbb9f93c7498df92c39"},
-    {file = "gdstk-0.9.52-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:2cd8fdd3597903f0b2787c46dbb757beb1f8f67db024ed469e9247c2128bb0f1"},
-    {file = "gdstk-0.9.52-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:925f247cf5ae909eed7ae2b36b6a5c955c84f0759c5c93950cf82fbd7ea23e28"},
-    {file = "gdstk-0.9.52-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:9e51720729cbaf3207b23f097227914d56bc33924d2543f11ea09574231d70ba"},
-    {file = "gdstk-0.9.52-cp310-cp310-win_amd64.whl", hash = "sha256:6942790ed4726eb144faeebf4ac8fe4c99844b42096e603e36f5464aa3c0d5f0"},
-    {file = "gdstk-0.9.52-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:ffad7c8840487c278a43bb8b174620846365ec74040da3a16286efc2e3fee7bd"},
-    {file = "gdstk-0.9.52-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:63590f8e49cd79f4ba65fcc446f24504ce00060996c75a97ec6a4b27a7e1c741"},
-    {file = "gdstk-0.9.52-cp311-cp311-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:17b470464b0f0183d154ec408cf7d598c28c4046943f33268d365da4777be1e7"},
-    {file = "gdstk-0.9.52-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:69ff0c7298a985f963a51a5f72361c34f12ef24b9a28b9103ea30c9487d32a47"},
-    {file = "gdstk-0.9.52-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:e302e5d5cc5778fb850be09142a847214c2cf2541cdfb4bcd9348e149951893e"},
-    {file = "gdstk-0.9.52-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:77ab1f9ddbe1f785983b8cd8f7f2036d19efd5f0850d0020bb2dd26fbdb35652"},
-    {file = "gdstk-0.9.52-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:f42e7adf82f08079fe57c3ef6c68a23a4159c543a3bbb84f536f4e973346809f"},
-    {file = "gdstk-0.9.52-cp311-cp311-win_amd64.whl", hash = "sha256:10672321feed94e5af595a75320bc18a84f2b4294c41e4bc3dcf532cfdea658c"},
-    {file = "gdstk-0.9.52-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:047206af3da3d94adaf9cb67c1b3940770d33c56c009dbb68dfae98b1ed4941e"},
-    {file = "gdstk-0.9.52-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:002030d6c589855d3ae510f2dd17348c8a7ad4c4e3b8b8b27598821748205376"},
-    {file = "gdstk-0.9.52-cp312-cp312-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:51cdeada08efe081813fa37e0f4404c1ffb50c5c99d934767ea8685e42fa15ff"},
-    {file = "gdstk-0.9.52-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:739a0f776693d2614f08696d9722361a05acd10c7b371bf8ef2e8737d44b38a7"},
-    {file = "gdstk-0.9.52-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:e89c9acf1c48c1d6c10fa544074c94d355ecff659b7f64e7b424efcc62368f7d"},
-    {file = "gdstk-0.9.52-cp312-cp312-musllinux_1_1_i686.whl", hash = "sha256:224ab8601bc1103fcfb632d3232b11f9775f419147f90b11676e6e98ca972822"},
-    {file = "gdstk-0.9.52-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:bca1ab5608280359ad6a978838482991105ed92e57daf02c0930ba45b359af9e"},
-    {file = "gdstk-0.9.52-cp312-cp312-win_amd64.whl", hash = "sha256:bc740b987cd3eb4bea1772ed4d41a9f0ed392f03ca74957426bb6a307d20a280"},
-    {file = "gdstk-0.9.52-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:8eae4f74de7ec13777911ffde4b39995a2e80002f46cdf99b554fb3c49ffb491"},
-    {file = "gdstk-0.9.52-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:0a26d3e50eac2d20eb972c9336af1799cfa51e0b9728977adb0483a900a8d733"},
-    {file = "gdstk-0.9.52-cp38-cp38-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:5135523068cac26d0d95131ede5b9a3cfd92b692e6b1b1997a8a789fad79d174"},
-    {file = "gdstk-0.9.52-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dc83dddbdbcf79ffa5ad0c61f85998ce491051c16a997ae10e4786645d91a10e"},
-    {file = "gdstk-0.9.52-cp38-cp38-manylinux_2_28_x86_64.whl", hash = "sha256:ad9585af28159e107ff1f6718e449efd72f0288f04491f0f3b72547f79e42cf4"},
-    {file = "gdstk-0.9.52-cp38-cp38-musllinux_1_1_i686.whl", hash = "sha256:7e03728fb96a2fae84c94ab90db7e684b908683589eaf26f7e60ad20f01bda69"},
-    {file = "gdstk-0.9.52-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:021bb96867296a20a3fa535395b856c3f9064710dd213ae10f78e32fbebc4bd3"},
-    {file = "gdstk-0.9.52-cp38-cp38-win_amd64.whl", hash = "sha256:7d05586e9856376fdbd04a51687e1dd6615b31d585ac410c06a4c1803d406d6a"},
-    {file = "gdstk-0.9.52-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:b38db67c19a59d1bd1773e86a670ea85823fd089e8e6f0d33446476ce6c5115b"},
-    {file = "gdstk-0.9.52-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:45daa3a257f8c9ebebb0cc699d2a9d649b46651922a113cb9c3e098f82a37063"},
-    {file = "gdstk-0.9.52-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:b547a4b3cbd1ccafa86fa23a5508d98d0e435f37c38110147979c452a4233c9f"},
-    {file = "gdstk-0.9.52-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:616b4b3bf36b0a5c831bfc72e4b3e89def532f75c8a81ed4d62773ab7ed4e76b"},
-    {file = "gdstk-0.9.52-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:c572518979b4ae46a4181424cf2ffd0d3f5b8c6fb1446a7216746b6d24b0ca0a"},
-    {file = "gdstk-0.9.52-cp39-cp39-musllinux_1_1_i686.whl", hash = "sha256:82f81acb0347ba0676933d1a1821d025c13a8abcce169889d18075b39ee5f031"},
-    {file = "gdstk-0.9.52-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:888a7b13e765627ab9035bf0d182aae0148289ee0b1fb5d3d9963894cf728881"},
-    {file = "gdstk-0.9.52-cp39-cp39-win_amd64.whl", hash = "sha256:5feca63421434f6f1a283d31153275fe83bd93a1338a8a0363ffb1bcf1a04ef9"},
-    {file = "gdstk-0.9.52.tar.gz", hash = "sha256:42267292d272f4a4c8229091dc83a496d0a15f969cf36693b5597d3fe8efb92f"},
+    {file = "gdstk-0.9.53-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:e9e43d9e7996e3f6144f999ed241cfd1e7d7b741f0759b009efbd999a862fe59"},
+    {file = "gdstk-0.9.53-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d97aa3052d35c529749860fb4b212ed9c7ab6f57d86a0342aa18ba6028d3ceed"},
+    {file = "gdstk-0.9.53-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:663cddda20e0a0439b40168c9f7d405d917cc608221c952c2d18f803b34cfdea"},
+    {file = "gdstk-0.9.53-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:b314c405236f891f0934e286e38b12f3330c1d15610bfaf439c7a19197bfc78b"},
+    {file = "gdstk-0.9.53-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:56bea85f4cb8532afa03142d531dc90f7d7013504352ddff7c808b86c455d0ed"},
+    {file = "gdstk-0.9.53-cp310-cp310-win_amd64.whl", hash = "sha256:015d32cf9907fb2326fc2bfa66d401d1306e099b22157d413dc5169d2c1d5808"},
+    {file = "gdstk-0.9.53-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:9de4c27c2a056c729a11e038b44186095e5e489a4e60fa527abcdd3d9dbc69ad"},
+    {file = "gdstk-0.9.53-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:dcd2934218cb373aa44e4c2aca90ceb6125e987429d8eca9dcc737938bccc63f"},
+    {file = "gdstk-0.9.53-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:347048a89dc454b2a045f96205a021f0b74c7a7a2a1caf4a10bae3a440d50430"},
+    {file = "gdstk-0.9.53-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:f5147451c3f36b34a704c4a7d9812dd476f9c047224382cf9338389ae87f2db1"},
+    {file = "gdstk-0.9.53-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:838750e7d2899d00bc61d7d750a411b1348374c1edc4308ef5b8804e9928d090"},
+    {file = "gdstk-0.9.53-cp311-cp311-win_amd64.whl", hash = "sha256:7fedeb92d967812e6391408e9b23457ceb606985fc99574cdd3537042df42f52"},
+    {file = "gdstk-0.9.53-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:93f6332b2523f6400dcaef5d500d273025a09c90bb47208528472307b0a0018c"},
+    {file = "gdstk-0.9.53-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:27bb13a1800c99efe924b2584d1a922343b292a13e441db21665f3d918f126be"},
+    {file = "gdstk-0.9.53-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:f15f5cb331447b1aaa6ae85fb1d23ec405e44c9d9b72e40a931580206f4b499a"},
+    {file = "gdstk-0.9.53-cp312-cp312-musllinux_1_1_i686.whl", hash = "sha256:e41a85cf3669486ec9cd67546858db8b09ff7cf7dc26dc44e1227e8942c32949"},
+    {file = "gdstk-0.9.53-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:78345ef0dc20dac28f1e2399aaa510310dc34c578722bd2e779b17413db9b8a7"},
+    {file = "gdstk-0.9.53-cp312-cp312-win_amd64.whl", hash = "sha256:f88b894659c3f955f917965f6f6855a562b1cde4374d5f43802f104e3885b9d7"},
+    {file = "gdstk-0.9.53-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:2dc5b3e101253e0e85dab4d644880fc6d0136f0452ac203ef9b7511cc33b47a8"},
+    {file = "gdstk-0.9.53-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:c9f5d43a3ad469cd7252c08da7232cf0d8c1dd8a578a55552e494077a7e0ed56"},
+    {file = "gdstk-0.9.53-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:352b2f8a7047ed8654503f4bca97e50e3d42c2051912eb163b20536ac9fa3c20"},
+    {file = "gdstk-0.9.53-cp39-cp39-musllinux_1_1_i686.whl", hash = "sha256:2004814681a5ddbd86a1770deed087799ea48c2c6806f1739765788fee238ea7"},
+    {file = "gdstk-0.9.53-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:cc0a0ae658bee311b791359bc0c440bd44db8247ca045b4d8338e7f8ef7528b2"},
+    {file = "gdstk-0.9.53-cp39-cp39-win_amd64.whl", hash = "sha256:c6dde9af28a97d166102d7dc0d4779747d34e5540586c21df7f03394d31502dd"},
+    {file = "gdstk-0.9.53.tar.gz", hash = "sha256:73c87e2e3d43911b09f2a10c90359426bd15dcdeb799606bbc1e93e49acacd90"},
 ]
 
 [package.dependencies]
-numpy = "*"
+numpy = {version = "*", markers = "platform_system == \"Darwin\""}
+oldest-supported-numpy = {version = "*", markers = "platform_system != \"Darwin\""}
 typing_extensions = {version = "*", markers = "python_version < \"3.11\""}
 
 [package.extras]
@@ -1130,6 +1115,87 @@ files = [
     {file = "numpy-1.26.4-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:95a7476c59002f2f6c590b9b7b998306fba6a5aa646b1e22ddfeaf8f78c3a29c"},
     {file = "numpy-1.26.4-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:7e50d0a0cc3189f9cb0aeb3a6a6af18c16f59f004b866cd2be1c14b36134a4a0"},
     {file = "numpy-1.26.4.tar.gz", hash = "sha256:2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010"},
+]
+
+[[package]]
+name = "oldest-supported-numpy"
+version = "0.9"
+description = "Meta-package that provides the oldest NumPy that supports a given Python version and platform. If wheels for the platform became available on PyPI only for a more recent NumPy version, then that NumPy version is specified."
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "oldest-supported-numpy-0.9.tar.gz", hash = "sha256:599cfdb1ebf0789793a8c06a3e4d7084314ffe3ddce84d18f122de1824e825a8"},
+    {file = "oldest_supported_numpy-0.9-py3-none-any.whl", hash = "sha256:b479c887d778ea03e789e7bf8b20a69e4c6b09efdbcb723d46d3413f1488db6d"},
+]
+
+[package.dependencies]
+numpy = {version = "*", markers = "python_version >= \"3.10\" or python_version >= \"3.8\" and platform_python_implementation == \"PyPy\""}
+
+[[package]]
+name = "oldest-supported-numpy"
+version = "2022.1.30"
+description = "Meta-package that provides the oldest NumPy that supports a given Python version and platform. If wheels for the platform became available on PyPI only for a more recent NumPy version, then that NumPy version is specified."
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "oldest-supported-numpy-2022.1.30.tar.gz", hash = "sha256:70b0b3a68d3c024a672f7d5b52943d1295b5c20638bc56bcf029555ec1cff0b5"},
+    {file = "oldest_supported_numpy-2022.1.30-py3-none-any.whl", hash = "sha256:0c0b08b807c46fefec88aa41b01413972028427f42de51fd6618c558164a5162"},
+]
+
+[package.dependencies]
+numpy = {version = "*", markers = "python_version >= \"3.11\" or python_version >= \"3.8\" and platform_python_implementation == \"PyPy\""}
+
+[[package]]
+name = "oldest-supported-numpy"
+version = "2022.5.28"
+description = "Meta-package that provides the oldest NumPy that supports a given Python version and platform. If wheels for the platform became available on PyPI only for a more recent NumPy version, then that NumPy version is specified."
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "oldest-supported-numpy-2022.5.28.tar.gz", hash = "sha256:0eccfa51c2a0dae867ada5f19fed6d4e7411d2656a541c53586c40bbe2e50fd3"},
+    {file = "oldest_supported_numpy-2022.5.28-py3-none-any.whl", hash = "sha256:7420c0f9d84a7944207eba9c2cd5e75b951e15fe3a420728e23382f782939ee5"},
+]
+
+[package.dependencies]
+numpy = {version = "*", markers = "python_version >= \"3.11\" and platform_machine != \"loongarch64\" or python_version >= \"3.9\" and platform_python_implementation == \"PyPy\" and platform_machine != \"loongarch64\""}
+
+[[package]]
+name = "oldest-supported-numpy"
+version = "2022.11.19"
+description = "Meta-package that provides the oldest NumPy that supports a given Python version and platform. If wheels for the platform became available on PyPI only for a more recent NumPy version, then that NumPy version is specified."
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "oldest-supported-numpy-2022.11.19.tar.gz", hash = "sha256:0c9a490192eeec4a2e08bb945e00e82aa1230aad4a9616619eac683fa80a98fe"},
+    {file = "oldest_supported_numpy-2022.11.19-py3-none-any.whl", hash = "sha256:87f2c646f5daa57ca0177e106ce9c4e027975c5260cb70f445ab08dad2d341af"},
+]
+
+[package.dependencies]
+numpy = {version = "*", markers = "python_version >= \"3.12\" or python_version >= \"3.9\" and platform_python_implementation == \"PyPy\" and platform_machine != \"loongarch64\" or platform_python_implementation == \"PyPy\" and python_version >= \"3.11\""}
+
+[[package]]
+name = "oldest-supported-numpy"
+version = "2023.8.3"
+description = "Meta-package that provides the oldest NumPy that supports a given Python version and platform. If wheels for the platform became available on PyPI only for a more recent NumPy version, then that NumPy version is specified."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "oldest-supported-numpy-2023.8.3.tar.gz", hash = "sha256:c89a7ec33b2285a82723772b18f0c1a3e0aa6d53b85e1c6e963fe8fcd8adc54d"},
+    {file = "oldest_supported_numpy-2023.8.3-py3-none-any.whl", hash = "sha256:0bfb2f74ba71a7bfa2f4e887f0b8cdad550b1df43eef8c8734b60e830ee9dfc4"},
+]
+
+[package.dependencies]
+numpy = {version = "*", markers = "python_version >= \"3.12\""}
+
+[[package]]
+name = "oldest-supported-numpy"
+version = "2023.12.21"
+description = "Meta-package that provides the oldest NumPy that supports a given Python version and platform. If wheels for the platform became available on PyPI only for a more recent NumPy version, then that NumPy version is specified."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "oldest-supported-numpy-2023.12.21.tar.gz", hash = "sha256:71d89c31bb567814e47e2e268eb2e92b6f99f5ce76f4c3db30833624e9ef29e0"},
+    {file = "oldest_supported_numpy-2023.12.21-py3-none-any.whl", hash = "sha256:42002178aef017afd0e34cc9dd27b56005aa619276392a4460a01359969476c2"},
 ]
 
 [[package]]
@@ -2105,4 +2171,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "0d8cc6161abceda4cfa131ce7b3d5b6cc2fb1bfa9f4e7dd9999ba7c1341e64bf"
+content-hash = "e27b4f143a987b806541fec6ea3c1ee1411ce519cb286326c7fbe2903a2d0890"

@@ -8,7 +8,7 @@ import gdstk
 from pathlib import Path
 from hades.models.micro_strip import wheeler
 from scipy.optimize import minimize_scalar
-from numpy import sqrt, NaN
+from numpy import sqrt, nan
 from ..layouts.microstrip import straight_line
 from ..layouts.tools import LayerStack
 from typing import Optional
@@ -84,7 +84,7 @@ class MicroStrip:
             return abs(z - performances["z_c"])
 
         res = minimize_scalar(cost)
-        if res.x is NaN:
+        if res.x is nan:
             raise ValueError(res)
         self.parameters["eps"] = res.x
         return self.parameters

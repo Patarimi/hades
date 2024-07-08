@@ -14,7 +14,7 @@ def prototype(order: int, style: str, ripple: float = 0.2):
     """
     Compute a low pass filter prototype. The equations are from [source](https://ia803103.us.archive.org/15/items/MicrowaveFiltersImpedanceMatchingNetworksAndCouplingStructures/Microwave%20Filters%2C%20Impedance-Matching%20Networks%2C%20and%20Coupling%20Structures.pdf).
     :param order: order of the filter
-    :param style: either "flat" for maximally flat filter or ripple for equal ripple (Tchebysheff) filter
+    :param style: either "flat" for maximally flat filter or ripple for equal ripple (Chebyshev) filter
     :param ripple: in-band ripple in dB
     :return: a list of coefficients
     """
@@ -35,13 +35,13 @@ def prototype(order: int, style: str, ripple: float = 0.2):
         if order % 2 == 0:
             g[order] = 1 / np.tanh(beta / 4) ** 2
         return g
-    raise ValueError(f"Unkwon filter type {style}, available are flat, ripple")
+    raise ValueError(f"Unknown filter type {style}, available are flat, ripple")
 
 
 def scaling(proto: np.ndarray, f: float, r_0: float):
     """
     properly scale a low-pass filter prototype.
-    :param proto: list of coefficient of the prototype (see [prototype](#hades.devices.app_models.filter.prototype))
+    :param proto: list of coefficient of the prototype (see [prototype](filter.md#hades.models.filter.prototype))
     :param f:
     :param r_0:
     :return:

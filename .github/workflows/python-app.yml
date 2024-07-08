@@ -41,7 +41,9 @@ jobs:
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
         Install-Script Refresh-EnvironmentVariables -Force
+        $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
         Refresh-EnvironmentVariables
+        Add-Content $env:GITHUB_PATH $env:Path
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |

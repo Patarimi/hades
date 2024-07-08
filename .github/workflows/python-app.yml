@@ -40,7 +40,6 @@ jobs:
         winget install KLayout --accept-package-agreements --accept-source-agreements --disable-interactivity
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
-        Install-Script Refresh-EnvironmentVariables -Force
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}

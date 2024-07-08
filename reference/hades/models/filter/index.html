@@ -1310,7 +1310,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>either "flat" for maximally flat filter or ripple for equal ripple (Tchebysheff) filter</p>
+                <p>either "flat" for maximally flat filter or ripple for equal ripple (Chebyshev) filter</p>
               </div>
             </td>
             <td>
@@ -1387,7 +1387,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute a low pass filter prototype. The equations are from [source](https://ia803103.us.archive.org/15/items/MicrowaveFiltersImpedanceMatchingNetworksAndCouplingStructures/Microwave%20Filters%2C%20Impedance-Matching%20Networks%2C%20and%20Coupling%20Structures.pdf).</span>
 <span class="sd">    :param order: order of the filter</span>
-<span class="sd">    :param style: either &quot;flat&quot; for maximally flat filter or ripple for equal ripple (Tchebysheff) filter</span>
+<span class="sd">    :param style: either &quot;flat&quot; for maximally flat filter or ripple for equal ripple (Chebyshev) filter</span>
 <span class="sd">    :param ripple: in-band ripple in dB</span>
 <span class="sd">    :return: a list of coefficients</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1408,7 +1408,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
         <span class="k">if</span> <span class="n">order</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">g</span><span class="p">[</span><span class="n">order</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">beta</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
         <span class="k">return</span> <span class="n">g</span>
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unkwon filter type </span><span class="si">{</span><span class="n">style</span><span class="si">}</span><span class="s2">, available are flat, ripple&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown filter type </span><span class="si">{</span><span class="n">style</span><span class="si">}</span><span class="s2">, available are flat, ripple&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1447,7 +1447,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>list of coefficient of the prototype (see <a href="#hades.models.filter.scaling--hades.devices.app_models.filter.prototype">prototype</a>)</p>
+                <p>list of coefficient of the prototype (see <a href="./#hades.models.filter.prototype">prototype</a>)</p>
               </div>
             </td>
             <td>
@@ -1525,7 +1525,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
 <span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">scaling</span><span class="p">(</span><span class="n">proto</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r_0</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    properly scale a low-pass filter prototype.</span>
-<span class="sd">    :param proto: list of coefficient of the prototype (see [prototype](#hades.devices.app_models.filter.prototype))</span>
+<span class="sd">    :param proto: list of coefficient of the prototype (see [prototype](filter.md#hades.models.filter.prototype))</span>
 <span class="sd">    :param f:</span>
 <span class="sd">    :param r_0:</span>
 <span class="sd">    :return:</span>

@@ -1,0 +1,12 @@
+# Created using wingetcreate 1.6.1.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+
+PackageIdentifier: OpenEMS.OpenEMS
+PackageVersion: 0.0.36
+PackageLocale: en-US
+Publisher: OpenEMS
+PackageName: OpenEMS
+License: GPL v3.0
+ShortDescription: a free and open electromagnetic field solver
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

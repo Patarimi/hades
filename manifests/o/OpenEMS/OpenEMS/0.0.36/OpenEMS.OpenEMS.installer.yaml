@@ -1,0 +1,20 @@
+# Created using wingetcreate 1.6.1.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.6.0.schema.json
+
+PackageIdentifier: OpenEMS.OpenEMS
+PackageVersion: 0.0.36
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: openEMS\AppCSXCAD.exe
+  PortableCommandAlias: AppCSXCAD
+- RelativeFilePath: openEMS\nf2ff.exe
+  PortableCommandAlias: nf2ff
+- RelativeFilePath: openEMS\openEMS.exe
+  PortableCommandAlias: OpenEMS
+Installers:
+- InstallerUrl: https://github.com/thliebig/openEMS-Project/releases/download/v0.0.36/openEMS_v0.0.36.zip
+  Architecture: x64
+  InstallerSha256: E0D62B1176C0897AD18876B45667DE877D7D3B58B37C0BE95545F9B988896059
+ManifestType: installer
+ManifestVersion: 1.6.0

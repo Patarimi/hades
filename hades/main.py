@@ -1,3 +1,4 @@
+import logging
 from typer import Typer
 from pathlib import Path
 from hades.devices.mos import Mos
@@ -51,3 +52,15 @@ def template(project_name: Path = "./working_dir"):
     makedirs(project_name)
     with open(join(project_name, "design.yml"), "w") as f:
         yaml.dump(yaml.load(template_file, yaml.Loader), f)
+
+
+@app.command("init")
+def post_install():
+    """
+    Post-installation script.
+    :return:
+    """
+    from hades.wrappers.openems import init
+
+    logging.basicConfig(filename="hades.log", level=logging.INFO, filemode="w")
+    init()

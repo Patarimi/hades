@@ -47,7 +47,7 @@ jobs:
       if: ${{runner.os != 'Windows' }}
       run: |
         sudo apt-get update
-        sudo apt-get install -y klayout ngspice
+        sudo apt-get install -y klayout ngspice curl
         sudo sh <(curl -L https://nixos.org/nix/install) --daemon
         nix-channel --add https://nixos.org/channels/nixos-24.05 nixos
         nix-channel --update

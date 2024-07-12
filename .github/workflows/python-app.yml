@@ -48,12 +48,16 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y klayout ngspice
+        sudo sh <(curl -L https://nixos.org/nix/install) --daemon
+        nix-channel --add https://nixos.org/channels/nixos-24.05 nixos
+        nix-channel --update
+        nix-env -iA nixpkgs.python311.python-openems
     - name: Install poetry
       run: pipx install poetry
-    - name: Set up Python 3.10
+    - name: Set up Python 3.11
       uses: actions/setup-python@v5
       with:
-        python-version: "3.10"
+        python-version: "3.11"
         cache: 'poetry'
     - name: Install Dependencies
       run: |

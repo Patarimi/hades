@@ -50,9 +50,9 @@ jobs:
         sudo apt-get install -y klayout ngspice
         curl -L https://nixos.org/nix/install -o nix.sh
         sudo sh nix.sh --daemon --yes
-        nix-channel --add https://nixos.org/channels/nixos-24.05 nixos
-        nix-channel --update
-        nix-env -iA nixpkgs.python311.python-openems
+        sh nix-channel --add https://nixos.org/channels/nixos-24.05 nixos
+        sh nix-channel --update
+        sh nix-env -iA nixpkgs.python311.python-openems
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.11

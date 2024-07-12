@@ -41,6 +41,8 @@ jobs:
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
+        winget install -m .\manifests\o\OpenEMS\OpenEMS\0.0.36
+        Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\OpenEMS.OpenEMS__DefaultSource\OpenEMS"
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |

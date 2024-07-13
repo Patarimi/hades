@@ -46,6 +46,8 @@ jobs:
     - name: Config Ubuntu - Install Nix
       if: ${{runner.os != 'Windows' }}
       uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-24.05
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |

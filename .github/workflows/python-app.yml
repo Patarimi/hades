@@ -51,7 +51,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y klayout ngspice
-        nix build
         nix-env -iA nixpkgs.python311.python-openems
     - name: Install poetry
       run: pipx install poetry

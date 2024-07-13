@@ -43,16 +43,16 @@ jobs:
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
         winget install -m .\manifests\o\OpenEMS\OpenEMS\0.0.36
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\OpenEMS.OpenEMS__DefaultSource\OpenEMS"
+    - name: Config Ubuntu - Install Nix
+      if: ${{runner.os != 'Windows' }}
+      uses: cachix/install-nix-action@v27
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |
         sudo apt-get update
         sudo apt-get install -y klayout ngspice
-        curl -L https://nixos.org/nix/install -o nix.sh
-        sudo sh nix.sh --daemon --yes
-        sh nix-channel --add https://nixos.org/channels/nixos-24.05 nixos
-        sh nix-channel --update
-        sh nix-env -iA nixpkgs.python311.python-openems
+        nix build
+        nix-env -iA nixpkgs.python311.python-openems
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.11

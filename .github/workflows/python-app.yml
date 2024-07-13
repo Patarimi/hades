@@ -54,7 +54,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y klayout ngspice
-        nix-env -i nixpkgs.python311Packages.python-openems -f '<nixpkgs>'
+        nix-env -iA nixpkgs.python311Packages.python-openems -f '<nixpkgs>'
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.11

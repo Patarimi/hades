@@ -1,9 +1,10 @@
+from pathlib import Path
 from netgen import csg
-from ngsolve import *
+import ngsolve as ng
 from ngsolve.webgui import Draw
 
 
-def make_geometry():
+def make_geometry(input_file: Path, process_file: Path) -> csg.CSGeometry:
     geometry = csg.CSGeometry()
     box = csg.OrthoBrick(csg.Pnt(-1, -1, -1), csg.Pnt(2, 1, 2)).bc("outer")
 
@@ -26,40 +27,41 @@ def make_geometry():
     return geometry
 
 
-geo = make_geometry()
-mesh = Mesh(geo.GenerateMesh(maxh=0.5))
-mesh.Curve(5)
-Draw(mesh, clipping = { "pnt" : (0,0,0), "vec" : (0,1,0) })
+def compute(input_file: Path, output_file: Path = None):
+    geo = make_geometry()
+    mesh = ng.Mesh(geo.GenerateMesh(maxh=0.5))
+    mesh.Curve(5)
+    Draw(mesh, clipping={"pnt": (0, 0, 0), "vec": (0, 1, 0)})
 
-fes = HCurl(mesh, order=4, dirichlet="outer", nograds=True)
-print("ndof =", fes.ndof)
-u, v = fes.TnT()
+    fes = ng.HCurl(mesh, order=4, dirichlet="outer", nograds=True)
+    print("ndof =", fes.ndof)
+    u, v = fes.TnT()
 
-mur = {"core": 1000, "coil": 1, "air": 1}
-mu0 = 1.257e-6
-nu_coef = [1 / (mu0 * mur[mat]) for mat in mesh.GetMaterials()]
+    mur = {"core": 1000, "coil": 1, "air": 1}
+    mu0 = 1.257e-6
+    nu_coef = [1 / (mu0 * mur[mat]) for mat in mesh.GetMaterials()]
 
-nu = CoefficientFunction(nu_coef)
-a = BilinearForm(fes, symmetric=True)
-a += nu * curl(u) * curl(v) * dx + 1e-6 * nu * u * v * dx
+    nu = ng.CoefficientFunction(nu_coef)
+    a = ng.BilinearForm(fes, symmetric=True)
+    a += nu * ng.curl(u) * ng.curl(v) * ng.dx + 1e-6 * nu * u * v * ng.dx
 
-c = Preconditioner(a, type="bddc")
+    c = ng.Preconditioner(a, type="bddc")
 
-f = LinearForm(fes)
-f += CoefficientFunction((y, 0.05 - x, 0)) * v * dx("coil")
+    f = ng.LinearForm(fes)
+    f += ng.CoefficientFunction((ng.y, 0.05 - ng.x, 0)) * v * ng.dx("coil")
 
-u = GridFunction(fes)
+    u = ng.GridFunction(fes)
 
-a.Assemble()
-f.Assemble()
-solver = CGSolver(mat=a.mat, pre=c.mat)
-u.vec.data = solver * f.vec
+    a.Assemble()
+    f.Assemble()
+    solver = ng.CGSolver(mat=a.mat, pre=c.mat)
+    u.vec.data = solver * f.vec
 
-Draw(
-    curl(u),
-    mesh,
-    "B-field",
-    draw_surf=False,
-    clipping={"pnt": (0, 0, 0), "vec": (0, 1, 0), "function": True},
-    vectors={"grid_size": 10},
-)
+    Draw(
+        ng.curl(u),
+        mesh,
+        "B-field",
+        draw_surf=False,
+        clipping={"pnt": (0, 0, 0), "vec": (0, 1, 0), "function": True},
+        vectors={"grid_size": 10},
+    )

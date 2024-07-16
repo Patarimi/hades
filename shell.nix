@@ -8,12 +8,7 @@ pkgs.mkShellNoCC {
   packages = with pkgs; [
     ngspice
     klayout
-    magic-vlsi
-    python311Packages.meep
-    hdf5
-    h5utils
-    imagemagick
     poetry
   ];
-  postInstall = ''poetry install'';
+  postInstall = ''poetry install --with=dev'';
 }

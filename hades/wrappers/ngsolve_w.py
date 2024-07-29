@@ -1,6 +1,6 @@
 from pathlib import Path
 from gdstk import read_gds
-from netgen import csg
+from netgen import csg, occ
 from ngsolve import Mesh, Draw
 
 
@@ -11,37 +11,24 @@ def make_geometry(gds_file: Path) -> csg.CSGeometry:
     :return:
     """
     gdsii = read_gds(gds_file)
-    geometry = csg.CSGeometry()
-    base = csg.Plane(csg.Pnt(0, 0, 0), csg.Vec(0, 0, 1))
+    face = None
     for polygon in gdsii.cells[0].polygons:
-        poly = csg.SplineSurface(base)
-        previous_point = None
-        first_point = None
-        for point in polygon.points:
-            ng_point = poly.AddPoint(point[0], point[1], 0)
-            if previous_point is not None:
-                poly.AddSegment(previous_point, ng_point)
-            else:
-                first_point = ng_point
-            previous_point = ng_point
-        poly.AddSegment(previous_point, first_point)
-        geometry.AddSplineSurface(poly)
-    return geometry
+        wp = occ.WorkPlane(occ.Axes((0, 0, polygon.layer), n=occ.Z, h=occ.X))
+        pts = polygon.points
+        wp.MoveTo(*(pts[0]))
+        [wp.LineTo(*pt) for pt in pts[1:]]
+        wp.LineTo(*(pts[0]))
+        face = wp.Face().Extrude(1) if face is None else face+wp.Face().Extrude(1)
+    return occ.OCCGeometry(face)
 
 
 def compute():
-    ngmesh = make_geometry().GenerateMesh(maxh=0.5)
+    ngmesh = make_geometry().GenerateMesh(maxh=2)
     ngmesh.Save("coil.vol")
     mesh = Mesh(ngmesh)
 
-    # curve elements for geometry approximation
-    mesh.Curve(5)
 
-
-if __name__ == "__main__":
-    geom = make_geometry(Path("./tests/test_layouts/ref_cpl.gds"))
-    ngmesh = geom.GenerateMesh(maxh=0.2)
-    ngmesh.Save("test.vol")
-    mesh = Mesh(ngmesh)
-    geom.Draw()
-    Draw(mesh)
+geom = make_geometry(Path("./tests/test_layouts/ref_cpl.gds"))
+mesh = Mesh(geom.GenerateMesh())
+Draw(mesh)
+# ngmesh = geom.GenerateMesh(maxh=100)

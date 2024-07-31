@@ -58,3 +58,6 @@ def compute(geom: NGGeom, /, debug: bool = False):
 
 geom = make_geometry(Path("./tests/test_layouts/ref_ind.gds"))
 res = compute(geom, True)
+plt.plot(res)
+plt.show()
+print("hello")

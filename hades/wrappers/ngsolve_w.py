@@ -37,7 +37,7 @@ def make_geometry(gds_file: Path, stack: LayerStack = None) -> NGGeom:
     return occ.OCCGeometry(occ.Glue([model, oxyde]))
 
 
-def compute(geom: NGGeom, /, debug: bool = False):
+def compute(geom: NGGeom, *, debug: bool = False):
     mesh = ng.Mesh(geom.GenerateMesh())
     if debug:
         ng.Draw(mesh)
@@ -57,7 +57,7 @@ def compute(geom: NGGeom, /, debug: bool = False):
 
 
 geom = make_geometry(Path("./tests/test_layouts/ref_ind.gds"))
-res = compute(geom, True)
+res = compute(geom, debug=True)
 plt.plot(res)
 plt.show()
 print("hello")

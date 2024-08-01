@@ -37,26 +37,26 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
     limit = [(*xy, z) for xy, z in zip(gdsii.cells[0].bounding_box(), z_lim)]
     lim_margin = [tuple([(1-sign(lim)*margin)*lim for lim in limit[0]]),
                   tuple([(1+sign(lim)*margin)*lim for lim in limit[1]])]
-    oxyde = occ.Box(*lim_margin).mat("air") - metal
-    oxyde.bc("air")
+    oxyde = occ.Box(*lim_margin).mat("oxyde") - metal
+    oxyde.bc("oxyde")
     return occ.OCCGeometry(occ.Glue([metal, oxyde]))
 
 
 def compute(geom: NGGeom, *, debug: bool = False):
     mu0 = pi * 4e-7  # H/m
-    c0 = 299792458  # m/s
+    eps0 = 8.854e-12 # F/m
+    epsr = {"metal": 1, "oxyde": 4, "default": 1}
     mesh = ng.Mesh(geom.GenerateMesh())
     if debug:
         ng.Draw(mesh)
-    fes = ng.HCurl(mesh, order=3, dirichlet="air", nograds=True)
+    fes = ng.HCurl(mesh, order=3, dirichlet="air")
     u, v = fes.TnT()
     gfu = ng.GridFunction(fes)
-    mur = ng.CoefficientFunction(
-        [1000 if mat == "metal" else 1 for mat in mesh.GetMaterials()]
-    )
+    eps_coeff = ng.CoefficientFunction([eps0*epsr[mat] for mat in mesh.GetMaterials()])
+    mu_coeff = ng.CoefficientFunction([mu0 for _ in mesh.GetMaterials()])
     a = ng.BilinearForm(fes)
     a += ng.SymbolicBFI(
-        1 / (mu0 * mur) * ng.curl(u) * ng.curl(v) + 1e-8 / (mu0 * mur) * u * v
+        1 / mu_coeff * ng.curl(u) * ng.curl(v) + 1e-8 / mu_coeff * u * v
     )
     c = ng.Preconditioner(a, "bddc")
     f = ng.LinearForm(fes)

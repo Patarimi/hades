@@ -5,20 +5,23 @@ import ngsolve as ng
 from hades.layouts.tools import LayerStack
 import matplotlib.pyplot as plt
 from math import pi
+from numpy import sign
 
 
 NGGeom = csg.CSGeometry | occ.OCCGeometry
 
 
-def make_geometry(gds_file: Path, stack: LayerStack = None) -> NGGeom:
+def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NGGeom:
     """
     Make a netgen geometry from a gds file.
-    :param gds_file:
-    :return:
+    :param gds_file: Input file to be simulated
+    :param stack: Layer Stack use to construct the 3D model
+    :param margin: (Default = 0.1) Size of air box around the model in percent.
+    :return: A geometry that can be used by ngsolve
     """
     gdsii = read_gds(gds_file)
     face = list()
-    z_lim = (0, 0)
+    z_lim = None
     for polygon in gdsii.cells[0].polygons:
         elevation = polygon.layer
         height = 1
@@ -28,11 +31,13 @@ def make_geometry(gds_file: Path, stack: LayerStack = None) -> NGGeom:
         [wp.LineTo(*pt) for pt in pts[1:]]
         wp.LineTo(*(pts[0]))
         face.append(wp.Face().Extrude(height).mat("metal"))
-        z_lim = (min(z_lim[0], elevation), max(z_lim[1], elevation + height))
+        z_lim = (elevation, elevation+height) if z_lim is None else (min(z_lim[0], elevation), max(z_lim[1], elevation + height))
     metal = occ.Fuse(face)
     # append z to 2D bounding box
-    limit = [(xy[0], z) for xy, z in zip(gdsii.cells[0].bounding_box(), z_lim)]
-    oxyde = occ.Box(*limit).mat("air") - metal
+    limit = [(*xy, z) for xy, z in zip(gdsii.cells[0].bounding_box(), z_lim)]
+    lim_margin = [tuple([(1-sign(lim)*margin)*lim for lim in limit[0]]),
+                  tuple([(1+sign(lim)*margin)*lim for lim in limit[1]])]
+    oxyde = occ.Box(*lim_margin).mat("air") - metal
     oxyde.bc("air")
     return occ.OCCGeometry(occ.Glue([metal, oxyde]))
 

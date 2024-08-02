@@ -3,7 +3,6 @@ from gdstk import read_gds
 from netgen import csg, occ
 import ngsolve as ng
 from hades.layouts.tools import LayerStack
-import matplotlib.pyplot as plt
 from math import pi
 from numpy import sign
 
@@ -31,13 +30,15 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
         wp.LineTo(*(pts[0]))
         face.append(wp.Face().Extrude(height).mat("metal"))
     metal = occ.Fuse(face)
+    for port in gdsii.cells[0].labels:
+        port_face = metal.faces.Nearest(occ.gp_Pnt(*port.origin, port.layer + 0.5))
+        port_face.name = port.text
     # append z to 2D bounding box
     limit = metal.bounding_box
     lim_margin = [tuple([(1-sign(lim)*margin)*lim for lim in limit[0]]),
                   tuple([(1+sign(lim)*margin)*lim for lim in limit[1]])]
     oxyde = occ.Box(*lim_margin).mat("oxyde") - metal
     oxyde.bc("oxyde")
-    print(oxyde.Properties.__dir__())
     return occ.OCCGeometry(occ.Compound([metal, oxyde]))
 
 
@@ -86,6 +87,7 @@ def compute(geom: NGGeom, *, debug: bool = False):
 
 
 geom = make_geometry(Path("./tests/test_layouts/ref_ind.gds"))
+ng.Draw(geom)
 res = compute(geom, debug=True)
 # plt.plot(res)
 # plt.show()

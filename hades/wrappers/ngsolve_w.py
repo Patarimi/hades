@@ -37,9 +37,9 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
     limit = metal.bounding_box
     lim_margin = [tuple([(1-sign(lim)*margin)*lim for lim in limit[0]]),
                   tuple([(1+sign(lim)*margin)*lim for lim in limit[1]])]
-    oxyde = occ.Box(*lim_margin).mat("oxyde") - metal
-    oxyde.bc("oxyde")
-    return occ.OCCGeometry(occ.Compound([metal, oxyde]))
+    oxide = occ.Box(*lim_margin).mat("oxide") - metal
+    oxide.bc("oxide")
+    return occ.OCCGeometry(occ.Compound([metal, oxide]))
 
 
 def compute(geom: NGGeom, *, debug: bool = False):
@@ -67,7 +67,7 @@ def compute(geom: NGGeom, *, debug: bool = False):
     # Scalar Potential
     v_scal = ng.BilinearForm(fes)
     v_scal += ng.SymbolicBFI(
-
+        u * v
     )
     # TODO add initial condition
     c = ng.Preconditioner(a_vec, "bddc")

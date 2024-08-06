@@ -37,9 +37,13 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
     limit = metal.bounding_box
     lim_margin = [tuple([(1-sign(lim)*margin)*lim for lim in limit[0]]),
                   tuple([(1+sign(lim)*margin)*lim for lim in limit[1]])]
-    oxide = occ.Box(*lim_margin).mat("oxide") - metal
+    oxide = occ.Box(*lim_margin).mat("oxide")
+    oxide.faces.name = "oxide"
+    oxide.solids.name = "oxide"
+    # change color of oxide faces
+    oxide.faces.col = (0, 0, 1, 0.3)
     oxide.bc("oxide")
-    return occ.OCCGeometry(occ.Compound([metal, oxide]))
+    return occ.OCCGeometry(occ.Glue([metal, oxide-metal]))
 
 
 def compute(geom: NGGeom, *, debug: bool = False):
@@ -48,9 +52,9 @@ def compute(geom: NGGeom, *, debug: bool = False):
     # permittivity
     eps0 = 8.854e-12 # F/m
     # relative permittivity
-    epsr = {"metal": 1, "oxyde": 4, "default": 1}
+    epsr = {"metal": 1, "oxide": 4, "default": 1}
     # conductivity
-    rho = {"metal": 10e3, "oxyde": 1e-6, "default": 1e-6}
+    rho = {"metal": 10e3, "oxide": 1e-6, "default": 1e-6}
     mesh = ng.Mesh(geom.GenerateMesh())
     if debug:
         ng.Draw(mesh)
@@ -86,7 +90,7 @@ def compute(geom: NGGeom, *, debug: bool = False):
     return gfu.vec
 
 
-geom = make_geometry(Path("./tests/test_layouts/ref_ind.gds"))
+geom = make_geometry(Path("./tests/test_layouts/ref_ind2.gds"))
 ng.Draw(geom)
 res = compute(geom, debug=True)
 # plt.plot(res)

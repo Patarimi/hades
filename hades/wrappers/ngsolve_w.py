@@ -32,57 +32,68 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
     metal = occ.Fuse(face)
     for port in gdsii.cells[0].labels:
         port_face = metal.faces.Nearest(occ.gp_Pnt(*port.origin, port.layer + 0.5))
-        port_face.name = port.text
+        port_face.name = "port" + port.text
+        print(port_face.bounding_box)
     # append z to 2D bounding box
     limit = metal.bounding_box
-    lim_margin = [tuple([(1-sign(lim)*margin)*lim for lim in limit[0]]),
-                  tuple([(1+sign(lim)*margin)*lim for lim in limit[1]])]
+    lim_margin = [
+        tuple([(1 - sign(lim) * margin) * lim for lim in limit[0]]),
+        tuple([(1 + sign(lim) * margin) * lim for lim in limit[1]]),
+    ]
     oxide = occ.Box(*lim_margin).mat("oxide")
     oxide.faces.name = "oxide"
     oxide.solids.name = "oxide"
     # change color of oxide faces
     oxide.faces.col = (0, 0, 1, 0.3)
     oxide.bc("oxide")
-    return occ.OCCGeometry(occ.Glue([metal, oxide-metal]))
+    return occ.OCCGeometry(occ.Glue([metal, oxide - metal]))
 
 
-def compute(geom: NGGeom, *, debug: bool = False):
+def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     # permeability
     mu0 = pi * 4e-7  # H/m
     # permittivity
-    eps0 = 8.854e-12 # F/m
+    eps0 = 8.854e-12  # F/m
     # relative permittivity
     epsr = {"metal": 1, "oxide": 4, "default": 1}
     # conductivity
-    rho = {"metal": 10e3, "oxide": 1e-6, "default": 1e-6}
+    sigma = {"metal": 1e6, "oxide": 1e-6, "default": 1e-6}
+    # frequency
+    omega = 2 * pi * freq
     mesh = ng.Mesh(geom.GenerateMesh())
     if debug:
         ng.Draw(mesh)
-    fes = ng.HCurl(mesh, order=3, dirichlet="air")
-
+    fes = ng.HCurl(mesh, order=3, dirichlet="oxide|default", complex=True)
     u, v = fes.TnT()
-    gfu = ng.GridFunction(fes)
-    eps_coeff = ng.CoefficientFunction([eps0*epsr[mat] for mat in mesh.GetMaterials()])
+
+    sigma_coeff = ng.CoefficientFunction([sigma[mat] for mat in mesh.GetMaterials()])
     # Magnetic vector potential
-    a_vec = ng.BilinearForm(fes)
-    a_vec += ng.SymbolicBFI(
-        1 / mu0 * ng.curl(u) * ng.curl(v) + 1e-8 / mu0 * u * v
+    a_vec = ng.BilinearForm(fes, symmetric=True, condense=True)
+    a_vec += 1 / mu0 * ng.curl(u) * ng.curl(v) * ng.dx
+    a_vec += 1j * omega * sigma_coeff * u * v * ng.dx
+
+    # Boundary current density
+    def project(val, min_val, max_val):
+        return ng.IfPos(val - min_val, ng.IfPos(val - max_val, val, max_val), min_val)
+
+    projy = project(ng.y, 7.5, 12.5)
+    projz = project(ng.z, 81, 82)
+    # pot along y and tau along x ?
+    pot = ng.CF((projz, 0, 0))
+    tau = ng.CF((projy, 0, 0))
+    f = ng.LinearForm(
+        -tau*v.Trace() * ng.ds("port*", bonus_intorder=4)
+        + pot / 0.025 * ng.curl(v) * ng.dx("coil.*", bonus_intorder=4)
     )
-    # Scalar Potential
-    v_scal = ng.BilinearForm(fes)
-    v_scal += ng.SymbolicBFI(
-        u * v
-    )
-    # TODO add initial condition
+
+    gfu = ng.GridFunction(fes)
     c = ng.Preconditioner(a_vec, "bddc")
-    f = ng.LinearForm(fes)
     mag = ng.CoefficientFunction((1, 0, 0)) * ng.CoefficientFunction(
         [1 if mat == "metal" else 0 for mat in mesh.GetMaterials()]
     )
     f += ng.SymbolicLFI(mag * ng.curl(v), definedon=mesh.Materials("metal"))
     with ng.TaskManager():
         a_vec.Assemble()
-        v_scal.Assemble()
         f.Assemble()
         ng.solvers.CG(sol=gfu.vec, rhs=f.vec, mat=a_vec.mat, pre=c.mat)
     if debug:
@@ -90,7 +101,7 @@ def compute(geom: NGGeom, *, debug: bool = False):
     return gfu.vec
 
 
-geom = make_geometry(Path("./tests/test_layouts/ref_ind2.gds"))
+geom = make_geometry(Path("./tests/test_layouts/ref_ind.gds"))
 ng.Draw(geom)
 res = compute(geom, debug=True)
 # plt.plot(res)

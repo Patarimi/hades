@@ -50,6 +50,14 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
 
 
 def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
+    """
+    [WIP] Help Needed.
+    Compute the EM fields of a geometry.
+    :param geom:
+    :param freq:
+    :param debug:
+    :return: Z-parameters of the structure.
+    """
     # permeability
     mu0 = pi * 4e-7  # H/m
     # permittivity
@@ -66,7 +74,9 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     fes = ng.HCurl(mesh, order=3, dirichlet="oxide|default", complex=True)
     u, v = fes.TnT()
 
+    #Set conductivity in the mesh
     sigma_coeff = ng.CoefficientFunction([sigma[mat] for mat in mesh.GetMaterials()])
+
     # Magnetic vector potential
     a_vec = ng.BilinearForm(fes, symmetric=True, condense=True)
     a_vec += 1 / mu0 * ng.curl(u) * ng.curl(v) * ng.dx
@@ -78,12 +88,13 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
 
     projy = project(ng.y, 7.5, 12.5)
     projz = project(ng.z, 81, 82)
+
     # pot along y and tau along x ?
     pot = ng.CF((projz, 0, 0))
     tau = ng.CF((projy, 0, 0))
     f = ng.LinearForm(
         -tau*v.Trace() * ng.ds("port*", bonus_intorder=4)
-        + pot / 0.025 * ng.curl(v) * ng.dx("coil.*", bonus_intorder=4)
+        + pot / 0.025 * ng.curl(v) * ng.dx("port*", bonus_intorder=4)
     )
 
     gfu = ng.GridFunction(fes)
@@ -99,10 +110,3 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     if debug:
         ng.Draw(ng.curl(gfu), mesh, "B-field", draw_surf=False)
     return gfu.vec
-
-
-geom = make_geometry(Path("./tests/test_layouts/ref_ind.gds"))
-ng.Draw(geom)
-res = compute(geom, debug=True)
-# plt.plot(res)
-# plt.show()

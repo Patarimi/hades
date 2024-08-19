@@ -83,7 +83,7 @@ def list_pdk() -> list:
     return list(process_d.keys())
 
 
-def load_pdk(pdk_name: str):
+def load_pdk(pdk_name: str) -> dict:
     try:
         tech = _read_tech()[pdk_name]
     except KeyError:

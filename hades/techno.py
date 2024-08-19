@@ -4,12 +4,15 @@ from subprocess import run
 import tarfile
 import urllib.request
 import zipfile
-from os import makedirs
 from os.path import join, dirname, isdir
 import yaml
 from typer import Typer
 from typing import Optional
+from rich.console import Console
+from rich import print
 
+
+console = Console(stderr = True)
 pkd_app = Typer()
 
 
@@ -33,12 +36,12 @@ def install(pdk_name: str):
             base_install,
             tech["version"],
         ]
-        if os.name == "nt":
-            cmd = ["wsl"] + cmd
-        ret = run(cmd, capture_output=True)
-        return ret
+        ret = run(cmd, capture_output=True, text=True)
+        print(ret.stdout)
+        console.print(ret.stderr)
+        return
     if not (isdir(base_install + pdk_name)):
-        makedirs(base_install + pdk_name)
+        os.makedirs(base_install + pdk_name)
     opener = urllib.request.build_opener()
     opener.addheaders = [
         (

@@ -4,12 +4,16 @@ from subprocess import run
 import tarfile
 import urllib.request
 import zipfile
-from os import makedirs
 from os.path import join, dirname, isdir
 import yaml
 from typer import Typer
 from typing import Optional
+from rich.console import Console
+from rich.table import Table
+from rich import print
 
+
+console = Console(stderr=True)
 pkd_app = Typer()
 
 
@@ -33,12 +37,12 @@ def install(pdk_name: str):
             base_install,
             tech["version"],
         ]
-        if os.name == "nt":
-            cmd = ["wsl"] + cmd
-        ret = run(cmd, capture_output=True)
-        return ret
+        ret = run(cmd, capture_output=True, text=True)
+        print(ret.stdout)
+        console.print(ret.stderr)
+        return
     if not (isdir(base_install + pdk_name)):
-        makedirs(base_install + pdk_name)
+        os.makedirs(base_install + pdk_name)
     opener = urllib.request.build_opener()
     opener.addheaders = [
         (
@@ -68,12 +72,18 @@ def list_pdk() -> list:
     """
     process_d = _read_tech()
     print("Available PDKs are:")
+    table = Table("Name", "State", show_header=False, box=None)
     for k in process_d:
-        print(f"- {k}")
+        pdk = load_pdk(k)
+        base_dir = join(dirname(__file__), pdk["base_dir"])
+        table.add_row(
+            k, "[green]installed[/green]" if isdir(base_dir) else "not installed"
+        )
+    print(table)
     return list(process_d.keys())
 
 
-def load_pdk(pdk_name: str):
+def load_pdk(pdk_name: str) -> dict:
     try:
         tech = _read_tech()[pdk_name]
     except KeyError:

@@ -1,13 +1,11 @@
 import logging
-import subprocess
 from dataclasses import dataclass, field
 from os.path import join, dirname, realpath
 from pathlib import Path
-import os
-from shutil import which
 from hades.techno import load_pdk
 from hades.parsers.tlef import load_tlef
 from hades.parsers.layermap import load_map, get_number
+import klayout.db as kdb
 
 
 @dataclass
@@ -152,26 +150,16 @@ class Port:
         return f"{self.name}={self.name}:{self.ref}"
 
 
-def check_diff(gds1: str | Path, gds2: str | Path):
+def check_diff(gds1: str | Path, gds2: str | Path) -> bool:
     """
     Test if the 2 gds files are the same. Raise error if they differ.
     :param gds1: path of the first gds
     :param gds2: path of the second gds
     :return: None
     """
-    cmd = f"strmxor {gds1} {gds2}"
-    logging.info(which("klayout"))
-    if which("strmxor") is None:
-        if os.name == "nt":
-            logging.error("strmxor not found. Please install it.")
-            return
-        # for CI
-        os.environ["LD_LIBRARY_PATH"] = "/usr/lib/klayout"
-        cmd = "/usr/lib/klayout/" + cmd
-    c = subprocess.run(cmd, shell=True, capture_output=True)
-    if c.returncode != 0:
-        out_mess = c.stdout.decode("latin")
-        err_mess = c.stderr.decode("latin")
-        raise ValueError(
-            cmd + "failed with:\n" + out_mess + "\n" + err_mess + "\n------"
-        )
+    cell1 = kdb.Layout()
+    cell1.read(str(gds1))
+    cell2 = kdb.Layout()
+    cell2.read(str(gds2))
+    diff = kdb.LayoutDiff()
+    return diff.compare(cell1, cell2)

@@ -37,7 +37,6 @@ jobs:
       if: ${{runner.os == 'Windows' }}
       run: |
         dir
-        winget install KLayout --accept-package-agreements --accept-source-agreements --disable-interactivity
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
@@ -45,7 +44,7 @@ jobs:
       if: ${{runner.os != 'Windows' }}
       run: |
         sudo apt-get update
-        sudo apt-get install -y klayout ngspice
+        sudo apt-get install -y ngspice
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.10

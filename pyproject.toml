@@ -49,6 +49,7 @@ numpy = "^2.0.0"
 wget = "^3.2"
 klayout = "^0.29.5"
 ngsolve = "^6.2.2404.post51"
+pydantic = "^2.8.2"
 
 [tool.poetry.group.dev]
 optional = true

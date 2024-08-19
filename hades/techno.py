@@ -9,10 +9,11 @@ import yaml
 from typer import Typer
 from typing import Optional
 from rich.console import Console
+from rich.table import Table
 from rich import print
 
 
-console = Console(stderr = True)
+console = Console(stderr=True)
 pkd_app = Typer()
 
 
@@ -71,8 +72,14 @@ def list_pdk() -> list:
     """
     process_d = _read_tech()
     print("Available PDKs are:")
+    table = Table("Name", "State", show_header=False, box=None)
     for k in process_d:
-        print(f"- {k}")
+        pdk = load_pdk(k)
+        base_dir = join(dirname(__file__), pdk["base_dir"])
+        table.add_row(
+            k, "[green]installed[/green]" if isdir(base_dir) else "not installed"
+        )
+    print(table)
     return list(process_d.keys())
 
 

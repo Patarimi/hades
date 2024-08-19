@@ -4,9 +4,9 @@ from typing import Protocol, Union
 from enum import Enum
 import gdstk
 from pathlib import Path
+import pydantic
 
-
-Parameters = dict[str, Union[int, float, str]]
+ParamSet = pydantic.BaseModel
 
 
 class Step(Enum):
@@ -17,26 +17,28 @@ class Step(Enum):
 
 class Device(Protocol):
     name: str
-    specifications: Parameters
-    dimensions: Parameters
-    parameters: Parameters
+    specifications: ParamSet
+    dimensions: ParamSet
+    parameters: ParamSet
     techno: str
 
-    def update_model(self, specifications: Parameters) -> Parameters: ...
+    def update_model(self, specifications: ParamSet) -> ParamSet: ...
 
-    def update_cell(self, dimensions: Parameters) -> gdstk.Cell: ...
+    def update_cell(self, dimensions: ParamSet) -> gdstk.Cell: ...
 
-    def update_accurate(self, sim_file: Path) -> Parameters: ...
+    def update_accurate(self, sim_file: Path) -> ParamSet: ...
 
-    def recalibrate_model(self, performances: Parameters) -> Parameters: ...
+    def recalibrate_model(self, performances: ParamSet) -> ParamSet: ...
 
 
 def generate(
     dut: Device,
-    specifications: Parameters,
-    dimensions: Parameters,
-    stop: Step,
-) -> Parameters:
+    specifications: ParamSet,
+    dimensions: ParamSet = None,
+    stop: Step = Step.full,
+) -> ParamSet:
+    if dimensions is None:
+        dimensions = {}
     logging.info(f"Generation started with :{specifications}")
     for i in range(5):
         dimensions.update(dut.update_model(specifications))

@@ -718,6 +718,56 @@ files = [
 ]
 
 [[package]]
+name = "klayout"
+version = "0.29.5"
+description = "KLayout standalone Python package"
+optional = false
+python-versions = "*"
+files = [
+    {file = "klayout-0.29.5-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:b35f853eb3a6e1f3c7eb0013304e80e3c34fbe20b043d5e601013dd057c29545"},
+    {file = "klayout-0.29.5-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:7112b7639d6a9f1e00022aff57deec18337fa2afbfa1ebbee9349114f5640cb2"},
+    {file = "klayout-0.29.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8ae142daddd33800c3d3e490ca96b5b6407f128b68adfc33f40628d501f5c00e"},
+    {file = "klayout-0.29.5-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:2cce7b2f5bda7c0b98defb3a3c92b5c91e138965e6c78c199ef0bf2946ccbbdd"},
+    {file = "klayout-0.29.5-cp310-cp310-win32.whl", hash = "sha256:511f03aa44323893eb4eddb4f92ab3a69486239850a61c22e35e28c733daa6b4"},
+    {file = "klayout-0.29.5-cp310-cp310-win_amd64.whl", hash = "sha256:7a2e2aab78bf952a2b4aa59e4cf1eaadb54c80758f3461c35bb0df2bbeaabc6d"},
+    {file = "klayout-0.29.5-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:a69e746937b2a2e9e7c7b014b6a58f8f03146488f9edb0d6c20731c7feadcd94"},
+    {file = "klayout-0.29.5-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:62e1e92f4ece8ab1c0b8542c34cae97d26c5152e22135a80a494af411797ed10"},
+    {file = "klayout-0.29.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:75fdd10dd9b29425d30b04cd836c49f219fed26ed96862b97a142a364ef6440d"},
+    {file = "klayout-0.29.5-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:9438fa8b1117126216575fa3dc40baf464e077f795b02ba84f3ea2e2ccab3558"},
+    {file = "klayout-0.29.5-cp311-cp311-win32.whl", hash = "sha256:f676c5b8a3fa5bb4803ed4aa6556837cd67ed16de5c951b7fda04766c080bc8c"},
+    {file = "klayout-0.29.5-cp311-cp311-win_amd64.whl", hash = "sha256:09aa98badc5782929e661a752812dcb92bba8697cd3a65e516d36ac595dce788"},
+    {file = "klayout-0.29.5-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:b5ab9c6342aa4073e40806602e526fbd87c83fd778fbeae3539a8ef544bdf354"},
+    {file = "klayout-0.29.5-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:27e00d724b547156d5a6b4ec5b0f113af1206a889e00262763b56f41eed692f0"},
+    {file = "klayout-0.29.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:da921112dca8e918432ce1e6773f7e1b5482c07944dd5f0cf333266139cab45e"},
+    {file = "klayout-0.29.5-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:dd35f5bac8c2b37c96292b1965783d0cfaa4b53bff986ee2b4b5a3e1d83006c0"},
+    {file = "klayout-0.29.5-cp312-cp312-win32.whl", hash = "sha256:0a6f48840d3f979397a312840d848ccfb961bb536a3f4ff3cd725db5a7c509b6"},
+    {file = "klayout-0.29.5-cp312-cp312-win_amd64.whl", hash = "sha256:0697e4f26acc96d5447316bdbc934f33cf542ac0731fdb95f1bf5d8150302f5a"},
+    {file = "klayout-0.29.5-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:2abfa0ef8efca92abf30e62abe6a89271946a4a04338b66cdcb3f152fe54590f"},
+    {file = "klayout-0.29.5-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:13225815942820d60ed478815783fbd01eeca33b45d26b1d42debe4be22252da"},
+    {file = "klayout-0.29.5-cp36-cp36m-musllinux_1_2_x86_64.whl", hash = "sha256:275efe399ca30767e6bdce6b8feb244369ef06cb7fb63e3b2aea8e574af5a5f6"},
+    {file = "klayout-0.29.5-cp36-cp36m-win32.whl", hash = "sha256:33a21bcc11da606d9a3df691f9a825fa024f7cc7b8ad650a4b95aea0817481c2"},
+    {file = "klayout-0.29.5-cp36-cp36m-win_amd64.whl", hash = "sha256:ea7bfd73e9b0207767b9382071d9956bb7d6001a1222431ce80e8764a0880dd8"},
+    {file = "klayout-0.29.5-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:c99b8ee715c9a268cfb9a5965b5f84fbc6a77a813a7b991bdb143f0666906c9c"},
+    {file = "klayout-0.29.5-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cbdfcd7935dbe496cd6c2cc0e21d68c217d4d516d010846be8842aa5f9cd1f3c"},
+    {file = "klayout-0.29.5-cp37-cp37m-musllinux_1_2_x86_64.whl", hash = "sha256:04fa38865bce206b451ecebc8f0a58d28fcabbaa3eb9e8ed17a1dfceeb8d9b56"},
+    {file = "klayout-0.29.5-cp37-cp37m-win32.whl", hash = "sha256:2e7600afd4ac09b2268fd8df26e38e937b109b1486625631d1b269461aa008a8"},
+    {file = "klayout-0.29.5-cp37-cp37m-win_amd64.whl", hash = "sha256:9dcb1776ccd6a3dc9bd72435a23c35986208be5f797fb2541b78de953b063735"},
+    {file = "klayout-0.29.5-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:dd75e9f6bf02c67d600759fb4c613e73a57c67c92adb7d10578fd09cd2afe2b4"},
+    {file = "klayout-0.29.5-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:edbf97cf356d3413190a67d0762d6df9fc002c91368051763f85f734724bb476"},
+    {file = "klayout-0.29.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0de5e1f8936e61235f1b3e8d46fd29618639a858bc3f006332b5472aed46bc08"},
+    {file = "klayout-0.29.5-cp38-cp38-musllinux_1_2_x86_64.whl", hash = "sha256:d74b866a1dcf1489094a681b4629ec3de0d4725d06c0f48bc803564561d45a68"},
+    {file = "klayout-0.29.5-cp38-cp38-win32.whl", hash = "sha256:5059aa27cc72637dfff92f7a227611f17f156a0a6af70e1b7ad97dda38f64a2e"},
+    {file = "klayout-0.29.5-cp38-cp38-win_amd64.whl", hash = "sha256:f2373c95a1313629310e24a8a461d962f65474ab5ad54da2e1de706331c911df"},
+    {file = "klayout-0.29.5-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:8a8f763aeca5aa200fcf40e81de4a30ef7c8a76a113fc86e367e22d6891b005a"},
+    {file = "klayout-0.29.5-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:47e940c2fdb5cf2a0d532820eb15ae52cc8ab481212ec6dc7bfa9998524ba720"},
+    {file = "klayout-0.29.5-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:59b60db88a6b681486d068850d8a47081c7e5523072168fd770cb3504110d117"},
+    {file = "klayout-0.29.5-cp39-cp39-musllinux_1_2_x86_64.whl", hash = "sha256:66a3684e743c18aaefa0d3fe0f3ee70763cb5dcae930a35a559c87a9b31eb3e4"},
+    {file = "klayout-0.29.5-cp39-cp39-win32.whl", hash = "sha256:363102e1156aa4bc02203a94ed4cff50578b06bf4132ef2c6d2a3533275af5f2"},
+    {file = "klayout-0.29.5-cp39-cp39-win_amd64.whl", hash = "sha256:bd722358ed8452acf4bcca98708d2707f4ddf19812388fd7dcde4f3ad38ac9c4"},
+    {file = "klayout-0.29.5.tar.gz", hash = "sha256:b584fe19684319e0a375fa63131cf0283b61681d069db29b78725f7257445521"},
+]
+
+[[package]]
 name = "lark"
 version = "1.2.2"
 description = "a modern parsing library"
@@ -2392,5 +2442,4 @@ cffi = ["cffi (>=1.11)"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.10,<3.13"
-content-hash = "4f3563ed312b715a4cf7a0f531f822f18b8a657df9f473fffa1b2f0cd1bd4072"
+content-hash = "989f07b8b736e830faa96aa3f8fedddf3c76491e87828de7a2f941de248799e5"

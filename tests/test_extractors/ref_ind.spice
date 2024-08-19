@@ -1,0 +1,13 @@
+#%l2n-klayout
+top(ind)
+unit(0.005)
+
+# Layer section
+# This section lists the mask layers (drawing or derived) and their connections.
+
+# Mask layers
+
+# Mask layer connectivity
+
+# Circuit section
+# Circuits are the hierarchical building blocks of the netlist.

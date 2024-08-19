@@ -74,7 +74,7 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     fes = ng.HCurl(mesh, order=3, dirichlet="oxide|default", complex=True)
     u, v = fes.TnT()
 
-    #Set conductivity in the mesh
+    # Set conductivity in the mesh
     sigma_coeff = ng.CoefficientFunction([sigma[mat] for mat in mesh.GetMaterials()])
 
     # Magnetic vector potential
@@ -93,7 +93,7 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     pot = ng.CF((projz, 0, 0))
     tau = ng.CF((projy, 0, 0))
     f = ng.LinearForm(
-        -tau*v.Trace() * ng.ds("port*", bonus_intorder=4)
+        -tau * v.Trace() * ng.ds("port*", bonus_intorder=4)
         + pot / 0.025 * ng.curl(v) * ng.dx("port*", bonus_intorder=4)
     )
 

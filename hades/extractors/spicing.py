@@ -1,13 +1,16 @@
 """
 This module is used to extract the equivalent spice schematic of a gdsii file.
 """
+
 from os.path import dirname
 from pathlib import Path
 from klayout import db as kl
 from hades.layouts.tools import LayerStack
 
 
-def extract_spice(gds_file: Path, techno: str, stack: LayerStack = None, output_path: Path = None) -> str:
+def extract_spice(
+    gds_file: Path, techno: str, stack: LayerStack = None, output_path: Path = None
+) -> str:
     """
     Extract the equivalent spice schematic of a gdsii file.
     :param gds_file: Input file to be simulated

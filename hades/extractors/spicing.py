@@ -56,6 +56,7 @@ def extract_spice_magic(
     """
     if output_path is None:
         output_path = Path(f"{dirname(gds_file)}/{gds_file.stem}.cir")
+    output_path = output_path.relative_to(Path(os.curdir).absolute())
     if cell_name == "None":
         logging.warning("No cell name specified, using first cell in the layout.")
         layout = kl.Layout()
@@ -76,9 +77,9 @@ def extract_spice_magic(
             if "{output_file}" in line:
                 line = line.replace("{output_file}", output_path.as_posix())
             if "{root_path}" in line:
-                line = line.replace("{root_path}", dirname(gds_file))
+                line = line.replace("{root_path}", Path(dirname(output_path)).as_posix())
             buff_out.append(line)
-    tcl_file = Path(f"{dirname(gds_file)}/{gds_file.stem}.tcl")
+    tcl_file = Path(f"{dirname(output_path)}/{gds_file.stem}.tcl")
     with open(tcl_file, "w") as f:
         f.writelines(buff_out)
     logging.info(f"Command file generated: {tcl_file}")

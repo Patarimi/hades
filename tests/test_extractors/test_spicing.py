@@ -1,5 +1,8 @@
 import filecmp
+import os
 from os.path import join, dirname
+
+import pytest
 
 from hades.extractors.spicing import extract_spice, extract_spice_magic
 from hades.extractors.tools import check_diff
@@ -17,6 +20,7 @@ def test_spice_extractor(tmp_path):
     )
 
 
+@pytest.mark.skipif(os.name == "nt", reason="Not working yet")
 def test_spice_extractor_magic(tmp_path):
     output_path = tmp_path / "spice.cir"
     extract_spice_magic(

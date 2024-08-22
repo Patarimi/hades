@@ -42,14 +42,15 @@ jobs:
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
     - name: Install Nix for Ubuntu
       if: ${{runner.os != 'Windows' }}
-        - uses: cachix/install-nix-action@v27
-            with: nixpkgs=channel:nixos-24.05
-        - run: nix-build
+      uses: cachix/install-nix-action@v27
+      with:
+        nixpath: nixpkgs=channel:nixos-24.05
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |
         sudo apt-get update
         sudo apt-get install -y ngspice
+        nix-build
         nix-env -iA nixpkgs.magic-vlsi
     - name: Install poetry
       run: pipx install poetry

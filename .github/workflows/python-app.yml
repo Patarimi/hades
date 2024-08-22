@@ -40,11 +40,19 @@ jobs:
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
+    - name: Install Nix for Ubuntu
+      if: ${{runner.os != 'Windows' }}
+      uses: cachix/install-nix-action@v27
+      with:
+        nixpath: nixpkgs=channel:nixos-24.05
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |
         sudo apt-get update
         sudo apt-get install -y ngspice
+        nix-channel --add https://nixos.org/channels/nixos-24.05 nixpkgs
+        nix-channel --update
+        nix-env -iA nixpkgs.magic-vlsi
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.10

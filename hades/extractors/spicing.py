@@ -2,15 +2,21 @@
 This module is used to extract the equivalent spice schematic of a gdsii file.
 """
 
+import logging
+import os
 from os.path import dirname
 from pathlib import Path
+from subprocess import run, CalledProcessError
+
 from klayout import db as kl
 from hades.layouts.tools import LayerStack
+
+logging.basicConfig(level=logging.INFO)
 
 
 def extract_spice(
     gds_file: Path, techno: str, stack: LayerStack = None, output_path: Path = None
-) -> str:
+) -> Path:
     """
     Extract the equivalent spice schematic of a gdsii file.
     :param gds_file: Input file to be simulated
@@ -26,7 +32,81 @@ def extract_spice(
     spice = kl.LayoutToNetlist(RSI)
     spice.extract_netlist()
     spice.write(output_path)
+    return output_path
+
+
+def extract_spice_magic(
+    gds_file: Path,
+    rc_file: Path,
+    cell_name: str = "None",
+    output_path: Path = None,
+    options: str = "NoPar",
+) -> Path:
+    """
+    Extract the equivalent spice schematic of a gdsii file using magic-vlsi.
+    :param gds_file: Input file to be extracted.
+    :param rc_file: RC file to be used in the extraction.
+    :param output_path: Path to the output spice file.
+    :param options: a dictionary of options to be used in the extraction.
+        "NoPar": Extract only the netlist. (No parasitic extraction)
+        "ROnly": Extract only the resistances.
+        "COnly": Extract only the capacitances.
+        "RC": Extract both resistances and capacitances.
+    :return: A spice schematic to be used by ngspice.
+    """
+    if output_path is None:
+        output_path = Path(f"{dirname(gds_file)}/{gds_file.stem}.cir")
+    output_path = output_path.relative_to(Path(os.curdir).absolute())
+    if cell_name == "None":
+        logging.warning("No cell name specified, using first cell in the layout.")
+        layout = kl.Layout()
+        layout.read(gds_file)
+        cell_name = layout.top_cells()[0].name
+        logging.info(f"Using cell name {cell_name}")
+        logging.info(
+            f"Available cells in the layout:{[cell.name for cell in layout.top_cells()]}"
+        )
+    tcl_template = Path(dirname(__file__)) / "magic_extract.tcl"
+    with open(tcl_template, "r") as f:
+        buff_out = []
+        for line in f:
+            if "{gds_file}" in line:
+                line = line.replace("{gds_file}", gds_file.as_posix())
+            if "{top_cell}" in line:
+                line = line.replace("{top_cell}", cell_name)
+            if "{output_file}" in line:
+                line = line.replace("{output_file}", output_path.as_posix())
+            if "{root_path}" in line:
+                line = line.replace("{root_path}", Path(dirname(output_path)).as_posix())
+            buff_out.append(line)
+    tcl_file = Path(f"{dirname(output_path)}/{gds_file.stem}.tcl")
+    with open(tcl_file, "w") as f:
+        f.writelines(buff_out)
+    logging.info(f"Command file generated: {tcl_file}")
+    cmd = [
+        "magic",
+        "-dnull",
+        "-noconsole",
+        "-rcfile",
+        rc_file.as_posix(),
+        tcl_file.as_posix(),
+    ]
+    if os.name == "nt":
+        cmd = ["wsl", "-d", "Ubuntu-24.04", "--shell-type", "login"] + cmd
+    logging.info("Extraction with command: " + " ".join(cmd))
+    proc = run(cmd, capture_output=True, text=True)
+    logging.info(proc.stdout)
+    try:
+        proc.check_returncode()
+    except CalledProcessError as e:
+        logging.error(proc.stderr)
+        raise e
+    return output_path
 
 
 if __name__ == "__main__":
-    extract_spice(Path("tests/test_layouts/ref_ind.gds"), "sky130A")
+    extract_spice_magic(
+        Path("workdir/sky130_fd_sc_hd.gds"),
+        Path("pdk/sky130A/libs.tech/magic/sky130A.magicrc"),
+        cell_name="sky130_fd_sc_hd__o221a_1",
+    )

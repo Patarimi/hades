@@ -44,15 +44,14 @@ jobs:
       if: ${{runner.os != 'Windows' }}
       uses: cachix/install-nix-action@v27
       with:
-        nixpath: nixpkgs=channel:nixos-24.05
+        nix_path: nixpkgs=channel:nixos-24.05
     - name: Config Ubuntu - Setup External Tools
       if: ${{runner.os != 'Windows' }}
       run: |
         sudo apt-get update
         sudo apt-get install -y ngspice
-        nix-channel --add https://nixos.org/channels/nixos-24.05 nixpkgs
         nix-channel --update
-        nix-env -iA nixpkgs.magic-vlsi
+        nix-channel --list
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.10
@@ -95,3 +94,11 @@ jobs:
     - name: Test with Pytest
       run: |
         poetry run pytest -rxXs --basetemp=tmp
+    - name: Store reports
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: reports
+        path: |
+          tmp/
+          pytest.log

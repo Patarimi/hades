@@ -6,10 +6,11 @@ import logging
 import os
 from os.path import dirname
 from pathlib import Path
-from subprocess import run, CalledProcessError
+from subprocess import CalledProcessError
 
 from klayout import db as kl
 from hades.layouts.tools import LayerStack
+from hades.wrappers.tools import nix_run
 
 logging.basicConfig(level=logging.INFO)
 
@@ -55,7 +56,7 @@ def extract_spice_magic(
     :return: A spice schematic to be used by ngspice.
     """
     if output_path is None:
-        output_path = Path(f"{dirname(gds_file)}/{gds_file.stem}.cir")
+        output_path = Path(f"{dirname(gds_file)}/{gds_file.stem}.cir").absolute()
     output_path = output_path.relative_to(Path(os.curdir).absolute())
     if cell_name == "None":
         logging.warning("No cell name specified, using first cell in the layout.")
@@ -91,10 +92,8 @@ def extract_spice_magic(
         rc_file.as_posix(),
         tcl_file.as_posix(),
     ]
-    if os.name == "nt":
-        cmd = ["wsl", "-d", "Ubuntu-24.04", "--shell-type", "login"] + cmd
     logging.info("Extraction with command: " + " ".join(cmd))
-    proc = run(cmd, capture_output=True, text=True)
+    proc = nix_run(cmd)
     logging.info(proc.stdout)
     try:
         proc.check_returncode()

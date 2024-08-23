@@ -6,9 +6,6 @@ in
 
 pkgs.mkShellNoCC {
   packages = with pkgs; [
-    ngspice
-    klayout
-    poetry
+    magic-vlsi
   ];
-  postInstall = ''poetry install --with=dev'';
 }

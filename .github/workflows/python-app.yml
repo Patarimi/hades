@@ -52,7 +52,6 @@ jobs:
         sudo apt-get install -y ngspice
         nix-channel --add https://nixos.org/channels/nixos-24.05 nixpkgs
         nix-channel --update
-        nix-env -iA nixpkgs.magic-vlsi
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.10

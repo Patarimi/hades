@@ -8,4 +8,7 @@ pkgs.mkShellNoCC {
   packages = with pkgs; [
     magic-vlsi
   ];
+
+  shellHook =
+      ''export PDK_ROOT="$(pwd)/pdk"'';
 }

@@ -94,4 +94,10 @@ jobs:
     - name: Test with Pytest
       run: |
         poetry run pytest -rxXs --basetemp=tmp
-        ls tmp/test_spice_extractor_magic0
+    - name: Store reports
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: reports
+        path: |
+          tmp/

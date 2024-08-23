@@ -1,9 +1,11 @@
 import logging
 import os
+from os.path import dirname, join
 from subprocess import run, CompletedProcess
 
 
 def nix_run(cmd: list[str]) -> CompletedProcess:
+    os.environ["PDK_ROOT"] = join(dirname(dirname(dirname(__file__))), "pdk")
     over_head = [
         "nix",
         "shell",

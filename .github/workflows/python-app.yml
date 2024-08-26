@@ -96,7 +96,7 @@ jobs:
         poetry run pytest -rxXs --basetemp=tmp
     - name: Store reports
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: reports
         path: |

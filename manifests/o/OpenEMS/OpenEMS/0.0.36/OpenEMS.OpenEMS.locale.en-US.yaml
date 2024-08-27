@@ -1,0 +1,12 @@
+# Created using wingetcreate 1.6.4.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+
+PackageIdentifier: OpenEMS.OpenEMS
+PackageVersion: 0.0.36
+PackageLocale: en-US
+Publisher: OpenEMS
+PackageName: OpenEMS
+License: GPL
+ShortDescription: openEMS is a free and open source electromagnetic field solver based on the Finite-Difference Time Domain (FDTD) method.
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

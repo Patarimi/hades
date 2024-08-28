@@ -48,8 +48,14 @@ jobs:
     - name: Config NIX for Windows
       if: ${{runner.os == 'Windows' }}
       shell: wsl-bash {0}
+      # https://github.com/cachix/install-nix-action/blob/master/install-nix.sh
       run: |
-        sh <(curl -L https://nixos.org/nix/install) --daemon --yes --no-channel-add
+        sudo mkdir -p /etc/nix
+        sudo chmod 0755 /etc/nix
+        sudo cp ./manifests/nix.conf /etc/nix/nix.conf
+        sh <(curl -L https://nixos.org/nix/install) --daemon --yes --no-channel-add --nix-extra-conf-file ./manifests/nix.conf
+        echo "/nix/var/nix/profiles/default/bin" >> "$GITHUB_PATH"
+        echo "$HOME/.nix-profile/bin" >> "$GITHUB_PATH"
     - name: Install Nix for Ubuntu
       if: ${{runner.os != 'Windows' }}
       uses: cachix/install-nix-action@v27

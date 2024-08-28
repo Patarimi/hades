@@ -78,7 +78,9 @@ def extract_spice_magic(
             if "{output_file}" in line:
                 line = line.replace("{output_file}", output_path.as_posix())
             if "{root_path}" in line:
-                line = line.replace("{root_path}", Path(dirname(output_path)).as_posix())
+                line = line.replace(
+                    "{root_path}", Path(dirname(output_path)).as_posix()
+                )
             buff_out.append(line)
     tcl_file = Path(f"{dirname(output_path)}/{gds_file.stem}.tcl")
     with open(tcl_file, "w") as f:

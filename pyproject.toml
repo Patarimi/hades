@@ -50,6 +50,7 @@ wget = "^3.2"
 klayout = "^0.29.5"
 ngsolve = "^6.2.2404.post51"
 pydantic = "^2.8.2"
+openems = {path = "manifests/openEMS-0.0.36-cp310-cp310-win_amd64.whl"}
 
 [tool.poetry.group.dev]
 optional = true

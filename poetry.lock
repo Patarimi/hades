@@ -1419,6 +1419,20 @@ files = [
 ]
 
 [[package]]
+name = "openEMS"
+version = "0.0.36"
+description = "Python interface for the openEMS FDTD library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "openEMS-0.0.36-cp310-cp310-win_amd64.whl", hash = "sha256:87d3de3559e51ccabd18ac1275d3db8ec6dcb5cd40d5f2647e8c966beea793e0"},
+]
+
+[package.source]
+type = "file"
+url = "manifests/openEMS-0.0.36-cp310-cp310-win_amd64.whl"
+
+[[package]]
 name = "packaging"
 version = "24.1"
 description = "Core utilities for Python packages"
@@ -2581,4 +2595,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "b20f4355847c80c3b95cb921789ac091015c71b5a9133da374b7f1b173bb7245"
+content-hash = "7da9b26d9f403807f98428a24b6bb168bc753ca40a116e627445297bf1429a7c"

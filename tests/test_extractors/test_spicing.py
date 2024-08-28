@@ -15,9 +15,7 @@ def test_spice_extractor(tmp_path):
         Path("tests/test_layouts/ref_ind.gds"), techno="sky130", output_path=output_path
     )
     assert output_path.exists()
-    filecmp.cmp(
-        output_path, join(dirname(__file__), "../test_extractors/ref_ind.cir")
-    )
+    filecmp.cmp(output_path, join(dirname(__file__), "../test_extractors/ref_ind.cir"))
 
 
 @pytest.mark.skipif(os.name == "nt", reason="Not working yet")
@@ -29,6 +27,4 @@ def test_spice_extractor_magic(tmp_path):
         output_path=output_path,
     )
     assert output_path.exists()
-    assert check_diff(
-        output_path, join(dirname(__file__), "ref_sky130_fd.cir")
-    )
+    assert check_diff(output_path, join(dirname(__file__), "ref_sky130_fd.cir"))

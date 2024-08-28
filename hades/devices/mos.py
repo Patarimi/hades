@@ -5,13 +5,16 @@ from pydantic import BaseModel
 class Specifications(BaseModel):
     gm_Id: float = 20
 
+
 class Dimensions(BaseModel):
     n: int = 1
     w: float = 130e-9
     le: float = 2e-6
 
+
 class Parameters(BaseModel):
     mu_ox: float
+
 
 class Mos:
     specifications: Specifications
@@ -23,7 +26,9 @@ class Mos:
         ...
 
     def update_cell(self, dimensions: Dimensions, layers: dict) -> gdstk.Cell:
-        self.dimensions = dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
+        self.dimensions = (
+            dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
+        )
         mos = gdstk.Cell("mos")
         n = self.dimensions.n
         w = self.dimensions.w * 1e6

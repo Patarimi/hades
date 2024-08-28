@@ -61,9 +61,9 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     # permeability
     mu0 = pi * 4e-7  # H/m
     # permittivity
-    eps0 = 8.854e-12  # F/m
+    # eps0 = 8.854e-12  # F/m
     # relative permittivity
-    epsr = {"metal": 1, "oxide": 4, "default": 1}
+    # epsr = {"metal": 1, "oxide": 4, "default": 1}
     # conductivity
     sigma = {"metal": 1e6, "oxide": 1e-6, "default": 1e-6}
     # frequency

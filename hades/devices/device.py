@@ -1,6 +1,6 @@
 import enum
 import logging
-from typing import Protocol, Union
+from typing import Protocol
 from enum import Enum
 import gdstk
 from pathlib import Path

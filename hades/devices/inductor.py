@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-from .device import ParamSet
 import gdstk
 from math import pi
 from pathlib import Path
@@ -8,7 +7,6 @@ from scipy.optimize import minimize_scalar
 from hades.wrappers.em import Emx
 from ..layouts.inductor import octagonal_inductor
 from ..layouts.tools import LayerStack
-from typing import Optional
 
 
 class Dimensions(BaseModel):

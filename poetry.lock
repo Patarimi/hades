@@ -325,6 +325,34 @@ test = ["Pillow", "contourpy[test-no-images]", "matplotlib"]
 test-no-images = ["pytest", "pytest-cov", "pytest-xdist", "wurlitzer"]
 
 [[package]]
+name = "CSXCAD"
+version = "0.6.3"
+description = "Python interface for the CSXCAD library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "CSXCAD-0.6.3-cp310-cp310-win_amd64.whl", hash = "sha256:f7bc620a47b80da37a796e48296f296c3ced92a1dc83c1e6c775bd4233e67ee1"},
+]
+
+[package.source]
+type = "file"
+url = "manifests/CSXCAD-0.6.3-cp310-cp310-win_amd64.whl"
+
+[[package]]
+name = "CSXCAD"
+version = "0.6.3"
+description = "Python interface for the CSXCAD library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "CSXCAD-0.6.3-cp311-cp311-win_amd64.whl", hash = "sha256:fad34f17fd09a7e6c0568cd8470cda8f113956aadc255fd6cabc1e347e297c41"},
+]
+
+[package.source]
+type = "file"
+url = "manifests/CSXCAD-0.6.3-cp311-cp311-win_amd64.whl"
+
+[[package]]
 name = "cycler"
 version = "0.12.1"
 description = "Composable style cycles"
@@ -1431,6 +1459,20 @@ files = [
 [package.source]
 type = "file"
 url = "manifests/openEMS-0.0.36-cp310-cp310-win_amd64.whl"
+
+[[package]]
+name = "openEMS"
+version = "0.0.36"
+description = "Python interface for the openEMS FDTD library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "openEMS-0.0.36-cp311-cp311-win_amd64.whl", hash = "sha256:730cf5e02889832599ee14b7747bd10e8e3ceaf1cad175e0f3ce1ade12e4b029"},
+]
+
+[package.source]
+type = "file"
+url = "manifests/openEMS-0.0.36-cp311-cp311-win_amd64.whl"
 
 [[package]]
 name = "packaging"
@@ -2595,4 +2637,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,<3.13"
-content-hash = "7da9b26d9f403807f98428a24b6bb168bc753ca40a116e627445297bf1429a7c"
+content-hash = "30465c25eb218d8f01523d01bb6ae09e96fc5c9e470917ed03dbe1791d3d970d"

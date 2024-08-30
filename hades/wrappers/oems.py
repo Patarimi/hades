@@ -1,16 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
- Bent Patch Antenna Tutorial
-
- Tested with
-  - python 3.10
-  - openEMS v0.0.35+
-
- (c) 2016-2023 Thorsten Liebig <thorsten.liebig@gmx.de>
-
-"""
-
-### Import Libraries
 import os, tempfile
 from pylab import *
 from mpl_toolkits.mplot3d import Axes3D
@@ -20,6 +7,8 @@ from CSXCAD import CSXCAD
 from openEMS.openEMS import openEMS
 from openEMS.physical_constants import *
 
+from hades.wrappers.ngsolve_w import make_geometry
+import ngsolve as ng
 
 ### Setup the simulation
 Sim_Path = os.path.join(tempfile.gettempdir(), 'Bent_Patch')
@@ -62,11 +51,12 @@ FDTD.SetGaussExcite(f0, fc)
 FDTD.SetBoundaryCond(['MUR', 'MUR', 'MUR', 'MUR', 'MUR', 'MUR']) # boundary conditions
 
 ### Setup the Geometry & Mesh
-# init a cylindrical mesh
-CSX = CSXCAD.ContinuousStructure(CoordSystem=1)
-FDTD.SetCSX(CSX)
-mesh = CSX.GetGrid()
-mesh.SetDeltaUnit(unit)
+geom = make_geometry('tests/test_layouts/ref_ind.gds')
+mesh = ng.Mesh(geom.GenerateMesh())
+mesh.ngmesh.Export('test.stl', 'STL Format')
+CSX = CSXCAD.ContinuousStructure()
+copper = CSX.AddMetal("copper")
+copper.AddPolyhedronReader("test.stl")
 
 ### Setup the geometry using cylindrical coordinates
 # calculate some width as an angle in radiant

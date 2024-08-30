@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+ Bent Patch Antenna Tutorial
+
+ Tested with
+  - python 3.10
+  - openEMS v0.0.35+
+
+ (c) 2016-2023 Thorsten Liebig <thorsten.liebig@gmx.de>
+
+"""
+
+### Import Libraries
 import os, tempfile
 from pylab import *
 from mpl_toolkits.mplot3d import Axes3D

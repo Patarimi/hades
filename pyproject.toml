@@ -34,7 +34,7 @@ log_file = "./pytest.log"
 
 
 [tool.poetry.dependencies]
-python = "^3.10,<3.13"
+python = "^3.10,<3.12"
 gdstk = "^0.9.48"
 pyyaml = "^6.0"
 scipy = "^1.12.0"
@@ -58,6 +58,7 @@ csxcad = [
     {path = "manifests/CSXCAD-0.6.3-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win64"},
     {path = "manifests/CSXCAD-0.6.3-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win64"},
     ]
+h5py = "^3.11.0"
 
 [tool.poetry.group.dev]
 optional = true

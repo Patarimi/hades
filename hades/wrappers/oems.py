@@ -12,9 +12,15 @@
 
 ### Import Libraries
 import os, tempfile
+import shutil
+from os.path import dirname
+
 from pylab import *
 from mpl_toolkits.mplot3d import Axes3D
 
+if 'OPENEMS_INSTALL_PATH' not in os.environ:
+    os.environ['OPENEMS_INSTALL_PATH'] = dirname(shutil.which("openEMS"))
+    print(os.environ['OPENEMS_INSTALL_PATH'])
 from CSXCAD import CSXCAD
 
 from openEMS.openEMS import openEMS

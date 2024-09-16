@@ -42,7 +42,7 @@ jobs:
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
     - name: Install Nix for Ubuntu
       if: ${{runner.os != 'Windows' }}
-      uses: cachix/install-nix-action@v27
+      uses: cachix/install-nix-action@V28
       with:
         nix_path: nixpkgs=channel:nixos-24.05
     - name: Config Ubuntu - Setup External Tools

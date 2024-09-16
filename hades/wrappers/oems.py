@@ -14,8 +14,8 @@ import ngsolve as ng
 Sim_Path = os.path.join(tempfile.gettempdir(), 'Bent_Patch')
 
 post_proc_only = False
-
-unit = 1e-3 # all length in mm
+refresh_mesh = False
+unit = 1e-6 # all length in mm
 
 f0 = 2.4e9 # center frequency, frequency of interest!
 lambda0 = round(C0/f0/unit) # wavelength in mm
@@ -44,80 +44,47 @@ SimBox_rad    = 2*100
 SimBox_height = 1.5*200
 
 ### Setup FDTD parameter & excitation function
-FDTD = openEMS(CoordSystem=1, EndCriteria=1e-4) # init a cylindrical FDTD
+FDTD = openEMS(CoordSystem=0, EndCriteria=1e-4) # init a cylindrical FDTD
 f0 = 2e9 # center frequency
 fc = 1e9 # 20 dB corner frequency
 FDTD.SetGaussExcite(f0, fc)
 FDTD.SetBoundaryCond(['MUR', 'MUR', 'MUR', 'MUR', 'MUR', 'MUR']) # boundary conditions
 
 ### Setup the Geometry & Mesh
-geom = make_geometry('tests/test_layouts/ref_ind.gds')
-mesh = ng.Mesh(geom.GenerateMesh())
-mesh.ngmesh.Export('test.stl', 'STL Format')
+if refresh_mesh:
+    geom = make_geometry('tests/test_layouts/ref_ind.gds', only_metal=True)
+    mesh = ng.Mesh(geom.GenerateMesh())
+    mesh.ngmesh.Export('test.stl', 'STL Format')
 CSX = CSXCAD.ContinuousStructure()
+FDTD.SetCSX(CSX)
 copper = CSX.AddMetal("copper")
-copper.AddPolyhedronReader("test.stl")
+copper.AddPolyhedronReader("test.stl", priority=10)
+FDTD.AddEdges2Grid(dirs='all', properties=copper)
 
-### Setup the geometry using cylindrical coordinates
-# calculate some width as an angle in radiant
-patch_ang_width = patch_width/(patch_radius+substrate_thickness)
-substr_ang_width = substrate_width/patch_radius
-feed_angle = feed_pos/patch_radius
-
-# create patch
-patch = CSX.AddMetal('patch') # create a perfect electric conductor (PEC)
-start = [patch_radius+substrate_thickness, -patch_ang_width/2, -patch_length/2 ]
-stop  = [patch_radius+substrate_thickness,  patch_ang_width/2,  patch_length/2 ]
-patch.AddBox(priority=10, start=start, stop=stop) # add a box-primitive to the metal property 'patch'
-FDTD.AddEdges2Grid(dirs='all', properties=patch)
 
 # create substrate
-substrate = CSX.AddMaterial('substrate', epsilon=substrate_epsR, kappa=substrate_kappa  )
-start = [patch_radius                    , -substr_ang_width/2, -substrate_length/2]
-stop  = [patch_radius+substrate_thickness,  substr_ang_width/2,  substrate_length/2]
-substrate.AddBox(start=start, stop=stop)
+substrate = CSX.AddMaterial('substrate', epsilon=substrate_epsR, kappa=substrate_kappa)
+substrate.AddBox(start=[-20, -80, 70], stop=[140, 80, 90])
 FDTD.AddEdges2Grid(dirs='all', properties=substrate)
-
-# save current density oon the patch
-jt_patch = CSX.AddDump('Jt_patch', dump_type=3, file_type=1)
-start = [patch_radius+substrate_thickness, -substr_ang_width/2, -substrate_length/2]
-stop  = [patch_radius+substrate_thickness, +substr_ang_width/2,  substrate_length/2]
-jt_patch.AddBox(start=start, stop=stop)
 
 # create ground
 gnd = CSX.AddMetal('gnd') # create a perfect electric conductor (PEC)
-start = [patch_radius, -substr_ang_width/2, -substrate_length/2]
-stop  = [patch_radius, +substr_ang_width/2, +substrate_length/2]
-gnd.AddBox(priority=10, start=start, stop=stop)
+gnd.AddBox(priority=10, start=[-20, -12.5, 81.5], stop=[-20, -7.5, 81.5])
 FDTD.AddEdges2Grid(dirs='all', properties=gnd)
 
 # apply the excitation & resist as a current source
-start = [patch_radius                    ,  feed_angle, 0]
-stop  = [patch_radius+substrate_thickness,  feed_angle, 0]
-port = FDTD.AddLumpedPort(1 ,feed_R, start, stop, 'r', 1.0, priority=50, edges2grid='all')
+start = [-20, 10, 81.5]
+stop = [-20, -10, 81.5]
+port = FDTD.AddLumpedPort(1, feed_R, start, stop, 'y', 1.0, priority=50, edges2grid='all')
 
-### Finalize the Mesh
-# add the simulation domain size
-mesh.AddLine('r', patch_radius+np.array([-20, SimBox_rad]))
-mesh.AddLine('a', [-0.75*pi, 0.75*pi])
-mesh.AddLine('z', [-SimBox_height/2, SimBox_height/2])
-
-# add some lines for the substrate
-mesh.AddLine('r', patch_radius+np.linspace(0,substrate_thickness,substrate_cells))
-
-# generate a smooth mesh with max. cell size: lambda_min / 20
-max_res = C0 / (f0+fc) / unit / 20
-max_ang = max_res/(SimBox_rad+patch_radius) # max res in radiant
-mesh.SmoothMeshLines(0, max_res, 1.4)
-mesh.SmoothMeshLines(1, max_ang, 1.4)
-mesh.SmoothMeshLines(2, max_res, 1.4)
-
+mesh = CSX.GetGrid()
+mesh.SmoothMeshLines('all', 1, 1.4)
 ## Add the nf2ff recording box
 nf2ff = FDTD.CreateNF2FFBox()
 
 ### Run the simulation
-if 0:  # debugging only
-    CSX_file = os.path.join(Sim_Path, 'bent_patch.xml')
+if 1:  # debugging only
+    CSX_file = os.path.join(Sim_Path, "bent_patch.xml")
     if not os.path.exists(Sim_Path):
         os.mkdir(Sim_Path)
     CSX.Write2XML(CSX_file)

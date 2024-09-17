@@ -11,10 +11,11 @@ from hades.wrappers.ngsolve_w import make_geometry
 import ngsolve as ng
 
 ### Setup the simulation
-Sim_Path = os.path.join(tempfile.gettempdir(), 'Bent_Patch')
+Sim_Path = './workdir/inductor'
 
 post_proc_only = False
 refresh_mesh = False
+show_model = False
 unit = 1e-6 # all length in mm
 
 f0 = 2.4e9 # center frequency, frequency of interest!
@@ -78,12 +79,12 @@ stop = [-20, -10, 81.5]
 port = FDTD.AddLumpedPort(1, feed_R, start, stop, 'y', 1.0, priority=50, edges2grid='all')
 
 mesh = CSX.GetGrid()
-mesh.SmoothMeshLines('all', 1, 1.4)
+mesh.SmoothMeshLines('all', 0.5, 1.4)
 ## Add the nf2ff recording box
 nf2ff = FDTD.CreateNF2FFBox()
 
 ### Run the simulation
-if 1:  # debugging only
+if show_model:  # debugging only
     CSX_file = os.path.join(Sim_Path, "bent_patch.xml")
     if not os.path.exists(Sim_Path):
         os.mkdir(Sim_Path)
@@ -93,7 +94,7 @@ if 1:  # debugging only
 
 
 if not post_proc_only:
-    FDTD.Run(Sim_Path, cleanup=True)
+    FDTD.Run(Sim_Path, verbose=3)
 
 ### Postprocessing & plotting
 f = np.linspace(max(1e9,f0-fc),f0+fc,401)

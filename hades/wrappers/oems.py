@@ -20,7 +20,6 @@ from mpl_toolkits.mplot3d import Axes3D
 
 if 'OPENEMS_INSTALL_PATH' not in os.environ:
     os.environ['OPENEMS_INSTALL_PATH'] = dirname(shutil.which("openEMS"))
-    print(os.environ['OPENEMS_INSTALL_PATH'])
 from CSXCAD import CSXCAD
 
 from openEMS.openEMS import openEMS
@@ -89,7 +88,7 @@ FDTD.AddEdges2Grid(dirs='all', properties=substrate)
 
 # create ground
 gnd = CSX.AddMetal('gnd') # create a perfect electric conductor (PEC)
-gnd.AddBox(priority=10, start=[-20, -12.5, 81.5], stop=[-20, -7.5, 81.5])
+gnd.AddBox(priority=10, start=[-30, -80, 70], stop=[140, 80, 70.5])
 FDTD.AddEdges2Grid(dirs='all', properties=gnd)
 
 # apply the excitation & resist as a current source
@@ -98,7 +97,8 @@ stop = [-20, -10, 81.5]
 port = FDTD.AddLumpedPort(1, feed_R, start, stop, 'y', 1.0, priority=50, edges2grid='all')
 
 mesh = CSX.GetGrid()
-mesh.SmoothMeshLines('all', 0.5, 1.4)
+mesh.SetDeltaUnit(unit)
+mesh.SmoothMeshLines('all', 5)
 ## Add the nf2ff recording box
 nf2ff = FDTD.CreateNF2FFBox()
 
@@ -113,7 +113,7 @@ if show_model:  # debugging only
 
 
 if not post_proc_only:
-    FDTD.Run(Sim_Path, verbose=3)
+    FDTD.Run(Sim_Path)
 
 ### Postprocessing & plotting
 f = np.linspace(max(1e9,f0-fc),f0+fc,401)
@@ -143,7 +143,7 @@ legend( )
 
 idx = np.where((s11_dB<-10) & (s11_dB==np.min(s11_dB)))[0]
 if not len(idx)==1:
-    print('No resonance frequency found for far-field calulation')
+    print('No resonance frequency found for far-field calculation')
 else:
     f_res = f[idx[0]]
     theta = np.arange(-180.0, 180.0, 2.0)

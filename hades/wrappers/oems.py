@@ -70,10 +70,10 @@ substrate.AddBox(start=[-25, -80, 70], stop=[140, 80, 90])
 FDTD.AddEdges2Grid(dirs="all", properties=substrate)
 
 # apply the excitation & resist as a current source
-start = [-20, 10, 81.5]
-stop = [-20, -10, 81.5]
+start = [-20, 10, 81]
+stop = [-21, -10, 82]
 port = FDTD.AddLumpedPort(
-    1, 50, start, stop, "y", 1.0, priority=50, edges2grid="all"
+    1, 50, start, stop, "y", 1.0, priority=500, edges2grid="all"
 )
 
 mesh = CSX.GetGrid()
@@ -102,13 +102,15 @@ s11 = port.uf_ref / port.uf_inc
 s11_dB = 20.0 * np.log10(np.abs(s11))
 
 # plot feed point impedance
-fig, ax1 = plt.subplots()
-ax1.plot(f / 1e6, np.real(Zin), "k-", linewidth=2, label=r"$\Re(Z_{in})$")
-plt.grid()
-ax2 = ax1.twinx()
-ax2.plot(f / 1e6, 1e6 * np.imag(Zin) / (2*np.pi*f), "r--", linewidth=2, label=r"$\Im(Z_{in})$")
+fig, ax = plt.subplots(2,1)
 plt.title("feed point impedance")
+ax[0].plot(f / 1e6, np.real(Zin), "k-", linewidth=2, label=r"$\Re(Z_{in})$")
+plt.grid()
+ax[0].legend()
+ax[0].grid()
+ax[1].plot(f / 1e6, np.imag(Zin) / (2*np.pi*f), "r--", linewidth=2, label=r"$\Im(Z_{in})$")
 plt.xlabel("frequency (MHz)")
-plt.ylabel("impedance ($\Omega$)")
+plt.ylabel("Inductance ($H$)")
 plt.legend()
+plt.tight_layout()
 plt.show()

@@ -21,7 +21,7 @@ from openEMS.physical_constants import *
 
 # preview model/mesh only?
 # postprocess existing data without re-running simulation?
-preview_only = True
+preview_only = False
 postprocess_only = False
 
 # get *.py model path and put simulation files in data directory below

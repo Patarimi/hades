@@ -15,7 +15,6 @@ if "OPENEMS_INSTALL_PATH" not in os.environ:
 
 from CSXCAD import CSXCAD
 from openEMS.openEMS import openEMS
-from openEMS.physical_constants import EPS0, C0
 
 from hades.wrappers.ngsolve_w import make_geometry
 from hades.layouts.tools import Port
@@ -33,7 +32,7 @@ def compute(
     ...
 
 ### Setup the simulation
-Sim_Path = ".\workdir\inductor"
+Sim_Path = ".\inductor"
 
 post_proc_only = False
 refresh_mesh = False
@@ -45,7 +44,6 @@ fc = 0.5e9  # 20 dB corner frequency
 
 # substrate setup
 substrate_epsR = 3.38
-substrate_kappa = 1e-3 * 2 * np.pi * 2.45e9 * EPS0 * substrate_epsR
 
 ### Setup FDTD parameter & excitation function
 FDTD = openEMS(CoordSystem=0, EndCriteria=1e-4)  # init a rectangular FDTD
@@ -54,26 +52,26 @@ FDTD.SetBoundaryCond(["MUR", "MUR", "MUR", "MUR", "MUR", "MUR"])  # boundary con
 
 ### Setup the Geometry & Mesh
 if refresh_mesh:
-    geom = make_geometry("tests/test_layouts/ref_ind.gds", only_metal=True)
+    geom = make_geometry("../tests/test_layouts/ref_ind.gds", only_metal=True)
     mesh = ng.Mesh(geom.GenerateMesh())
     mesh.ngmesh.Export("test.stl", "STL Format")
 CSX = CSXCAD.ContinuousStructure()
 FDTD.SetCSX(CSX)
-copper = CSX.AddMetal("copper")
+copper = CSX.AddMaterial("copper", kappa=3.0300E7)
 copper.AddPolyhedronReader("test.stl", priority=10)
 FDTD.AddEdges2Grid(dirs="all", properties=copper)
 
 
 # create substrate
-substrate = CSX.AddMaterial("substrate", epsilon=substrate_epsR, kappa=substrate_kappa)
+substrate = CSX.AddMaterial("substrate", epsilon=substrate_epsR)
 substrate.AddBox(start=[-25, -80, 70], stop=[140, 80, 90])
 FDTD.AddEdges2Grid(dirs="all", properties=substrate)
 
 # apply the excitation & resist as a current source
-start = [-20.5, 10, 81]
-stop = [-19.5, -10, 82]
+start = [-20.1, 11, 81]
+stop = [-19.9, -11, 82]
 port = FDTD.AddLumpedPort(
-    1, 50, start, stop, "y", 1.0, priority=500, edges2grid="all"
+    1, 50, start, stop, "x", 1.0, priority=500, edges2grid="all"
 )
 
 mesh = CSX.GetGrid()

@@ -70,15 +70,15 @@ substrate.AddBox(start=[-25, -80, 70], stop=[140, 80, 90])
 FDTD.AddEdges2Grid(dirs="all", properties=substrate)
 
 # apply the excitation & resist as a current source
-start = [-20, 10, 81]
-stop = [-21, -10, 82]
+start = [-20.5, 10, 81]
+stop = [-19.5, -10, 82]
 port = FDTD.AddLumpedPort(
     1, 50, start, stop, "y", 1.0, priority=500, edges2grid="all"
 )
 
 mesh = CSX.GetGrid()
 mesh.SetDeltaUnit(unit)
-mesh.SmoothMeshLines("all", 5)
+mesh.SmoothMeshLines("all", 1)
 
 ### Run the simulation
 if show_model:  # debugging only

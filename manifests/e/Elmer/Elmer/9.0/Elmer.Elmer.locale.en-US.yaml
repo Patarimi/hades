@@ -1,0 +1,12 @@
+# Created using wingetcreate 1.6.5.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+
+PackageIdentifier: Elmer.Elmer
+PackageVersion: "9.0"
+PackageLocale: en-US
+Publisher: Elmer
+PackageName: Elmer
+License: CC BY-NC 3.0
+ShortDescription: Elmer is a finite element software package for the solution of partial differential equations.
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

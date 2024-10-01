@@ -39,6 +39,8 @@ jobs:
         dir
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
+        winget install -m .\manifests\e\Elmer\Elmer\9.0
+        winget install KitWare.ParaView
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
     - name: Install Nix for Ubuntu
       if: ${{runner.os != 'Windows' }}

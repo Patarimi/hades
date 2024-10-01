@@ -1,0 +1,12 @@
+# Created using wingetcreate 1.6.5.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.6.0.schema.json
+
+PackageIdentifier: Elmer.Elmer
+PackageVersion: "9.0"
+InstallerType: nullsoft
+Installers:
+- InstallerUrl: https://www.nic.funet.fi/pub/sci/physics/elmer/bin/windows/ElmerFEM-nogui-nompi-Windows-AMD64.exe
+  Architecture: x64
+  InstallerSha256: 742F0A06817E4AA3CAA58165332FC5E47ED80F531EA55110C3F75754CBE4E350
+ManifestType: installer
+ManifestVersion: 1.6.0

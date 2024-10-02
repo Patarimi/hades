@@ -2,12 +2,13 @@
 ### Import Libraries
 import os
 import shutil
+import sys
 from os.path import dirname
 from pathlib import Path
 from typing import Optional
 from skrf import Network
-import matplotlib.pyplot as plt
 import numpy as np
+from rich import print
 
 # define OPENEMS variable for correct CSXCAD import
 if "OPENEMS_INSTALL_PATH" not in os.environ:
@@ -26,12 +27,26 @@ def compute(
         cell_name: str,
         freq: float | tuple[float],
         ports: Optional[list[Port | str]] = None,
-        **options,
+        refresh_mesh: bool = True,
+        sim_path: Optional[Path] = Path("./."),
+        show_model: bool = False,
+        skip_run: bool = False,
 ):
-    ### Setup the simulation
-    Sim_Path = ".\inductor"
-
-    refresh_mesh = False
+    """
+    Run the simulation using openEMS
+    :param input_file: gds file to be simulated.
+    :param cell_name: name of the cell to simulate (default value: top cell of the layout)
+    :param freq: frequency of the simulation.
+    - If one frequency is given, simulate from 0 to the given frequency.
+    - If a tuple of two frequencies is given, simulate from the first to the second frequency.
+    :param ports: list of ports to be used in simulation. Ports name and ref must be labels in the layout.
+        If ports are not given, all the ports in the layout will be used.
+    :param refresh_mesh: if True, the mesh will be refreshed before the simulation.
+    :param sim_path: path to the simulation folder. If not given, the simulation will be done in the current folder.
+    :param show_model: if True, the model will be shown before the simulation.
+    :param skip_run: if True, the simulation will be skipped. Results will be loaded from the simulation folder.
+    :return: Network object containing the simulation results.
+    """
     unit = 1e-6  # all length in um
 
     # substrate setup
@@ -84,58 +99,26 @@ def compute(
     mesh.SmoothMeshLines("all", 10)
 
     ### Run the simulation
-    if "show_model" in options and options["show_model"]:  # debugging only
-        CSX_file = os.path.join(Sim_Path, "bent_patch.xml")
-        if not os.path.exists(Sim_Path):
-            os.mkdir(Sim_Path)
+    if show_model:
+        CSX_file = os.path.join(sim_path, "bent_patch.xml")
+        if not os.path.exists(sim_path):
+            os.mkdir(sim_path)
         CSX.Write2XML(CSX_file)
         from CSXCAD import AppCSXCAD_BIN
 
         os.system(AppCSXCAD_BIN + ' "{}"'.format(CSX_file))
 
-    if "post_proc_only" not in options or not options["post_proc_only"]:
-        FDTD.Run(Sim_Path)
+    if not skip_run:
+        try:
+            FDTD.Run(sim_path)
+        except AssertionError as e:
+            print("Error during OpenEMS run, try :[italic]python -O " + " ".join(sys.argv) + "[/italic]")
+            raise e
 
     ### Postprocessing & plotting
     f = np.linspace(f_start, f_stop, 401)
-    port.CalcPort(Sim_Path, f)
+    port.CalcPort(sim_path, f)
     result = Network()
     result.frequency = f
     result.s = port.uf_ref / port.uf_inc
     return result
-
-
-if __name__ == "__main__":
-    post_proc_only = False
-    if not post_proc_only:
-        s_res = compute(
-            Path("../tests/test_layouts/ref_ind.gds"),
-            "inductor",
-            (0, 5e9),
-            ports=[Port("in")],
-            unit=1e-6,
-            options={
-                "show_model": False,
-                "post_proc_only": True,
-            }
-        )
-        s_res.write_touchstone("inductor.s2p")
-    else:
-        s_res = Network("inductor.s2p")
-
-    Zin = s_res.z
-    f = s_res.frequencyff
-
-    # plot feed point impedance
-    fig, ax = plt.subplots(2,1)
-    plt.title("feed point impedance")
-    ax[0].plot(f / 1e6, np.real(Zin), "k-", linewidth=2, label=r"$\Re(Z_{in})$")
-    plt.grid()
-    ax[0].legend()
-    ax[0].grid()
-    ax[1].plot(f / 1e6, np.imag(Zin) / (2*np.pi*f), "r--", linewidth=2, label=r"$\Im(Z_{in})$")
-    plt.xlabel("frequency (MHz)")
-    plt.ylabel("Inductance ($H$)")
-    plt.legend()
-    plt.tight_layout()
-    plt.show()

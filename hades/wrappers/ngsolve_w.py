@@ -49,6 +49,19 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
     return occ.OCCGeometry(occ.Glue([metal, oxide - metal]))
 
 
+def write_stl(gds_file: Path, stack: LayerStack, stl_file: Path = Path("./model.stl")) -> None:
+    """
+    Write a stl file from a gds file.
+    :param gds_file: Input file to be simulated
+    :param stack: Layer Stack use to construct the 3D model
+    :param stl_file: Output file
+    :return: None
+    """
+    geom = make_geometry(gds_file, stack)
+    mesh = geom.GenerateMesh()
+    mesh.Export(str(stl_file), format="STL Format")
+
+
 def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     """
     [WIP] Help Needed.
@@ -78,6 +91,7 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     sigma_coeff = ng.CoefficientFunction([sigma[mat] for mat in mesh.GetMaterials()])
 
     # Magnetic vector potential
+    # see https://www.nic.funet.fi/index/elmer/doc/ElmerModelsManual.pdf (p144)
     a_vec = ng.BilinearForm(fes, symmetric=True, condense=True)
     a_vec += 1 / mu0 * ng.curl(u) * ng.curl(v) * ng.dx
     a_vec += 1j * omega * sigma_coeff * u * v * ng.dx

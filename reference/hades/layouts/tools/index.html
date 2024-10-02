@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.3cba04c6.min.css">
       
       
 
@@ -435,16 +435,88 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../extractors/" class="md-nav__link">
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../extractors/" class="md-nav__link ">
+              
   
   <span class="md-ellipsis">
     extractors
   </span>
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1_3" id="__nav_3_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            extractors
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extractors/spicing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    spicing
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extractors/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1087,6 +1159,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../wrappers/ngsolve_w/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ngsolve_w
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../wrappers/ngspice/" class="md-nav__link">
         
   
@@ -1113,6 +1206,27 @@
   
   <span class="md-ellipsis">
     simulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wrappers/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools
   </span>
   
 
@@ -1291,6 +1405,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
+                  <code>bool</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1303,7 +1418,9 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\tools.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">155</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
 <span class="normal">158</span>
@@ -1313,41 +1430,19 @@
 <span class="normal">162</span>
 <span class="normal">163</span>
 <span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">check_diff</span><span class="p">(</span><span class="n">gds1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span> <span class="n">gds2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
+<span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">check_diff</span><span class="p">(</span><span class="n">gds1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span> <span class="n">gds2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Test if the 2 gds files are the same. Raise error if they differ.</span>
 <span class="sd">    :param gds1: path of the first gds</span>
 <span class="sd">    :param gds2: path of the second gds</span>
 <span class="sd">    :return: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;strmxor </span><span class="si">{</span><span class="n">gds1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">gds2</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;klayout&quot;</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;strmxor&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;strmxor not found. Please install it.&quot;</span><span class="p">)</span>
-            <span class="k">return</span>
-        <span class="c1"># for CI</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LD_LIBRARY_PATH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/usr/lib/klayout&quot;</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;/usr/lib/klayout/&quot;</span> <span class="o">+</span> <span class="n">cmd</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">out_mess</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin&quot;</span><span class="p">)</span>
-        <span class="n">err_mess</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="n">cmd</span> <span class="o">+</span> <span class="s2">&quot;failed with:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">out_mess</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">err_mess</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">------&quot;</span>
-        <span class="p">)</span>
+    <span class="n">cell1</span> <span class="o">=</span> <span class="n">kdb</span><span class="o">.</span><span class="n">Layout</span><span class="p">()</span>
+    <span class="n">cell1</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gds1</span><span class="p">))</span>
+    <span class="n">cell2</span> <span class="o">=</span> <span class="n">kdb</span><span class="o">.</span><span class="n">Layout</span><span class="p">()</span>
+    <span class="n">cell2</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gds2</span><span class="p">))</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">kdb</span><span class="o">.</span><span class="n">LayoutDiff</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">diff</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">cell1</span><span class="p">,</span> <span class="n">cell2</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1410,7 +1505,7 @@
     <script id="__config" type="application/json">{"base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.af256bd8.min.js"></script>
       
     
   </body>

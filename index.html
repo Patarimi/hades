@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.3cba04c6.min.css">
       
       
 
@@ -523,16 +523,88 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="reference/hades/extractors/" class="md-nav__link">
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="reference/hades/extractors/" class="md-nav__link ">
+              
   
   <span class="md-ellipsis">
     extractors
   </span>
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1_3" id="__nav_3_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            extractors
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/hades/extractors/spicing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    spicing
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/hades/extractors/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1119,6 +1191,27 @@
   
   
     <li class="md-nav__item">
+      <a href="reference/hades/wrappers/ngsolve_w/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ngsolve_w
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="reference/hades/wrappers/ngspice/" class="md-nav__link">
         
   
@@ -1145,6 +1238,27 @@
   
   <span class="md-ellipsis">
     simulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/hades/wrappers/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tools
   </span>
   
 
@@ -1282,23 +1396,18 @@ software-agnostic design flow, from device sizing to layout and implementation.<
 <div class="highlight"><pre><span></span><code>pipx<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Patarimi/hades
 </code></pre></div>
 <h2 id="design-flow">Design flow<a class="headerlink" href="#design-flow" title="Permanent link">&para;</a></h2>
-<p>Starting from the specifications written in a design.yml file, the following flow is run <a href="#working-directory">see</a>.</p>
-<pre class="mermaid"><code>stateDiagram
-    [*] --&gt; app: specifications (.yml)
-    app: approximate model
-    pl: parametric layouts
-    app --&gt; pl: dimensions
-    sim: extraction of obtained spec.
-    pl --&gt; sim: geometries (.gdsII)
-    pdk --&gt; sim: process (.proc)
-    pdk --&gt; pl: LayerStack
-    cal: calibrator
-    state atSpec &lt;&lt;choice&gt;&gt;
-    sim --&gt; atSpec: obtained specifications (.sNp or dataframe)
-    atSpec --&gt; [*]: at spec
-    atSpec --&gt; cal: not at spec
-    app --&gt; cal: dimensions
-    cal --&gt; app: updated parameters</code></pre>
+<p>Starting from the specifications written in a design.yml or a python file, the following flow is run <a href="#working-directory">see</a>.</p>
+<pre class="mermaid"><code>flowchart TD
+    start -- "specifications (.yml)" --&gt; app["Physical Model\n(hades.devices)"]
+    app --dimensions --&gt; pl["Parametric Layout\n(gdstk + hades.layouts)"]
+    pl --"geometries (.gdsII)" --&gt; be_sim["RC extraction up to Mx\n(Magic-VLSI)"]
+    pl --"geometries (.gdsII)" --&gt; fe_sim["3D simulation from Mx\n(OpenEMS)"]
+    fe_sim -- "touchstone (.sNp)" --&gt; ext["Spice simulation and spec. extraction.\n(NGSpice + Scikit-RF)"]
+    be_sim --"netlist (.cir)" --&gt; ext
+    ext --"Performances (.yml)" --&gt; atSpec{"Perf = Spec ?"}
+    atSpec --&gt; |Yes| stop
+    atSpec --&gt; |No| cal["Model Calibrator\n(hades.calibrator)"]
+    cal --"Locally Optimized Parameters" --&gt; app</code></pre>
 <p>When finished, a <em>.gds</em> file is available for further design.</p>
 <h2 id="simulators-and-pdks-configuration">Simulators and PDKs configuration<a class="headerlink" href="#simulators-and-pdks-configuration" title="Permanent link">&para;</a></h2>
 <p>The simulator can be configured using:</p>
@@ -1390,7 +1499,7 @@ Install hades with optional group dev :</p>
     <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="assets/javascripts/bundle.af256bd8.min.js"></script>
       
     
   </body>

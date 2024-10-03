@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+import os, shutil
 from pylab import *
-
+# define OPENEMS variable for correct CSXCAD import
+if "OPENEMS_INSTALL_PATH" not in os.environ:
+    os.environ["OPENEMS_INSTALL_PATH"] = os.path.dirname(shutil.which("openEMS"))
 from CSXCAD  import ContinuousStructure
 from openEMS import openEMS
 from openEMS.physical_constants import *

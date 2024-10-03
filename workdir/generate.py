@@ -19,14 +19,14 @@ if __name__ == "__main__":
             sim_path="./inductor",
             refresh_mesh=False,
             show_model=True,
-            skip_run=True,
+            skip_run=False,
         )
-        s_res.write_touchstone("inductor.s2p")
+        s_res.write_touchstone("inductor")
     else:
-        s_res = Network("inductor.s2p")
+        s_res = Network("inductor")
 
-    Zin = s_res.z
-    f = s_res.frequency
+    Zin = s_res.z[:, 0, 0]
+    f = s_res.frequency.f
 
     # plot feed point impedance
     fig, ax = plt.subplots(2, 1)

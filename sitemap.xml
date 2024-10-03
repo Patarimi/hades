@@ -2,197 +2,162 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://patarimi.github.io/hades/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/CLI-ref/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/SUMMARY/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/main/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/techno/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/calibrators/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/device/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/inductor/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/micro_strip/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/devices/mos/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/extractors/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/extractors/spicing/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/extractors/tools/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/layouts/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/layouts/general/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/layouts/inductor/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/layouts/microstrip/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/layouts/tools/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/models/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/models/filter/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/models/inductor/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/models/matching/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/models/micro_strip/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/models/tools/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/parsers/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/parsers/layermap/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/parsers/netlist/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/parsers/raw/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/parsers/spice/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/parsers/tlef/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/parsers/tools/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/wrappers/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/wrappers/em/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
+    </url>
+    <url>
+         <loc>https://patarimi.github.io/hades/reference/hades/wrappers/gmsh/</loc>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/wrappers/ngsolve_w/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/wrappers/ngspice/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/wrappers/simulator/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
     <url>
          <loc>https://patarimi.github.io/hades/reference/hades/wrappers/tools/</loc>
-         <lastmod>2024-10-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2024-10-03</lastmod>
     </url>
 </urlset>

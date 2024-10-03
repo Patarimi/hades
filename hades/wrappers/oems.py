@@ -59,12 +59,15 @@ def compute(
             f_start = freq[0]
             f_stop = f_start
             FDTD.SetSinusExcite(f_start)
+            print("Using Sinusoidal Excitation")
         else:
             f_start, f_stop = np.min(freq), np.max(freq)
             FDTD.SetGaussExcite((f_start + f_stop) / 2, (f_stop - f_start) / 2)
+            print("Using Gaussian Pulse Excitation")
     else:
-        f0 = freq
-        FDTD.SetDiracExcite(f0)
+        f_start, f_stop = 0, freq
+        FDTD.SetDiracExcite(f_stop)
+        print("Using Dirac Pulse Excitation")
 
     FDTD.SetBoundaryCond(["MUR", "MUR", "MUR", "MUR", "MUR", "MUR"])  # boundary conditions
 
@@ -84,19 +87,24 @@ def compute(
 
     # create substrate
     substrate = CSX.AddMaterial("substrate", epsilon=substrate_epsR)
-    substrate.AddBox(start=[-25, -80, 70], stop=[140, 80, 90])
+    substrate.AddBox(start=[-25, -80, 70], stop=[140, 80, 90], priority=1)
     FDTD.AddEdges2Grid(dirs="all", properties=substrate)
 
     # apply the excitation & resist as a current source
-    start = [-20.1, 11, 81]
-    stop = [-19.9, -11, 82]
+    wavelength_air = (3e8 / unit) / f_stop
+    max_cellsize = np.minimum(0.2, wavelength_air / (np.sqrt(substrate_epsR) * 100))
+    print(max_cellsize)
+    start = [-20, 11, 81]
+    stop = [-20+max_cellsize, -11, 82]
     port = FDTD.AddLumpedPort(
-        1, 50, start, stop, "x", 1.0, priority=500, edges2grid="all"
+        1, 50, start, stop, "y", 1.0, priority=5, edges2grid="all"
     )
 
     mesh = CSX.GetGrid()
     mesh.SetDeltaUnit(unit)
-    mesh.SmoothMeshLines("all", 10)
+    mesh.SmoothMeshLines("z", 3*max_cellsize)
+    mesh.SmoothMeshLines("x", max_cellsize)
+    mesh.SmoothMeshLines("y", max_cellsize)
 
     ### Run the simulation
     if show_model:

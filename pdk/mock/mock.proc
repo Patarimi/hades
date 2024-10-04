@@ -1,0 +1,42 @@
+assume microns # all lengths in microns
+
+# define the layers
+# the syntax is:
+# define <name> = L<layer number>T<layer type>
+# boolean operators are supported:
+# * = AND
+# - = AND NOT
+# todo: handle * and -
+define poly    = L1T0
+define metal1  = L34T0
+define metal2  = L2T0
+define metal4  = L46T0
+define metal5  = L81T0
+define pad     = L1T0
+define con     = L42T0
+define via1    = L35T0
+define via2    = L12T0
+define via4    = L41T0
+define opening = L35T0
+
+# layer define a dielectric region
+# the syntax is:
+# layer <thickness> <relative permittivity> <permeability = 1> <resistivity = 0> [tan delta <loss tangent>]
+layer 500 11.9 1 5 ohm-cm
+layer 5 4.3
+    conductor 0.3 50 ohm/sq sub
+    offset 0.6
+    conductor 0.5 3.5e5 poly
+    offset 1
+    conductor 1 2.5e7 metal1
+    offset 1.5
+    conductor 1 2.5e7 metal2
+layer 1 3.9
+    conductor 1.5 2.5e7 metal3
+layer 1 7.0
+layer infinity 1.0
+
+via sub m1 2.5e5 con
+via m1 m2 2.5e5 v12
+via m2 m3 2.5e5 v23
+

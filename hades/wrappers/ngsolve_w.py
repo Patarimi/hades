@@ -92,6 +92,9 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
 
     # Magnetic vector potential
     # see https://www.nic.funet.fi/index/elmer/doc/ElmerModelsManual.pdf (p144)
+    # see https://youtu.be/jDvbnaJqkZY?si=fF6g0qdabd4LvxgT&t=777
+    # $\Delta \vec{A} + \omega ^2 \mu \epsilon_0 \epsilon_r \vec{A} = -\mu \vec{J}$
+    # $\Delta V + \omega ^2 \mu \epsilon_0 \epsilon_r V = -\frac \rho \epsilon$
     a_vec = ng.BilinearForm(fes, symmetric=True, condense=True)
     a_vec += 1 / mu0 * ng.curl(u) * ng.curl(v) * ng.dx
     a_vec += 1j * omega * sigma_coeff * u * v * ng.dx

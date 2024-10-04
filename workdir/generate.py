@@ -1,6 +1,6 @@
-from hades.devices.device import generate, Step
-from hades.devices.inductor import Specifications, Inductor
+from pathlib import Path
+from hades.wrappers.ngsolve_w import compute, make_geometry
 
-spec = Specifications(L=1e-9, f_0 = 1e9)
 
-generate(Inductor("test", "sky130"), spec, stop=Step.dimensions)
+geom = make_geometry(Path("test.gds"))
+compute(geom, 2e9, debug=True)

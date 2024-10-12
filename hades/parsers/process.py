@@ -93,12 +93,9 @@ class Process(Transformer):
         )
 
     def start(self, start):
-        return self.DielectricLayers, self.MetalLayers, self.scale
+        return self.DielectricLayers, self.MetalLayers
 
 
 def layer_stack(proc_file: Path):
     t = parse(proc_file, "process")
     return Process().transform(t)
-
-if __name__ == "__main__":
-    print(layer_stack(Path("pdk/mock/mock.proc")))

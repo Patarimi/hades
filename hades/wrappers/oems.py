@@ -130,3 +130,57 @@ def compute(
     result.frequency = f
     result.s = port.uf_ref / port.uf_inc
     return result
+
+def make_geometry(gds_file: Path, fdtd = None, tech: str="mock", *, show_model=False, sim_path: Path = None) -> CSXCAD.ContinuousStructure:
+    gdsii = read_gds(gds_file).cells[0]
+
+    CSX = CSXCAD.ContinuousStructure()
+    if sim_path is None:
+        sim_path = gds_file.parent
+
+    proc_file = get_file(tech, "process")
+    diels, metals = layer_stack(proc_file)
+
+
+    print(metals)
+    altitude = 0
+    csx_metal = dict()
+    for name in metals:
+        layer_n = int(metals[name].definition.strip("L").split("T")[0])
+        csx_metal[layer_n] = (CSX.AddMaterial(name, kappa=metals[name].conductivity),
+            altitude,
+            metals[name].height)
+        altitude += metals[name].height
+    print(csx_metal)
+
+    for polygon in gdsii.polygons:
+        if polygon.layer not in csx_metal.keys():
+            print(f"Skipping layer {polygon.layer}/{polygon.datatype}")
+            continue
+        material, elevation, height = csx_metal[polygon.layer]
+        x = [p[0] for p in polygon.points]
+        y = [p[1] for p in polygon.points]
+        material.AddLinPoly(points=[x, y], priority=200, norm_dir='z', elevation=elevation,
+                            length=height)
+
+
+    # Building Dielectric layers
+    altitude = 0
+    for i, diel in enumerate(diels):
+        sub = CSX.AddMaterial(f"diel_{i}", epsilon=diel.permittivity)
+        sub.AddBox(start=[-25, -80, altitude],
+                   stop=[140, 80, altitude+ diel.height if diel.height != inf else 2*altitude],
+                   priority=1)
+        altitude += diel.height
+
+
+    if show_model:
+        CSX_file = os.path.join(sim_path, "bent_patch.xml")
+        if not os.path.exists(sim_path):
+            os.mkdir(sim_path)
+        CSX.Write2XML(CSX_file)
+        from CSXCAD import AppCSXCAD_BIN
+
+        os.system(AppCSXCAD_BIN + ' "{}"'.format(CSX_file))
+
+    return CSX

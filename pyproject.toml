@@ -34,7 +34,7 @@ log_file = "./pytest.log"
 
 
 [tool.poetry.dependencies]
-python = "^3.10,<3.13"
+python = "^3.10,<3.12"
 gdstk = "^0.9.48"
 pyyaml = "^6.0"
 scipy = "^1.12.0"
@@ -50,6 +50,15 @@ wget = "^3.2"
 klayout = "^0.29.5"
 ngsolve = "^6.2.2404.post51"
 pydantic = "^2.8.2"
+openems = [
+    {path = "manifests/openEMS-0.0.36-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win64"},
+    {path = "manifests/openEMS-0.0.36-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win64"},
+    ]
+csxcad = [
+    {path = "manifests/CSXCAD-0.6.3-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win64"},
+    {path = "manifests/CSXCAD-0.6.3-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win64"},
+    ]
+h5py = "^3.11.0"
 
 [tool.poetry.group.dev]
 optional = true

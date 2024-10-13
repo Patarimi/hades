@@ -1,4 +1,4 @@
-from hades.techno import list_pdk, load_pdk
+from hades.techno import list_pdk, load_pdk, get_file
 
 pdk_exp = ["sky130", "asap7", "gf180mcu"]
 
@@ -13,5 +13,5 @@ def test_list_pdk():
 def test_load_pdk():
     for pdk in pdk_exp:
         tech = load_pdk(pdk)
-        print(tech["source_url"])
         assert isinstance(tech, dict)
+        get_file(pdk, "process")

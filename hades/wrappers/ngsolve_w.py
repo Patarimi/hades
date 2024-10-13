@@ -10,7 +10,7 @@ from numpy import sign
 NGGeom = csg.CSGeometry | occ.OCCGeometry
 
 
-def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NGGeom:
+def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1, only_metal=False) -> NGGeom:
     """
     Make a netgen geometry from a gds file.
     :param gds_file: Input file to be simulated
@@ -40,6 +40,8 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1) -> NG
         tuple([(1 - sign(lim) * margin) * lim for lim in limit[0]]),
         tuple([(1 + sign(lim) * margin) * lim for lim in limit[1]]),
     ]
+    if only_metal:
+        return occ.OCCGeometry(metal)
     oxide = occ.Box(*lim_margin).mat("oxide")
     oxide.faces.name = "oxide"
     oxide.solids.name = "oxide"

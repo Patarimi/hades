@@ -1,0 +1,22 @@
+start: (layer | assume | define | via)+
+
+assume: "assume" _SEP UNIT
+layer: "layer" _SEP VALUE _SEP NUMBER (_SEP NUMBER (_SEP UNIT)?)* ("tan delta" _SEP NUMBER)? _SEP? conductor*
+conductor: "conductor" _SEP NUMBER (_SEP NUMBER (_SEP UNIT)?)* _SEP NAME _SEP? OFFSET?
+via: "via" _SEP NAME _SEP NAME _SEP NUMBER _SEP NAME _SEP?
+
+OFFSET: "offset" _SEP NUMBER (_SEP UNIT)? _SEP?
+define: "define" _SEP NAME _SEP "=" _SEP EQUATION _SEP?
+EQUATION: REFERENCE ("*"|"-" REFERENCE)?
+VALUE: (NUMBER|"infinity")
+REFERENCE: "L" INT "T" INT
+NAME: LETTER+ INT?
+COMMENT: (" "|/\t/)* "#" /./* NEWLINE
+UNIT: ("ohm-cm" | "microns" | "ohm/sq")
+
+_SEP: (" "|/\t/|NEWLINE)+
+%import common.NUMBER
+%import common.INT
+%import common.LETTER
+%import common.NEWLINE
+%ignore COMMENT

@@ -44,7 +44,7 @@ jobs:
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\OpenEMS.OpenEMS__DefaultSource\OpenEMS"
     - name: Install Nix for Ubuntu
       if: ${{runner.os != 'Windows' }}
-      uses: cachix/install-nix-action@v27
+      uses: cachix/install-nix-action@v30
       with:
         nix_path: nixpkgs=channel:nixos-24.05
     - name: Config Ubuntu - Setup External Tools

@@ -12,18 +12,22 @@ from ..layouts.microstrip import straight_line
 from ..layouts.tools import LayerStack
 from typing import Optional
 
+
 class Specifications(BaseModel):
     Z_c: float = 50
     F_c: float = 1e9
     phi: float = 90
 
+
 class Parameters(BaseModel):
     eps: float = 4
     height: float = 9.11e-6
 
+
 class Dimensions(BaseModel):
     W: float
     L: float = 10e-6
+
 
 class MicroStrip:
     name: str
@@ -42,9 +46,15 @@ class MicroStrip:
         self.em = Emx()
         self.em.prepare(techno)
 
-    def update_model(self, specifications: Optional[Specifications] = None) -> Dimensions:
+    def update_model(
+        self, specifications: Optional[Specifications] = None
+    ) -> Dimensions:
         if specifications is not None:
-            self.specifications = specifications if type(specifications) is Specifications else Specifications(**specifications)
+            self.specifications = (
+                specifications
+                if type(specifications) is Specifications
+                else Specifications(**specifications)
+            )
         # todo: extract h et epsilon from proc_file
         self.dimensions = Dimensions(W=1e-6)
         eps = self.parameters.eps
@@ -66,7 +76,9 @@ class MicroStrip:
         return self.dimensions
 
     def update_cell(self, dimensions: Dimensions) -> gdstk.Cell:
-        self.dimensions = dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
+        self.dimensions = (
+            dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
+        )
         ms = straight_line(
             width=self.dimensions.W,
             length=self.dimensions.L,
@@ -81,7 +93,7 @@ class MicroStrip:
         z_c = sqrt(
             1 / (res.y[0, 0, 0] * res.y[0, 1, 1] - res.y[0, 1, 0] * res.y[0, 0, 1])
         ).real
-        return Specifications(z_c = z_c, f_c = f_0, phi = phi)
+        return Specifications(z_c=z_c, f_c=f_0, phi=phi)
 
     def recalibrate_model(self, performances: Specifications) -> Parameters:
         def cost(eps):

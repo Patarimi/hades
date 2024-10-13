@@ -51,6 +51,19 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1, only_
     return occ.OCCGeometry(occ.Glue([metal, oxide - metal]))
 
 
+def write_stl(gds_file: Path, stack: LayerStack, stl_file: Path = Path("./model.stl")) -> None:
+    """
+    Write a stl file from a gds file.
+    :param gds_file: Input file to be simulated
+    :param stack: Layer Stack use to construct the 3D model
+    :param stl_file: Output file
+    :return: None
+    """
+    geom = make_geometry(gds_file, stack)
+    mesh = geom.GenerateMesh()
+    mesh.Export(str(stl_file), format="STL Format")
+
+
 def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     """
     [WIP] Help Needed.
@@ -63,9 +76,9 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     # permeability
     mu0 = pi * 4e-7  # H/m
     # permittivity
-    eps0 = 8.854e-12  # F/m
+    # eps0 = 8.854e-12  # F/m
     # relative permittivity
-    epsr = {"metal": 1, "oxide": 4, "default": 1}
+    # epsr = {"metal": 1, "oxide": 4, "default": 1}
     # conductivity
     sigma = {"metal": 1e6, "oxide": 1e-6, "default": 1e-6}
     # frequency
@@ -80,6 +93,10 @@ def compute(geom: NGGeom, freq: float = 1e9, *, debug: bool = False):
     sigma_coeff = ng.CoefficientFunction([sigma[mat] for mat in mesh.GetMaterials()])
 
     # Magnetic vector potential
+    # see https://www.nic.funet.fi/index/elmer/doc/ElmerModelsManual.pdf (p144)
+    # see https://youtu.be/jDvbnaJqkZY?si=fF6g0qdabd4LvxgT&t=777
+    # $\Delta \vec{A} + \omega ^2 \mu \epsilon_0 \epsilon_r \vec{A} = -\mu \vec{J}$
+    # $\Delta V + \omega ^2 \mu \epsilon_0 \epsilon_r V = -\frac \rho \epsilon$
     a_vec = ng.BilinearForm(fes, symmetric=True, condense=True)
     a_vec += 1 / mu0 * ng.curl(u) * ng.curl(v) * ng.dx
     a_vec += 1j * omega * sigma_coeff * u * v * ng.dx

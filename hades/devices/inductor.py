@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-from .device import ParamSet
 import gdstk
 from math import pi
 from pathlib import Path
@@ -8,7 +7,6 @@ from scipy.optimize import minimize_scalar
 from hades.wrappers.em import Emx
 from ..layouts.inductor import octagonal_inductor
 from ..layouts.tools import LayerStack
-from typing import Optional
 
 
 class Dimensions(BaseModel):
@@ -22,6 +20,7 @@ class Parameters(BaseModel):
     K1: float = 2.3
     K2: float = 3.83
 
+
 class Specifications(BaseModel):
     L: float = 1e-9
     f_0: float = 1e9
@@ -34,7 +33,9 @@ class Inductor:
     parameters: Parameters
     techno: str
 
-    def __init__(self, name: str, techno: str, specifications: Specifications = Specifications()):
+    def __init__(
+        self, name: str, techno: str, specifications: Specifications = Specifications()
+    ):
         self.name = name
         self.specifications = specifications
         self.parameters = Parameters()
@@ -52,8 +53,7 @@ class Inductor:
 
         def ind_di(x):
             return abs(
-                self.ind_value(x, self.parameters.K1)
-                - float(self.specifications.L)
+                self.ind_value(x, self.parameters.K1) - float(self.specifications.L)
             )
 
         res = minimize_scalar(ind_di, bounds=(0, 1e-3))
@@ -73,7 +73,9 @@ class Inductor:
         return k1 * u_0 * d_avg / (1 + k2 * rho)
 
     def update_cell(self, dimensions: Dimensions) -> gdstk.Cell:
-        self.dimensions = dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
+        self.dimensions = (
+            dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
+        )
         layer_stack = LayerStack(self.techno)
         ind = octagonal_inductor(
             self.dimensions.d_i,
@@ -88,7 +90,9 @@ class Inductor:
     def update_accurate(self, sim_file: Path) -> Specifications:
         f_0 = float(self.specifications.f_0)
         Y = self.em.compute(sim_file, self.name, f_0)
-        return Specifications(L =-(1 / Y.y[0, 0, 1]).imag / (2 * pi * float(f_0)), f_0 = f_0)
+        return Specifications(
+            L=-(1 / Y.y[0, 0, 1]).imag / (2 * pi * float(f_0)), f_0=f_0
+        )
 
     def recalibrate_model(self, performances: Specifications) -> Parameters:
         def ind_k1(x):

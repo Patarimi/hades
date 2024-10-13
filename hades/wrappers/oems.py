@@ -3,12 +3,18 @@
 import os
 import shutil
 import sys
+from math import inf
 from os.path import dirname
 from pathlib import Path
 from typing import Optional
-from skrf import Network
+
+from gdstk import read_gds
+from skrf import Network, connect
 import numpy as np
 from rich import print
+
+from hades.parsers.process import layer_stack
+from hades.techno import load_pdk, get_file
 
 # define OPENEMS variable for correct CSXCAD import
 if "OPENEMS_INSTALL_PATH" not in os.environ:
@@ -19,7 +25,6 @@ from openEMS.openEMS import openEMS
 
 from hades.wrappers.ngsolve_w import make_geometry
 from hades.layouts.tools import Port
-import ngsolve as ng
 
 
 def compute(
@@ -71,24 +76,14 @@ def compute(
 
     FDTD.SetBoundaryCond(["MUR", "MUR", "MUR", "MUR", "MUR", "MUR"])  # boundary conditions
 
-    ### Setup the Geometry & Mesh
-    if refresh_mesh:
-        geom = make_geometry(input_file, only_metal=True)
-        mesh = ng.Mesh(geom.GenerateMesh())
-        mesh.ngmesh.Export("test.stl", "STL Format")
+    CSX = make_geometry(gds_file=input_file, tech="mock", fdtd=FDTD)
 
-
-    CSX = CSXCAD.ContinuousStructure()
     FDTD.SetCSX(CSX)
-    copper = CSX.AddMaterial("copper", kappa=3.0300E7)
-    copper.AddPolyhedronReader("test.stl", priority=10)
-    FDTD.AddEdges2Grid(dirs="all", properties=copper)
 
 
     # create substrate
-    substrate = CSX.AddMaterial("substrate", epsilon=substrate_epsR)
-    substrate.AddBox(start=[-25, -80, 70], stop=[140, 80, 90], priority=1)
-    FDTD.AddEdges2Grid(dirs="all", properties=substrate)
+    for prop in CSX.GetAllProperties():
+        FDTD.AddEdges2Grid(dirs="all", properties=prop)
 
     # apply the excitation & resist as a current source
     wavelength_air = (3e8 / unit) / f_stop

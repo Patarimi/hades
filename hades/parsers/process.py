@@ -1,8 +1,6 @@
 import dataclasses
 from pathlib import Path
-import matplotlib.pyplot as plt
 from lark import Transformer
-from numpy.matlib import empty
 
 from hades.parsers.tools import parse
 
@@ -11,8 +9,8 @@ from hades.parsers.tools import parse
 class DielectricLayer:
     height: float
     permittivity: float
-    permeability: float = 1.
-    conductivity: float = 0.
+    permeability: float = 1.0
+    conductivity: float = 0.0
 
 
 @dataclasses.dataclass
@@ -59,8 +57,14 @@ class Process(Transformer):
         self.Definitions[define[0]] = define[1]
 
     def layer(self, layer):
-        height = layer[0] if not self.DielectricLayers else self.DielectricLayers[-1].height + layer[0]
-        self.DielectricLayers.append(DielectricLayer(height=height, permittivity=layer[1]))
+        height = (
+            layer[0]
+            if not self.DielectricLayers
+            else self.DielectricLayers[-1].height + layer[0]
+        )
+        self.DielectricLayers.append(
+            DielectricLayer(height=height, permittivity=layer[1])
+        )
 
     def OFFSET(self, offset):
         val = str(offset).split(" ")
@@ -79,7 +83,7 @@ class Process(Transformer):
             height=self.DielectricLayers[-1].height + offset,
             conductivity=conductor[1],
             thickness=conductor[0],
-            )
+        )
 
     def via(self, via):
         below, above, cond, name = via

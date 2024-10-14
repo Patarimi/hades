@@ -28,14 +28,14 @@ from hades.layouts.tools import Port
 
 
 def compute(
-        input_file: Path,
-        cell_name: str,
-        freq: float | tuple[float],
-        ports: Optional[list[Port | str]] = None,
-        refresh_mesh: bool = True,
-        sim_path: Optional[Path] = Path("./."),
-        show_model: bool = False,
-        skip_run: bool = False,
+    input_file: Path,
+    cell_name: str,
+    freq: float | tuple[float],
+    ports: Optional[list[Port | str]] = None,
+    refresh_mesh: bool = True,
+    sim_path: Optional[Path] = Path("./."),
+    show_model: bool = False,
+    skip_run: bool = False,
 ):
     """
     Run the simulation using openEMS
@@ -74,12 +74,13 @@ def compute(
         FDTD.SetDiracExcite(f_stop)
         print("Using Dirac Pulse Excitation")
 
-    FDTD.SetBoundaryCond(["MUR", "MUR", "MUR", "MUR", "MUR", "MUR"])  # boundary conditions
+    FDTD.SetBoundaryCond(
+        ["MUR", "MUR", "MUR", "MUR", "MUR", "MUR"]
+    )  # boundary conditions
 
     CSX = make_geometry(gds_file=input_file, tech="mock", fdtd=FDTD)
 
     FDTD.SetCSX(CSX)
-
 
     # create substrate
     for prop in CSX.GetAllProperties():
@@ -90,14 +91,14 @@ def compute(
     max_cellsize = np.minimum(0.2, wavelength_air / (np.sqrt(substrate_epsR) * 100))
     print(max_cellsize)
     start = [-20, 11, 81]
-    stop = [-20+max_cellsize, -11, 82]
+    stop = [-20 + max_cellsize, -11, 82]
     port = FDTD.AddLumpedPort(
         1, 50, start, stop, "y", 1.0, priority=5, edges2grid="all"
     )
 
     mesh = CSX.GetGrid()
     mesh.SetDeltaUnit(unit)
-    mesh.SmoothMeshLines("z", 3*max_cellsize)
+    mesh.SmoothMeshLines("z", 3 * max_cellsize)
     mesh.SmoothMeshLines("x", max_cellsize)
     mesh.SmoothMeshLines("y", max_cellsize)
 
@@ -115,7 +116,11 @@ def compute(
         try:
             FDTD.Run(sim_path)
         except AssertionError as e:
-            print("Error during OpenEMS run, try :[italic]python -O " + " ".join(sys.argv) + "[/italic]")
+            print(
+                "Error during OpenEMS run, try :[italic]python -O "
+                + " ".join(sys.argv)
+                + "[/italic]"
+            )
             raise e
 
     ### Postprocessing & plotting
@@ -126,7 +131,22 @@ def compute(
     result.s = port.uf_ref / port.uf_inc
     return result
 
-def make_geometry(gds_file: Path, fdtd = None, tech: str="mock", *, show_model=False, sim_path: Path = None) -> CSXCAD.ContinuousStructure:
+
+def make_geometry(
+    gds_file: Path,
+    tech: str = "mock",
+    *,
+    show_model: bool = False,
+    sim_path: Path = None,
+) -> CSXCAD.ContinuousStructure:
+    """
+    Create a geometry in OpenEMS from a gds and a technology.
+    :param gds_file: The input gds file (the top cell is used by default).
+    :param tech: Name of the technology (*hades pdk list* for a list of available techno).
+    :param show_model: Open a 3D view of the model before running the simulation.
+    :param sim_path: Folder use to write simulation file (same as gds file by default).
+    :return:
+    """
     gdsii = read_gds(gds_file).cells[0]
 
     CSX = CSXCAD.ContinuousStructure()
@@ -136,15 +156,16 @@ def make_geometry(gds_file: Path, fdtd = None, tech: str="mock", *, show_model=F
     proc_file = get_file(tech, "process")
     diels, metals = layer_stack(proc_file)
 
-
     print(metals)
     altitude = 0
     csx_metal = dict()
     for name in metals:
         layer_n = int(metals[name].definition.strip("L").split("T")[0])
-        csx_metal[layer_n] = (CSX.AddMaterial(name, kappa=metals[name].conductivity),
+        csx_metal[layer_n] = (
+            CSX.AddMaterial(name, kappa=metals[name].conductivity),
             altitude,
-            metals[name].height)
+            metals[name].height,
+        )
         altitude += metals[name].height
     print(csx_metal)
 
@@ -155,19 +176,28 @@ def make_geometry(gds_file: Path, fdtd = None, tech: str="mock", *, show_model=F
         material, elevation, height = csx_metal[polygon.layer]
         x = [p[0] for p in polygon.points]
         y = [p[1] for p in polygon.points]
-        material.AddLinPoly(points=[x, y], priority=200, norm_dir='z', elevation=elevation,
-                            length=height)
-
+        material.AddLinPoly(
+            points=[x, y],
+            priority=200,
+            norm_dir="z",
+            elevation=elevation,
+            length=height,
+        )
 
     # Building Dielectric layers
     altitude = 0
     for i, diel in enumerate(diels):
         sub = CSX.AddMaterial(f"diel_{i}", epsilon=diel.permittivity)
-        sub.AddBox(start=[-25, -80, altitude],
-                   stop=[140, 80, altitude+ diel.height if diel.height != inf else 2*altitude],
-                   priority=1)
+        sub.AddBox(
+            start=[-25, -80, altitude],
+            stop=[
+                140,
+                80,
+                altitude + diel.height if diel.height != inf else 2 * altitude,
+            ],
+            priority=1,
+        )
         altitude += diel.height
-
 
     if show_model:
         CSX_file = os.path.join(sim_path, "bent_patch.xml")

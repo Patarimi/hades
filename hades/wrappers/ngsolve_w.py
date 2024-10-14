@@ -10,7 +10,9 @@ from numpy import sign
 NGGeom = csg.CSGeometry | occ.OCCGeometry
 
 
-def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1, only_metal=False) -> NGGeom:
+def make_geometry(
+    gds_file: Path, stack: LayerStack = None, *, margin=0.1, only_metal=False
+) -> NGGeom:
     """
     Make a netgen geometry from a gds file.
     :param gds_file: Input file to be simulated
@@ -51,7 +53,9 @@ def make_geometry(gds_file: Path, stack: LayerStack = None, *, margin=0.1, only_
     return occ.OCCGeometry(occ.Glue([metal, oxide - metal]))
 
 
-def write_stl(gds_file: Path, stack: LayerStack, stl_file: Path = Path("./model.stl")) -> None:
+def write_stl(
+    gds_file: Path, stack: LayerStack, stl_file: Path = Path("./model.stl")
+) -> None:
     """
     Write a stl file from a gds file.
     :param gds_file: Input file to be simulated

@@ -91,9 +91,11 @@ def load_pdk(pdk_name: str) -> dict:
         tech = _read_tech(join(os.getcwd(), "design.yml"))[pdk_name]
     return tech
 
+
 def get_file(pdk_name: str, file_type: str) -> Path:
     pdk = load_pdk(pdk_name)
     return Path(pdk["base_dir"]) / Path(pdk[file_type])
+
 
 def _read_tech(tech_file: Optional[str] = None) -> dict:
     if tech_file is None:

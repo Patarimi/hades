@@ -1,3 +1,4 @@
+from os.path import join, dirname
 from pathlib import Path
 
 import numpy as np
@@ -12,7 +13,7 @@ if __name__ == "__main__":
     post_proc_only = False
     if not post_proc_only:
         s_res = compute(
-            Path("../tests/test_layouts/ref_ind.gds"),
+            join(dirname(__file__), Path("../tests/test_layouts/ref_ind.gds")),
             "inductor",
             (0, 5e9),
             ports=[Port("in")],

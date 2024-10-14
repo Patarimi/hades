@@ -94,7 +94,7 @@ def load_pdk(pdk_name: str) -> dict:
 
 def get_file(pdk_name: str, file_type: str) -> Path:
     pdk = load_pdk(pdk_name)
-    return Path(pdk["base_dir"]) / Path(pdk[file_type])
+    return Path(dirname(__file__)) / Path(pdk["base_dir"]) / Path(pdk[file_type])
 
 
 def _read_tech(tech_file: Optional[str] = None) -> dict:

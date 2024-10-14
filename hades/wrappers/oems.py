@@ -77,7 +77,7 @@ def compute(
         ["MUR", "MUR", "MUR", "MUR", "MUR", "MUR"]
     )  # boundary conditions
 
-    CSX = make_geometry(gds_file=input_file, tech="mock", fdtd=FDTD)
+    CSX = make_geometry(gds_file=input_file, tech="mock")
 
     FDTD.SetCSX(CSX)
 
@@ -150,7 +150,7 @@ def make_geometry(
 
     CSX = CSXCAD.ContinuousStructure()
     if sim_path is None:
-        sim_path = gds_file.parent
+        sim_path = Path(gds_file).parent
 
     proc_file = get_file(tech, "process")
     diels, metals = layer_stack(proc_file)

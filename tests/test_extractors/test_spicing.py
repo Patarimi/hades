@@ -1,4 +1,6 @@
 import filecmp
+import os
+import pytest
 from os.path import join, dirname
 
 from hades.extractors.spicing import extract_spice, extract_spice_magic

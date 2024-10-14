@@ -74,26 +74,37 @@ def compute(
         print("Using Dirac Pulse Excitation")
 
     FDTD.SetBoundaryCond(
-        ["MUR", "MUR", "MUR", "MUR", "MUR", "MUR"]
+        ["MUR", "MUR", "MUR", "MUR", "PEC", "MUR"]
     )  # boundary conditions
+    # setting z_min as a perfect electric conductor
 
     CSX = make_geometry(gds_file=input_file, tech="mock")
-
     FDTD.SetCSX(CSX)
-
-    # create substrate
     for prop in CSX.GetAllProperties():
         FDTD.AddEdges2Grid(dirs="all", properties=prop)
 
     # apply the excitation & resist as a current source
     wavelength_air = (3e8 / unit) / f_stop
-    max_cellsize = np.minimum(0.2, wavelength_air / (np.sqrt(substrate_epsR) * 100))
+    max_cellsize = np.minimum(1, wavelength_air / (np.sqrt(substrate_epsR) * 100))
     print(max_cellsize)
-    start = [-20, 11, 81]
-    stop = [-20 + max_cellsize, -11, 82]
-    port = FDTD.AddLumpedPort(
-        1, 50, start, stop, "y", 1.0, priority=5, edges2grid="all"
-    )
+    gdsii = read_gds(input_file).cells[0]
+    proc_file = get_file("mock", "process")
+    _, metals = layer_stack(proc_file)
+    for i, label in enumerate(gdsii.labels):
+        for name in metals:
+            if int(metals[name].definition.strip("L").split("T")[0]) == label.layer:
+                break
+        else:
+            raise ValueError(f"Metal {label.layer} not found in process file")
+        start = [label.origin[0], label.origin[1] -  max_cellsize, 0]
+        stop = [
+            label.origin[0] + max_cellsize,
+            label.origin[1] + max_cellsize,
+            metals[name].thickness/2 + metals[name].height+2,
+        ]
+        port = FDTD.AddLumpedPort(
+            i, 50, start, stop, "z", i, priority=5, edges2grid="all"
+        )
 
     mesh = CSX.GetGrid()
     mesh.SetDeltaUnit(unit)
@@ -155,36 +166,31 @@ def make_geometry(
     proc_file = get_file(tech, "process")
     diels, metals = layer_stack(proc_file)
 
-    print(metals)
-    altitude = 0
+    elevation = 0
     csx_metal = dict()
     for name in metals:
-        layer_n = int(metals[name].definition.strip("L").split("T")[0])
-        csx_metal[layer_n] = (
-            CSX.AddMaterial(name, kappa=metals[name].conductivity),
-            altitude,
-            metals[name].height,
-        )
-        altitude += metals[name].height
-    print(csx_metal)
+        layer_n, data_type = [int(i) for i in metals[name].definition.strip("L").split("T")]
+        polygons = gdsii.get_polygons(layer=layer_n, datatype=data_type)
+        if len(polygons) == 0:
+            print(f"No drawing found, skipping layer {layer_n}/{data_type}")
+        else:
+            csx_metal[layer_n] = CSX.AddMaterial(name, kappa=metals[name].conductivity)
+            for poly in polygons:
+                x = [p[0] for p in poly.points]
+                y = [p[1] for p in poly.points]
+                csx_metal[layer_n].AddLinPoly(
+                    points=[x, y],
+                    priority=200,
+                    norm_dir="z",
+                    elevation=elevation,
+                    length=metals[name].height,
+                )
+        elevation += metals[name].height
 
-    for polygon in gdsii.polygons:
-        if polygon.layer not in csx_metal.keys():
-            print(f"Skipping layer {polygon.layer}/{polygon.datatype}")
-            continue
-        material, elevation, height = csx_metal[polygon.layer]
-        x = [p[0] for p in polygon.points]
-        y = [p[1] for p in polygon.points]
-        material.AddLinPoly(
-            points=[x, y],
-            priority=200,
-            norm_dir="z",
-            elevation=elevation,
-            length=height,
-        )
 
     # Building Dielectric layers
     altitude = 0
+    bbox = gdsii.bounding_box() # todo: enlarge bounding box to avoid edge effects
     for i, diel in enumerate(diels):
         sub = CSX.AddMaterial(f"diel_{i}", epsilon=diel.permittivity)
         sub.AddBox(

@@ -14,12 +14,21 @@ permissions:
   contents: read
 
 jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/ruff-action@v1
+        with:
+          args: 'format --check'
+
   testing:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
+    needs: check-format
 
     steps:
     - name: Restore PDK Directory
@@ -67,11 +76,6 @@ jobs:
         poetry lock --no-update
         poetry install --with dev,doc
         poetry run pwd
-    - name: check and format
-      continue-on-error: true
-      run: |
-        poetry run ruff check --output-format=github .
-        poetry run ruff format --check .
     - name: Install PDK
       run: |
         poetry run hades pdk install sky130

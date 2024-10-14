@@ -87,9 +87,7 @@ jobs:
         cache: 'poetry'
     - name: Install Dependencies
       run: |
-        python -m pip install --upgrade pip
-        poetry lock --no-update
-        poetry install --with dev,doc
+        poetry install
         poetry run pwd
     - name: Install PDK
       run: |

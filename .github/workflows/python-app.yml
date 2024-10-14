@@ -40,22 +40,6 @@ jobs:
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
-    - name: Config WSL for Windows
-      if: ${{runner.os == 'Windows' }}
-      uses: Vampire/setup-wsl@v3
-      with:
-        distribution: Ubuntu-24.04
-    - name: Config Nix for Windows
-      if: ${{runner.os == 'Windows' }}
-      shell: wsl-bash {0}
-      # https://github.com/cachix/install-nix-action/blob/master/install-nix.sh
-      run: |
-        sudo mkdir -p /etc/nix
-        sudo chmod 0755 /etc/nix
-        sudo cp ./manifests/nix.conf /etc/nix/nix.conf
-        sh <(curl -L https://nixos.org/nix/install) --daemon --yes --no-channel-add --nix-extra-conf-file ./manifests/nix.conf
-        echo "/nix/var/nix/profiles/default/bin" >> "$GITHUB_PATH"
-        echo "$HOME/.nix-profile/bin" >> "$GITHUB_PATH"
     - name: Install Nix for Ubuntu
       if: ${{runner.os != 'Windows' }}
       uses: cachix/install-nix-action@v27

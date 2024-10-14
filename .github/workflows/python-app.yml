@@ -22,13 +22,26 @@ jobs:
         with:
           args: 'format --check'
 
+  doc-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: 'poetry'
+      - run: poetry install --with doc
+      - name: Build Doc
+        run: |
+          poetry run mkdocs build
+
   testing:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
-    needs: check-format
+    needs: [check-format, doc-build]
 
     steps:
     - name: Restore PDK Directory
@@ -94,9 +107,6 @@ jobs:
         path: |
           pdk/
         key: ${{ steps.pdk-restore.outputs.cache-primary-key }}
-    - name: Build Doc
-      run: |
-        poetry run mkdocs build
     - name: Test with Pytest
       run: |
         poetry run pytest -rxXs --basetemp=tmp

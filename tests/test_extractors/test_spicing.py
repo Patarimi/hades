@@ -1,8 +1,7 @@
 import filecmp
 import os
-from os.path import join, dirname
-
 import pytest
+from os.path import join, dirname
 
 from hades.extractors.spicing import extract_spice, extract_spice_magic
 from hades.extractors.tools import check_diff

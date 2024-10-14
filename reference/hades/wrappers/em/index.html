@@ -14,11 +14,11 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../gmsh/">
+        <link rel="next" href="../ngsolve_w/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -926,6 +926,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../parsers/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../parsers/raw/" class="md-nav__link">
         
   
@@ -1183,27 +1204,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../gmsh/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    gmsh
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../ngsolve_w/" class="md-nav__link">
         
   
@@ -1230,6 +1230,27 @@
   
   <span class="md-ellipsis">
     ngspice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oems
   </span>
   
 
@@ -1396,6 +1417,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1419,7 +1445,7 @@
     <div class="doc doc-contents ">
 
 
-      <p>Base class for emx simulation.</p>
+        <p>Base class for emx simulation.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1434,7 +1460,9 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>proc</code></td>
+            <td>
+                <code>proc</code>
+            </td>
             <td>
             </td>
             <td>
@@ -1448,6 +1476,11 @@
           </tr>
       </tbody>
     </table>
+
+
+
+
+
 
               <details class="quote">
                 <summary>Source code in <code>hades\wrappers\em.py</code></summary>
@@ -1662,7 +1695,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Run the simulation</p>
+        <p>Run the simulation</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1677,9 +1710,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>ports</code></td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" href="../../../../CLI-ref/#list">list</a>[<span title="hades.layouts.tools.Port">Port</span> | str]]</code>
+                <code>ports</code>
+            </td>
+            <td>
+                  <code>Optional[list[Port | str]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1691,9 +1726,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>input_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>input_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1705,7 +1742,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>cell_name</code></td>
+            <td>
+                <code>cell_name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1719,7 +1758,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>freq</code></td>
+            <td>
+                <code>freq</code>
+            </td>
             <td>
                   <code>float | tuple[float]</code>
             </td>
@@ -1733,7 +1774,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>options</code></td>
+            <td>
+                <code>options</code>
+            </td>
             <td>
             </td>
             <td>
@@ -1938,7 +1981,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Automatically set the process file for the given technology.</p>
+        <p>Automatically set the process file for the given technology.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1953,7 +1996,9 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>techno</code></td>
+            <td>
+                <code>techno</code>
+            </td>
             <td>
                   <code>str</code>
             </td>

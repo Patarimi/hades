@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -991,6 +991,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../parsers/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../parsers/raw/" class="md-nav__link">
         
   
@@ -1168,27 +1189,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../wrappers/gmsh/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    gmsh
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../wrappers/ngsolve_w/" class="md-nav__link">
         
   
@@ -1215,6 +1215,27 @@
   
   <span class="md-ellipsis">
     ngspice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wrappers/oems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oems
   </span>
   
 
@@ -1364,7 +1385,12 @@
 <a id="hades.extractors.spicing"></a>
     <div class="doc doc-contents first">
 
-      <p>This module is used to extract the equivalent spice schematic of a gdsii file.</p>
+        <p>This module is used to extract the equivalent spice schematic of a gdsii file.</p>
+
+
+
+
+
 
 
 
@@ -1389,7 +1415,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Extract the equivalent spice schematic of a gdsii file.</p>
+        <p>Extract the equivalent spice schematic of a gdsii file.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1404,9 +1430,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>gds_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>gds_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1418,7 +1446,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>techno</code></td>
+            <td>
+                <code>techno</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1432,9 +1462,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>stack</code></td>
             <td>
-                  <code><span title="hades.layouts.tools.LayerStack">LayerStack</span></code>
+                <code>stack</code>
+            </td>
+            <td>
+                  <code>LayerStack</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1460,7 +1492,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1527,7 +1559,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Extract the equivalent spice schematic of a gdsii file using magic-vlsi.</p>
+        <p>Extract the equivalent spice schematic of a gdsii file using magic-vlsi.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1542,9 +1574,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>gds_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>gds_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1556,9 +1590,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>rc_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>rc_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1570,9 +1606,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>output_path</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>output_path</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1584,7 +1622,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>options</code></td>
+            <td>
+                <code>options</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1612,7 +1652,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">

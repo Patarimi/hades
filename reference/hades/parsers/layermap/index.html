@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -991,6 +991,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raw/" class="md-nav__link">
         
   
@@ -1168,27 +1189,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../wrappers/gmsh/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    gmsh
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../wrappers/ngsolve_w/" class="md-nav__link">
         
   
@@ -1215,6 +1215,27 @@
   
   <span class="md-ellipsis">
     ngspice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wrappers/oems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oems
   </span>
   
 
@@ -1366,6 +1387,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1393,7 +1419,7 @@
     <div class="doc doc-contents ">
 
 
-      <p>Store one layer of a layermap file.</p>
+        <p>Store one layer of a layermap file.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1408,7 +1434,9 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>layer</code></td>
+            <td>
+                <code>layer</code>
+            </td>
             <td>
                   <code>int</code>
             </td>
@@ -1422,9 +1450,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>types</code></td>
             <td>
-                  <code>dict[int, <a class="autorefs autorefs-internal" href="../../../../CLI-ref/#list">list</a>[str]]</code>
+                <code>types</code>
+            </td>
+            <td>
+                  <code>dict[int, list[str]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1437,6 +1467,11 @@
           </tr>
       </tbody>
     </table>
+
+
+
+
+
 
               <details class="quote">
                 <summary>Source code in <code>hades\parsers\layermap.py</code></summary>
@@ -1516,7 +1551,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Read layer information (layer number and datatype) from layermap file.</p>
+        <p>Read layer information (layer number and datatype) from layermap file.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1531,9 +1566,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>layer_data</code></td>
             <td>
-                  <code>dict[str, <a class="autorefs autorefs-internal" title="hades.parsers.layermap.Map" href="#hades.parsers.layermap.Map">Map</a>]</code>
+                <code>layer_data</code>
+            </td>
+            <td>
+                  <code>dict[str, Map]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1545,7 +1582,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1559,7 +1598,9 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>datatype</code></td>
+            <td>
+                <code>datatype</code>
+            </td>
             <td>
                   <code>str</code>
             </td>

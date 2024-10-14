@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -1000,6 +1000,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../parsers/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../parsers/raw/" class="md-nav__link">
         
   
@@ -1177,27 +1198,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../wrappers/gmsh/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    gmsh
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../wrappers/ngsolve_w/" class="md-nav__link">
         
   
@@ -1224,6 +1224,27 @@
   
   <span class="md-ellipsis">
     ngspice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wrappers/oems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oems
   </span>
   
 
@@ -1382,10 +1403,15 @@
 <a id="hades.models.filter"></a>
     <div class="doc doc-contents first">
 
-      <p>This module implements function to ease the design of passive filter using the insertion loss method.
+        <p>This module implements function to ease the design of passive filter using the insertion loss method.
 <pre class="mermaid"><code>flowchart LR
 S[Filter Specifications] --&gt; L[Low-Pass Prototype] --&gt; C["Conversion
 Scaling"] --&gt; I[Implementation]</code></pre></p>
+
+
+
+
+
 
 
 
@@ -1410,7 +1436,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
 
     <div class="doc doc-contents ">
 
-      <p>Compute a low pass filter prototype. The equations are from <a href="https://ia803103.us.archive.org/15/items/MicrowaveFiltersImpedanceMatchingNetworksAndCouplingStructures/Microwave%20Filters%2C%20Impedance-Matching%20Networks%2C%20and%20Coupling%20Structures.pdf">source</a>.</p>
+        <p>Compute a low pass filter prototype. The equations are from <a href="https://ia803103.us.archive.org/15/items/MicrowaveFiltersImpedanceMatchingNetworksAndCouplingStructures/Microwave%20Filters%2C%20Impedance-Matching%20Networks%2C%20and%20Coupling%20Structures.pdf">source</a>.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1425,7 +1451,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>order</code></td>
+            <td>
+                <code>order</code>
+            </td>
             <td>
                   <code>int</code>
             </td>
@@ -1439,7 +1467,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>style</code></td>
+            <td>
+                <code>style</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1453,7 +1483,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>ripple</code></td>
+            <td>
+                <code>ripple</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1561,7 +1593,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
 
     <div class="doc doc-contents ">
 
-      <p>properly scale a low-pass filter prototype.</p>
+        <p>properly scale a low-pass filter prototype.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1576,9 +1608,11 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>proto</code></td>
             <td>
-                  <code><span title="numpy.ndarray">ndarray</span></code>
+                <code>proto</code>
+            </td>
+            <td>
+                  <code>ndarray</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1590,7 +1624,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>f</code></td>
+            <td>
+                <code>f</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1604,7 +1640,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>r_0</code></td>
+            <td>
+                <code>r_0</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1688,7 +1726,7 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
 
     <div class="doc doc-contents ">
 
-      <p>Convert a low-pass prototype to a stepped_impedance line filter. The exact function is implemented instead of the
+        <p>Convert a low-pass prototype to a stepped_impedance line filter. The exact function is implemented instead of the
  approximation presented in Pozar 2012 chapter. 8.6.</p>
 
 
@@ -1704,9 +1742,11 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>proto</code></td>
             <td>
-                  <code><span title="numpy.ndarray">ndarray</span></code>
+                <code>proto</code>
+            </td>
+            <td>
+                  <code>ndarray</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1718,7 +1758,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>z_high</code></td>
+            <td>
+                <code>z_high</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1732,7 +1774,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>z_low</code></td>
+            <td>
+                <code>z_low</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1746,7 +1790,9 @@ Scaling"] --&gt; I[Implementation]</code></pre></p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>r_0</code></td>
+            <td>
+                <code>r_0</code>
+            </td>
             <td>
                   <code>float</code>
             </td>

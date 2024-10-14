@@ -14,11 +14,11 @@
         <link rel="prev" href="../ngsolve_w/">
       
       
-        <link rel="next" href="../simulator/">
+        <link rel="next" href="../oems/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -926,6 +926,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../parsers/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../parsers/raw/" class="md-nav__link">
         
   
@@ -1105,27 +1126,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../gmsh/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    gmsh
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../ngsolve_w/" class="md-nav__link">
         
   
@@ -1225,6 +1225,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oems
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1378,6 +1399,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1401,7 +1427,12 @@
     <div class="doc doc-contents ">
 
 
-      <p>Base class for NGSpice simulation.</p>
+        <p>Base class for NGSpice simulation.</p>
+
+
+
+
+
 
               <details class="quote">
                 <summary>Source code in <code>hades\wrappers\ngspice.py</code></summary>
@@ -1514,7 +1545,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Simulate the spice input file with ngspice.</p>
+        <p>Simulate the spice input file with ngspice.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1529,9 +1560,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>input_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>input_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1543,9 +1576,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>output_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>output_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">

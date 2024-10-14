@@ -11,14 +11,14 @@
         <link rel="canonical" href="https://patarimi.github.io/hades/reference/hades/wrappers/ngsolve_w/">
       
       
-        <link rel="prev" href="../gmsh/">
+        <link rel="prev" href="../em/">
       
       
         <link rel="next" href="../ngspice/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -926,6 +926,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../parsers/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../parsers/raw/" class="md-nav__link">
         
   
@@ -1102,27 +1123,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../gmsh/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    gmsh
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1195,15 +1195,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.wrappers.ngsolve_w.write_mesh" class="md-nav__link">
-    <span class="md-ellipsis">
-      write_mesh
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hades.wrappers.ngsolve_w.write_stl" class="md-nav__link">
     <span class="md-ellipsis">
       write_stl
@@ -1233,6 +1224,27 @@
   
   <span class="md-ellipsis">
     ngspice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oems
   </span>
   
 
@@ -1359,15 +1371,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hades.wrappers.ngsolve_w.write_mesh" class="md-nav__link">
-    <span class="md-ellipsis">
-      write_mesh
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hades.wrappers.ngsolve_w.write_stl" class="md-nav__link">
     <span class="md-ellipsis">
       write_stl
@@ -1402,6 +1405,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1423,7 +1431,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>[WIP] Help Needed.
+        <p>[WIP] Help Needed.
 Compute the EM fields of a geometry.</p>
 
 
@@ -1439,9 +1447,11 @@ Compute the EM fields of a geometry.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>geom</code></td>
             <td>
-                  <code><span title="hades.wrappers.ngsolve_w.NGGeom">NGGeom</span></code>
+                <code>geom</code>
+            </td>
+            <td>
+                  <code>NGGeom</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1453,7 +1463,9 @@ Compute the EM fields of a geometry.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>freq</code></td>
+            <td>
+                <code>freq</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1467,7 +1479,9 @@ Compute the EM fields of a geometry.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>debug</code></td>
+            <td>
+                <code>debug</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -1507,7 +1521,15 @@ Compute the EM fields of a geometry.</p>
 
             <details class="quote">
               <summary>Source code in <code>hades\wrappers\ngsolve_w.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 79</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
 <span class="normal"> 80</span>
 <span class="normal"> 81</span>
 <span class="normal"> 82</span>
@@ -1563,12 +1585,7 @@ Compute the EM fields of a geometry.</p>
 <span class="normal">132</span>
 <span class="normal">133</span>
 <span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">geom</span><span class="p">:</span> <span class="n">NGGeom</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">geom</span><span class="p">:</span> <span class="n">NGGeom</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    [WIP] Help Needed.</span>
 <span class="sd">    Compute the EM fields of a geometry.</span>
@@ -1598,6 +1615,9 @@ Compute the EM fields of a geometry.</p>
 
     <span class="c1"># Magnetic vector potential</span>
     <span class="c1"># see https://www.nic.funet.fi/index/elmer/doc/ElmerModelsManual.pdf (p144)</span>
+    <span class="c1"># see https://youtu.be/jDvbnaJqkZY?si=fF6g0qdabd4LvxgT&amp;t=777</span>
+    <span class="c1"># $\Delta \vec{A} + \omega ^2 \mu \epsilon_0 \epsilon_r \vec{A} = -\mu \vec{J}$</span>
+    <span class="c1"># $\Delta V + \omega ^2 \mu \epsilon_0 \epsilon_r V = -\frac \rho \epsilon$</span>
     <span class="n">a_vec</span> <span class="o">=</span> <span class="n">ng</span><span class="o">.</span><span class="n">BilinearForm</span><span class="p">(</span><span class="n">fes</span><span class="p">,</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">condense</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">a_vec</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">mu0</span> <span class="o">*</span> <span class="n">ng</span><span class="o">.</span><span class="n">curl</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">ng</span><span class="o">.</span><span class="n">curl</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="n">ng</span><span class="o">.</span><span class="n">dx</span>
     <span class="n">a_vec</span> <span class="o">+=</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">sigma_coeff</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">v</span> <span class="o">*</span> <span class="n">ng</span><span class="o">.</span><span class="n">dx</span>
@@ -1640,14 +1660,14 @@ Compute the EM fields of a geometry.</p>
 
 
 <h2 id="hades.wrappers.ngsolve_w.make_geometry" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">make_geometry</span><span class="p">(</span><span class="n">gds_file</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">make_geometry</span><span class="p">(</span><span class="n">gds_file</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">only_metal</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 <a href="#hades.wrappers.ngsolve_w.make_geometry" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents ">
 
-      <p>Make a netgen geometry from a gds file.</p>
+        <p>Make a netgen geometry from a gds file.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1662,9 +1682,11 @@ Compute the EM fields of a geometry.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>gds_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>gds_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1676,9 +1698,11 @@ Compute the EM fields of a geometry.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>stack</code></td>
             <td>
-                  <code><span title="hades.layouts.tools.LayerStack">LayerStack</span></code>
+                <code>stack</code>
+            </td>
+            <td>
+                  <code>LayerStack</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1690,7 +1714,9 @@ Compute the EM fields of a geometry.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>margin</code></td>
+            <td>
+                <code>margin</code>
+            </td>
             <td>
             </td>
             <td>
@@ -1717,7 +1743,7 @@ Compute the EM fields of a geometry.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="hades.wrappers.ngsolve_w.NGGeom">NGGeom</span></code>
+                  <code>NGGeom</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1766,7 +1792,13 @@ Compute the EM fields of a geometry.</p>
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
-<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">make_geometry</span><span class="p">(</span><span class="n">gds_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">LayerStack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NGGeom</span><span class="p">:</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">make_geometry</span><span class="p">(</span>
+    <span class="n">gds_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">LayerStack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">only_metal</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NGGeom</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make a netgen geometry from a gds file.</span>
 <span class="sd">    :param gds_file: Input file to be simulated</span>
@@ -1796,6 +1828,8 @@ Compute the EM fields of a geometry.</p>
         <span class="nb">tuple</span><span class="p">([(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">sign</span><span class="p">(</span><span class="n">lim</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span><span class="p">)</span> <span class="o">*</span> <span class="n">lim</span> <span class="k">for</span> <span class="n">lim</span> <span class="ow">in</span> <span class="n">limit</span><span class="p">[</span><span class="mi">0</span><span class="p">]]),</span>
         <span class="nb">tuple</span><span class="p">([(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">sign</span><span class="p">(</span><span class="n">lim</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span><span class="p">)</span> <span class="o">*</span> <span class="n">lim</span> <span class="k">for</span> <span class="n">lim</span> <span class="ow">in</span> <span class="n">limit</span><span class="p">[</span><span class="mi">1</span><span class="p">]]),</span>
     <span class="p">]</span>
+    <span class="k">if</span> <span class="n">only_metal</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">occ</span><span class="o">.</span><span class="n">OCCGeometry</span><span class="p">(</span><span class="n">metal</span><span class="p">)</span>
     <span class="n">oxide</span> <span class="o">=</span> <span class="n">occ</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="o">*</span><span class="n">lim_margin</span><span class="p">)</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="s2">&quot;oxide&quot;</span><span class="p">)</span>
     <span class="n">oxide</span><span class="o">.</span><span class="n">faces</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;oxide&quot;</span>
     <span class="n">oxide</span><span class="o">.</span><span class="n">solids</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;oxide&quot;</span>
@@ -1803,129 +1837,6 @@ Compute the EM fields of a geometry.</p>
     <span class="n">oxide</span><span class="o">.</span><span class="n">faces</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
     <span class="n">oxide</span><span class="o">.</span><span class="n">bc</span><span class="p">(</span><span class="s2">&quot;oxide&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">occ</span><span class="o">.</span><span class="n">OCCGeometry</span><span class="p">(</span><span class="n">occ</span><span class="o">.</span><span class="n">Glue</span><span class="p">([</span><span class="n">metal</span><span class="p">,</span> <span class="n">oxide</span> <span class="o">-</span> <span class="n">metal</span><span class="p">]))</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="hades.wrappers.ngsolve_w.write_mesh" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">write_mesh</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">mesh_file</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
-
-<a href="#hades.wrappers.ngsolve_w.write_mesh" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-    <div class="doc doc-contents ">
-
-      <p>Write a mesh file from a geometry.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code>geom</code></td>
-            <td>
-                  <code><span title="hades.wrappers.ngsolve_w.NGGeom">NGGeom</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Geometry to be meshed.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code>mesh_file</code></td>
-            <td>
-                  <code><span title="pathlib.Path">Path</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Path to the mesh file.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code>debug</code></td>
-            <td>
-                  <code>bool</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>(Default = False) If True, the mesh is plotted.</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-            <details class="quote">
-              <summary>Source code in <code>hades\wrappers\ngsolve_w.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">write_mesh</span><span class="p">(</span><span class="n">geom</span><span class="p">:</span> <span class="n">NGGeom</span><span class="p">,</span> <span class="n">mesh_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Write a mesh file from a geometry.</span>
-<span class="sd">    :param geom: Geometry to be meshed.</span>
-<span class="sd">    :param mesh_file: Path to the mesh file.</span>
-<span class="sd">    :param debug: (Default = False) If True, the mesh is plotted.</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">mesh</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">GenerateMesh</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
-        <span class="n">ng</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">ng</span><span class="o">.</span><span class="n">Mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">))</span>
-    <span class="n">mesh</span><span class="o">.</span><span class="n">Export</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mesh_file</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;Gmsh2 Format&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1943,7 +1854,7 @@ Compute the EM fields of a geometry.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Write a stl file from a gds file.</p>
+        <p>Write a stl file from a gds file.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1958,9 +1869,11 @@ Compute the EM fields of a geometry.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>gds_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>gds_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1972,9 +1885,11 @@ Compute the EM fields of a geometry.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>stack</code></td>
             <td>
-                  <code><span title="hades.layouts.tools.LayerStack">LayerStack</span></code>
+                <code>stack</code>
+            </td>
+            <td>
+                  <code>LayerStack</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1986,9 +1901,11 @@ Compute the EM fields of a geometry.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>stl_file</code></td>
             <td>
-                  <code><span title="pathlib.Path">Path</span></code>
+                <code>stl_file</code>
+            </td>
+            <td>
+                  <code>Path</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1996,7 +1913,7 @@ Compute the EM fields of a geometry.</p>
               </div>
             </td>
             <td>
-                  <code><span title="pathlib.Path">Path</span>(&#39;./model.stl&#39;)</code>
+                  <code>Path(&#39;./model.stl&#39;)</code>
             </td>
           </tr>
       </tbody>
@@ -2027,17 +1944,21 @@ Compute the EM fields of a geometry.</p>
 
             <details class="quote">
               <summary>Source code in <code>hades\wrappers\ngsolve_w.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">write_stl</span><span class="p">(</span><span class="n">gds_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span> <span class="n">stl_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./model.stl&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">write_stl</span><span class="p">(</span>
+    <span class="n">gds_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span> <span class="n">stl_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./model.stl&quot;</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Write a stl file from a gds file.</span>
 <span class="sd">    :param gds_file: Input file to be simulated</span>

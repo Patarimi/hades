@@ -9,12 +9,12 @@ from pathlib import Path
 from typing import Optional
 
 from gdstk import read_gds
-from skrf import Network, connect
+from skrf import Network
 import numpy as np
 from rich import print
 
 from hades.parsers.process import layer_stack
-from hades.techno import load_pdk, get_file
+from hades.techno import get_file
 
 # define OPENEMS variable for correct CSXCAD import
 if "OPENEMS_INSTALL_PATH" not in os.environ:
@@ -23,7 +23,6 @@ if "OPENEMS_INSTALL_PATH" not in os.environ:
 from CSXCAD import CSXCAD
 from openEMS.openEMS import openEMS
 
-from hades.wrappers.ngsolve_w import make_geometry
 from hades.layouts.tools import Port
 
 

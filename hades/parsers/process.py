@@ -37,6 +37,7 @@ class Process(Transformer):
         self.DielectricLayers = []
         self.MetalLayers: dict[str, MetalLayer] = {}
         self.Definitions: dict[str, str] = {}
+        self.last_offset = 0
 
     def UNIT(self, unit):
         return str(unit)
@@ -68,7 +69,8 @@ class Process(Transformer):
 
     def OFFSET(self, offset):
         val = str(offset).split(" ")
-        return float(val[1]) * self.scale["length"]
+        self.last_offset = float(val[1])
+        return float(val[1])
 
     def conductor(self, conductor):
         if type(conductor[-1]) is str:
@@ -76,7 +78,7 @@ class Process(Transformer):
             offset = 0
         else:
             name = conductor[-2]
-            offset = conductor[-1]
+            offset = conductor[-1] + self.last_offset
         self.MetalLayers[name] = MetalLayer(
             name=name,
             definition=self.Definitions[name],

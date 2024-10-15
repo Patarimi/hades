@@ -90,7 +90,7 @@ def compute(
     gdsii = read_gds(input_file).cells[0]
     proc_file = get_file("mock", "process")
     _, metals = layer_stack(proc_file)
-    for i, label in enumerate(gdsii.labels):
+    for i, label in enumerate(gdsii.get_labels(depth=0)):
         for name in metals:
             if int(metals[name].definition.strip("L").split("T")[0]) == label.layer:
                 break
@@ -148,7 +148,7 @@ def make_geometry(
     *,
     show_model: bool = False,
     sim_path: Path = None,
-    margin: float = 0.1,
+    margin: float = 0.2,
 ) -> CSXCAD.ContinuousStructure:
     """
     Create a geometry in OpenEMS from a gds and a technology.

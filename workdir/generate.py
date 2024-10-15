@@ -1,3 +1,4 @@
+import os
 from os.path import join, dirname
 from pathlib import Path
 
@@ -10,17 +11,22 @@ from hades.layouts.tools import Port
 
 
 if __name__ == "__main__":
+    if os.getcwd() is not Path(dirname(__file__)):
+        print(
+            "Running from the wrong directory, changing to the directory of the script"
+        )
+        os.chdir(dirname(__file__))
     post_proc_only = False
     if not post_proc_only:
         s_res = compute(
-            join(dirname(__file__), Path("../tests/test_layouts/ref_ind.gds")),
+            Path("../tests/test_layouts/ref_ind.gds"),
             "inductor",
             (0, 5e9),
-            ports=[Port("in")],
-            sim_path="./inductor",
+            ports=[Port("P1", "P2")],
+            sim_path=join("./inductor"),
             refresh_mesh=False,
             show_model=True,
-            skip_run=False,
+            skip_run=True,
         )
         s_res.write_touchstone("inductor")
     else:

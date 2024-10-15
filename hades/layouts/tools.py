@@ -137,6 +137,13 @@ class LayerStack:
 
 @dataclass
 class Port:
+    """
+    Class to store port information.
+    :param name: name of the port (name of the label on the positive side
+    :param ref: reference of the port (name of the label on the negative side)
+        - leave empty to force a connection to the ground
+    """
+
     name: str
     ref: str = None
 

@@ -148,6 +148,7 @@ def make_geometry(
     *,
     show_model: bool = False,
     sim_path: Path = None,
+    margin: float = 0.1,
 ) -> CSXCAD.ContinuousStructure:
     """
     Create a geometry in OpenEMS from a gds and a technology.
@@ -155,6 +156,7 @@ def make_geometry(
     :param tech: Name of the technology (*hades pdk list* for a list of available techno).
     :param show_model: Open a 3D view of the model before running the simulation.
     :param sim_path: Folder use to write simulation file (same as gds file by default).
+    :param margin: margin around the model. The simulation box is the bounding box of the model time (1 + margin).
     :return:
     """
     gdsii = read_gds(gds_file).cells[0]
@@ -190,14 +192,19 @@ def make_geometry(
 
     # Building Dielectric layers
     altitude = 0
-    bbox = gdsii.bounding_box() # todo: enlarge bounding box to avoid edge effects
+    bb_min, bb_max = gdsii.bounding_box()
+    center = (bb_min[0] + bb_max[0]) / 2, (bb_min[1] + bb_max[1]) / 2
+    size = bb_min[0] - bb_max[0], bb_min[1] - bb_max[1]
+    start = [center[0] - (1+margin) * size[0] / 2, center[1] - (1+margin) * size[1] / 2]
+    stop = [center[0] + (1+margin) * size[0] / 2, center[1] + (1+margin) * size[1] / 2]
+    print(start, stop)
     for i, diel in enumerate(diels):
         sub = CSX.AddMaterial(f"diel_{i}", epsilon=diel.permittivity)
         sub.AddBox(
-            start=[-25, -80, altitude],
+            start=[start[0], start[1], altitude],
             stop=[
-                140,
-                80,
+                stop[0],
+                stop[1],
                 altitude + diel.height if diel.height != inf else 2 * altitude,
             ],
             priority=1,

@@ -143,6 +143,7 @@ class Port:
     :param ref: reference of the port (name of the label on the negative side)
         - leave empty to force a connection to the ground
     """
+
     name: str
     ref: str = None
 

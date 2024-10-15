@@ -96,11 +96,11 @@ def compute(
                 break
         else:
             raise ValueError(f"Metal {label.layer} not found in process file")
-        start = [label.origin[0], label.origin[1] -  max_cellsize, 0]
+        start = [label.origin[0], label.origin[1] - max_cellsize, 0]
         stop = [
             label.origin[0] + max_cellsize,
             label.origin[1] + max_cellsize,
-            metals[name].thickness/2 + metals[name].height+2,
+            metals[name].thickness / 2 + metals[name].height + 2,
         ]
         port = FDTD.AddLumpedPort(
             i, 50, start, stop, "z", i, priority=5, edges2grid="all"
@@ -171,7 +171,9 @@ def make_geometry(
     elevation = 0
     csx_metal = dict()
     for name in metals:
-        layer_n, data_type = [int(i) for i in metals[name].definition.strip("L").split("T")]
+        layer_n, data_type = [
+            int(i) for i in metals[name].definition.strip("L").split("T")
+        ]
         polygons = gdsii.get_polygons(layer=layer_n, datatype=data_type)
         if len(polygons) == 0:
             print(f"No drawing found, skipping layer {layer_n}/{data_type}")
@@ -189,14 +191,19 @@ def make_geometry(
                 )
         elevation += metals[name].height
 
-
     # Building Dielectric layers
     altitude = 0
     bb_min, bb_max = gdsii.bounding_box()
     center = (bb_min[0] + bb_max[0]) / 2, (bb_min[1] + bb_max[1]) / 2
     size = bb_min[0] - bb_max[0], bb_min[1] - bb_max[1]
-    start = [center[0] - (1+margin) * size[0] / 2, center[1] - (1+margin) * size[1] / 2]
-    stop = [center[0] + (1+margin) * size[0] / 2, center[1] + (1+margin) * size[1] / 2]
+    start = [
+        center[0] - (1 + margin) * size[0] / 2,
+        center[1] - (1 + margin) * size[1] / 2,
+    ]
+    stop = [
+        center[0] + (1 + margin) * size[0] / 2,
+        center[1] + (1 + margin) * size[1] / 2,
+    ]
     print(start, stop)
     for i, diel in enumerate(diels):
         sub = CSX.AddMaterial(f"diel_{i}", epsilon=diel.permittivity)

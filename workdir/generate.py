@@ -12,7 +12,9 @@ from hades.layouts.tools import Port
 
 if __name__ == "__main__":
     if os.getcwd() is not Path(dirname(__file__)):
-        print("Running from the wrong directory, changing to the directory of the script")
+        print(
+            "Running from the wrong directory, changing to the directory of the script"
+        )
         os.chdir(dirname(__file__))
     post_proc_only = False
     if not post_proc_only:

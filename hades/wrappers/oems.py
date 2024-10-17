@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 ### Import Libraries
+import logging
 import os
 import shutil
 import sys
@@ -63,15 +64,15 @@ def compute(
             f_start = freq[0]
             f_stop = f_start
             FDTD.SetSinusExcite(f_start)
-            print("Using Sinusoidal Excitation")
+            logging.info("Using Sinusoidal Excitation")
         else:
             f_start, f_stop = np.min(freq), np.max(freq)
             FDTD.SetGaussExcite((f_start + f_stop) / 2, (f_stop - f_start) / 2)
-            print("Using Gaussian Pulse Excitation")
+            logging.info("Using Gaussian Pulse Excitation")
     else:
         f_start, f_stop = 0, freq
         FDTD.SetDiracExcite(f_stop)
-        print("Using Dirac Pulse Excitation")
+        logging.info("Using Dirac Pulse Excitation")
 
     FDTD.SetBoundaryCond(
         ["MUR", "MUR", "MUR", "MUR", "PEC", "MUR"]
@@ -86,7 +87,6 @@ def compute(
     # apply the excitation & resist as a current source
     wavelength_air = (3e8 / unit) / f_stop
     max_cellsize = np.minimum(1, wavelength_air / (np.sqrt(substrate_epsR) * 100))
-    print(max_cellsize)
     gdsii = read_gds(input_file).cells[0]
     proc_file = get_file("mock", "process")
     _, metals = layer_stack(proc_file)
@@ -126,7 +126,7 @@ def compute(
         try:
             FDTD.Run(sim_path)
         except AssertionError as e:
-            print(
+            logging.error(
                 "Error during OpenEMS run, try :[italic]python -O "
                 + " ".join(sys.argv)
                 + "[/italic]"
@@ -176,7 +176,7 @@ def make_geometry(
         ]
         polygons = gdsii.get_polygons(layer=layer_n, datatype=data_type)
         if len(polygons) == 0:
-            print(f"No drawing found, skipping layer {layer_n}/{data_type}")
+            logging.info(f"No drawing found, skipping layer {layer_n}/{data_type}")
         else:
             csx_metal[layer_n] = CSX.AddMaterial(name, kappa=metals[name].conductivity)
             for poly in polygons:
@@ -204,7 +204,6 @@ def make_geometry(
         center[0] + (1 + margin) * size[0] / 2,
         center[1] + (1 + margin) * size[1] / 2,
     ]
-    print(start, stop)
     for i, diel in enumerate(diels):
         sub = CSX.AddMaterial(f"diel_{i}", epsilon=diel.permittivity)
         sub.AddBox(

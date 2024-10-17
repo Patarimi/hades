@@ -1,4 +1,5 @@
 import dataclasses
+import logging
 from pathlib import Path
 from lark import Transformer
 
@@ -7,7 +8,8 @@ from hades.parsers.tools import parse
 
 @dataclasses.dataclass
 class DielectricLayer:
-    height: float
+    thickness: float
+    elevation: float
     permittivity: float
     permeability: float = 1.0
     conductivity: float = 0.0
@@ -17,7 +19,7 @@ class DielectricLayer:
 class MetalLayer:
     name: str
     definition: str
-    height: float = 0
+    elevation: float = 0
     thickness: float = 0
     conductivity: float = 0
 
@@ -37,6 +39,7 @@ class Process(Transformer):
         self.DielectricLayers = []
         self.MetalLayers: dict[str, MetalLayer] = {}
         self.Definitions: dict[str, str] = {}
+        self.elevation = 0  # keep track of the current elevation
 
     def UNIT(self, unit):
         return str(unit)
@@ -57,43 +60,46 @@ class Process(Transformer):
         self.Definitions[define[0]] = define[1]
 
     def layer(self, layer):
-        height = (
-            layer[0]
+        self.elevation = (
+            0
             if not self.DielectricLayers
-            else self.DielectricLayers[-1].height + layer[0]
+            else self.DielectricLayers[-1].elevation
+            + self.DielectricLayers[-1].thickness
         )
         self.DielectricLayers.append(
-            DielectricLayer(height=height, permittivity=layer[1])
+            DielectricLayer(
+                elevation=self.elevation, thickness=layer[0], permittivity=layer[1]
+            )
         )
 
-    def OFFSET(self, offset):
-        val = str(offset).split(" ")
-        return float(val[1]) * self.scale["length"]
+    def offset(self, offset):
+        logging.info(f"offset {offset[0]}")
+        self.elevation += float(offset[0])
 
     def conductor(self, conductor):
-        if type(conductor[-1]) is str:
-            name = conductor[-1]
-            offset = 0
-        else:
-            name = conductor[-2]
-            offset = conductor[-1]
+        logging.info(f"last diel {self.DielectricLayers[-1].thickness}")
+        name = conductor[-1]
+        offset = self.elevation
         self.MetalLayers[name] = MetalLayer(
             name=name,
             definition=self.Definitions[name],
-            height=self.DielectricLayers[-1].height + offset,
+            elevation=self.DielectricLayers[-1].thickness + offset,
             conductivity=conductor[1],
             thickness=conductor[0],
         )
+        self.elevation += conductor[0]
 
     def via(self, via):
         below, above, cond, name = via
-        height = self.MetalLayers[below].height + self.MetalLayers[below].thickness
+        elevation = (
+            self.MetalLayers[below].elevation + self.MetalLayers[below].thickness
+        )
         self.MetalLayers[name] = MetalLayer(
             name=name,
             definition=self.Definitions[name],
-            height=height,
+            elevation=elevation,
             conductivity=cond,
-            thickness=self.MetalLayers[above].height - height,
+            thickness=self.MetalLayers[above].elevation - elevation,
         )
 
     def start(self, start):

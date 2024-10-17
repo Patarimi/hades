@@ -90,7 +90,7 @@ def compute(
     gdsii = read_gds(input_file).cells[0]
     proc_file = get_file("mock", "process")
     _, metals = layer_stack(proc_file)
-    for i, label in enumerate(gdsii.labels):
+    for i, label in enumerate(gdsii.get_labels(depth=0)):
         for name in metals:
             if int(metals[name].definition.strip("L").split("T")[0]) == label.layer:
                 break
@@ -100,7 +100,7 @@ def compute(
         stop = [
             label.origin[0] + max_cellsize,
             label.origin[1] + max_cellsize,
-            metals[name].thickness / 2 + metals[name].height + 2,
+            metals[name].thickness / 2 + metals[name].elevation,
         ]
         port = FDTD.AddLumpedPort(
             i, 50, start, stop, "z", i, priority=5, edges2grid="all"
@@ -148,7 +148,7 @@ def make_geometry(
     *,
     show_model: bool = False,
     sim_path: Path = None,
-    margin: float = 0.1,
+    margin: float = 0.2,
 ) -> CSXCAD.ContinuousStructure:
     """
     Create a geometry in OpenEMS from a gds and a technology.
@@ -168,7 +168,6 @@ def make_geometry(
     proc_file = get_file(tech, "process")
     diels, metals = layer_stack(proc_file)
 
-    elevation = 0
     csx_metal = dict()
     for name in metals:
         layer_n, data_type = [
@@ -186,10 +185,9 @@ def make_geometry(
                     points=[x, y],
                     priority=200,
                     norm_dir="z",
-                    elevation=elevation,
-                    length=metals[name].height,
+                    elevation=metals[name].elevation,
+                    length=metals[name].thickness,
                 )
-        elevation += metals[name].height
 
     # Building Dielectric layers
     altitude = 0
@@ -211,11 +209,11 @@ def make_geometry(
             stop=[
                 stop[0],
                 stop[1],
-                altitude + diel.height if diel.height != inf else 2 * altitude,
+                altitude + diel.elevation if diel.elevation != inf else 2 * altitude,
             ],
             priority=1,
         )
-        altitude += diel.height
+        altitude += diel.elevation
 
     if show_model:
         CSX_file = os.path.join(sim_path, "bent_patch.xml")

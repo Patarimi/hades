@@ -26,8 +26,9 @@ from openEMS.openEMS import openEMS
 from hades.layouts.tools import Port
 
 logging.basicConfig(
-    format="%(asctime)s %(levelname)-8s %(message)s",
-    level=logging.INFO)
+    format="%(asctime)s %(levelname)-8s %(message)s", level=logging.INFO
+)
+
 
 def compute(
     input_file: Path,
@@ -146,24 +147,18 @@ def make_geometry(
     gds_file: Path,
     tech: str = "mock",
     *,
-    show_model: bool = False,
-    sim_path: Path = None,
     margin: float = 0.2,
 ) -> CSXCAD.ContinuousStructure:
     """
     Create a geometry in OpenEMS from a gds and a technology.
     :param gds_file: The input gds file (the top cell is used by default).
     :param tech: Name of the technology (*hades pdk list* for a list of available techno).
-    :param show_model: Open a 3D view of the model before running the simulation.
-    :param sim_path: Folder use to write simulation file (same as gds file by default).
     :param margin: margin around the model. The simulation box is the bounding box of the model time (1 + margin).
     :return:
     """
     gdsii = read_gds(gds_file).cells[0]
 
     CSX = CSXCAD.ContinuousStructure()
-    if sim_path is None:
-        sim_path = Path(gds_file).parent
 
     proc_file = get_file(tech, "process")
     diels, metals = layer_stack(proc_file)
@@ -214,14 +209,5 @@ def make_geometry(
             priority=1,
         )
         altitude += diel.elevation
-
-    if show_model:
-        CSX_file = os.path.join(sim_path, "bent_patch.xml")
-        if not os.path.exists(sim_path):
-            os.mkdir(sim_path)
-        CSX.Write2XML(CSX_file)
-        from CSXCAD import AppCSXCAD_BIN
-
-        os.system(AppCSXCAD_BIN + ' "{}"'.format(CSX_file))
 
     return CSX

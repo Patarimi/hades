@@ -23,9 +23,9 @@ if __name__ == "__main__":
             "inductor",
             (0, 5e9),
             ports=[Port("P1", "P2")],
-            sim_path=join("./inductor"),
+            sim_path=Path("./inductor"),
             show_model=True,
-            skip_run=True,
+            skip_run=False,
         )
         s_res.write_touchstone("inductor")
     else:

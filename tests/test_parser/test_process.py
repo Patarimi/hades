@@ -31,3 +31,17 @@ def test_process():
         thickness=1,
         conductivity=2.5e7,
     )
+    assert metals["metal4"] == process.MetalLayer(
+        name="metal4",
+        definition="L46T0",
+        elevation=5.5,
+        thickness=1.5,
+        conductivity=2.5e7,
+    )
+    assert metals["con"] == process.MetalLayer(
+        name="con",
+        definition="L42T0",
+        elevation=0.8,
+        thickness=2.1,
+        conductivity=2.5e5,
+    )

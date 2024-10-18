@@ -73,11 +73,11 @@ class Process(Transformer):
         )
 
     def offset(self, offset):
-        logging.info(f"offset {offset[0]}")
+        logging.debug(f"offset {offset[0]}")
         self.elevation += float(offset[0])
 
     def conductor(self, conductor):
-        logging.info(f"last diel {self.DielectricLayers[-1].thickness}")
+        logging.debug(f"last diel {self.DielectricLayers[-1].thickness}")
         name = conductor[-1]
         offset = self.elevation
         self.MetalLayers[name] = MetalLayer(

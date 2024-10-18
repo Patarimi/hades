@@ -99,7 +99,7 @@ class Process(Transformer):
             definition=self.Definitions[name],
             elevation=elevation,
             conductivity=cond,
-            thickness=self.MetalLayers[above].elevation - elevation,
+            thickness=round(self.MetalLayers[above].elevation - elevation, 15),
         )
 
     def start(self, start):

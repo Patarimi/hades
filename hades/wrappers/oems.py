@@ -12,7 +12,6 @@ from typing import Optional
 from gdstk import read_gds
 from skrf import Network
 import numpy as np
-from rich import print
 
 from hades.parsers.process import layer_stack
 from hades.techno import get_file
@@ -26,13 +25,15 @@ from openEMS.openEMS import openEMS
 
 from hades.layouts.tools import Port
 
+logging.basicConfig(
+    format="%(asctime)s %(levelname)-8s %(message)s",
+    level=logging.INFO)
 
 def compute(
     input_file: Path,
     cell_name: str,
     freq: float | tuple[float],
     ports: Optional[list[Port | str]] = None,
-    refresh_mesh: bool = True,
     sim_path: Optional[Path] = Path("./."),
     show_model: bool = False,
     skip_run: bool = False,
@@ -46,7 +47,6 @@ def compute(
     - If a tuple of two frequencies is given, simulate from the first to the second frequency.
     :param ports: list of ports to be used in simulation. Ports name and ref must be labels in the layout.
         If ports are not given, all the ports in the layout will be used.
-    :param refresh_mesh: if True, the mesh will be refreshed before the simulation.
     :param sim_path: path to the simulation folder. If not given, the simulation will be done in the current folder.
     :param show_model: if True, the model will be shown before the simulation.
     :param skip_run: if True, the simulation will be skipped. Results will be loaded from the simulation folder.

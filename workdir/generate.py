@@ -24,7 +24,6 @@ if __name__ == "__main__":
             (0, 5e9),
             ports=[Port("P1", "P2")],
             sim_path=join("./inductor"),
-            refresh_mesh=False,
             show_model=True,
             skip_run=True,
         )

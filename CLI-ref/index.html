@@ -1314,6 +1314,32 @@ TODO: Re-write with cookiecutter</p>
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  --project-name PATH  [default: ./working_dir]
 </code></pre></div>
+<h2 id="oems">oems<a class="headerlink" href="#oems" title="Permanent link">&para;</a></h2>
+<p>Run OpenEMS simulations</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> oems [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="run">run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<p>Run the simulation using openEMS output a touchstone file in the simulation folder.
+:param input_file: gds file to be simulated.
+:param cell_name: name of the cell to simulate (default value: top cell of the layout)
+:param freq: frequency of the simulation.
+:param ports: list of ports to be simulated. (default value: all ports)
+:param sim_path: path to the simulation folder. (default value: same as the input file)
+:param show_model: show the model in CSXCAD.
+:param skip_run: skip the run of the simulation.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> oems run [OPTIONS] INPUT_FILE CELL_NAME FREQ...
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  INPUT_FILE                      [required]
+  CELL_NAME                       [required]
+  FREQ...                         [required]
+  --ports TEXT
+  --sim-path PATH                 [default: .]
+  --show-model / --no-show-model  [default: no-show-model]
+  --skip-run / --no-skip-run      [default: no-skip-run]
+</code></pre></div>
 <h2 id="pdk">pdk<a class="headerlink" href="#pdk" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> pdk [OPTIONS] COMMAND [ARGS]...

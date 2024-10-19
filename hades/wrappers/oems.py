@@ -20,14 +20,13 @@ from hades.parsers.process import layer_stack
 from hades.techno import get_file
 
 # define OPENEMS variable for correct CSXCAD import
-if "OPENEMS_INSTALL_PATH" not in os.environ:
-    if shutil.which("openEMS"):
+if shutil.which("openEMS"):
+    if "OPENEMS_INSTALL_PATH" not in os.environ:
         os.environ["OPENEMS_INSTALL_PATH"] = dirname(shutil.which("openEMS"))
-    else:
-        logging.error("openEMS not found")
-
-from CSXCAD import CSXCAD
-from openEMS.openEMS import openEMS
+    from CSXCAD import CSXCAD
+    from openEMS.openEMS import openEMS
+else:
+    logging.error("openEMS not found")
 
 from hades.layouts.tools import Port
 

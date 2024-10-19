@@ -9,6 +9,9 @@ from os.path import dirname
 from pathlib import Path
 from typing import Optional
 
+from pydantic import PositiveFloat, BaseModel
+from typer import Typer
+
 from gdstk import read_gds
 from skrf import Network
 import numpy as np
@@ -29,12 +32,51 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)-8s %(message)s", level=logging.INFO
 )
 
+oems_app = Typer(help="Run OpenEMS simulations")
+
+
+class Frequency(BaseModel):
+    start: PositiveFloat = 0
+    stop: PositiveFloat
+
+
+@oems_app.command("run")
+# This a hack to make the command work with the current version of typer.
+def run(
+    input_file: Path,
+    cell_name: str,
+    freq: tuple[float, float],
+    ports: Optional[list[str]] = None,
+    sim_path: Optional[Path] = Path("./."),
+    show_model: bool = False,
+    skip_run: bool = False,
+):
+    """
+    Run the simulation using openEMS output a touchstone file in the simulation folder.
+    :param input_file: gds file to be simulated.
+    :param cell_name: name of the cell to simulate (default value: top cell of the layout)
+    :param freq: frequency of the simulation.
+    :param ports: list of ports to be simulated. (default value: all ports)
+    :param sim_path: path to the simulation folder. (default value: same as the input file)
+    :param show_model: show the model in CSXCAD.
+    :param skip_run: skip the run of the simulation.
+    """
+    compute(
+        input_file,
+        cell_name,
+        Frequency(freq),
+        Port[ports],
+        sim_path,
+        show_model,
+        skip_run,
+    )
+
 
 def compute(
     input_file: Path,
     cell_name: str,
-    freq: float | tuple[float],
-    ports: Optional[list[Port | str]] = None,
+    freq: Frequency,
+    ports: Optional[list[Port]] = None,
     sim_path: Optional[Path] = Path("./."),
     show_model: bool = False,
     skip_run: bool = False,
@@ -60,20 +102,12 @@ def compute(
 
     ### Setup FDTD parameter & excitation function
     FDTD = openEMS(CoordSystem=0, EndCriteria=1e-4)  # init a rectangular FDTD
-    if type(freq) is tuple:
-        if freq[0] == freq[1] or freq[1] == 0:
-            f_start = freq[0]
-            f_stop = f_start
-            FDTD.SetSinusExcite(f_start)
-            logging.info("Using Sinusoidal Excitation")
-        else:
-            f_start, f_stop = np.min(freq), np.max(freq)
-            FDTD.SetGaussExcite((f_start + f_stop) / 2, (f_stop - f_start) / 2)
-            logging.info("Using Gaussian Pulse Excitation")
+    if freq.start == freq.stop:
+        FDTD.SetSinusExcite(freq.start)
+        logging.info("Using Sinusoidal Excitation")
     else:
-        f_start, f_stop = 0, freq
-        FDTD.SetDiracExcite(f_stop)
-        logging.info("Using Dirac Pulse Excitation")
+        FDTD.SetGaussExcite((freq.start + freq.stop) / 2, (freq.stop - freq.start) / 2)
+        logging.info("Using Gaussian Pulse Excitation")
 
     FDTD.SetBoundaryCond(
         ["MUR", "MUR", "MUR", "MUR", "PEC", "MUR"]
@@ -86,7 +120,7 @@ def compute(
         FDTD.AddEdges2Grid(dirs="all", properties=prop)
 
     # apply the excitation & resist as a current source
-    wavelength_air = (3e8 / unit) / f_stop
+    wavelength_air = (3e8 / unit) / freq.stop
     max_cellsize = np.minimum(1, wavelength_air / (np.sqrt(substrate_epsR) * 100))
     gdsii = read_gds(input_file).cells[0]
     proc_file = get_file("mock", "process")
@@ -135,7 +169,7 @@ def compute(
             raise e
 
     ### Postprocessing & plotting
-    f = np.linspace(f_start, f_stop, 401)
+    f = np.linspace(freq.start, freq.stop, 401)
     port.CalcPort(sim_path, f)
     result = Network()
     result.frequency = f

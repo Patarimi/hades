@@ -9,10 +9,12 @@ from os.path import join
 from os import makedirs
 import hades.techno as techno
 import hades.wrappers.simulator as sim
+from hades.wrappers.oems import oems_app
 
 app = Typer()
 app.add_typer(techno.pkd_app, name="pdk")
 app.add_typer(sim.sim_app, name="sim")
+app.add_typer(oems_app, name="oems")
 
 
 @app.command("generate")

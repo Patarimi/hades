@@ -18,7 +18,7 @@ doc = "mkdocs gh-deploy"
 run = "wsl -d NixOS nix-shell --run"
 smoke_test = ["run magic"]
 
-[tool.poe.tasks.precom]
+[tool.poe.tasks.precommit]
 sequence = [
     "update_show",
     {cmd = "ruff format"},

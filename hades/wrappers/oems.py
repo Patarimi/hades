@@ -21,7 +21,10 @@ from hades.techno import get_file
 
 # define OPENEMS variable for correct CSXCAD import
 if "OPENEMS_INSTALL_PATH" not in os.environ:
-    os.environ["OPENEMS_INSTALL_PATH"] = dirname(shutil.which("openEMS"))
+    if shutil.which("openEMS"):
+        os.environ["OPENEMS_INSTALL_PATH"] = dirname(shutil.which("openEMS"))
+    else:
+        logging.error("openEMS not found")
 
 from CSXCAD import CSXCAD
 from openEMS.openEMS import openEMS

@@ -6,7 +6,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from skrf import Network
 
-from hades.wrappers.oems import compute
+from hades.wrappers.oems import compute, Frequency
 from hades.layouts.tools import Port
 
 
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         s_res = compute(
             Path("../tests/test_layouts/ref_ind.gds"),
             "inductor",
-            (0, 5e9),
+            Frequency(stop=5e9),
             ports=[Port("P1", "P2")],
             sim_path=Path("./inductor"),
             show_model=True,

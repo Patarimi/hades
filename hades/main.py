@@ -1,3 +1,5 @@
+import shutil
+
 from typer import Typer
 from pathlib import Path
 from hades.devices.mos import Mos
@@ -13,6 +15,10 @@ import hades.wrappers.simulator as sim
 app = Typer()
 app.add_typer(techno.pkd_app, name="pdk")
 app.add_typer(sim.sim_app, name="sim")
+if shutil.which("openEMS"):
+    from hades.wrappers.oems import oems_app
+
+    app.add_typer(oems_app, name="oems")
 
 
 @app.command("generate")

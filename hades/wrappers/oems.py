@@ -99,9 +99,6 @@ def compute(
     """
     unit = 1e-6  # all length in um
 
-    # substrate setup
-    substrate_epsR = 3.38
-
     ### Setup FDTD parameter & excitation function
     FDTD = openEMS(CoordSystem=0, EndCriteria=1e-4)  # init a rectangular FDTD
     if freq.start == freq.stop:
@@ -123,7 +120,7 @@ def compute(
 
     # apply the excitation & resist as a current source
     wavelength_air = (3e8 / unit) / freq.stop
-    max_cellsize = np.minimum(1, wavelength_air / (np.sqrt(substrate_epsR) * 100))
+    max_cellsize = np.minimum(1, wavelength_air / 1000)
     gdsii = read_gds(input_file).cells[0]
     proc_file = get_file("mock", "process")
     _, metals = layer_stack(proc_file)
@@ -235,7 +232,12 @@ def make_geometry(
         center[1] + (1 + margin) * size[1] / 2,
     ]
     for i, diel in enumerate(diels):
-        sub = CSX.AddMaterial(f"diel_{i}", epsilon=diel.permittivity)
+        sub = CSX.AddMaterial(
+            f"diel_{i}",
+            epsilon=diel.permittivity,
+            mue=diel.permeability,
+            kappa=diel.conductivity,
+        )
         sub.AddBox(
             start=[start[0], start[1], altitude],
             stop=[

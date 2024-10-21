@@ -66,9 +66,15 @@ class Process(Transformer):
             else self.DielectricLayers[-1].elevation
             + self.DielectricLayers[-1].thickness
         )
+        layer = [lyr for lyr in layer if lyr is not None]
+        logging.info(f"layer{len(self.DielectricLayers)}: {layer}")
         self.DielectricLayers.append(
             DielectricLayer(
-                elevation=self.elevation, thickness=layer[0], permittivity=layer[1]
+                elevation=self.elevation,
+                thickness=layer[0],
+                permittivity=layer[1],
+                permeability=1 if len(layer) < 3 else layer[2],
+                conductivity=0 if len(layer) < 4 else layer[3],
             )
         )
 

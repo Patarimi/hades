@@ -149,7 +149,7 @@ def compute(
     mesh.SmoothMeshLines("x", max_cellsize)
     mesh.SmoothMeshLines("y", max_cellsize)
 
-    ### Run the simulation
+    ### Display the 3D model before simulation
     if show_model:
         CSX_file = os.path.join(sim_path, "bent_patch.xml")
         if not os.path.exists(sim_path):
@@ -159,6 +159,7 @@ def compute(
 
         os.system(AppCSXCAD_BIN + ' "{}"'.format(CSX_file))
 
+    # Run the simulation
     if not skip_run:
         try:
             FDTD.Run(sim_path)
@@ -170,7 +171,7 @@ def compute(
             )
             raise e
 
-    ### Postprocessing & plotting
+    ### Export as a touchstone file
     f = np.linspace(freq.start, freq.stop, 401)
     port.CalcPort(sim_path, f)
     result = Network()

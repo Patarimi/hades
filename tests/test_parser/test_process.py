@@ -12,7 +12,7 @@ def test_process():
         thickness=0.5,
         permittivity=11.9,
         permeability=1.0,
-        conductivity=0.0,
+        conductivity=5.0,
     )
     assert diels[1] == process.DielectricLayer(
         elevation=0.5, thickness=5, permittivity=4.3, permeability=1.0, conductivity=0.0

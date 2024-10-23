@@ -7,6 +7,7 @@ in
 pkgs.mkShellNoCC {
   packages = with pkgs; [
     magic-vlsi
+    openems
   ];
 
   shellHook =

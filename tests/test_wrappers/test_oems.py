@@ -1,9 +1,12 @@
+import shutil
 from os.path import dirname
 from pathlib import Path
+import pytest
 
 from hades.wrappers.oems import compute, Frequency
 
 
+@pytest.skipif(shutil.which("openEMS"), reason="OpenEMS not found in PATH")
 def test_compute(tmp_path):
     compute(
         Path(dirname(__file__)) / "../test_layouts/ref_ind2.gds",

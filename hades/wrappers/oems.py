@@ -9,7 +9,7 @@ from os.path import dirname
 from pathlib import Path
 from typing import Optional
 
-from pydantic import PositiveFloat, BaseModel
+from pydantic import confloat, BaseModel
 from typer import Typer
 
 from gdstk import read_gds
@@ -38,8 +38,8 @@ oems_app = Typer(help="Run OpenEMS simulations")
 
 
 class Frequency(BaseModel):
-    start: PositiveFloat = 0
-    stop: PositiveFloat
+    start: confloat(ge=0) = 0
+    stop: confloat(gt=0)
 
 
 @oems_app.command("run")
@@ -98,6 +98,9 @@ def compute(
     :return: Network object containing the simulation results.
     """
     unit = 1e-6  # all length in um
+
+    if type(freq) is tuple:
+        freq = Frequency(start=freq[0], stop=freq[1])
 
     ### Setup FDTD parameter & excitation function
     FDTD = openEMS(CoordSystem=0, EndCriteria=1e-4)  # init a rectangular FDTD
@@ -170,10 +173,13 @@ def compute(
 
     ### Export as a touchstone file
     f = np.linspace(freq.start, freq.stop, 401)
-    port.CalcPort(sim_path, f)
     result = Network()
     result.frequency = f
-    result.s = port.uf_ref / port.uf_inc
+    try:
+        port.CalcPort(sim_path, f)
+        result.s = port.uf_ref / port.uf_inc
+    except FileNotFoundError:
+        logging.error("Ports files not found, run the simulation first")
     return result
 
 
@@ -190,6 +196,7 @@ def make_geometry(
     :param margin: margin around the model. The simulation box is the bounding box of the model time (1 + margin).
     :return:
     """
+    logging.info(f"Creating geometry from {gds_file}")
     gdsii = read_gds(gds_file).cells[0]
 
     CSX = CSXCAD.ContinuousStructure()

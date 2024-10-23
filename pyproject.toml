@@ -51,12 +51,12 @@ klayout = "^0.29.5"
 ngsolve = "^6.2.2404.post51"
 pydantic = "^2.8.2"
 openems = [
-    {path = "manifests/openEMS-0.0.36-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win64"},
-    {path = "manifests/openEMS-0.0.36-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win64"},
+    {path = "manifests/openEMS-0.0.36-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win32"},
+    {path = "manifests/openEMS-0.0.36-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win32"},
     ]
 csxcad = [
-    {path = "manifests/CSXCAD-0.6.3-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win64"},
-    {path = "manifests/CSXCAD-0.6.3-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win64"},
+    {path = "manifests/CSXCAD-0.6.3-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win32"},
+    {path = "manifests/CSXCAD-0.6.3-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win32"},
     ]
 h5py = "^3.11.0"
 

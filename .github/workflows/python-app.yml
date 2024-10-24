@@ -39,6 +39,7 @@ jobs:
 
   testing:
     strategy:
+      fail-fast: true
       matrix:
         os: [ubuntu-latest, windows-latest]
 
@@ -63,9 +64,9 @@ jobs:
         dir
         winget settings --enable LocalManifestFiles
         winget install -m .\manifests\n\NGSpice\NGSpice\42
-        # winget install -m .\manifests\o\OpenEMS\OpenEMS\0.0.36
+        winget install -m .\manifests\o\OpenEMS\OpenEMS\0.0.36
         Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\NGSpice.NGSpice__DefaultSource\Spice64\bin"
-        # Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\OpenEMS.OpenEMS__DefaultSource\OpenEMS"
+        Add-Content $env:GITHUB_PATH "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\OpenEMS.OpenEMS__DefaultSource\OpenEMS"
     - name: Install Nix for Ubuntu
       if: ${{runner.os != 'Windows' }}
       uses: cachix/install-nix-action@v30
@@ -78,6 +79,7 @@ jobs:
         sudo apt-get install -y ngspice
         nix-channel --update
         nix-channel --list
+        # nix-env -i openems -f '<nixpkgs>'
     - name: Install poetry
       run: pipx install poetry
     - name: Set up Python 3.10
@@ -88,7 +90,7 @@ jobs:
     - name: Install Dependencies
       run: |
         poetry show --tree
-        poetry install
+        poetry install --with=dev
         poetry run pwd
     - name: Install PDK
       run: |
@@ -99,6 +101,8 @@ jobs:
       run: |
         poetry run volare enable --pdk sky130 --pdk-root ./pdk 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
         poetry run volare enable --pdk gf180mcu --pdk-root ./pdk 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
+        poetry run pip install .\manifests\openEMS-0.0.36-cp310-cp310-win_amd64.whl
+        poetry run pip install .\manifests\CSXCAD-0.6.3-cp310-cp310-win_amd64.whl
         poetry run volare ls
     - if: ${{ steps.pdk-restore.outputs.cache-hit != 'true' }}
       name: Save PDK Directory
@@ -115,7 +119,7 @@ jobs:
       if: failure()
       uses: actions/upload-artifact@v4
       with:
-        name: reports
+        name: reports-${{ matrix.os }}
         path: |
           tmp/
           pytest.log

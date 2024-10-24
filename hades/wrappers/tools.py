@@ -4,8 +4,15 @@ from subprocess import run, CompletedProcess
 
 
 def nix_check():
+    if os.name == "nt":
+        proc = run(["wsl", "-l"], capture_output=True, text=True)
+        list_of_wsl = proc.stdout.replace("\0", "")
+        if "Ubuntu-24.04" not in list_of_wsl:
+            logging.error(list_of_wsl)
+            return False
     try:
-        nix_run(["--version"])
+        proc = nix_run(["--version"])
+        logging.info(proc.stdout)
         return True
     except Exception as e:
         logging.error(e)

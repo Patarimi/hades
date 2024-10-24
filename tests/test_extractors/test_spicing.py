@@ -1,5 +1,4 @@
 import filecmp
-import os
 import pytest
 from os.path import join, dirname
 

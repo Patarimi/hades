@@ -1,10 +1,10 @@
 import filecmp
-import os
 import pytest
 from os.path import join, dirname
 
 from hades.extractors.spicing import extract_spice, extract_spice_magic
 from hades.extractors.tools import check_diff
+from hades.wrappers.tools import nix_check
 from pathlib import Path
 
 
@@ -17,7 +17,7 @@ def test_spice_extractor(tmp_path):
     filecmp.cmp(output_path, join(dirname(__file__), "../test_extractors/ref_ind.cir"))
 
 
-@pytest.mark.skipif(os.name == "nt", reason="Not working yet")
+@pytest.mark.skipif(not nix_check(), reason="Nix not correctly installed")
 def test_spice_extractor_magic(tmp_path):
     output_path = tmp_path / "spice.cir"
     extract_spice_magic(

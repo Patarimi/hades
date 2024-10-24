@@ -3,6 +3,15 @@ import os
 from subprocess import run, CompletedProcess
 
 
+def nix_check():
+    try:
+        nix_run(["--version"])
+        return True
+    except Exception as e:
+        logging.error(e)
+        return False
+
+
 def nix_run(cmd: list[str]) -> CompletedProcess:
     over_head = [
         "nix-shell",

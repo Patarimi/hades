@@ -23,10 +23,12 @@ from hades.techno import get_file
 if shutil.which("openEMS"):
     if "OPENEMS_INSTALL_PATH" not in os.environ:
         os.environ["OPENEMS_INSTALL_PATH"] = dirname(shutil.which("openEMS"))
-    from CSXCAD import CSXCAD
-    from openEMS.openEMS import openEMS
 else:
     logging.error("openEMS not found")
+    paths = os.environ["PATH"].split(";" if os.name == "nt" else ":")
+    [logging.info(f"{p}") for p in paths]
+from CSXCAD import CSXCAD
+from openEMS.openEMS import openEMS
 
 from hades.layouts.tools import Port
 

@@ -27,8 +27,12 @@ else:
     logging.error("openEMS not found")
     paths = os.environ["PATH"].split(";" if os.name == "nt" else ":")
     [logging.info(f"{p}") for p in paths]
-from CSXCAD import CSXCAD
-from openEMS.openEMS import openEMS
+try:
+    from CSXCAD import CSXCAD
+    from openEMS.openEMS import openEMS
+except ImportError:
+    logging.error("CSXCAD or openEMS not found")
+
 
 from hades.layouts.tools import Port
 

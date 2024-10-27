@@ -1,6 +1,6 @@
 import shutil
 
-from typer import Typer
+from cyclopts import App
 from pathlib import Path
 from hades.devices.mos import Mos
 from hades.devices.inductor import Inductor
@@ -12,21 +12,18 @@ from os import makedirs
 import hades.techno as techno
 import hades.wrappers.simulator as sim
 
-app = Typer()
-app.add_typer(techno.pkd_app, name="pdk")
-app.add_typer(sim.sim_app, name="sim")
+app = App()
+app.command(techno.pkd_app)
+app.command(sim.sim_app)
 if shutil.which("openEMS"):
     from hades.wrappers.oems import oems_app
 
-    app.add_typer(oems_app, name="oems")
+    app.command(oems_app)
 
 
-@app.command("generate")
+@app.command(name="generate")
 def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None:
-    """
-    Main command. Run the flow until convergence using _design_yaml_.
-    The design can be stopped at a specific step using the _stop_ option.
-    """
+    """Main command. Run the flow until convergence using _design.yaml_. The design can be stopped at a specific step using the _stop_ option."""
     with open(design_yaml) as f:
         conf = yaml.load(f, Loader=yaml.Loader)
     design = conf["design"]
@@ -42,11 +39,12 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None
     generate(dut, design["specifications"], dimensions, Step[stop])
 
 
-@app.command("new")
+@app.command(name="new")
 def template(project_name: Path = "./working_dir"):
+    """Create a template directory called _project_name_."""
     """
-    Create a template directory called _project_name_.
     TODO: Re-write with cookiecutter
+    :param project_name: Name of the project.
     """
     template_file = """
         name: #insert name of the design

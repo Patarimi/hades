@@ -2,10 +2,10 @@ from typing import Protocol
 import yaml
 from os.path import isfile, join, dirname
 from pathlib import Path
-from typer import Typer, Option
-from typing_extensions import Annotated
 
-sim_app = Typer()
+from cyclopts import App
+
+sim_app = App("sim", help="Manage the simulators")
 
 CONF_PATH = join(dirname(__file__), "simulator.yml")
 
@@ -51,12 +51,12 @@ def load_conf(conf_file: Path = CONF_PATH, key: str = "") -> dict:
     return conf
 
 
-@sim_app.command("config")
+@sim_app.command(name="config")
 def setup(
     simulator: str,
-    base_dir: Annotated[Path, Option(prompt=True)],
-    name: Annotated[str, Option(prompt=True)],
-    option: Annotated[str, Option(prompt=True)],
+    base_dir: Path,
+    name: str,
+    option: str,
 ) -> None:
     """
     Set up the simulator and write all configuration in a config.yml file at hades root.

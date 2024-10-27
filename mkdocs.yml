@@ -5,13 +5,14 @@ watch:
 
 nav:
   - Home: README.md
-  - CLI-Command: CLI-ref.md
+  # - CLI-Command: CLI-ref.md
+  # remove for now. Waiting for mkdocs-cyclopts to be available.
   - API-Reference: reference/
 
 theme:
   name: material
 markdown_extensions:
-  - mkdocs-typer
+  # - mkdocs-typer
   - toc:
       permalink: True
   - pymdownx.superfences:

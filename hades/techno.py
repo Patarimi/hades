@@ -7,7 +7,7 @@ import urllib.request
 import zipfile
 from os.path import join, dirname, isdir
 import yaml
-from typer import Typer
+from cyclopts import App
 from typing import Optional
 from rich.console import Console
 from rich.table import Table
@@ -15,14 +15,12 @@ from rich import print
 
 
 console = Console(stderr=True)
-pkd_app = Typer()
+pkd_app = App("pdk", help="Manage the PDKs")
 
 
-@pkd_app.command("install")
+@pkd_app.command(name="install")
 def install(pdk_name: str):
-    """
-    install the _pdk_name_ technology in its default location.
-    """
+    """Install the _pdk_name_ technology in its default location."""
     base_install = join(dirname(__file__), "../pdk/")
     tech = load_pdk(pdk_name)
     base_url = tech["source_url"]
@@ -61,16 +59,14 @@ def install(pdk_name: str):
         with tarfile.open(file_name, mode="r") as bz:
             bz.extractall(base_install + pdk_name)
     else:
-        with zipfile.open(file_name, mode="r") as zp:
+        with zipfile.ZipFile(file_name, mode="r") as zp:
             zp.extractall(base_install + pdk_name)
     os.remove(file_name)
 
 
-@pkd_app.command("list")
+@pkd_app.command(name="list")
 def list_pdk() -> list:
-    """
-    Display the list of available PDK.
-    """
+    """Display the list of available PDK."""
     process_d = _read_tech()
     print("Available PDKs are:")
     table = Table("Name", "State", show_header=False, box=None)

@@ -13,6 +13,7 @@ from cyclopts import App
 from pydantic import confloat, BaseModel
 
 from gdstk import read_gds
+from scipy.signal import freqs
 from skrf import Network
 import numpy as np
 
@@ -48,11 +49,12 @@ class Frequency(BaseModel):
     stop: confloat(gt=0)
 
 
-@oems_app.command(name="run")
+@oems_app.default
 def compute(
     input_file: Path,
+    process: str,
     cell_name: str,
-    freq: Frequency,
+    freq: list[float, float] | float,
     ports: Optional[list[Port]] = None,
     sim_path: Optional[Path] = Path("./."),
     show_model: bool = False,
@@ -74,7 +76,9 @@ def compute(
     """
     unit = 1e-6  # all length in um
 
-    if type(freq) is tuple:
+    if type(freq) is float:
+        freq = Frequency(stop=freq)
+    else:
         freq = Frequency(start=freq[0], stop=freq[1])
 
     ### Setup FDTD parameter & excitation function
@@ -91,7 +95,7 @@ def compute(
     )  # boundary conditions
     # setting z_min as a perfect electric conductor
 
-    CSX = make_geometry(gds_file=input_file, tech="mock")
+    CSX = make_geometry(gds_file=input_file, tech=process, cell_name=cell_name)
     FDTD.SetCSX(CSX)
     for prop in CSX.GetAllProperties():
         FDTD.AddEdges2Grid(dirs="all", properties=prop)
@@ -161,18 +165,23 @@ def compute(
 def make_geometry(
     gds_file: Path,
     tech: str = "mock",
+    cell_name: str = None,
     *,
     margin: float = 0.2,
 ):
     """
     Create a geometry in OpenEMS from a gds and a technology.
+    :param cell_name: Name of the cell to simulate (default value: top cell of the layout).
     :param gds_file: The input gds file (the top cell is used by default).
     :param tech: Name of the technology (*hades pdk list* for a list of available techno).
     :param margin: margin around the model. The simulation box is the bounding box of the model time (1 + margin).
     :return:
     """
     logging.info(f"Creating geometry from {gds_file}")
-    gdsii = read_gds(gds_file).cells[0]
+    if cell_name is None:
+        gdsii = read_gds(gds_file).cells[0]
+    else:
+        gdsii = read_gds(gds_file)[cell_name]
 
     CSX = CSXCAD.ContinuousStructure()
 

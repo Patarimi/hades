@@ -3,7 +3,7 @@ from os.path import dirname
 from pathlib import Path
 import pytest
 
-from hades.wrappers.oems import compute, Frequency
+from hades.wrappers.oems import compute
 
 
 @pytest.mark.skipif(shutil.which("openEMS") is None, reason="OpenEMS not found in PATH")

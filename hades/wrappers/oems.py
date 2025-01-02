@@ -13,7 +13,6 @@ from cyclopts import App
 from pydantic import confloat, BaseModel
 
 from gdstk import read_gds
-from scipy.signal import freqs
 from skrf import Network
 import numpy as np
 

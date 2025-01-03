@@ -20,10 +20,10 @@ smoke_test = ["run magic"]
 
 [tool.poe.tasks.precommit]
 sequence = [
-    "update_show",
+    {ref = "update_show"},
     {cmd = "ruff format"},
     {cmd = "ruff check"},
-    "test"
+    {ref = "test"}
 ]
 
 [tool.pytest.ini_options]

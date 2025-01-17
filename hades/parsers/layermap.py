@@ -25,7 +25,7 @@ class Map:
             if item.lower() in self.types[key]:
                 return self.layer, key
         raise KeyError(
-            f"Datatype {item} not found." f"Available datatypes are: {self.types}."
+            f"Datatype {item} not found.Available datatypes are: {self.types}."
         )
 
 

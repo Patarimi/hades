@@ -34,7 +34,7 @@ log_file = "./pytest.log"
 
 
 [tool.poetry.dependencies]
-python = "^3.10,<3.12"
+python = "^3.10,<3.13"
 gdstk = "^0.9.48"
 pyyaml = "^6.0"
 scipy = "^1.12.0"

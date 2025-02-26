@@ -21,15 +21,21 @@ Starting from the specifications written in a design.yml or a python file, the f
 
 ```mermaid
 flowchart TD
-    start -- "specifications (.yml)" --> app["Physical Model\n(hades.devices)"]
-    app --dimensions --> pl["Parametric Layout\n(gdstk + hades.layouts)"]
-    pl --"geometries (.gdsII)" --> be_sim["RC extraction up to Mx\n(Magic-VLSI)"]
-    pl --"geometries (.gdsII)" --> fe_sim["3D simulation from Mx\n(OpenEMS)"]
-    fe_sim -- "touchstone (.sNp)" --> ext["Spice simulation and spec. extraction.\n(NGSpice + Scikit-RF)"]
+    start -- "specifications (.yml)" --> app["Physical Model
+(hades.devices)"]
+    app --dimensions --> pl["Parametric Layout
+(gdstk + hades.layouts)"]
+    pl --"geometries (.gdsII)" --> be_sim["RC extraction up to Mx
+(Magic-VLSI)"]
+    pl --"geometries (.gdsII)" --> fe_sim["3D simulation from Mx
+(OpenEMS)"]
+    fe_sim -- "touchstone (.sNp)" --> ext["Spice simulation and spec. extraction.
+(NGSpice + Scikit-RF)"]
     be_sim --"netlist (.cir)" --> ext
     ext --"Performances (.yml)" --> atSpec{"Perf = Spec ?"}
     atSpec --> |Yes| stop
-    atSpec --> |No| cal["Model Calibrator\n(hades.calibrator)"]
+    atSpec --> |No| cal["Model Calibrator
+(hades.calibrator)"]
     cal --"Locally Optimized Parameters" --> app
 ```
 

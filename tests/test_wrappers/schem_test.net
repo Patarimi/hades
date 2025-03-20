@@ -21,9 +21,9 @@ Mp1 out in cc cc pm W=4u L=0.18u
 * control language script
 .control                                    ; begin of control section
 unset askquit
+set filetype=ascii
 run                                         ; run the .tran command
-print v(out) v(in) i(vcc)
-quit
+write pp v(out) v(in) i(vcc)
 .endc                                       ; end of control section
 
 .end

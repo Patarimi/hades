@@ -7,7 +7,7 @@ def nix_check():
     if os.name == "nt":
         proc = run(["wsl", "-l"], capture_output=True, text=True)
         list_of_wsl = proc.stdout.replace("\0", "")
-        if "Ubuntu-24.04" not in list_of_wsl:
+        if "NixOS" not in list_of_wsl:
             logging.error(list_of_wsl)
             return False
     try:
@@ -25,7 +25,7 @@ def nix_run(cmd: list[str]) -> CompletedProcess:
         "--command",
     ]
     if os.name == "nt":
-        over_head = ["wsl", "-d", "Ubuntu-24.04", "--shell-type", "login"] + over_head
+        over_head = ["wsl", "-d", "NixOS", "--shell-type", "login"] + over_head
     over_head.append(" ".join(cmd))
     logging.info(" ".join(over_head))
     proc = run(over_head, capture_output=True, text=True)

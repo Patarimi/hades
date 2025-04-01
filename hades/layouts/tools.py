@@ -169,4 +169,14 @@ def check_diff(gds1: str | Path, gds2: str | Path) -> bool:
     cell2 = kdb.Layout()
     cell2.read(str(gds2))
     diff = kdb.LayoutDiff()
+    diff.on_cell_name_differs(
+        lambda c1, c2: logging.error(f"Cell {c1.name} != {c2.name}")
+    )
+    logging.error("test")
+    diff.on_cell_in_a_only(
+        lambda c1: logging.error(f"Cell {c1.name} only in file {str(gds1)}")
+    )
+    diff.on_cell_in_b_only(
+        lambda c1: logging.error(f"Cell {c1.name} only in file {str(gds2)}")
+    )
     return diff.compare(cell1, cell2)

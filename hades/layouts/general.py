@@ -57,7 +57,7 @@ def via_stack(
     :param size: tuple of the size (length and width) of the via.
     :return: a gdstk.Cell containing the via stack.
     """
-    v = gdstk.Cell("via")
+    v = gdstk.Cell("via_stack")
     id_top = id_top if id_top > 0 else int((len(layers) + 1) / 2 + id_top)
     id_bot = id_bot if id_bot > 0 else int((len(layers) + 1) / 2 + id_bot)
     logging.info(f"Via Stack between : {id_top=}\t{id_bot=}")

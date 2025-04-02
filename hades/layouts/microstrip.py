@@ -1,51 +1,54 @@
+import logging
+
 from numpy import pi
 
 from .tools import LayerStack, Port
-from .general import via_stack
+from .general import via_stack, via
 import gdstk
-import math
+import klayout.db as db
 
 
 def straight_line(
+    layout: db.Layout,
     width: float,
     length: float,
     layerstack: LayerStack,
     ports: tuple[Port, Port] = (Port("S1"), Port("S2")),
     name: str = "ms",
-) -> gdstk.Cell:
+) -> db.Cell:
     """
     Generate a micro-strip straight line cell. Can be exported as a gds files.
+    :param layout: layout where the cell will be drawn.
     :param name: name of the cell generated
     :param width: Width of the signal line (Reference line is three time wider).
     :param length: Length of the micro-strip.
     :param layerstack: LayerStack object. The highest metal layer will be used for the signal line.
     The lowest metal layer will be used for the ground plane.
     :param ports: name of the ports
-    :return:
+    :return: a db.Cell of a straight line micro-strip.
     """
     m_top = layerstack.get_metal_layer(-1)
+    ly_top = layout.layer(m_top.layer, m_top.datatype)
     m_bott = layerstack.get_metal_layer(1)
-    ms = gdstk.Cell(name)
+    ly_bot = layout.layer(m_bott.layer, m_bott.datatype)
+    ms = layout.create_cell(name)
     le = length * 1e6
     w = width * 1e6
-    rf = gdstk.RobustPath((0, 0), w, layer=m_top.layer, datatype=m_top.datatype)
-    rf.segment((le, 0))
-    gnd = gdstk.RobustPath((0, 0), 3 * w, layer=m_bott.layer, datatype=m_bott.datatype)
-    gnd.segment((le, 0))
-    ms.add(rf, gnd)
+    rf = db.DPath([db.DPoint(0, 0), db.DPoint(le, 0)], w).polygon()
+    ms.shapes(ly_top).insert(rf)
+    gnd = db.DPath([db.DPoint(0, 0), db.DPoint(le, 0)], 3 * w).polygon()
+    ms.shapes(ly_bot).insert(gnd)
     for i in range(2):
         if ports[i].name == "":
             continue
-        ms.add(
-            gdstk.Label(
-                ports[i].name, (i * le, 0), layer=m_top.layer, texttype=m_top.datatype
-            )
-        )
-        ms.add(
-            gdstk.Label(
-                ports[i].ref, (i * le, 0), layer=m_bott.layer, texttype=m_bott.datatype
-            )
-        )
+        t_pos = db.DText(ports[i].name, i * le, 0)
+        t_pos.halign = db.Text.HAlignCenter
+        t_pos.valign = db.Text.VAlignCenter
+        ms.shapes(ly_top).insert(t_pos)
+        t_ref = db.DText(ports[i].ref, i * le, 0)
+        t_ref.halign = db.Text.HAlignCenter
+        t_ref.valign = db.Text.VAlignCenter
+        ms.shapes(ly_bot).insert(t_ref)
     return ms
 
 
@@ -56,6 +59,7 @@ def_port = tuple(
 
 
 def coupled_lines(
+    layout: db.Layout,
     width1: float,
     length: float,
     gap: float,
@@ -63,7 +67,7 @@ def coupled_lines(
     width2: float = -1,
     ports: tuple[Port, Port, Port, Port] = def_port,
     name: str = "cpl",
-) -> gdstk.Cell:
+) -> db.Cell:
     """
     Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.
     :param width1: width of the first line.
@@ -74,16 +78,16 @@ def coupled_lines(
     :param width2: width of the second line.
     :param ports: name of each port.
     :param name: name of the cell.
-    :return:
+    :return: a cell with two coupled lines.
     """
     w2 = width2 if width2 > 0 else width1
-    ms1 = straight_line(width1, length, layerstack, ports[0:2])
-    ms2 = straight_line(w2, length, layerstack, ports[2:])
-    cpl = gdstk.Cell(name)
-    ms_rf = gdstk.Reference(ms1, (0, (width1 * 1e6 + gap * 1e6) / 2))
-    ms_rf2 = gdstk.Reference(ms2, (0, -(w2 * 1e6 + gap * 1e6) / 2))
-    cpl.add(ms_rf, ms_rf2)
-    return cpl.flatten()
+    ms1 = straight_line(layout, width1, length, layerstack, ports[0:2])
+    ms2 = straight_line(layout, w2, length, layerstack, ports[2:])
+    cpl = layout.create_cell(name)
+    cpl.insert(db.DCellInstArray(ms1, db.DVector(0, width1 * 1e6 + gap * 1e6) / 2))
+    cpl.insert(db.DCellInstArray(ms2, db.DVector(0, -(w2 * 1e6 + gap * 1e6) / 2)))
+    cpl.flatten(-1, True)
+    return cpl
 
 
 diff_port = tuple(
@@ -93,6 +97,7 @@ diff_port = tuple(
 
 
 def marchand_balun(
+        layout: db.Layout,
     width: float,
     length: float,
     gap: float,
@@ -101,7 +106,7 @@ def marchand_balun(
     widths: float = -1,
     ports: list[Port] = diff_port,
     name: str = "marchand",
-) -> gdstk.Cell:
+) -> db.Cell:
     """
     Implements a marchand balun, for a 50Ω balun, 2 -4.8 dB 90° coupler are required.
     :param width: width of the signal lines.
@@ -115,60 +120,43 @@ def marchand_balun(
     :param name: name of the cell.
     :return: a gdstk.Cell object with the marchand balun.
     """
+    dbu = layout.dbu
     m_top = layerstack.get_metal_layer(-1)
+    lyr_top = layout.layer(m_top.layer, m_top.datatype)
     m_bott = layerstack.get_metal_layer(1)
+    lyr_bot = layout.layer(m_bott.layer, m_bott.datatype)
     w, le, g, s = width * 1e6, length * 1e6, gap * 1e6, space * 1e6
     ws = w if widths < 0 else widths * 1e6
-    bln = gdstk.Cell(name)
+    bln = layout.create_cell(name)
     emp_port = Port("")
     cpl = lange_coupler(
-        width, length, gap, layerstack, [emp_port for k in range(4)], ext=0
+        layout, width, length, gap, layerstack, [emp_port for k in range(4)], ext=0
     )
-    cpl1 = gdstk.Reference(cpl, (0, -le), pi / 2, x_reflection=True)
-    cpl1_bb = cpl1.bounding_box()
-    cpl2 = gdstk.Reference(cpl, (s + cpl1_bb[1][0] - cpl1_bb[0][0], -w - g), -pi / 2)
-    cpl2_bb = cpl2.bounding_box()
-    r1 = gdstk.rectangle(
-        (cpl1_bb[1][0], cpl1_bb[0][1] + 1.5 * w + g + ws / 2),
-        (cpl2_bb[0][0], cpl2_bb[0][1] + 1.5 * w + g - ws / 2),
-        **m_top.map,
-    )
-    bln.add(cpl1, cpl2, r1)
-    r2 = gdstk.rectangle(
-        bln.bounding_box()[0],
-        bln.bounding_box()[1],
-        **m_bott.map,
-    )
-    bln.add(r2)
+    c1 = bln.insert(db.DCellInstArray(cpl, db.DCplxTrans(1, 90, False, s+4*(w+g)+w, -le)))
+    c2 = bln.insert(db.DCellInstArray(cpl, db.DCplxTrans(1, 90, True, 0, -le)))
+    bot = bln.bbox().bottom * dbu + 1.5 * w + g - ws/2
+    right = c2.bbox().right * dbu
+    bln.shapes(lyr_top).insert(db.DBox(right, bot, right + s, bot + ws))
+    bln.shapes(lyr_bot).insert(bln.bbox())
+
     for i in range(3):
         coord = (
-            (cpl1_bb[1][0] - 1.5 * w - g, cpl1_bb[1][1]),
-            (cpl1_bb[0][0] + 1.5 * w + g, cpl1_bb[0][1]),
-            (cpl2_bb[1][0] - 1.5 * w - g, cpl2_bb[0][1]),
+            (c2.bbox().right*dbu - 1.5 * w - g, c2.bbox().top*dbu),
+            (c2.bbox().left*dbu + 1.5 * w + g, c2.bbox().bottom*dbu),
+            (c1.bbox().right*dbu - 1.5 * w - g, c1.bbox().bottom*dbu),
         )
-        lab = gdstk.Label(
-            ports[i].name,
-            coord[i],
-            layer=m_top.layer,
-            texttype=m_top.datatype,
-        )
-        bln.add(lab)
-    bln.add(
-        gdstk.Reference(
-            via_stack(layerstack, -2, 1, (2 * g + 3 * w, w)),
-            (cpl1_bb[0][0], cpl1_bb[1][1] - g - 2 * w),
-        )
-    )
-    bln.add(
-        gdstk.Reference(
-            via_stack(layerstack, -2, 1, (2 * g + 3 * w, w)),
-            (cpl2_bb[1][0] - 2 * g - 3 * w, cpl2_bb[1][1] - g - 2 * w),
-        )
-    )
-    return bln.flatten()
+        lab = db.DText(ports[i].name,coord[i][0], coord[i][1])
+        lab.valign = db.Text.VAlignCenter
+        lab.halign = db.Text.HAlignCenter
+        bln.shapes(lyr_top).insert(lab)
+    v1 = via_stack(layout, layerstack, -2, 1, (2 * g + 3 * w, w))
+    bln.insert(db.DCellInstArray(v1.cell_index(), db.DVector(-1.5*w-g, -1.5*w-g)))
+    bln.insert(db.DCellInstArray(v1.cell_index(), db.DVector(s + 3.5*w+3*g, -1.5*w-g)))
+    return bln
 
 
 def lange_coupler(
+    layout: db.Layout,
     width: float,
     length: float,
     gap: float,
@@ -176,9 +164,10 @@ def lange_coupler(
     ports: tuple[Port, Port, Port, Port] = def_port,
     name: str = "lange",
     ext: float = 5,
-) -> gdstk.Cell:
+) -> db.Cell:
     """
     Generate a flat symmetrical lange coupler with two strips per track.
+    :param layout: Layout object.
     :param width: track width (in µm)
     :param length: total length of the lines.
     :param gap: space between each track.
@@ -187,54 +176,58 @@ def lange_coupler(
     :param ports: name of each port.
     :param name: name of the returned cell.
     :param ext: extension of the ports
-    :return:
+    :return: a cell with the lange coupler.
     """
     w, le, g = width * 1e6, length * 1e6, gap * 1e6
     top_metal = layerstack.get_metal_layer(-1)
+    lyr_top = layout.layer(top_metal.layer, top_metal.datatype)
     bridge = layerstack.get_metal_layer(-2)
+    lyr_brg = layout.layer(bridge.layer, bridge.datatype)
     top_via = layerstack.get_via_layer(-2)
     bot_metal = layerstack.get_metal_layer(1)
-    first_met = gdstk.FlexPath(
-        (0, 0),
+    lyr_bot = layout.layer(bot_metal.layer, bot_metal.datatype)
+    half_lange = layout.create_cell("half_lange")
+    first_met = db.DPath(
+        [
+            db.DPoint(0, 0),
+            db.DPoint(le, 0),
+            db.DPoint(le, 2 * (w + g)),
+            db.DPoint(0, 2 * (w + g)),
+            db.DPoint(0, 2 * (w + g) + ext),
+        ],
         w,
-        layer=top_metal.layer,
-        datatype=top_metal.datatype,
-        ends="extended",
+        bgn_ext=w / 2,
+        end_ext=w / 2,
     )
-    first_met.horizontal(le, relative=True)
-    first_met.vertical(2 * (w + g), relative=True)
-    first_met.horizontal(-le, relative=True)
-    first_met.vertical(ext, relative=True)
-    port = gdstk.FlexPath(
-        (le, 2.5 * w + 2 * g), w, layer=top_metal.layer, datatype=top_metal.datatype
-    )
-    port.vertical(ext, relative=True)
-    sec_met = gdstk.FlexPath(
-        [(0, 0), (0, 2 * (w + g))],
+    half_lange.shapes(lyr_top).insert(first_met)
+    if ext > 0:
+        port = db.DPath(
+            [db.DPoint(le, 2 * (w + g)), db.Point(le, 2.5 * w + 2 * g + ext)],
+            w,
+            bgn_ext=0,
+            end_ext=w / 2,
+        )
+        half_lange.shapes(lyr_top).insert(port)
+    sec_met = db.DPath(
+        [db.DPoint(0, 0), db.DPoint(0, 2 * (w + g))],
         w,
-        layer=bridge.layer,
-        datatype=bridge.datatype,
-        ends="extended",
+        bgn_ext=w / 2,
+        end_ext=w / 2,
     )
-    via_w = 0.4
-    via_g = 0.4
-    via_s = 0.02
-    rep = math.floor((w - 2 * via_s - via_w) / (via_w + via_g)) + 1
-    shift = -via_w - (rep - 1) * (via_w + via_g)
-    via = gdstk.rectangle(
-        (0, 0), (via_w, via_w), layer=top_via.layer, datatype=top_via.datatype
+    half_lange.shapes(lyr_brg).insert(sec_met)
+    v1 = via(layout, top_via, (w, w))
+    half_lange.insert(db.DCellInstArray(v1.cell_index(), db.DVector(-w / 2, -w / 2)))
+    half_lange.insert(
+        db.DCellInstArray(v1.cell_index(), db.DVector(-w / 2, 1.5 * w + 2 * g))
     )
-    via.repetition = gdstk.Repetition(rep, rep, spacing=(via_g + via_w, via_g + via_w))
-    via.translate(shift / 2, shift / 2)
-    via2 = via.copy()
-    via2.translate(0, 2 * (w + g))
-    lange = gdstk.Cell(name)
-    thg = gdstk.Cell("thg")
-    thg.add(first_met, sec_met, via, via2, port)
-    cpl = gdstk.Reference(thg, rotation=math.pi, origin=(le - w - g, w + g))
-    thg_r = gdstk.Reference(thg)
-    lange.add(cpl, thg_r)
-    lange.flatten()
+    lange = layout.create_cell(name)
+    lange.insert(db.DCellInstArray(half_lange.cell_index(), db.DVector(0, 0)))
+    lange.insert(
+        db.DCellInstArray(
+            half_lange.cell_index(), db.DCplxTrans(1, 180, False, le - w - g, w + g)
+        )
+    )
+    lange.flatten(-1, True)
     for i in range(4):
         coord = (
             (0, ext + 2.5 * w + 2 * g),
@@ -244,19 +237,14 @@ def lange_coupler(
         )
         if ports[i].name == "":
             continue
-        lab = gdstk.Label(
-            ports[i].name,
-            coord[i],
-            layer=top_metal.layer,
-            texttype=top_metal.datatype,
-        )
-        ref = gdstk.Label(
-            ports[i].ref, coord[i], layer=bot_metal.layer, texttype=bot_metal.datatype
-        )
-        lange.add(lab, ref)
-    dim = lange.bounding_box()
-    gnd = gdstk.rectangle(
-        dim[0], dim[1], layer=bot_metal.layer, datatype=bot_metal.datatype
-    )
-    lange.add(gnd)
+        lab = db.DText(ports[i].name, *coord[i])
+        ref = db.DText(ports[i].ref, *coord[i])
+        lab.valign = db.Text.VAlignCenter
+        lab.halign = db.Text.HAlignCenter
+        ref.valign = db.Text.VAlignCenter
+        ref.halign = db.Text.HAlignCenter
+        lange.shapes(lyr_top).insert(lab)
+        lange.shapes(lyr_bot).insert(ref)
+    dim = lange.bbox()
+    lange.shapes(lyr_bot).insert(dim)
     return lange

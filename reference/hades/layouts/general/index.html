@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4af4bdda.min.css">
       
       
 
@@ -1450,7 +1450,7 @@
 
 
 <h2 id="hades.layouts.general.ground_plane" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">ground_plane</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">id_gnd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">ground_plane</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">id_gnd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.general.ground_plane" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1471,6 +1471,22 @@
         </tr>
       </thead>
       <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>layout</code>
+            </td>
+            <td>
+                  <code><span title="klayout.db.Layout">Layout</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The layout to use.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
           <tr class="doc-section-item">
             <td>
                 <code>layers</code>
@@ -1534,7 +1550,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1548,33 +1564,31 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\general.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span>
-<span class="normal">98</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">ground_plane</span><span class="p">(</span>
-    <span class="n">layers</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">id_gnd</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">ground_plane</span><span class="p">(</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">id_gnd</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function generates a ground plane cell.</span>
+<span class="sd">    :param layout: The layout to use.</span>
 <span class="sd">    :param layers: The stack of layers to use.</span>
 <span class="sd">    :param size: size (length and width) of the ground plane.</span>
 <span class="sd">    :param id_gnd: id of the ground metal layer.</span>
@@ -1583,15 +1597,11 @@
     <span class="c1"># option vertical/horizontal/both</span>
     <span class="c1"># gestion of density</span>
     <span class="c1"># option substrate connection</span>
-    <span class="n">gnd</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;ground&quot;</span><span class="p">)</span>
-    <span class="n">gnd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-        <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
-            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="n">size</span><span class="p">,</span>
-            <span class="n">layer</span><span class="o">=</span><span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">id_gnd</span><span class="p">)</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span>
-            <span class="n">datatype</span><span class="o">=</span><span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">id_gnd</span><span class="p">)</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="n">gnd</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;ground&quot;</span><span class="p">)</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">id_gnd</span><span class="p">)</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">id_gnd</span><span class="p">)</span><span class="o">.</span><span class="n">datatype</span>
     <span class="p">)</span>
+    <span class="n">gnd</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">gnd</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -1603,7 +1613,7 @@
 
 
 <h2 id="hades.layouts.general.via" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">via</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">via</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.general.via" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1624,6 +1634,22 @@
         </tr>
       </thead>
       <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>layout</code>
+            </td>
+            <td>
+                  <code><span title="klayout.db.Layout">Layout</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The layout to use.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
           <tr class="doc-section-item">
             <td>
                 <code>layer</code>
@@ -1671,11 +1697,11 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>a gdstk.Cell containing the via.</p>
+                <p>a db.Cell containing the via.</p>
               </div>
             </td>
           </tr>
@@ -1716,16 +1742,28 @@
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">via</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">ViaLayer</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">via</span><span class="p">(</span><span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="n">ViaLayer</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function generates a via cell.</span>
+<span class="sd">    :param layout: The layout to use.</span>
 <span class="sd">    :param layer: The Layers to use.</span>
 <span class="sd">    :param size: tuple of the size (length and width) of the via array to be made.</span>
-<span class="sd">    :return: a gdstk.Cell containing the via.</span>
+<span class="sd">    :return: a db.Cell containing the via.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;via&quot;</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;via&quot;</span><span class="p">)</span>
+    <span class="n">lyr</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">rec</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="n">layer</span><span class="o">.</span><span class="n">map</span><span class="p">)</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">via_w</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">width</span>
         <span class="n">via_g</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">spacing</span>
@@ -1739,14 +1777,20 @@
             <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">length</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">via_s</span> <span class="o">-</span> <span class="n">via_w</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
 
         <span class="n">rep_x</span><span class="p">,</span> <span class="n">rep_y</span> <span class="o">=</span> <span class="n">repetition</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">repetition</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">rec</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">via_w</span><span class="p">,</span> <span class="n">via_w</span><span class="p">),</span> <span class="o">**</span><span class="n">layer</span><span class="o">.</span><span class="n">map</span><span class="p">)</span>
-        <span class="n">rec</span><span class="o">.</span><span class="n">repetition</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Repetition</span><span class="p">(</span>
-            <span class="n">rep_x</span><span class="p">,</span> <span class="n">rep_y</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">,</span> <span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">via_w</span><span class="p">,</span> <span class="n">via_w</span><span class="p">)</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;tmp&quot;</span><span class="p">)</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
         <span class="n">shift</span> <span class="o">=</span> <span class="p">[</span><span class="n">via_w</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">(</span><span class="n">rep_x</span><span class="p">,</span> <span class="n">rep_y</span><span class="p">)]</span>
-        <span class="n">rec</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">rec</span><span class="o">.</span><span class="n">apply_repetition</span><span class="p">()]</span>
-    <span class="n">v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+        <span class="n">rep</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">((</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">),</span>
+            <span class="n">rep_x</span><span class="p">,</span>
+            <span class="n">rep_y</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">rep</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">v</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -1758,7 +1802,7 @@
 
 
 <h2 id="hades.layouts.general.via_stack" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">via_stack</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">id_top</span><span class="p">,</span> <span class="n">id_bot</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">via_stack</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">id_top</span><span class="p">,</span> <span class="n">id_bot</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.general.via_stack" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1779,6 +1823,22 @@
         </tr>
       </thead>
       <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>layout</code>
+            </td>
+            <td>
+                  <code><span title="klayout.db.Layout">Layout</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The layout to use.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
           <tr class="doc-section-item">
             <td>
                 <code>layers</code>
@@ -1858,11 +1918,11 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>a gdstk.Cell containing the via stack.</p>
+                <p>a db.Cell containing the via stack.</p>
               </div>
             </td>
           </tr>
@@ -1872,16 +1932,7 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\general.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
@@ -1899,33 +1950,52 @@
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">via_stack</span><span class="p">(</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">via_stack</span><span class="p">(</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span>
     <span class="n">id_top</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">id_bot</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function generates a via stack cell.</span>
+<span class="sd">    :param layout: The layout to use.</span>
 <span class="sd">    :param layers: The stack of layers to use.</span>
 <span class="sd">    :param id_top: id of the top metal layer.</span>
 <span class="sd">    :param id_bot: id of the bottom metal layer.</span>
 <span class="sd">    :param size: tuple of the size (length and width) of the via.</span>
-<span class="sd">    :return: a gdstk.Cell containing the via stack.</span>
+<span class="sd">    :return: a db.Cell containing the via stack.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;via&quot;</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;via_stack&quot;</span><span class="p">)</span>
     <span class="n">id_top</span> <span class="o">=</span> <span class="n">id_top</span> <span class="k">if</span> <span class="n">id_top</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">id_top</span><span class="p">)</span>
     <span class="n">id_bot</span> <span class="o">=</span> <span class="n">id_bot</span> <span class="k">if</span> <span class="n">id_bot</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">id_bot</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Via Stack between : </span><span class="si">{</span><span class="n">id_top</span><span class="si">=}</span><span class="se">\t</span><span class="si">{</span><span class="n">id_bot</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">id_bot</span><span class="p">,</span> <span class="n">id_top</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">lyr</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">lyr</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">lyr</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Metal:</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">lyr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">lyr</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">lyr</span><span class="o">.</span><span class="n">datatype</span><span class="p">))</span>
+        <span class="c1"># create the bottom metal plate of the vias</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">id_top</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">lyr</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Via:</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">lyr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">via</span><span class="p">(</span><span class="n">lyr</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">polygons</span><span class="p">]</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">via</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">lyr</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">v</span>
 </code></pre></div></td></tr></table></div>
             </details>

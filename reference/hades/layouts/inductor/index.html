@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4af4bdda.min.css">
       
       
 
@@ -1411,7 +1411,7 @@
 
 
 <h2 id="hades.layouts.inductor.octagonal_inductor" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">octagonal_inductor</span><span class="p">(</span><span class="n">d_i</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layer_stack</span><span class="p">,</span> <span class="n">layer_nb</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">pin_name</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="s1">&#39;P2&#39;</span><span class="p">),</span> <span class="n">port_ext</span><span class="o">=</span><span class="mf">1.5e-05</span><span class="p">,</span> <span class="n">port_gap</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bridge_nb</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">octagonal_inductor</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">d_i</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layer_stack</span><span class="p">,</span> <span class="n">layer_nb</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">pin_name</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="s1">&#39;P2&#39;</span><span class="p">),</span> <span class="n">port_ext</span><span class="o">=</span><span class="mf">1.5e-05</span><span class="p">,</span> <span class="n">port_gap</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bridge_nb</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.inductor.octagonal_inductor" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1432,6 +1432,22 @@
         </tr>
       </thead>
       <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>layout</code>
+            </td>
+            <td>
+                  <code><span title="klayout.db.Layout">Layout</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>layout where the inductor will be drawn</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
           <tr class="doc-section-item">
             <td>
                 <code>d_i</code>
@@ -1607,11 +1623,11 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>gdstk.Cell of the inductor</p>
+                <p>pya.Cell of the inductor</p>
               </div>
             </td>
           </tr>
@@ -1719,7 +1735,47 @@
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
-<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">octagonal_inductor</span><span class="p">(</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">octagonal_inductor</span><span class="p">(</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span>
     <span class="n">d_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">n_turn</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1730,9 +1786,10 @@
     <span class="n">port_ext</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">15e-6</span><span class="p">,</span>
     <span class="n">port_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">bridge_nb</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    generate a multi-turn octagonal inductor.</span>
+<span class="sd">    :param layout: layout where the inductor will be drawn</span>
 <span class="sd">    :param d_i: inner diameter in micron</span>
 <span class="sd">    :param n_turn: number of turn</span>
 <span class="sd">    :param width: width of the track</span>
@@ -1743,7 +1800,7 @@
 <span class="sd">    :param port_ext: port extension outward the inductor (default value :µm)</span>
 <span class="sd">    :param layer_nb: layer index for inductor core drawing.</span>
 <span class="sd">    :param bridge_nb: layer index o the bridge (for multi-turn inductor).</span>
-<span class="sd">    :return: gdstk.Cell of the inductor</span>
+<span class="sd">    :return: pya.Cell of the inductor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">m_top</span> <span class="o">=</span> <span class="n">layer_stack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="n">layer_nb</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">bridge_nb</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1752,72 +1809,109 @@
         <span class="n">m_bridge</span> <span class="o">=</span> <span class="n">layer_stack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span>
             <span class="n">layer_nb</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">bridge_nb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">bridge_nb</span>
         <span class="p">)</span>
-    <span class="n">ind</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;ind&quot;</span><span class="p">)</span>
-    <span class="n">w</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span>
-    <span class="n">d_a</span> <span class="o">=</span> <span class="n">d_i</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">w</span>
+
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;ind&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get layer info</span>
+    <span class="n">top_layer</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
+    <span class="n">bridge_layer</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">m_bridge</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">m_bridge</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
+
+    <span class="c1"># Convert units to database units (nm)</span>
+    <span class="n">dbu</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">dbu</span> <span class="o">=</span> <span class="mf">0.005</span>  <span class="c1"># 5 nm</span>
+    <span class="n">w_dbu</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">/</span> <span class="n">dbu</span><span class="p">)</span>
+    <span class="n">g_dbu</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">/</span> <span class="n">dbu</span><span class="p">)</span>
+    <span class="n">d_i_dbu</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">d_i</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">/</span> <span class="n">dbu</span><span class="p">)</span>
+    <span class="n">p_ext_dbu</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">port_ext</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">/</span> <span class="n">dbu</span><span class="p">)</span>
+    <span class="n">p_gap_dbu</span> <span class="o">=</span> <span class="n">g_dbu</span> <span class="o">+</span> <span class="n">w_dbu</span> <span class="k">if</span> <span class="n">port_gap</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">port_gap</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">/</span> <span class="n">dbu</span><span class="p">)</span> <span class="o">+</span> <span class="n">w_dbu</span>
+    <span class="n">b_gap_dbu</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span>
+
     <span class="n">si</span> <span class="o">=</span> <span class="n">tan</span><span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">8</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="n">p_ext</span><span class="p">,</span> <span class="n">p_gap</span> <span class="o">=</span> <span class="n">port_ext</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">g</span> <span class="o">+</span> <span class="n">w</span> <span class="k">if</span> <span class="n">port_gap</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="n">port_gap</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">w</span>
-    <span class="n">b_gap</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span>
     <span class="n">even_turn</span> <span class="o">=</span> <span class="n">n_turn</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_turn</span><span class="p">):</span>
-        <span class="n">d_a</span> <span class="o">=</span> <span class="n">d_i</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span>
+        <span class="n">d_a_dbu</span> <span class="o">=</span> <span class="n">d_i_dbu</span> <span class="o">+</span> <span class="n">w_dbu</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span><span class="p">)</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n_turn</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">end</span><span class="si">=}</span><span class="se">\t</span><span class="si">{</span><span class="n">even_turn</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="mi">0</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">not</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">even_turn</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">p_gap</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">end</span><span class="si">=}</span><span class="se">\t</span><span class="si">{</span><span class="n">even_turn</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="mi">0</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">not</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">even_turn</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">p_gap_dbu</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
+
+        <span class="c1"># Define path points in nm</span>
         <span class="n">path</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="o">-</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="mi">0</span> <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">end</span><span class="p">)</span> <span class="ow">and</span> <span class="n">even_turn</span> <span class="k">else</span> <span class="n">p_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-            <span class="p">(</span><span class="o">-</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="n">d_a</span> <span class="o">*</span> <span class="n">si</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">d_a</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">si</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="n">d_a</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">d_a</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">si</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="n">d_a</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">d_a</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="n">d_a</span> <span class="o">*</span> <span class="n">si</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">d_a</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="n">b_gap</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">even_turn</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">start</span> <span class="k">else</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="mi">0</span> <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">end</span><span class="p">)</span> <span class="ow">and</span> <span class="n">even_turn</span> <span class="k">else</span> <span class="n">p_gap_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="o">-</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="n">d_a_dbu</span> <span class="o">*</span> <span class="n">si</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">d_a_dbu</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">si</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="n">d_a_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">d_a_dbu</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">si</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="n">d_a_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">d_a_dbu</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="n">d_a_dbu</span> <span class="o">*</span> <span class="n">si</span><span class="p">),</span>
+            <span class="p">(</span>
+                <span class="n">d_a_dbu</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">+</span> <span class="n">g_dbu</span><span class="p">),</span>
+                <span class="n">b_gap_dbu</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">even_turn</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">start</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="p">),</span>
         <span class="p">]</span>
+
         <span class="k">if</span> <span class="n">end</span><span class="p">:</span>
-            <span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">p_ext</span><span class="p">,</span> <span class="n">p_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">p_ext_dbu</span><span class="p">,</span> <span class="n">p_gap_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">rp</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">RobustPath</span><span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">j</span> <span class="o">*</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> <span class="n">w</span><span class="p">,</span> <span class="o">**</span><span class="n">m_top</span><span class="o">.</span><span class="n">map</span><span class="p">)</span>
-            <span class="p">[</span><span class="n">rp</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span> <span class="o">*</span> <span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+            <span class="c1"># Create path for top metal</span>
+            <span class="n">path_pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">path</span><span class="p">]</span>
+            <span class="n">path_obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">path_pts</span><span class="p">,</span> <span class="n">w_dbu</span><span class="p">)</span><span class="o">.</span><span class="n">polygon</span><span class="p">()</span>
+            <span class="n">ind</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">top_layer</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">path_obj</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="ow">not</span> <span class="n">start</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">rp</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-                    <span class="n">rp</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-                    <span class="n">rp</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="c1"># Create connecting path</span>
+                    <span class="n">connect_pts</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">j</span><span class="o">*</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span> <span class="o">-</span> <span class="n">g_dbu</span><span class="p">),</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">w_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span> <span class="o">-</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])),</span>
+                    <span class="p">]</span>
+                    <span class="n">connect_path</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">connect_pts</span><span class="p">,</span> <span class="n">w_dbu</span><span class="p">)</span><span class="o">.</span><span class="n">polygon</span><span class="p">()</span>
+                    <span class="n">ind</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">top_layer</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">connect_path</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">cross</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">RobustPath</span><span class="p">(</span>
-                        <span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="o">**</span><span class="n">m_bridge</span><span class="o">.</span><span class="n">map</span>
-                    <span class="p">)</span>
-                    <span class="n">cross</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-                    <span class="n">cross</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-                    <span class="n">cross</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span>
-                    <span class="n">via_layer</span> <span class="o">=</span> <span class="n">layer_stack</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="n">layer_nb</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">v1</span> <span class="o">=</span> <span class="n">via</span><span class="p">(</span><span class="n">via_layer</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
-                    <span class="n">ind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-                        <span class="n">cross</span><span class="p">,</span>
-                        <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span>
-                            <span class="n">v1</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="c1"># Create bridge path</span>
+                    <span class="n">cross_pts</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span><span class="p">)),</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">w_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span> <span class="o">-</span> <span class="n">g_dbu</span><span class="p">),</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
                         <span class="p">),</span>
-                        <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span>
-                            <span class="n">v1</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span>
+                        <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span> <span class="o">-</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">w_dbu</span><span class="p">)</span>
                         <span class="p">),</span>
-                    <span class="p">)</span>
-            <span class="n">ind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rp</span><span class="p">)</span>
-    <span class="n">ind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-        <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
-            <span class="n">pin_name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="o">-</span><span class="n">p_ext</span><span class="p">,</span> <span class="n">p_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">ind</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-        <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
-            <span class="n">pin_name</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="p">(</span><span class="o">-</span><span class="n">p_ext</span><span class="p">,</span> <span class="o">-</span><span class="n">p_gap</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-            <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span>
-            <span class="n">texttype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
+                    <span class="p">]</span>
+                    <span class="n">cross_path</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">cross_pts</span><span class="p">,</span> <span class="n">w_dbu</span><span class="p">)</span><span class="o">.</span><span class="n">polygon</span><span class="p">()</span>
+                    <span class="n">ind</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">bridge_layer</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">cross_path</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">ind</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+                    <span class="c1"># Add vias</span>
+                    <span class="n">via_layer</span> <span class="o">=</span> <span class="n">layer_stack</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="n">layer_nb</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">v1</span> <span class="o">=</span> <span class="n">via</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">via_layer</span><span class="p">,</span> <span class="p">(</span><span class="n">w_dbu</span> <span class="o">*</span> <span class="n">dbu</span><span class="p">,</span> <span class="n">w_dbu</span> <span class="o">*</span> <span class="n">dbu</span><span class="p">))</span>
+                    <span class="c1"># Place vias</span>
+                    <span class="n">t1</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Trans</span><span class="p">(</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w_dbu</span> <span class="o">-</span> <span class="n">g_dbu</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="p">)</span>
+                    <span class="n">t2</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Trans</span><span class="p">(</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w_dbu</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">ind</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">CellInstArray</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">t1</span><span class="p">))</span>
+                    <span class="n">ind</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">CellInstArray</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">t2</span><span class="p">))</span>
+
+    <span class="c1"># Add port labels</span>
+    <span class="n">text_p1</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">pin_name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">p_ext_dbu</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">p_gap_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">text_p1</span><span class="o">.</span><span class="n">halign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">HAlignCenter</span>
+    <span class="n">text_p1</span><span class="o">.</span><span class="n">valign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">VAlignCenter</span>
+    <span class="n">text_p2</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">pin_name</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">p_ext_dbu</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">p_gap_dbu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">text_p2</span><span class="o">.</span><span class="n">halign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">HAlignCenter</span>
+    <span class="n">text_p2</span><span class="o">.</span><span class="n">valign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">VAlignCenter</span>
+    <span class="n">ind</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">top_layer</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">text_p1</span><span class="p">)</span>
+    <span class="n">ind</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">top_layer</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">text_p2</span><span class="p">)</span>
+    <span class="n">ind</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ind</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

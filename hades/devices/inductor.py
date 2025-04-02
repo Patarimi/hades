@@ -32,6 +32,7 @@ class Inductor:
     dimensions: Dimensions
     parameters: Parameters
     techno: str
+    layout: db.Layout
 
     def __init__(
         self, name: str, techno: str, specifications: Specifications = Specifications()
@@ -42,6 +43,7 @@ class Inductor:
         self.techno = techno
         self.em = Emx()
         self.em.prepare(techno)
+        self.layout = db.Layout()
 
     def update_model(self, specifications: Specifications = None) -> Dimensions:
         if specifications is not None:
@@ -77,9 +79,8 @@ class Inductor:
             dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
         )
         layer_stack = LayerStack(self.techno)
-        layout = db.Layout()
         ind = octagonal_inductor(
-            layout,
+            self.layout,
             self.dimensions.d_i,
             self.dimensions.n,
             self.dimensions.W,

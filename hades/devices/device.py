@@ -2,7 +2,7 @@ import enum
 import logging
 from typing import Protocol
 from enum import Enum
-import gdstk
+import klayout.db as db
 from pathlib import Path
 import pydantic
 
@@ -21,10 +21,11 @@ class Device(Protocol):
     dimensions: ParamSet
     parameters: ParamSet
     techno: str
+    layout: db.Layout
 
     def update_model(self, specifications: ParamSet) -> ParamSet: ...
 
-    def update_cell(self, dimensions: ParamSet) -> gdstk.Cell: ...
+    def update_cell(self, dimensions: ParamSet) -> db.Cell: ...
 
     def update_accurate(self, sim_file: Path) -> ParamSet: ...
 
@@ -45,10 +46,8 @@ def generate(
         logging.info(f"\t{dimensions=}")
         if stop == Step.dimensions:
             break
-        cell = dut.update_cell(dimensions)
-        lib = gdstk.Library()
-        lib.add(cell)
-        lib.write_gds(dut.name + ".gds")
+        dut.update_cell(dimensions)
+        dut.layout.write(dut.name + ".gds")
         if stop == Step.geometries:
             break
         res = dut.update_accurate(Path(dut.name + ".gds"))

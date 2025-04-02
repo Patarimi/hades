@@ -3,7 +3,7 @@ import numpy as np
 from pydantic import BaseModel
 
 from hades.wrappers.em import Emx
-import gdstk
+import klayout.db as db
 from pathlib import Path
 from hades.models.micro_strip import wheeler
 from scipy.optimize import minimize_scalar
@@ -35,6 +35,7 @@ class MicroStrip:
     dimensions: Dimensions
     parameters: Parameters
     techno: str
+    layout: db.Layout
 
     def __init__(
         self, name: str, techno: str, specifications: Specifications = Specifications()
@@ -45,6 +46,7 @@ class MicroStrip:
         self.techno = techno
         self.em = Emx()
         self.em.prepare(techno)
+        self.layout = db.Layout()
 
     def update_model(
         self, specifications: Optional[Specifications] = None
@@ -75,11 +77,12 @@ class MicroStrip:
         self.dimensions.L = 40e-6  # res.x
         return self.dimensions
 
-    def update_cell(self, dimensions: Dimensions) -> gdstk.Cell:
+    def update_cell(self, dimensions: Dimensions) -> db.Cell:
         self.dimensions = (
             dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
         )
         ms = straight_line(
+            layout=self.layout,
             width=self.dimensions.W,
             length=self.dimensions.L,
             layerstack=LayerStack(self.techno),

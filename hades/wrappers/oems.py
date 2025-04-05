@@ -77,7 +77,7 @@ def compute(
 
     if type(freq) is float:
         freq = Frequency(stop=freq)
-    else:
+    elif not isinstance(freq, Frequency):
         freq = Frequency(start=freq[0], stop=freq[1])
 
     ### Setup FDTD parameter & excitation function

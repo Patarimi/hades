@@ -1,5 +1,5 @@
 import os
-from os.path import join, dirname
+from os.path import dirname
 from pathlib import Path
 
 import numpy as np
@@ -20,7 +20,8 @@ if __name__ == "__main__":
     if not post_proc_only:
         s_res = compute(
             Path("../tests/test_layouts/ref_ind.gds"),
-            "inductor",
+            "mock",
+            "ind",
             Frequency(stop=5e9),
             ports=[Port("P1", "P2")],
             sim_path=Path("./inductor"),

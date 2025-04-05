@@ -36,10 +36,6 @@ except ImportError:
 
 from hades.layouts.tools import Port
 
-logging.basicConfig(
-    format="%(asctime)s %(levelname)-8s %(message)s", level=logging.INFO
-)
-
 oems_app = App("oems", help="Run OpenEMS simulations")
 
 
@@ -105,6 +101,7 @@ def compute(
     gdsii = read_gds(input_file).cells[0]
     proc_file = get_file("mock", "process")
     _, metals = layer_stack(proc_file)
+    ports = []
     for i, label in enumerate(gdsii.get_labels(depth=0)):
         for name in metals:
             if int(metals[name].definition.strip("L").split("T")[0]) == label.layer:
@@ -117,8 +114,8 @@ def compute(
             label.origin[1] + max_cellsize,
             metals[name].thickness / 2 + metals[name].elevation,
         ]
-        port = FDTD.AddLumpedPort(
-            i, 50, start, stop, "z", i, priority=5, edges2grid="all"
+        ports.append(
+            FDTD.AddLumpedPort(i, 50, start, stop, "z", i, priority=5, edges2grid="all")
         )
 
     mesh = CSX.GetGrid()
@@ -154,8 +151,12 @@ def compute(
     result = Network()
     result.frequency = f
     try:
-        port.CalcPort(sim_path, f)
-        result.s = port.uf_ref / port.uf_inc
+        s = list()
+        for port in ports:
+            port.CalcPort(sim_path, f)
+            for inc in ports:
+                s.append(port.uf_ref / inc.uf_inc)
+        result.s = s
     except FileNotFoundError:
         logging.error("Ports files not found, run the simulation first")
     return result

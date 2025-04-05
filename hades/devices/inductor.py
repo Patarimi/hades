@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-import gdstk
+import klayout.db as db
 from math import pi
 from pathlib import Path
 from scipy.optimize import minimize_scalar
@@ -32,6 +32,7 @@ class Inductor:
     dimensions: Dimensions
     parameters: Parameters
     techno: str
+    layout: db.Layout
 
     def __init__(
         self, name: str, techno: str, specifications: Specifications = Specifications()
@@ -42,6 +43,7 @@ class Inductor:
         self.techno = techno
         self.em = Emx()
         self.em.prepare(techno)
+        self.layout = db.Layout()
 
     def update_model(self, specifications: Specifications = None) -> Dimensions:
         if specifications is not None:
@@ -72,12 +74,13 @@ class Inductor:
         d_avg = (d_o + d_i) / 2
         return k1 * u_0 * d_avg / (1 + k2 * rho)
 
-    def update_cell(self, dimensions: Dimensions) -> gdstk.Cell:
+    def update_cell(self, dimensions: Dimensions) -> db.Cell:
         self.dimensions = (
             dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
         )
         layer_stack = LayerStack(self.techno)
         ind = octagonal_inductor(
+            self.layout,
             self.dimensions.d_i,
             self.dimensions.n,
             self.dimensions.W,

@@ -1,12 +1,13 @@
 from .tools import LayerStack
 from hades.layouts.general import via
-import gdstk
+import klayout.db as db
 from numpy import tan, pi
 from typing import Optional
 import logging
 
 
 def octagonal_inductor(
+    layout: db.Layout,
     d_i: float,
     n_turn: int,
     width: float,
@@ -17,9 +18,10 @@ def octagonal_inductor(
     port_ext: float = 15e-6,
     port_gap: float = -1,
     bridge_nb: Optional[int] = None,
-) -> gdstk.Cell:
+) -> db.Cell:
     """
     generate a multi-turn octagonal inductor.
+    :param layout: layout where the inductor will be drawn
     :param d_i: inner diameter in micron
     :param n_turn: number of turn
     :param width: width of the track
@@ -30,7 +32,7 @@ def octagonal_inductor(
     :param port_ext: port extension outward the inductor (default value :µm)
     :param layer_nb: layer index for inductor core drawing.
     :param bridge_nb: layer index o the bridge (for multi-turn inductor).
-    :return: gdstk.Cell of the inductor
+    :return: pya.Cell of the inductor
     """
     m_top = layer_stack.get_metal_layer(layer_nb)
     if bridge_nb == 0:
@@ -39,69 +41,106 @@ def octagonal_inductor(
         m_bridge = layer_stack.get_metal_layer(
             layer_nb - 1 if bridge_nb is None else bridge_nb
         )
-    ind = gdstk.Cell("ind")
-    w, g = width * 1e6, gap * 1e6
-    d_a = d_i * 1e6 + w
+
+    ind = layout.create_cell("ind")
+
+    # Get layer info
+    top_layer = layout.layer(m_top.layer, m_top.datatype)
+    bridge_layer = layout.layer(m_bridge.layer, m_bridge.datatype)
+
+    # Convert units to database units (nm)
+    dbu = layout.dbu = 0.005  # 5 nm
+    w_dbu = int(width * 1e6 / dbu)
+    g_dbu = int(gap * 1e6 / dbu)
+    d_i_dbu = int(d_i * 1e6 / dbu)
+    p_ext_dbu = int(port_ext * 1e6 / dbu)
+    p_gap_dbu = g_dbu + w_dbu if port_gap == -1 else int(port_gap * 1e6 / dbu) + w_dbu
+    b_gap_dbu = 2 * w_dbu + g_dbu
+
     si = tan(pi / 8) / 2
-    p_ext, p_gap = port_ext * 1e6, g + w if port_gap == -1 else port_gap * 1e6 + w
-    b_gap = 2 * w + g
     even_turn = n_turn % 2 == 0
+
     for i in range(n_turn):
-        d_a = d_i * 1e6 + w + 2 * i * (w + g)
+        d_a_dbu = d_i_dbu + w_dbu + 2 * i * (w_dbu + g_dbu)
         end = i == n_turn - 1
         start = i == 0
         logging.debug(
-            f"{end=}\t{even_turn=} {0 if (not end) and even_turn else p_gap / 2}"
+            f"{end=}\t{even_turn=} {0 if (not end) and even_turn else p_gap_dbu / 2}"
         )
+
+        # Define path points in nm
         path = [
-            (-i * (w + g), 0 if (not end) and even_turn else p_gap / 2),
-            (-i * (w + g), d_a * si),
-            (d_a * (0.5 - si) - i * (w + g), d_a / 2),
-            (d_a * (0.5 + si) - i * (w + g), d_a / 2),
-            (d_a - i * (w + g), d_a * si),
-            (d_a - i * (w + g), b_gap / 2 if even_turn or not start else 0),
+            (-i * (w_dbu + g_dbu), 0 if (not end) and even_turn else p_gap_dbu / 2),
+            (-i * (w_dbu + g_dbu), d_a_dbu * si),
+            (d_a_dbu * (0.5 - si) - i * (w_dbu + g_dbu), d_a_dbu / 2),
+            (d_a_dbu * (0.5 + si) - i * (w_dbu + g_dbu), d_a_dbu / 2),
+            (d_a_dbu - i * (w_dbu + g_dbu), d_a_dbu * si),
+            (
+                d_a_dbu - i * (w_dbu + g_dbu),
+                b_gap_dbu / 2 if even_turn or not start else 0,
+            ),
         ]
+
         if end:
-            path.insert(0, (-p_ext, p_gap / 2))
+            path.insert(0, (-p_ext_dbu, p_gap_dbu / 2))
+
         for j in (-1, 1):
-            rp = gdstk.RobustPath((path[0][0], j * path[0][1]), w, **m_top.map)
-            [rp.segment((x, j * y)) for x, y in path[1:]]
+            # Create path for top metal
+            path_pts = [db.Point(int(x), int(j * y)) for x, y in path]
+            path_obj = db.Path(path_pts, w_dbu).polygon()
+            ind.shapes(top_layer).insert(path_obj)
+
             if not start:
                 if j == 1:
-                    rp.segment((path[-1][0], path[-1][1] - w / 2))
-                    rp.segment((path[-1][0] - w - g, -path[-1][1] + w / 2))
-                    rp.segment((path[-1][0] - w - g, -path[-1][1]))
+                    # Create connecting path
+                    connect_pts = [
+                        db.Point(path[-1][0], j * path[-1][1]),
+                        db.Point(int(path[-1][0]), int(path[-1][1] - w_dbu / 2)),
+                        db.Point(
+                            int(path[-1][0] - w_dbu - g_dbu),
+                            int(-path[-1][1] + w_dbu / 2),
+                        ),
+                        db.Point(int(path[-1][0] - w_dbu - g_dbu), int(-path[-1][1])),
+                    ]
+                    connect_path = db.Path(connect_pts, w_dbu).polygon()
+                    ind.shapes(top_layer).insert(connect_path)
                 else:
-                    cross = gdstk.RobustPath(
-                        (path[-1][0], -path[-1][1] - w), w, **m_bridge.map
-                    )
-                    cross.segment((path[-1][0], -path[-1][1] + w / 2))
-                    cross.segment((path[-1][0] - w - g, path[-1][1] - w / 2))
-                    cross.segment((path[-1][0] - w - g, path[-1][1] + w))
-                    via_layer = layer_stack.get_via_layer(layer_nb - 1)
-                    v1 = via(via_layer, (w, w))
-                    ind.add(
-                        cross,
-                        gdstk.Reference(
-                            v1, origin=(path[-1][0] - 1.5 * w - g, path[-1][1])
+                    # Create bridge path
+                    cross_pts = [
+                        db.Point(int(path[-1][0]), int(-path[-1][1] - w_dbu)),
+                        db.Point(int(path[-1][0]), int(-path[-1][1] + w_dbu / 2)),
+                        db.Point(
+                            int(path[-1][0] - w_dbu - g_dbu),
+                            int(path[-1][1] - w_dbu / 2),
                         ),
-                        gdstk.Reference(
-                            v1, origin=(path[-1][0] - w / 2, -path[-1][1] - w)
+                        db.Point(
+                            int(path[-1][0] - w_dbu - g_dbu), int(path[-1][1] + w_dbu)
                         ),
-                    )
-            ind.add(rp)
-    ind.add(
-        gdstk.Label(
-            pin_name[0], (-p_ext, p_gap / 2), layer=m_top.layer, texttype=m_top.datatype
-        )
-    )
-    ind.add(
-        gdstk.Label(
-            pin_name[1],
-            (-p_ext, -p_gap / 2),
-            layer=m_top.layer,
-            texttype=m_top.datatype,
-        )
-    )
+                    ]
+                    cross_path = db.Path(cross_pts, w_dbu).polygon()
+                    ind.shapes(bridge_layer).insert(cross_path)
 
-    return ind.flatten()
+                    # Add vias
+                    via_layer = layer_stack.get_via_layer(layer_nb - 1)
+                    v1 = via(layout, via_layer, (w_dbu * dbu, w_dbu * dbu))
+                    # Place vias
+                    t1 = db.Trans(
+                        int(path[-1][0] - 1.5 * w_dbu - g_dbu), int(path[-1][1])
+                    )
+                    t2 = db.Trans(
+                        int(path[-1][0] - w_dbu / 2), int(-path[-1][1] - w_dbu)
+                    )
+                    ind.insert(db.CellInstArray(v1.cell_index(), t1))
+                    ind.insert(db.CellInstArray(v1.cell_index(), t2))
+
+    # Add port labels
+    text_p1 = db.Text(pin_name[0], int(-p_ext_dbu), int(p_gap_dbu / 2))
+    text_p1.halign = db.Text.HAlignCenter
+    text_p1.valign = db.Text.VAlignCenter
+    text_p2 = db.Text(pin_name[1], int(-p_ext_dbu), int(-p_gap_dbu / 2))
+    text_p2.halign = db.Text.HAlignCenter
+    text_p2.valign = db.Text.VAlignCenter
+    ind.shapes(top_layer).insert(text_p1)
+    ind.shapes(top_layer).insert(text_p2)
+    ind.flatten(-1, True)
+    return ind

@@ -5,20 +5,23 @@ This module contains function to generate general purpose cells.
 
 import logging
 import math
-import gdstk
+import klayout.db as db
 from hades.layouts.tools import LayerStack, ViaLayer
 
 
-def via(layer: ViaLayer, size: tuple[float, float]) -> gdstk.Cell:
+def via(layout: db.Layout, layer: ViaLayer, size: tuple[float, float]) -> db.Cell:
     """
     This function generates a via cell.
+    :param layout: The layout to use.
     :param layer: The Layers to use.
     :param size: tuple of the size (length and width) of the via array to be made.
-    :return: a gdstk.Cell containing the via.
+    :return: a db.Cell containing the via.
     """
-    v = gdstk.Cell("via")
+    v = layout.create_cell("via")
+    lyr = layout.layer(layer.layer, layer.datatype)
     if layer.width == 0:
-        rec = gdstk.rectangle((0, 0), size, **layer.map)
+        rec = layout.shapes(lyr).insert(db.DBox(0, 0, size[0], size[1]))
+        v.insert(rec)
     else:
         via_w = layer.width
         via_g = layer.spacing
@@ -32,52 +35,64 @@ def via(layer: ViaLayer, size: tuple[float, float]) -> gdstk.Cell:
             return math.floor((length - 2 * via_s - via_w) / (via_w + via_g)) + 1
 
         rep_x, rep_y = repetition(size[0]), repetition(size[1])
-        rec = gdstk.rectangle((0, 0), (via_w, via_w), **layer.map)
-        rec.repetition = gdstk.Repetition(
-            rep_x, rep_y, spacing=(via_g + via_w, via_g + via_w)
-        )
+        rec = db.DBox(0, 0, via_w, via_w)
+        tmp = layout.create_cell("tmp")
+        tmp.shapes(lyr).insert(rec)
         shift = [via_w + (r - 1) * (via_w + via_g) for r in (rep_x, rep_y)]
-        rec.translate((size[0] - shift[0]) / 2, (size[1] - shift[1]) / 2)
-        [v.add(p) for p in rec.apply_repetition()]
-    v.add(rec)
+        rep = db.DCellInstArray(
+            tmp.cell_index(),
+            db.DVector((size[0] - shift[0]) / 2, (size[1] - shift[1]) / 2),
+            db.DVector(via_w + via_g, 0),
+            db.DVector(0, via_w + via_g),
+            rep_x,
+            rep_y,
+        )
+        v.insert(rep)
+        v.flatten(-1, True)
     return v
 
 
 def via_stack(
+    layout: db.Layout,
     layers: LayerStack,
     id_top: int,
     id_bot: int,
     size: tuple[float, float],
-) -> gdstk.Cell:
+) -> db.Cell:
     """
     This function generates a via stack cell.
+    :param layout: The layout to use.
     :param layers: The stack of layers to use.
     :param id_top: id of the top metal layer.
     :param id_bot: id of the bottom metal layer.
     :param size: tuple of the size (length and width) of the via.
-    :return: a gdstk.Cell containing the via stack.
+    :return: a db.Cell containing the via stack.
     """
-    v = gdstk.Cell("via_stack")
+    v = layout.create_cell("via_stack")
     id_top = id_top if id_top > 0 else int((len(layers) + 1) / 2 + id_top)
     id_bot = id_bot if id_bot > 0 else int((len(layers) + 1) / 2 + id_bot)
     logging.info(f"Via Stack between : {id_top=}\t{id_bot=}")
     for i in range(id_bot, id_top + 1):
         lyr = layers.get_metal_layer(i)
+        layer = layout.layer(lyr.layer, lyr.datatype)
         logging.debug("Metal:\t" + lyr.name)
-        v.add(gdstk.rectangle((0, 0), size, layer=lyr.layer, datatype=lyr.datatype))
+        # create the bottom metal plate of the vias
+        v.shapes(layer).insert(db.DBox(0, 0, size[0], size[1]))
         if i == id_top:
             continue
         lyr = layers.get_via_layer(i)
         logging.debug("Via:\t" + lyr.name)
-        [v.add(p) for p in via(lyr, size).polygons]
+        v.insert(db.DCellInstArray(via(layout, lyr, size), db.DVector(0, 0)))
+    v.flatten(-1, True)
     return v
 
 
 def ground_plane(
-    layers: LayerStack, size: tuple[float, float], id_gnd: int = 1
-) -> gdstk.Cell:
+    layout: db.Layout, layers: LayerStack, size: tuple[float, float], id_gnd: int = 1
+) -> db.Cell:
     """
     This function generates a ground plane cell.
+    :param layout: The layout to use.
     :param layers: The stack of layers to use.
     :param size: size (length and width) of the ground plane.
     :param id_gnd: id of the ground metal layer.
@@ -86,13 +101,9 @@ def ground_plane(
     # option vertical/horizontal/both
     # gestion of density
     # option substrate connection
-    gnd = gdstk.Cell("ground")
-    gnd.add(
-        gdstk.rectangle(
-            (0, 0),
-            size,
-            layer=layers.get_metal_layer(id_gnd).layer,
-            datatype=layers.get_metal_layer(id_gnd).datatype,
-        )
+    gnd = layout.create_cell("ground")
+    layer = layout.layer(
+        layers.get_metal_layer(id_gnd).layer, layers.get_metal_layer(id_gnd).datatype
     )
+    gnd.shapes(layer).insert(db.DBox(0, 0, size[0], size[1]))
     return gnd

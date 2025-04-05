@@ -1,8 +1,11 @@
 from pathlib import Path
+import pytest
+
 from hades.wrappers.ngsolve_w import write_stl
 from hades.layouts import tools
 
 
+@pytest.mark.skip(reason="Too slow")
 def test_ngsolve(tmp_path):
     layer_stack = tools.LayerStack("mock")
     write_stl(

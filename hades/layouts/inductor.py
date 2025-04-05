@@ -94,7 +94,7 @@ def octagonal_inductor(
                 if j == 1:
                     # Create connecting path
                     connect_pts = [
-                        db.Point(path[-1][0], j*path[-1][1]),
+                        db.Point(path[-1][0], j * path[-1][1]),
                         db.Point(int(path[-1][0]), int(path[-1][1] - w_dbu / 2)),
                         db.Point(
                             int(path[-1][0] - w_dbu - g_dbu),

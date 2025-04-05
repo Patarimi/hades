@@ -1,7 +1,4 @@
-from os.path import dirname, join, isdir
-
-import gdstk
-import pytest
+from os.path import dirname, join
 from klayout import db
 
 from hades.layouts.microstrip import (

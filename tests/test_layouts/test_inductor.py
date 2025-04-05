@@ -17,7 +17,7 @@ def test_inductor(tmp_path):
     lib.write(tmp_path / "ind.gds")
     assert check_diff(tmp_path / "ind.gds", join(REF_PATH, "ref_ind.gds"))
 
-    lib  = db.Layout()
+    lib = db.Layout()
     octagonal_inductor(
         lib, 80e-6, 2, 5e-6, 2e-6, layerstack, port_gap=10e-6, port_ext=15e-6
     )

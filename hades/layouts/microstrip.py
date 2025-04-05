@@ -1,10 +1,5 @@
-import logging
-
-from numpy import pi
-
 from .tools import LayerStack, Port
 from .general import via_stack, via
-import gdstk
 import klayout.db as db
 
 
@@ -97,7 +92,7 @@ diff_port = tuple(
 
 
 def marchand_balun(
-        layout: db.Layout,
+    layout: db.Layout,
     width: float,
     length: float,
     gap: float,
@@ -132,26 +127,34 @@ def marchand_balun(
     cpl = lange_coupler(
         layout, width, length, gap, layerstack, [emp_port for k in range(4)], ext=0
     )
-    c1 = bln.insert(db.DCellInstArray(cpl, db.DCplxTrans(1, 90, False, s+4*(w+g)+w, -le)))
+    c1 = bln.insert(
+        db.DCellInstArray(cpl, db.DCplxTrans(1, 90, False, s + 4 * (w + g) + w, -le))
+    )
     c2 = bln.insert(db.DCellInstArray(cpl, db.DCplxTrans(1, 90, True, 0, -le)))
-    bot = bln.bbox().bottom * dbu + 1.5 * w + g - ws/2
+    bot = bln.bbox().bottom * dbu + 1.5 * w + g - ws / 2
     right = c2.bbox().right * dbu
     bln.shapes(lyr_top).insert(db.DBox(right, bot, right + s, bot + ws))
     bln.shapes(lyr_bot).insert(bln.bbox())
 
     for i in range(3):
         coord = (
-            (c2.bbox().right*dbu - 1.5 * w - g, c2.bbox().top*dbu),
-            (c2.bbox().left*dbu + 1.5 * w + g, c2.bbox().bottom*dbu),
-            (c1.bbox().right*dbu - 1.5 * w - g, c1.bbox().bottom*dbu),
+            (c2.bbox().right * dbu - 1.5 * w - g, c2.bbox().top * dbu),
+            (c2.bbox().left * dbu + 1.5 * w + g, c2.bbox().bottom * dbu),
+            (c1.bbox().right * dbu - 1.5 * w - g, c1.bbox().bottom * dbu),
         )
-        lab = db.DText(ports[i].name,coord[i][0], coord[i][1])
+        lab = db.DText(ports[i].name, coord[i][0], coord[i][1])
         lab.valign = db.Text.VAlignCenter
         lab.halign = db.Text.HAlignCenter
         bln.shapes(lyr_top).insert(lab)
     v1 = via_stack(layout, layerstack, -2, 1, (2 * g + 3 * w, w))
-    bln.insert(db.DCellInstArray(v1.cell_index(), db.DVector(-1.5*w-g, -1.5*w-g)))
-    bln.insert(db.DCellInstArray(v1.cell_index(), db.DVector(s + 3.5*w+3*g, -1.5*w-g)))
+    bln.insert(
+        db.DCellInstArray(v1.cell_index(), db.DVector(-1.5 * w - g, -1.5 * w - g))
+    )
+    bln.insert(
+        db.DCellInstArray(
+            v1.cell_index(), db.DVector(s + 3.5 * w + 3 * g, -1.5 * w - g)
+        )
+    )
     return bln
 
 

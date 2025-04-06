@@ -1,5 +1,6 @@
+import logging
 from pathlib import Path
-from gdstk import read_gds
+from klayout import db
 from netgen import csg, occ
 import ngsolve as ng
 from hades.layouts.tools import LayerStack
@@ -18,24 +19,44 @@ def make_geometry(
     :param gds_file: Input file to be simulated
     :param stack: Layer Stack use to construct the 3D model
     :param margin: (Default = 0.1) Size of air box around the model in percent.
+    :param only_metal: (Default = False) If True, only the metal is drawn.
     :return: A geometry that can be used by ngsolve
     """
-    gdsii = read_gds(gds_file)
+    gdsii = db.Layout()
+    gdsii.read(str(gds_file))
     face = list()
-    for polygon in gdsii.cells[0].polygons:
-        elevation = polygon.layer
-        height = 1
-        wp = occ.WorkPlane(occ.Axes((0, 0, elevation), n=occ.Z, h=occ.X))
-        pts = polygon.points
-        wp.MoveTo(*(pts[0]))
-        [wp.LineTo(*pt) for pt in pts[1:]]
-        wp.LineTo(*(pts[0]))
-        face.append(wp.Face().Extrude(height).mat("metal"))
+    logging.info(f"Found {[c.name for c in gdsii.top_cells()]}")
+    cell = gdsii.top_cells()[0]
+    for id_lyr in gdsii.layer_indexes():
+        logging.debug(f"Found {gdsii.layer_infos()[id_lyr]}")
+        layer = gdsii.layer_infos()[id_lyr]
+        for shape in cell.shapes(id_lyr):
+            if not shape.is_polygon():
+                continue
+            logging.info(f"Found {shape.polygon}")
+            elevation = layer.layer
+            height = 1
+            wp = occ.WorkPlane(occ.Axes((0, 0, elevation), n=occ.Z, h=occ.X))
+            pts = [
+                pt.to_dtype() for pt in shape.polygon.to_simple_polygon().each_point()
+            ]
+            logging.debug(f"Found {pts}")
+            wp.MoveTo(pts[0].x, pts[0].y)
+            [wp.LineTo(pt.x, pt.y) for pt in pts[1:]]
+            wp.LineTo(pts[0].x, pts[0].y)
+            face.append(wp.Face().Extrude(height).mat("metal"))
     metal = occ.Fuse(face)
-    for port in gdsii.cells[0].labels:
-        port_face = metal.faces.Nearest(occ.gp_Pnt(*port.origin, port.layer + 0.5))
-        port_face.name = "port" + port.text
-        print(port_face.bounding_box)
+    for id_lyr in gdsii.layer_indexes():
+        layer = gdsii.layer_infos()[id_lyr]
+        for shape in cell.shapes(id_lyr):
+            if not shape.is_text():
+                continue
+            logging.info(f"Found {shape}: {type(shape)}")
+            port_face = metal.faces.Nearest(
+                occ.gp_Pnt(shape.dtext.x, shape.dtext.y, layer.layer + 0.5)
+            )
+            port_face.name = "port" + shape.dtext.string
+            logging.info(port_face.bounding_box)
     # append z to 2D bounding box
     limit = metal.bounding_box
     lim_margin = [
@@ -63,8 +84,12 @@ def write_stl(
     :param stl_file: Output file
     :return: None
     """
+    logging.info(f"Computing geometry from {gds_file}")
     geom = make_geometry(gds_file, stack)
+    ng.Draw(geom)
+    logging.info("Generating mesh")
     mesh = geom.GenerateMesh()
+    logging.info(f"Writing {stl_file}")
     mesh.Export(str(stl_file), format="STL Format")
 
 

@@ -14,3 +14,13 @@ def test_ngsolve(tmp_path):
         Path(tmp_path / "test_mesh.stl"),
     )
     assert (tmp_path / "test_mesh.stl").exists()
+
+
+if __name__ == "__main__":
+    import logging
+
+    logging.basicConfig(
+        level=logging.DEBUG,
+        handlers=[logging.StreamHandler(), logging.FileHandler("test.log")],
+    )
+    test_ngsolve(Path("./tmp"))

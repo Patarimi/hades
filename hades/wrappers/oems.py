@@ -10,9 +10,9 @@ from pathlib import Path
 from typing import Optional
 
 from cyclopts import App
+from klayout import db
 from pydantic import confloat, BaseModel
 
-from gdstk import read_gds
 from skrf import Network
 import numpy as np
 
@@ -98,25 +98,31 @@ def compute(
     # apply the excitation & resist as a current source
     wavelength_air = (3e8 / unit) / freq.stop
     max_cellsize = np.minimum(1, wavelength_air / 1000)
-    gdsii = read_gds(input_file).cells[0]
+    layout = db.Layout()
+    layout.read(input_file)
+    dbu = layout.dbu
+    gdsii = layout.top_cells()[0]
     proc_file = get_file("mock", "process")
     _, metals = layer_stack(proc_file)
     ports = []
-    for i, label in enumerate(gdsii.get_labels(depth=0)):
-        for name in metals:
-            if int(metals[name].definition.strip("L").split("T")[0]) == label.layer:
-                break
-        else:
-            raise ValueError(f"Metal {label.layer} not found in process file")
-        start = [label.origin[0], label.origin[1] - max_cellsize, 0]
-        stop = [
-            label.origin[0] + max_cellsize,
-            label.origin[1] + max_cellsize,
-            metals[name].thickness / 2 + metals[name].elevation,
-        ]
-        ports.append(
-            FDTD.AddLumpedPort(i, 50, start, stop, "z", i, priority=5, edges2grid="all")
-        )
+    for name in metals:
+        lyr, dtyp = metals[name].definition.strip("L").split("T")
+        logging.debug(f"layer {name} : {lyr} {dtyp}")
+        for i, shape in enumerate(gdsii.shapes(db.LayerInfo(int(lyr), int(dtyp)))):
+            if not shape.is_text():
+                continue
+            label = shape.text
+            start = [label.x * dbu, label.y * dbu - max_cellsize, 0]
+            stop = [
+                label.x * dbu + max_cellsize,
+                label.y * dbu + max_cellsize,
+                metals[name].thickness / 2 + metals[name].elevation,
+            ]
+            ports.append(
+                FDTD.AddLumpedPort(
+                    i, 50, start, stop, "z", i, priority=5, edges2grid="all"
+                )
+            )
 
     mesh = CSX.GetGrid()
     mesh.SetDeltaUnit(unit)
@@ -178,10 +184,13 @@ def make_geometry(
     :return:
     """
     logging.info(f"Creating geometry from {gds_file}")
+    layout = db.Layout()
+    layout.read(gds_file)
+    dbu = layout.dbu
     if cell_name is None:
-        gdsii = read_gds(gds_file).cells[0]
+        gdsii = layout.top_cells[0]
     else:
-        gdsii = read_gds(gds_file)[cell_name]
+        gdsii = layout.cell(cell_name)
 
     CSX = CSXCAD.ContinuousStructure()
 
@@ -193,14 +202,20 @@ def make_geometry(
         layer_n, data_type = [
             int(i) for i in metals[name].definition.strip("L").split("T")
         ]
-        polygons = gdsii.get_polygons(layer=layer_n, datatype=data_type)
+        polygons = gdsii.shapes(db.LayerInfo(layer_n, data_type))
         if len(polygons) == 0:
             logging.info(f"No drawing found, skipping layer {layer_n}/{data_type}")
         else:
             csx_metal[layer_n] = CSX.AddMaterial(name, kappa=metals[name].conductivity)
             for poly in polygons:
-                x = [p[0] for p in poly.points]
-                y = [p[1] for p in poly.points]
+                if not poly.is_polygon():
+                    continue
+                pts = [
+                    pt.to_dtype()
+                    for pt in poly.polygon.to_simple_polygon().each_point()
+                ]
+                x = [p.x * dbu for p in pts]
+                y = [p.y * dbu for p in pts]
                 csx_metal[layer_n].AddLinPoly(
                     points=[x, y],
                     priority=200,
@@ -211,9 +226,9 @@ def make_geometry(
 
     # Building Dielectric layers
     altitude = 0
-    bb_min, bb_max = gdsii.bounding_box()
-    center = (bb_min[0] + bb_max[0]) / 2, (bb_min[1] + bb_max[1]) / 2
-    size = bb_min[0] - bb_max[0], bb_min[1] - bb_max[1]
+    bbox = gdsii.bbox()
+    center = bbox.center().x * dbu, bbox.center().y * dbu
+    size = bbox.width() * dbu, bbox.height() * dbu
     start = [
         center[0] - (1 + margin) * size[0] / 2,
         center[1] - (1 + margin) * size[1] / 2,

@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
@@ -559,6 +559,28 @@
             layouts
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../active/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    active
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1465,7 +1487,7 @@
 
 
 <h2 id="hades.layouts.microstrip.coupled_lines" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">coupled_lines</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">width2</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cpl&#39;</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">coupled_lines</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">width2</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cpl&#39;</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.microstrip.coupled_lines" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1633,11 +1655,11 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                
+                <p>a cell with two coupled lines.</p>
               </div>
             </td>
           </tr>
@@ -1647,7 +1669,9 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\microstrip.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
@@ -1674,8 +1698,8 @@
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">coupled_lines</span><span class="p">(</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">coupled_lines</span><span class="p">(</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span>
     <span class="n">width1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1683,7 +1707,7 @@
     <span class="n">width2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">ports</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpl&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a cell with two micro-strip lines coupled by a gap. Can be exported as a gds files.</span>
 <span class="sd">    :param width1: width of the first line.</span>
@@ -1694,16 +1718,16 @@
 <span class="sd">    :param width2: width of the second line.</span>
 <span class="sd">    :param ports: name of each port.</span>
 <span class="sd">    :param name: name of the cell.</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :return: a cell with two coupled lines.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">w2</span> <span class="o">=</span> <span class="n">width2</span> <span class="k">if</span> <span class="n">width2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">width1</span>
-    <span class="n">ms1</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">ms2</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
-    <span class="n">cpl</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">ms_rf</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">ms1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">width1</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="n">ms_rf2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">ms2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">w2</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="n">cpl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ms_rf</span><span class="p">,</span> <span class="n">ms_rf2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cpl</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">ms1</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">width1</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ms2</span> <span class="o">=</span> <span class="n">straight_line</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">w2</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="n">cpl</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">cpl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">ms1</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width1</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">cpl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">ms2</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">w2</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="n">cpl</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cpl</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1714,7 +1738,7 @@
 
 
 <h2 id="hades.layouts.microstrip.lange_coupler" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">lange_coupler</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;lange&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">lange_coupler</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">def_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;lange&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.microstrip.lange_coupler" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1735,6 +1759,22 @@
         </tr>
       </thead>
       <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>layout</code>
+            </td>
+            <td>
+                  <code><span title="klayout.db.Layout">Layout</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Layout object.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
           <tr class="doc-section-item">
             <td>
                 <code>width</code>
@@ -1882,11 +1922,11 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                
+                <p>a cell with the lange coupler.</p>
               </div>
             </td>
           </tr>
@@ -1896,7 +1936,17 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\microstrip.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">171</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
 <span class="normal">172</span>
 <span class="normal">173</span>
 <span class="normal">174</span>
@@ -1978,16 +2028,8 @@
 <span class="normal">250</span>
 <span class="normal">251</span>
 <span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lange_coupler</span><span class="p">(</span>
+<span class="normal">253</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lange_coupler</span><span class="p">(</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1995,9 +2037,10 @@
     <span class="n">ports</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">def_port</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lange&quot;</span><span class="p">,</span>
     <span class="n">ext</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a flat symmetrical lange coupler with two strips per track.</span>
+<span class="sd">    :param layout: Layout object.</span>
 <span class="sd">    :param width: track width (in µm)</span>
 <span class="sd">    :param length: total length of the lines.</span>
 <span class="sd">    :param gap: space between each track.</span>
@@ -2006,54 +2049,58 @@
 <span class="sd">    :param ports: name of each port.</span>
 <span class="sd">    :param name: name of the returned cell.</span>
 <span class="sd">    :param ext: extension of the ports</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :return: a cell with the lange coupler.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">w</span><span class="p">,</span> <span class="n">le</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">length</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span>
     <span class="n">top_metal</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">lyr_top</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">top_metal</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">top_metal</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
     <span class="n">bridge</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">lyr_brg</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">bridge</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">bridge</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
     <span class="n">top_via</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">bot_metal</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">first_met</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="n">lyr_bot</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">bot_metal</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
+    <span class="n">half_lange</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;half_lange&quot;</span><span class="p">)</span>
+    <span class="n">first_met</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DPath</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">)),</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">)),</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span> <span class="o">+</span> <span class="n">ext</span><span class="p">),</span>
+        <span class="p">],</span>
         <span class="n">w</span><span class="p">,</span>
-        <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span>
-        <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
-        <span class="n">ends</span><span class="o">=</span><span class="s2">&quot;extended&quot;</span><span class="p">,</span>
+        <span class="n">bgn_ext</span><span class="o">=</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">end_ext</span><span class="o">=</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">first_met</span><span class="o">.</span><span class="n">horizontal</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">first_met</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">),</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">first_met</span><span class="o">.</span><span class="n">horizontal</span><span class="p">(</span><span class="o">-</span><span class="n">le</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">first_met</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">port</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">datatype</span>
-    <span class="p">)</span>
-    <span class="n">port</span><span class="o">.</span><span class="n">vertical</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">sec_met</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">FlexPath</span><span class="p">(</span>
-        <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))],</span>
+    <span class="n">half_lange</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_top</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">first_met</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ext</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DPath</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">)),</span> <span class="n">db</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">+</span> <span class="n">ext</span><span class="p">)],</span>
+            <span class="n">w</span><span class="p">,</span>
+            <span class="n">bgn_ext</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">end_ext</span><span class="o">=</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">half_lange</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_top</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+    <span class="n">sec_met</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DPath</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))],</span>
         <span class="n">w</span><span class="p">,</span>
-        <span class="n">layer</span><span class="o">=</span><span class="n">bridge</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span>
-        <span class="n">datatype</span><span class="o">=</span><span class="n">bridge</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
-        <span class="n">ends</span><span class="o">=</span><span class="s2">&quot;extended&quot;</span><span class="p">,</span>
+        <span class="n">bgn_ext</span><span class="o">=</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">end_ext</span><span class="o">=</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">via_w</span> <span class="o">=</span> <span class="mf">0.4</span>
-    <span class="n">via_g</span> <span class="o">=</span> <span class="mf">0.4</span>
-    <span class="n">via_s</span> <span class="o">=</span> <span class="mf">0.02</span>
-    <span class="n">rep</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">w</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">via_s</span> <span class="o">-</span> <span class="n">via_w</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">shift</span> <span class="o">=</span> <span class="o">-</span><span class="n">via_w</span> <span class="o">-</span> <span class="p">(</span><span class="n">rep</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">via_w</span> <span class="o">+</span> <span class="n">via_g</span><span class="p">)</span>
-    <span class="n">via</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">via_w</span><span class="p">,</span> <span class="n">via_w</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">top_via</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">top_via</span><span class="o">.</span><span class="n">datatype</span>
+    <span class="n">half_lange</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_brg</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">sec_met</span><span class="p">)</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="n">via</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">top_via</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+    <span class="n">half_lange</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="n">half_lange</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">))</span>
     <span class="p">)</span>
-    <span class="n">via</span><span class="o">.</span><span class="n">repetition</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Repetition</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">rep</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">,</span> <span class="n">via_g</span> <span class="o">+</span> <span class="n">via_w</span><span class="p">))</span>
-    <span class="n">via</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">shift</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">shift</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">via2</span> <span class="o">=</span> <span class="n">via</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">via2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))</span>
-    <span class="n">lange</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">thg</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="s2">&quot;thg&quot;</span><span class="p">)</span>
-    <span class="n">thg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">first_met</span><span class="p">,</span> <span class="n">sec_met</span><span class="p">,</span> <span class="n">via</span><span class="p">,</span> <span class="n">via2</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
-    <span class="n">cpl</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">thg</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">le</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">))</span>
-    <span class="n">thg_r</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">thg</span><span class="p">)</span>
-    <span class="n">lange</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cpl</span><span class="p">,</span> <span class="n">thg_r</span><span class="p">)</span>
-    <span class="n">lange</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">lange</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">lange</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">half_lange</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="n">lange</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span>
+            <span class="n">half_lange</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">db</span><span class="o">.</span><span class="n">DCplxTrans</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">le</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">lange</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
         <span class="n">coord</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ext</span> <span class="o">+</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span><span class="p">),</span>
@@ -2063,21 +2110,16 @@
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">lab</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
-            <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-            <span class="n">layer</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span>
-            <span class="n">texttype</span><span class="o">=</span><span class="n">top_metal</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">ref</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
-            <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">layer</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">datatype</span>
-        <span class="p">)</span>
-        <span class="n">lange</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
-    <span class="n">dim</span> <span class="o">=</span> <span class="n">lange</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
-    <span class="n">gnd</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
-        <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">layer</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">bot_metal</span><span class="o">.</span><span class="n">datatype</span>
-    <span class="p">)</span>
-    <span class="n">lange</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gnd</span><span class="p">)</span>
+        <span class="n">lab</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="o">*</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">lab</span><span class="o">.</span><span class="n">valign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">VAlignCenter</span>
+        <span class="n">lab</span><span class="o">.</span><span class="n">halign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">HAlignCenter</span>
+        <span class="n">ref</span><span class="o">.</span><span class="n">valign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">VAlignCenter</span>
+        <span class="n">ref</span><span class="o">.</span><span class="n">halign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">HAlignCenter</span>
+        <span class="n">lange</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_top</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span>
+        <span class="n">lange</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_bot</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">lange</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span>
+    <span class="n">lange</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_bot</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">lange</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2089,7 +2131,7 @@
 
 
 <h2 id="hades.layouts.microstrip.marchand_balun" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">marchand_balun</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">space</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">widths</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">diff_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;marchand&#39;</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">marchand_balun</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">space</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">widths</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="n">diff_port</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;marchand&#39;</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.microstrip.marchand_balun" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -2258,7 +2300,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2272,7 +2314,8 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\microstrip.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 94</span>
+<span class="normal"> 95</span>
 <span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
@@ -2335,17 +2378,8 @@
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">marchand_balun</span><span class="p">(</span>
+<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">marchand_balun</span><span class="p">(</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -2354,7 +2388,7 @@
     <span class="n">widths</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff_port</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;marchand&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements a marchand balun, for a 50Ω balun, 2 -4.8 dB 90° coupler are required.</span>
 <span class="sd">    :param width: width of the signal lines.</span>
@@ -2368,57 +2402,47 @@
 <span class="sd">    :param name: name of the cell.</span>
 <span class="sd">    :return: a gdstk.Cell object with the marchand balun.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dbu</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">dbu</span>
     <span class="n">m_top</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">lyr_top</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
     <span class="n">m_bott</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">lyr_bot</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">m_bott</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">m_bott</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
     <span class="n">w</span><span class="p">,</span> <span class="n">le</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">length</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">space</span> <span class="o">*</span> <span class="mf">1e6</span>
     <span class="n">ws</span> <span class="o">=</span> <span class="n">w</span> <span class="k">if</span> <span class="n">widths</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">widths</span> <span class="o">*</span> <span class="mf">1e6</span>
-    <span class="n">bln</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">bln</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">emp_port</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">cpl</span> <span class="o">=</span> <span class="n">lange_coupler</span><span class="p">(</span>
-        <span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="p">[</span><span class="n">emp_port</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="n">ext</span><span class="o">=</span><span class="mi">0</span>
+        <span class="n">layout</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="p">[</span><span class="n">emp_port</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="n">ext</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
-    <span class="n">cpl1</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">cpl</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">le</span><span class="p">),</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x_reflection</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">cpl1_bb</span> <span class="o">=</span> <span class="n">cpl1</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
-    <span class="n">cpl2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="n">cpl</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">),</span> <span class="o">-</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">cpl2_bb</span> <span class="o">=</span> <span class="n">cpl2</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
-    <span class="n">r1</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">ws</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span> <span class="o">-</span> <span class="n">ws</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
-        <span class="o">**</span><span class="n">m_top</span><span class="o">.</span><span class="n">map</span><span class="p">,</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">bln</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">cpl</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">DCplxTrans</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="o">-</span><span class="n">le</span><span class="p">))</span>
     <span class="p">)</span>
-    <span class="n">bln</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cpl1</span><span class="p">,</span> <span class="n">cpl2</span><span class="p">,</span> <span class="n">r1</span><span class="p">)</span>
-    <span class="n">r2</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
-        <span class="n">bln</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
-        <span class="n">bln</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="o">**</span><span class="n">m_bott</span><span class="o">.</span><span class="n">map</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">bln</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">bln</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">cpl</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">DCplxTrans</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">le</span><span class="p">)))</span>
+    <span class="n">bot</span> <span class="o">=</span> <span class="n">bln</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">bottom</span> <span class="o">*</span> <span class="n">dbu</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span> <span class="o">-</span> <span class="n">ws</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">right</span> <span class="o">*</span> <span class="n">dbu</span>
+    <span class="n">bln</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_top</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">bot</span><span class="p">,</span> <span class="n">right</span> <span class="o">+</span> <span class="n">s</span><span class="p">,</span> <span class="n">bot</span> <span class="o">+</span> <span class="n">ws</span><span class="p">))</span>
+    <span class="n">bln</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_bot</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">bln</span><span class="o">.</span><span class="n">bbox</span><span class="p">())</span>
+
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
         <span class="n">coord</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="p">(</span><span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
-            <span class="p">(</span><span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">,</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
-            <span class="p">(</span><span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="p">(</span><span class="n">c2</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">right</span> <span class="o">*</span> <span class="n">dbu</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">c2</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">top</span> <span class="o">*</span> <span class="n">dbu</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">c2</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">left</span> <span class="o">*</span> <span class="n">dbu</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="n">g</span><span class="p">,</span> <span class="n">c2</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">bottom</span> <span class="o">*</span> <span class="n">dbu</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">right</span> <span class="o">*</span> <span class="n">dbu</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="n">c1</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">bottom</span> <span class="o">*</span> <span class="n">dbu</span><span class="p">),</span>
         <span class="p">)</span>
-        <span class="n">lab</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
-            <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-            <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span>
-            <span class="n">texttype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">bln</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span>
-    <span class="n">bln</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-        <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span>
-            <span class="n">via_stack</span><span class="p">(</span><span class="n">layerstack</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">)),</span>
-            <span class="p">(</span><span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cpl1_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="p">),</span>
+        <span class="n">lab</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">lab</span><span class="o">.</span><span class="n">valign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">VAlignCenter</span>
+        <span class="n">lab</span><span class="o">.</span><span class="n">halign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">HAlignCenter</span>
+        <span class="n">bln</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">lyr_top</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="n">via_stack</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+    <span class="n">bln</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">bln</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span>
+            <span class="n">v1</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mf">3.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">bln</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-        <span class="n">gdstk</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span>
-            <span class="n">via_stack</span><span class="p">(</span><span class="n">layerstack</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">)),</span>
-            <span class="p">(</span><span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">cpl2_bb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">bln</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">bln</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2429,7 +2453,7 @@
 
 
 <h2 id="hades.layouts.microstrip.straight_line" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">straight_line</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S1&#39;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S2&#39;</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">straight_line</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">layerstack</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S1&#39;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s1">&#39;S2&#39;</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span></code>
 
 <a href="#hades.layouts.microstrip.straight_line" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -2450,6 +2474,22 @@
         </tr>
       </thead>
       <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>layout</code>
+            </td>
+            <td>
+                  <code><span title="klayout.db.Layout">Layout</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>layout where the cell will be drawn.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
           <tr class="doc-section-item">
             <td>
                 <code>name</code>
@@ -2565,11 +2605,11 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="gdstk.Cell">Cell</span></code>
+                  <code><span title="klayout.db.Cell">Cell</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                
+                <p>a db.Cell of a straight line micro-strip.</p>
               </div>
             </td>
           </tr>
@@ -2579,7 +2619,10 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\microstrip.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
@@ -2617,48 +2660,47 @@
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">straight_line</span><span class="p">(</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">straight_line</span><span class="p">(</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">layerstack</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span>
     <span class="n">ports</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Port</span><span class="p">,</span> <span class="n">Port</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S1&quot;</span><span class="p">),</span> <span class="n">Port</span><span class="p">(</span><span class="s2">&quot;S2&quot;</span><span class="p">)),</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a micro-strip straight line cell. Can be exported as a gds files.</span>
+<span class="sd">    :param layout: layout where the cell will be drawn.</span>
 <span class="sd">    :param name: name of the cell generated</span>
 <span class="sd">    :param width: Width of the signal line (Reference line is three time wider).</span>
 <span class="sd">    :param length: Length of the micro-strip.</span>
 <span class="sd">    :param layerstack: LayerStack object. The highest metal layer will be used for the signal line.</span>
 <span class="sd">    The lowest metal layer will be used for the ground plane.</span>
 <span class="sd">    :param ports: name of the ports</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :return: a db.Cell of a straight line micro-strip.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">m_top</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ly_top</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
     <span class="n">m_bott</span> <span class="o">=</span> <span class="n">layerstack</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">ms</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">ly_bot</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">m_bott</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">m_bott</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
+    <span class="n">ms</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">le</span> <span class="o">=</span> <span class="n">length</span> <span class="o">*</span> <span class="mf">1e6</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">1e6</span>
-    <span class="n">rf</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">RobustPath</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
-    <span class="n">rf</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="n">gnd</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">RobustPath</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_bott</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">m_bott</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
-    <span class="n">gnd</span><span class="o">.</span><span class="n">segment</span><span class="p">((</span><span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="n">ms</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DPath</span><span class="p">([</span><span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">polygon</span><span class="p">()</span>
+    <span class="n">ms</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">ly_top</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">rf</span><span class="p">)</span>
+    <span class="n">gnd</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DPath</span><span class="p">([</span><span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">db</span><span class="o">.</span><span class="n">DPoint</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">polygon</span><span class="p">()</span>
+    <span class="n">ms</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">ly_bot</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">gnd</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">ms</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
-                <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">m_top</span><span class="o">.</span><span class="n">datatype</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">ms</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-            <span class="n">gdstk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
-                <span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="n">m_bott</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="n">texttype</span><span class="o">=</span><span class="n">m_bott</span><span class="o">.</span><span class="n">datatype</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
+        <span class="n">t_pos</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">t_pos</span><span class="o">.</span><span class="n">halign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">HAlignCenter</span>
+        <span class="n">t_pos</span><span class="o">.</span><span class="n">valign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">VAlignCenter</span>
+        <span class="n">ms</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">ly_top</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">t_pos</span><span class="p">)</span>
+        <span class="n">t_ref</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="n">ports</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">le</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">t_ref</span><span class="o">.</span><span class="n">halign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">HAlignCenter</span>
+        <span class="n">t_ref</span><span class="o">.</span><span class="n">valign</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">VAlignCenter</span>
+        <span class="n">ms</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">ly_bot</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">t_ref</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ms</span>
 </code></pre></div></td></tr></table></div>
             </details>

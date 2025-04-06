@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
@@ -557,6 +557,28 @@
             layouts
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layouts/active/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    active
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1545,32 +1567,7 @@ Compute the EM fields of a geometry.</p>
 
             <details class="quote">
               <summary>Source code in <code>hades\wrappers\ngsolve_w.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
@@ -1609,7 +1606,32 @@ Compute the EM fields of a geometry.</p>
 <span class="normal">132</span>
 <span class="normal">133</span>
 <span class="normal">134</span>
-<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">geom</span><span class="p">:</span> <span class="n">NGGeom</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="n">geom</span><span class="p">:</span> <span class="n">NGGeom</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    [WIP] Help Needed.</span>
 <span class="sd">    Compute the EM fields of a geometry.</span>
@@ -1752,6 +1774,21 @@ Compute the EM fields of a geometry.</p>
                   <code>0.1</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>only_metal</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>(Default = False) If True, only the metal is drawn.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -1781,8 +1818,7 @@ Compute the EM fields of a geometry.</p>
 
             <details class="quote">
               <summary>Source code in <code>hades\wrappers\ngsolve_w.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
-<span class="normal">14</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
@@ -1821,7 +1857,28 @@ Compute the EM fields of a geometry.</p>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">make_geometry</span><span class="p">(</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">make_geometry</span><span class="p">(</span>
     <span class="n">gds_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">LayerStack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">only_metal</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NGGeom</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1829,24 +1886,44 @@ Compute the EM fields of a geometry.</p>
 <span class="sd">    :param gds_file: Input file to be simulated</span>
 <span class="sd">    :param stack: Layer Stack use to construct the 3D model</span>
 <span class="sd">    :param margin: (Default = 0.1) Size of air box around the model in percent.</span>
+<span class="sd">    :param only_metal: (Default = False) If True, only the metal is drawn.</span>
 <span class="sd">    :return: A geometry that can be used by ngsolve</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">gdsii</span> <span class="o">=</span> <span class="n">read_gds</span><span class="p">(</span><span class="n">gds_file</span><span class="p">)</span>
+    <span class="n">gdsii</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Layout</span><span class="p">()</span>
+    <span class="n">gdsii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gds_file</span><span class="p">))</span>
     <span class="n">face</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">polygon</span> <span class="ow">in</span> <span class="n">gdsii</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">polygons</span><span class="p">:</span>
-        <span class="n">elevation</span> <span class="o">=</span> <span class="n">polygon</span><span class="o">.</span><span class="n">layer</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">wp</span> <span class="o">=</span> <span class="n">occ</span><span class="o">.</span><span class="n">WorkPlane</span><span class="p">(</span><span class="n">occ</span><span class="o">.</span><span class="n">Axes</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">elevation</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="n">occ</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">occ</span><span class="o">.</span><span class="n">X</span><span class="p">))</span>
-        <span class="n">pts</span> <span class="o">=</span> <span class="n">polygon</span><span class="o">.</span><span class="n">points</span>
-        <span class="n">wp</span><span class="o">.</span><span class="n">MoveTo</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="p">[</span><span class="n">wp</span><span class="o">.</span><span class="n">LineTo</span><span class="p">(</span><span class="o">*</span><span class="n">pt</span><span class="p">)</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
-        <span class="n">wp</span><span class="o">.</span><span class="n">LineTo</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="n">face</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wp</span><span class="o">.</span><span class="n">Face</span><span class="p">()</span><span class="o">.</span><span class="n">Extrude</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="s2">&quot;metal&quot;</span><span class="p">))</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">gdsii</span><span class="o">.</span><span class="n">top_cells</span><span class="p">()]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">gdsii</span><span class="o">.</span><span class="n">top_cells</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">id_lyr</span> <span class="ow">in</span> <span class="n">gdsii</span><span class="o">.</span><span class="n">layer_indexes</span><span class="p">():</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">gdsii</span><span class="o">.</span><span class="n">layer_infos</span><span class="p">()[</span><span class="n">id_lyr</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">gdsii</span><span class="o">.</span><span class="n">layer_infos</span><span class="p">()[</span><span class="n">id_lyr</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">id_lyr</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span><span class="o">.</span><span class="n">is_polygon</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">shape</span><span class="o">.</span><span class="n">polygon</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">elevation</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">layer</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">wp</span> <span class="o">=</span> <span class="n">occ</span><span class="o">.</span><span class="n">WorkPlane</span><span class="p">(</span><span class="n">occ</span><span class="o">.</span><span class="n">Axes</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">elevation</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="n">occ</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">occ</span><span class="o">.</span><span class="n">X</span><span class="p">))</span>
+            <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">pt</span><span class="o">.</span><span class="n">to_dtype</span><span class="p">()</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">shape</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">to_simple_polygon</span><span class="p">()</span><span class="o">.</span><span class="n">each_point</span><span class="p">()</span>
+            <span class="p">]</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">pts</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">wp</span><span class="o">.</span><span class="n">MoveTo</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="p">[</span><span class="n">wp</span><span class="o">.</span><span class="n">LineTo</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+            <span class="n">wp</span><span class="o">.</span><span class="n">LineTo</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">face</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wp</span><span class="o">.</span><span class="n">Face</span><span class="p">()</span><span class="o">.</span><span class="n">Extrude</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="s2">&quot;metal&quot;</span><span class="p">))</span>
     <span class="n">metal</span> <span class="o">=</span> <span class="n">occ</span><span class="o">.</span><span class="n">Fuse</span><span class="p">(</span><span class="n">face</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">gdsii</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
-        <span class="n">port_face</span> <span class="o">=</span> <span class="n">metal</span><span class="o">.</span><span class="n">faces</span><span class="o">.</span><span class="n">Nearest</span><span class="p">(</span><span class="n">occ</span><span class="o">.</span><span class="n">gp_Pnt</span><span class="p">(</span><span class="o">*</span><span class="n">port</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">port</span><span class="o">.</span><span class="n">layer</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">))</span>
-        <span class="n">port_face</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;port&quot;</span> <span class="o">+</span> <span class="n">port</span><span class="o">.</span><span class="n">text</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">port_face</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">id_lyr</span> <span class="ow">in</span> <span class="n">gdsii</span><span class="o">.</span><span class="n">layer_indexes</span><span class="p">():</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">gdsii</span><span class="o">.</span><span class="n">layer_infos</span><span class="p">()[</span><span class="n">id_lyr</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">id_lyr</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span><span class="o">.</span><span class="n">is_text</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">port_face</span> <span class="o">=</span> <span class="n">metal</span><span class="o">.</span><span class="n">faces</span><span class="o">.</span><span class="n">Nearest</span><span class="p">(</span>
+                <span class="n">occ</span><span class="o">.</span><span class="n">gp_Pnt</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">dtext</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">shape</span><span class="o">.</span><span class="n">dtext</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">layer</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">port_face</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;port&quot;</span> <span class="o">+</span> <span class="n">shape</span><span class="o">.</span><span class="n">dtext</span><span class="o">.</span><span class="n">string</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">port_face</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">)</span>
     <span class="c1"># append z to 2D bounding box</span>
     <span class="n">limit</span> <span class="o">=</span> <span class="n">metal</span><span class="o">.</span><span class="n">bounding_box</span>
     <span class="n">lim_margin</span> <span class="o">=</span> <span class="p">[</span>
@@ -1970,19 +2047,23 @@ Compute the EM fields of a geometry.</p>
 
             <details class="quote">
               <summary>Source code in <code>hades\wrappers\ngsolve_w.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">write_stl</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">write_stl</span><span class="p">(</span>
     <span class="n">gds_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span> <span class="n">stl_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./model.stl&quot;</span><span class="p">)</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1992,8 +2073,12 @@ Compute the EM fields of a geometry.</p>
 <span class="sd">    :param stl_file: Output file</span>
 <span class="sd">    :return: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Computing geometry from </span><span class="si">{</span><span class="n">gds_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">geom</span> <span class="o">=</span> <span class="n">make_geometry</span><span class="p">(</span><span class="n">gds_file</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
+    <span class="n">ng</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating mesh&quot;</span><span class="p">)</span>
     <span class="n">mesh</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">GenerateMesh</span><span class="p">()</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing </span><span class="si">{</span><span class="n">stl_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">mesh</span><span class="o">.</span><span class="n">Export</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stl_file</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;STL Format&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>

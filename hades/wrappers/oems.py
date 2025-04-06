@@ -106,20 +106,22 @@ def compute(
     _, metals = layer_stack(proc_file)
     ports = []
     for name in metals:
-        l, d = metals[name].definition.strip("L").split("T")
-        logging.debug(f"layer {name} : {l} {d}")
-        for i, shape in enumerate(gdsii.shapes(db.LayerInfo(int(l), int(d)))):
+        lyr, dtyp = metals[name].definition.strip("L").split("T")
+        logging.debug(f"layer {name} : {lyr} {dtyp}")
+        for i, shape in enumerate(gdsii.shapes(db.LayerInfo(int(lyr), int(dtyp)))):
             if not shape.is_text():
                 continue
             label = shape.text
-            start = [label.x*dbu, label.y*dbu - max_cellsize, 0]
+            start = [label.x * dbu, label.y * dbu - max_cellsize, 0]
             stop = [
-                label.x*dbu + max_cellsize,
-                label.y*dbu + max_cellsize,
+                label.x * dbu + max_cellsize,
+                label.y * dbu + max_cellsize,
                 metals[name].thickness / 2 + metals[name].elevation,
             ]
             ports.append(
-                FDTD.AddLumpedPort(i, 50, start, stop, "z", i, priority=5, edges2grid="all")
+                FDTD.AddLumpedPort(
+                    i, 50, start, stop, "z", i, priority=5, edges2grid="all"
+                )
             )
 
     mesh = CSX.GetGrid()
@@ -208,9 +210,12 @@ def make_geometry(
             for poly in polygons:
                 if not poly.is_polygon():
                     continue
-                pts = [pt.to_dtype() for pt in poly.polygon.to_simple_polygon().each_point()]
-                x = [p.x*dbu for p in pts]
-                y = [p.y*dbu for p in pts]
+                pts = [
+                    pt.to_dtype()
+                    for pt in poly.polygon.to_simple_polygon().each_point()
+                ]
+                x = [p.x * dbu for p in pts]
+                y = [p.y * dbu for p in pts]
                 csx_metal[layer_n].AddLinPoly(
                     points=[x, y],
                     priority=200,
@@ -222,8 +227,8 @@ def make_geometry(
     # Building Dielectric layers
     altitude = 0
     bbox = gdsii.bbox()
-    center = bbox.center().x*dbu, bbox.center().y*dbu
-    size = bbox.width()*dbu, bbox.height()*dbu
+    center = bbox.center().x * dbu, bbox.center().y * dbu
+    size = bbox.width() * dbu, bbox.height() * dbu
     start = [
         center[0] - (1 + margin) * size[0] / 2,
         center[1] - (1 + margin) * size[1] / 2,

@@ -37,7 +37,9 @@ def make_geometry(
             elevation = layer.layer
             height = 1
             wp = occ.WorkPlane(occ.Axes((0, 0, elevation), n=occ.Z, h=occ.X))
-            pts = [ pt.to_dtype() for pt in shape.polygon.to_simple_polygon().each_point()]
+            pts = [
+                pt.to_dtype() for pt in shape.polygon.to_simple_polygon().each_point()
+            ]
             logging.debug(f"Found {pts}")
             wp.MoveTo(pts[0].x, pts[0].y)
             [wp.LineTo(pt.x, pt.y) for pt in pts[1:]]
@@ -50,7 +52,9 @@ def make_geometry(
             if not shape.is_text():
                 continue
             logging.info(f"Found {shape}: {type(shape)}")
-            port_face = metal.faces.Nearest(occ.gp_Pnt(shape.dtext.x, shape.dtext.y, layer.layer + 0.5))
+            port_face = metal.faces.Nearest(
+                occ.gp_Pnt(shape.dtext.x, shape.dtext.y, layer.layer + 0.5)
+            )
             port_face.name = "port" + shape.dtext.string
             logging.info(port_face.bounding_box)
     # append z to 2D bounding box

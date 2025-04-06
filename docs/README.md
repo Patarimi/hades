@@ -24,7 +24,7 @@ flowchart TD
     start -- "specifications (.yml)" --> app["Physical Model
 (hades.devices)"]
     app --dimensions --> pl["Parametric Layout
-(gdstk + hades.layouts)"]
+(klayout + hades.layouts)"]
     pl --"geometries (.gdsII)" --> be_sim["RC extraction up to Mx
 (Magic-VLSI)"]
     pl --"geometries (.gdsII)" --> fe_sim["3D simulation from Mx

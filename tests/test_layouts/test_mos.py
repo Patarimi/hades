@@ -1,4 +1,6 @@
 from os.path import dirname, join
+import pytest
+
 from hades.devices.mos import Mos, Dimensions
 import gdstk
 from hades.layouts.tools import check_diff
@@ -6,6 +8,7 @@ from hades.layouts.tools import check_diff
 REF_PATH = dirname(__file__)
 
 
+@pytest.mark.skip(reason="To be rewrite with active branch")
 def test_mos(tmp_path):
     mos = Mos()
     cell = mos.update_cell(

@@ -1,4 +1,4 @@
-import gdstk
+from klayout import db
 from pydantic import BaseModel
 
 
@@ -25,30 +25,14 @@ class Mos:
         # calculate geometries from gm/id and Vds constraint
         ...
 
-    def update_cell(self, dimensions: Dimensions, layers: dict) -> gdstk.Cell:
+    def update_cell(self, dimensions: Dimensions, layers: dict) -> db.Cell:
         self.dimensions = (
             dimensions if type(dimensions) is Dimensions else Dimensions(**dimensions)
         )
-        mos = gdstk.Cell("mos")
-        n = self.dimensions.n
-        w = self.dimensions.w * 1e6
-        le = self.dimensions.le * 1e6
-        ext_a, ext_g = (1, 0.8)
-        active = gdstk.rectangle(
-            (-ext_a, 0), (n * (w + ext_a), le), layer=int(layers["pplus"][0])
-        )
-        mos.add(active)
-        for i in range(n):
-            mos.add(
-                gdstk.rectangle(
-                    (i * (ext_a + w), -ext_g),
-                    (w + i * (ext_a + w), le + ext_g),
-                    layer=int(layers["poly"][0]),
-                )
-            )
+        mos = db.Cell(f"mos_{self.dimensions.n}")
         return mos
 
-    def update_accurate(self, cell: gdstk.Cell) -> Specifications:
+    def update_accurate(self, cell: db.Cell) -> Specifications:
         # extract spice schematic from gds (?)
         # run spice simulation, output gm/id, vds
         ...

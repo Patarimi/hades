@@ -1,5 +1,6 @@
+import logging
 import os
-from os.path import join, dirname
+from os.path import dirname
 from pathlib import Path
 
 import numpy as np
@@ -9,6 +10,15 @@ from skrf import Network
 from hades.wrappers.oems import compute, Frequency
 from hades.layouts.tools import Port
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    handlers=[
+        logging.FileHandler(os.path.join(os.path.curdir, f"{Path(__file__).stem}.log")),
+        logging.StreamHandler(),
+    ],
+    format="%(asctime)s | %(levelname)-7s | %(message)s",
+    datefmt="%d-%b-%Y %H:%M:%S",
+)
 
 if __name__ == "__main__":
     if os.getcwd() is not Path(dirname(__file__)):
@@ -20,13 +30,15 @@ if __name__ == "__main__":
     if not post_proc_only:
         s_res = compute(
             Path("../tests/test_layouts/ref_ind.gds"),
-            "inductor",
+            "mock",
+            "ind",
             Frequency(stop=5e9),
             ports=[Port("P1", "P2")],
             sim_path=Path("./inductor"),
             show_model=True,
             skip_run=False,
         )
+        logging.info(s_res)
         s_res.write_touchstone("inductor")
     else:
         s_res = Network("inductor")

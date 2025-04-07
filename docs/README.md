@@ -95,7 +95,6 @@ It is also possible to create custom devices using a python file. *To be written
 
 ## Tests configuration
 
-The layout testing needs [klayout](http://www.klayout.de) to be installed and the program *strmxor* to be accessible.
 Install hades with optional group dev :
 
 ```shell

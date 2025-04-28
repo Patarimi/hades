@@ -1,4 +1,6 @@
+import os
 import shutil
+import sys
 
 from cyclopts import App
 from pathlib import Path
@@ -37,6 +39,26 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None
         raise RuntimeError("Unknown device, choice are mos, inductor")
     dimensions = design["dimensions"]
     generate(dut, design["specifications"], dimensions, Step[stop])
+
+
+@app.command(name="run")
+def run_cli(design_py: str = "design"):
+    from klayout import db
+    from hades.layouts.tools import LayerStack
+
+    sys.path.append(os.curdir)
+    design = __import__(str(design_py), fromlist=("layout", "techno"))
+
+    layerstack = LayerStack(design.techno)
+    lib = db.Layout()
+    lib.dbu = layerstack.grid * 1e6
+    design.layout(lib, layerstack)
+    lib.write("ms.gds")
+
+    from hades.extractors.spicing import extract_spice_magic
+
+    print("extracting schematic...")
+    extract_spice_magic(Path("ms.gds"), "", "ms", options="RC")
 
 
 @app.command(name="new")

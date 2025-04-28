@@ -56,7 +56,7 @@ def extract_spice_magic(
     :return: A spice schematic to be used by ngspice.
     """
     if output_path is None:
-        output_path = Path(f"{dirname(gds_file)}/{gds_file.stem}.cir").absolute()
+        output_path = gds_file.absolute().with_suffix(".cir")
     output_path = output_path.relative_to(Path(os.curdir).absolute())
     if cell_name == "None":
         logging.warning("No cell name specified, using first cell in the layout.")
@@ -82,7 +82,7 @@ def extract_spice_magic(
                     "{root_path}", Path(dirname(output_path)).as_posix()
                 )
             buff_out.append(line)
-    tcl_file = Path(f"{dirname(output_path)}/{gds_file.stem}.tcl")
+    tcl_file = gds_file.with_suffix(".tcl")
     with open(tcl_file, "w") as f:
         f.writelines(buff_out)
     logging.info(f"Command file generated: {tcl_file}")

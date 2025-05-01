@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  python-version: "3.12"
+
 permissions:
   contents: read
 
@@ -30,7 +33,7 @@ jobs:
         run: pipx install poetry
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: ${{ env.python-version }}
           cache: 'poetry'
       - run: |
           pip install --upgrade pip
@@ -81,10 +84,10 @@ jobs:
         nix-channel --list
     - name: Install poetry
       run: pipx install poetry
-    - name: Set up Python 3.10
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.10"
+        python-version: ${{ env.python-version }}
         cache: 'poetry'
     - name: Install Dependencies
       run: |

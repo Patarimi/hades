@@ -20,14 +20,13 @@ def via(layout: db.Layout, layer: ViaLayer, size: tuple[float, float]) -> db.Cel
     v = layout.create_cell("via")
     lyr = layout.layer(layer.layer, layer.datatype)
     if layer.width == 0:
-        rec = layout.shapes(lyr).insert(db.DBox(0, 0, size[0], size[1]))
-        v.insert(rec)
+        v.shapes(lyr).insert(db.DBox(0, 0, size[0], size[1]))
     else:
         via_w = layer.width
         via_g = layer.spacing
         via_s = (
             layer.enclosure
-            if isinstance(layer.enclosure, float)
+            if isinstance(layer.enclosure, (float | int))
             else layer.enclosure[1]
         )
 

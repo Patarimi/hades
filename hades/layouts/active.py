@@ -1,19 +1,12 @@
 import klayout.db as db
-from enum import Enum
 from hades.layouts.tools import LayerStack, ViaLayer, Layer
-from hades.layouts.general import via
-
-
-class DiffEnum(str, Enum):
-    N = "n"
-    P = "p"
+from hades.layouts.general import via, get_dtext, get_shape
 
 
 def mosfet(
     cell: db.Cell,
     layers: LayerStack,
     nf: int = 5,
-    diff_type: DiffEnum = DiffEnum.N,
     width=2,
     length=0.13,
     active_layer: Layer = Layer(22, 0, "active", spacing=0.5),
@@ -40,7 +33,7 @@ def mosfet(
     diff_space = active_layer.spacing
     via_layer = ViaLayer(33, 0, "con", 0.3, 0.15)
 
-    mos = layout.create_cell(f"{diff_type.value}mos_{nf}")
+    mos = layout.create_cell(f"{doping_layer.name[0]}mos_{nf}")
     gate = layout.create_cell("gate")
     gate.shapes(poly_layer.tuple).insert(db.DBox(0, 0, length, width + 2 * gate_ext))
     pitch = length + diff_space

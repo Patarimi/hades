@@ -24,14 +24,15 @@ def test_mos(tmp_path):
 
 def test_line(tmp_path):
     lib = db.Layout()
+    lyr = stack.get_metal_layer(2)
     top = lib.create_cell("top")
     mos = mosfet(
         lib, stack, nf=5, doping_layer=Layer(1, 0), poly_layer=Layer(5, 0, spacing=0.5)
     )
     top.insert(db.DCellInstArray(mos, db.DVector(0, 0)))
-    vdd = line(lib, "vdd", stack.get_metal_layer(2))
+    vdd = line(lib, "vdd", lyr)
     top.insert(db.DCellInstArray(vdd, db.DVector(0, 0)))
-    gnd = line(lib, "gnd", stack.get_metal_layer(2), below=True)
+    gnd = line(lib, "gnd", lyr, below=True)
     top.insert(db.DCellInstArray(gnd, db.DVector(0, 0)))
     lib.write(tmp_path / "h_line.gds")
     assert check_diff(tmp_path / "h_line.gds", join(REF_PATH, "ref_line.gds"))

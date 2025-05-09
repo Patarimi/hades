@@ -1,9 +1,7 @@
 import klayout.db as db
-import numpy as np
 from enum import Enum
 from hades.layouts.tools import LayerStack, ViaLayer, Layer
 from hades.layouts.general import via
-import gdsfactory as gf
 
 
 class DiffEnum(str, Enum):
@@ -71,5 +69,8 @@ def mosfet(
         mos.shapes(m1_layer.tuple).insert(
             db.DText(f"dr{i}", i * pitch + diff_space / 2, width / 2)
         )
+    mos.shapes(m1_layer.tuple).insert(
+        db.DText(f"dr{nf}", nf * pitch + diff_space / 2, width / 2)
+    )
     mos.flatten(-1, True)
     return mos

@@ -1,6 +1,6 @@
 import klayout.db as kl
 
-from hades.layouts.general import via, via_stack, ground_plane
+from hades.layouts.general import via, via_stack, ground_plane, get_dtext
 from hades.layouts.tools import LayerStack, check_diff
 from os.path import dirname, join
 
@@ -27,6 +27,13 @@ def test_via_stack(tmp_path):
     via_stack(lib, stack, -3, -4, (3, 4))
     lib.write(tmp_path / "via_stack_neg.gds")
     check_diff(tmp_path / "via_stack_neg.gds", join(REF_PATH, "ref_via_stack.gds"))
+
+
+def test_dtext():
+    lib = kl.Layout()
+    lib.read(join(REF_PATH, "ref_line.gds"))
+    gnd = get_dtext(lib, "gnd")
+    assert gnd == kl.DText("gnd", 0, -0.9)
 
 
 def test_ground_plane(tmp_path):

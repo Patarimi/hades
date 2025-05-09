@@ -32,8 +32,9 @@ def test_via_stack(tmp_path):
 def test_dtext():
     lib = kl.Layout()
     lib.read(join(REF_PATH, "ref_line.gds"))
-    gnd = get_dtext(lib, "gnd")
+    gnd, lyr = get_dtext(lib, "gnd")
     assert gnd == kl.DText("gnd", 0, -0.9)
+    assert lyr == 1
 
 
 def test_ground_plane(tmp_path):

@@ -10,7 +10,7 @@ class DiffEnum(str, Enum):
 
 
 def mosfet(
-    layout: db.Layout,
+    cell: db.Cell,
     layers: LayerStack,
     nf: int = 5,
     diff_type: DiffEnum = DiffEnum.N,
@@ -20,6 +20,19 @@ def mosfet(
     doping_layer: Layer = Layer(32, 0, "nplus", spacing=0.38),
     poly_layer: Layer = Layer(30, 0, "poly", spacing=0.5),
 ):
+    """
+    Create and insert a mosfet in the given cell
+    :param cell: top cell in which the mosfet is inserted
+    :param layers: LayerStack to use
+    :param nf: number of finger
+    :param width: width of each finger in µm
+    :param length: length of each finger in µm
+    :param active_layer: Layer use for active region
+    :param doping_layer: Layer use for doping region
+    :param poly_layer: Layer use for gate drawing
+    :return:
+    """
+    layout = cell.layout()
     doping_ext = doping_layer.spacing
     gate_ext = poly_layer.spacing
     m1_layer = layers.get_metal_layer(1)
@@ -73,17 +86,19 @@ def mosfet(
         db.DText(f"dr{nf}", nf * pitch + diff_space / 2, width / 2)
     )
     mos.flatten(-1, True)
+    cell.insert(db.DCellInstArray(mos, db.DVector(0, 0)))
     return mos
 
 
 def line(
-    layout: db.Layout,
+    cell: db.Cell,
     name: str,
     layer: Layer = Layer(1, 0, "M2", 1, 0.5),
     below=False,
 ):
     spacing = layer.spacing
     width = layer.width
+    layout = cell.layout()
     horz = layout.create_cell(f"h_{name}")
     bbox = layout.top_cells()[0].dbbox()
     if not below:
@@ -102,4 +117,5 @@ def line(
             )
         )
     horz.shapes(layer.tuple).insert(db.DText(name, bbox.left, horz.dbbox().center().y))
+    cell.insert(db.DCellInstArray(horz, db.DVector(0, 0)))
     return horz

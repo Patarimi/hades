@@ -99,7 +99,7 @@ def get_dtext(layout: db.Layout, label: str):
                 if not shape.is_text():
                     continue
                 if shape.dtext.string == label:
-                    return shape.dtext
+                    return shape.dtext, lyr
     logging.error(f"label {label} not found in layout")
     return None
 

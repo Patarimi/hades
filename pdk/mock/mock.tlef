@@ -18,6 +18,8 @@ END Via1
 
 LAYER Metal2
     TYPE ROUTING;
+    WIDTH 0.4;
+    SPACING 0.2;
 END Metal2
 
 LAYER Via2

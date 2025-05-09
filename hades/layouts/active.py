@@ -74,3 +74,32 @@ def mosfet(
     )
     mos.flatten(-1, True)
     return mos
+
+
+def line(
+    layout: db.Layout,
+    name: str,
+    layer: Layer = Layer(1, 0, "M2", 1, 0.5),
+    below=False,
+):
+    spacing = layer.spacing
+    width = layer.width
+    horz = layout.create_cell(f"h_{name}")
+    bbox = layout.top_cells()[0].dbbox()
+    if not below:
+        horz.shapes(layer.tuple).insert(
+            db.DBox(
+                bbox.left, bbox.top + spacing, bbox.right, bbox.top + spacing + width
+            )
+        )
+    else:
+        horz.shapes(layer.tuple).insert(
+            db.DBox(
+                bbox.left,
+                bbox.bottom - spacing,
+                bbox.right,
+                bbox.bottom - spacing - width,
+            )
+        )
+    horz.shapes(layer.tuple).insert(db.DText(name, bbox.left, horz.dbbox().center().y))
+    return horz

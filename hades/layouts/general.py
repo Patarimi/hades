@@ -104,6 +104,14 @@ def get_dtext(layout: db.Layout, label: str):
     return None
 
 
+def get_shape(layout: db.Layout, point: db.DPoint, layer: int):
+    for cell in layout.each_cell():
+        for shape in cell.shapes(layer):
+            if shape.is_box() and shape.dbox.contains(point):
+                return shape.dbox
+    return None
+
+
 def ground_plane(
     layout: db.Layout, layers: LayerStack, size: tuple[float, float], id_gnd: int = 1
 ) -> db.Cell:

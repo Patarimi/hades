@@ -86,6 +86,32 @@ def via_stack(
     return v
 
 
+def get_dtext(layout: db.Layout, label: str):
+    """
+    This function  return the dtext with the associated label in the layout.
+    :param layout: Layout to be explored.
+    :param label: label (string) to be found.
+    :return: DText
+    """
+    for cell in layout.each_cell():
+        for lyr in layout.layer_indexes():
+            for shape in cell.shapes(lyr):
+                if not shape.is_text():
+                    continue
+                if shape.dtext.string == label:
+                    return shape.dtext, lyr
+    logging.error(f"label {label} not found in layout")
+    return None
+
+
+def get_shape(layout: db.Layout, point: db.DPoint, layer: int):
+    for cell in layout.each_cell():
+        for shape in cell.shapes(layer):
+            if shape.is_box() and shape.dbox.contains(point):
+                return shape.dbox
+    return None
+
+
 def ground_plane(
     layout: db.Layout, layers: LayerStack, size: tuple[float, float], id_gnd: int = 1
 ) -> db.Cell:

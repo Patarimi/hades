@@ -23,6 +23,10 @@ class Layer:
     def map(self):
         return {"layer": self.layer, "datatype": self.datatype}
 
+    @property
+    def tuple(self):
+        return self.layer, self.datatype
+
 
 @dataclass
 class ViaLayer(Layer):
@@ -114,6 +118,12 @@ class LayerStack:
                 f"Layer {num} not found. Available layers are {self._stack}"
             )
 
+    def get_id(self, layer: int, datatype: int = 0):
+        for i, lyr in enumerate(self._stack):
+            if lyr.layer == layer and lyr.datatype == datatype:
+                return i
+        return None
+
     def get_pad_layer(self) -> Layer:
         return self._pad
 
@@ -172,7 +182,6 @@ def check_diff(gds1: str | Path, gds2: str | Path) -> bool:
     diff.on_cell_name_differs(
         lambda c1, c2: logging.error(f"Cell {c1.name} != {c2.name}")
     )
-    logging.error("test")
     diff.on_cell_in_a_only(
         lambda c1: logging.error(f"Cell {c1.name} only in file {str(gds1)}")
     )

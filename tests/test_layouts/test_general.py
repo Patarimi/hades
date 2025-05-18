@@ -41,7 +41,7 @@ def test_shape():
     lib = kl.Layout()
     lib.read(join(REF_PATH, "ref_line.gds"))
     box = get_shape(lib, kl.DPoint(0, -0.9), 0)
-    assert not box is None
+    assert box is not None
     assert box == kl.DBox(0, -1.1, 3.65, -0.7)
 
 

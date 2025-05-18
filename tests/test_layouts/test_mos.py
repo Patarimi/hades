@@ -16,7 +16,7 @@ def test_mos(tmp_path):
         test,
         stack,
         nf=1,
-        doping_layer=Layer(1, 0),
+        doping_layer=Layer(1, 0, name="nplus"),
         poly_layer=Layer(2, 0, spacing=0.5),
     )
     lib.write(tmp_path / "mos.gds")
@@ -28,7 +28,11 @@ def test_line(tmp_path):
     lyr = stack.get_metal_layer(2)
     top = lib.create_cell("top")
     mosfet(
-        top, stack, nf=5, doping_layer=Layer(1, 0), poly_layer=Layer(5, 0, spacing=0.5)
+        top,
+        stack,
+        nf=5,
+        doping_layer=Layer(1, 0, name="nplus"),
+        poly_layer=Layer(5, 0, spacing=0.5),
     )
     line(top, "vdd", lyr)
     line(top, "gnd", lyr, below=True)

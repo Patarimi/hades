@@ -133,8 +133,13 @@ def connect(cell: db.Cell, layers: LayerStack, label_line: str, label_mos: str):
     else:
         top, bottom = box_v.bottom, box_h.bottom
     cell.shapes(lyr_v).insert(db.DBox(box_v.left, bottom, box_v.right, top))
-    id_top = layers.get_id(layout.get_info(lyr_h).layer, layout.get_info(lyr_h).datatype)
-    id_bot = layers.get_id(layout.get_info(lyr_v).layer, layout.get_info(lyr_v).datatype)
-    #v_st = via_stack(layout, layers, id_top, id_bot, (box_v.width(), box_h.height()))
-    #cell.insert(db.DCellInstArray(v_st, db.DVector(0, 0)))
+    id_top = layers.get_id(
+        layout.get_info(lyr_h).layer, layout.get_info(lyr_h).datatype
+    )
+    id_bot = layers.get_id(
+        layout.get_info(lyr_v).layer, layout.get_info(lyr_v).datatype
+    )
+    # v_st = via_stack(layout, layers, id_top, id_bot, (box_v.width(), box_h.height()))
+    # cell.insert(db.DCellInstArray(v_st, db.DVector(0, 0)))
     return
+

@@ -36,6 +36,7 @@ def test_dtext():
     assert gnd == kl.DText("gnd", 0, -0.9)
     assert lyr == 0
 
+
 def test_shape():
     lib = kl.Layout()
     lib.read(join(REF_PATH, "ref_line.gds"))

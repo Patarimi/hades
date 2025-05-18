@@ -34,3 +34,14 @@ def test_line(tmp_path):
     line(top, "gnd", lyr, below=True)
     lib.write(tmp_path / "h_line.gds")
     assert check_diff(tmp_path / "h_line.gds", join(REF_PATH, "ref_line.gds"))
+
+
+def test_connect(tmp_path):
+    lib = db.Layout()
+    lib.read(join(REF_PATH, "ref_line.gds"))
+    top_cell = lib.cell("top")
+    line(top_cell, "vout", stack.get_metal_layer(2))
+    connect(top_cell, stack, "vdd", "dr0")
+    connect(top_cell, stack, "vout", "g0")
+    connect(top_cell, stack, "gnd", "dr1")
+    lib.write(tmp_path / "connect.gds")

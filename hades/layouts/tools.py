@@ -33,12 +33,18 @@ class ViaLayer(Layer):
     enclosure: float | tuple[float, float] = 0
 
 
+def default_layer():
+    return Layer(0, name="NotFound")
+
+
 @dataclass
 class LayerStack:
     techno: str
     _stack: list[Layer] = field(init=False)
     _pad: Layer = field(init=False)
-    _gate: Layer = field(init=False)
+    _gate: Layer = field(default_factory=default_layer)
+    _nwell: Layer = field(default_factory=default_layer)
+    _pwell: Layer = field(default_factory=default_layer)
     grid: float = 1e-9
 
     def __post_init__(self):
@@ -49,42 +55,47 @@ class LayerStack:
         layer_map = load_map(self.techno)
         stack = []
         for layer in t_stack.layers:
-            if layer.name in layer_map:
-                layer_type = None
-                if layer.type == "ROUTING":
-                    layer_type = "Metal"
-                if layer.type == "CUT":
-                    layer_type = "Via"
-                if layer_type is None:
+            if layer.name not in layer_map.keys():
+                logging.error(f"{layer.name} not found in layer map file.")
+                continue
+            for dtype in ("VIA", "drawing", "pin", "net", "lefpin"):
+                try:
+                    dt = get_number(layer_map, layer.name, dtype)
+                    logging.debug(f"Found {dt} for {layer.name}.")
+                    break
+                except KeyError:
                     continue
-                for dtype in ("VIA", "drawing", "pin", "net"):
-                    try:
-                        dt = get_number(layer_map, layer.name, dtype)
-                        break
-                    except KeyError:
-                        continue
-                if "dt" not in locals():
-                    raise KeyError(
-                        f"Type not found in stack. Available type are {list(layer_map[layer].keys())}."
-                    )
-                if layer_type == "Metal":
-                    lyr = Layer(
-                        layer=dt[0],
-                        datatype=dt[1],
-                        name=layer.name,
-                        width=layer.width,
-                        spacing=layer.spacing,
-                    )
-                else:
-                    lyr = ViaLayer(
-                        layer=dt[0],
-                        datatype=dt[1],
-                        name=layer.name,
-                        width=layer.width,
-                        spacing=layer.spacing,
-                        enclosure=layer.enclosure,
-                    )
+            if "dt" not in locals():
+                raise KeyError(
+                    f"Type not found for layer {layer.name}. Available type are {layer_map[layer.name]}."
+                )
+            if layer.type == "ROUTING":
+                lyr = Layer(
+                    layer=dt[0],
+                    datatype=dt[1],
+                    name=layer.name,
+                    width=layer.width,
+                    spacing=layer.spacing,
+                )
                 stack.append(lyr)
+            elif layer.type == "CUT":
+                lyr = ViaLayer(
+                    layer=dt[0],
+                    datatype=dt[1],
+                    name=layer.name,
+                    width=layer.width,
+                    spacing=layer.spacing,
+                    enclosure=layer.enclosure,
+                )
+                stack.append(lyr)
+            elif layer.type == "MASTERSLICE":
+                self._gate = Layer(layer=dt[0], datatype=dt[1], name=layer.name)
+            elif layer.type == "PWELL":
+                self._pwell = Layer(layer=dt[0], datatype=dt[1], name=layer.name)
+            elif layer.type == "NWELL":
+                self._nwell = Layer(layer=dt[0], datatype=dt[1], name=layer.name)
+            else:
+                raise ValueError(f"Unknown layer type: {layer.type}")
 
         if stack[-1].name[0].lower() in ("m", "v") or isinstance(stack[-1], ViaLayer):
             logging.warning("No Pad layer detected")
@@ -93,13 +104,6 @@ class LayerStack:
         else:
             self._pad = stack.pop(-1)
             logging.debug(f"{self._pad.name} set as Pad layer")
-        if isinstance(stack[0], ViaLayer) or stack[0].name[0].lower() in ("m", "v"):
-            logging.warning("No Gate layer detected")
-            logging.debug("".join("\t" + lyr.name for lyr in stack))
-            self._gate = Layer(0, name="NotFound")
-        else:
-            self._gate = stack.pop(0)
-            logging.debug(f"{self._gate.name} set as Gate layer")
         logging.info("".join("\t" + lyr.name for lyr in stack))
         self._stack = stack
 

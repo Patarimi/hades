@@ -17,7 +17,7 @@ class Enclosure:
     above: tuple[float, float] = (0, 0)
 
 
-Type = Enum("Type", ("ROUTING", "CUT"))
+Type = Enum("Type", ("ROUTING", "CUT", "MASTERSLICE", "NWELL", "PWELL"))
 
 
 @dataclasses.dataclass
@@ -49,6 +49,7 @@ class TechLef(Transformer):
             return list(item)
         if item[0] in ("MANUFACTURINGGRID",):
             return list(item)
+        logging.debug(f"Discarding item: {item}")
         return Discard
 
     def table(self, _):
@@ -60,12 +61,16 @@ class TechLef(Transformer):
     def setting(self, setting):
         return setting[0] if len(setting) == 1 else setting
 
-    def lef58_property(self, _):
-        return Discard
+    def lef58_property(self, prop):
+        if prop[0] in ("EOLENCLOSURE",):
+            return Discard
+        if prop[3] in ("PWELL", "NWELL"):
+            return ("WELL", prop[3])
+        raise ValueError(f"expecting PWELL or NWELL, {prop[3]} provided. {prop[0]}")
 
     def block(self, block):
         if block[0] != "LAYER":
-            logging.info(f"Discarding block: {block}")
+            logging.debug(f"Discarding block: {block}")
             return Discard
         if block[1] != block[-1]:
             raise ValueError(f"Block name does not match ({block[1]} and {block[-1]}")
@@ -78,6 +83,8 @@ class TechLef(Transformer):
                 layer[key.lower()] = item[1]
             if key in ("ENCLOSURE",):
                 layer[key.lower()] = item[2]
+            if key == "WELL":
+                layer["type"] = item[1]
         logging.debug(f"In block: {layer=}")
         return Layer(**layer)
 
@@ -89,7 +96,7 @@ class TechLef(Transformer):
             if isinstance(layer, list):
                 if layer[0] == "MANUFACTURINGGRID":
                     ss.unit = float(layer[1]) * 1e-6
-        logging.debug(f"In Start: {ss=}")
+        logging.info(f"In Start: {ss=}")
         return ss
 
 

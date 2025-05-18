@@ -188,4 +188,10 @@ def check_diff(gds1: str | Path, gds2: str | Path) -> bool:
     diff.on_cell_in_b_only(
         lambda c1: logging.error(f"Cell {c1.name} only in file {str(gds2)}")
     )
+    diff.on_layer_in_a_only(
+        lambda c1: logging.error(f"Layer {c1.name} only in {str(gds1)}.")
+    )
+    diff.on_layer_in_b_only(
+        lambda c1: logging.error(f"Layer {c1.name} only in {str(gds2)}.")
+    )
     return diff.compare(cell1, cell2)

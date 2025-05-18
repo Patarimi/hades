@@ -13,3 +13,4 @@
 /workdir/
 !/workdir/generate.py
 */__pycache__/*
+*.vhdx

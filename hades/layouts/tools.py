@@ -32,8 +32,10 @@ class Layer:
 class ViaLayer(Layer):
     enclosure: float | tuple[float, float] = 0
 
+
 def default_layer():
     return Layer(0, name="NotFound")
+
 
 @dataclass
 class LayerStack:

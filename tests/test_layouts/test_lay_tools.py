@@ -42,7 +42,9 @@ def test_layer_stack_gf():
 def test_layer_stack_sw():
     layer_stack = tools.LayerStack("sky130")
     logging.debug(layer_stack)
-    assert layer_stack.get_metal_layer(1) == tools.Layer(layer=67, datatype=20, name='li1', width=0.17, spacing=0)
+    assert layer_stack.get_metal_layer(1) == tools.Layer(
+        layer=67, datatype=20, name="li1", width=0.17, spacing=0
+    )
     assert layer_stack.get_metal_layer(2) == tools.Layer(68, 20, "met1", 0.14)
     assert layer_stack.get_metal_layer(-1) == tools.Layer(72, 20, "met5", 1.6)
 

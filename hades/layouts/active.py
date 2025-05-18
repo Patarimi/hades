@@ -89,6 +89,14 @@ def line(
     layer: Layer = Layer(1, 0, "M2", 1, 0.5),
     below=False,
 ):
+    """
+    Draw a horizontal line above (or below if _below_ = True) the content of the cell.
+    :param cell: cell to be used.
+    :param name: name of the line, a label will be added.
+    :param layer: layer to be used. Width and Space are use for drawing.
+    :param below: if True, draw below the cell instead of above.
+    :return:
+    """
     spacing = layer.spacing
     width = layer.width
     layout = cell.layout()
@@ -112,3 +120,21 @@ def line(
     horz.shapes(layer.tuple).insert(db.DText(name, bbox.left, horz.dbbox().center().y))
     cell.insert(db.DCellInstArray(horz, db.DVector(0, 0)))
     return horz
+
+
+def connect(cell: db.Cell, layers: LayerStack, label_line: str, label_mos: str):
+    layout = cell.layout()
+    lbl_h, lyr_h = get_dtext(layout, label_line)
+    lbl_v, lyr_v = get_dtext(layout, label_mos)
+    box_v = get_shape(layout, lbl_v.position(), lyr_v)
+    box_h = get_shape(layout, lbl_h.position(), lyr_h)
+    if box_h.center().y > box_v.center().y:
+        top, bottom = box_v.top, box_h.top
+    else:
+        top, bottom = box_v.bottom, box_h.bottom
+    cell.shapes(lyr_v).insert(db.DBox(box_v.left, bottom, box_v.right, top))
+    id_top = layers.get_id(layout.get_info(lyr_h).layer, layout.get_info(lyr_h).datatype)
+    id_bot = layers.get_id(layout.get_info(lyr_v).layer, layout.get_info(lyr_v).datatype)
+    #v_st = via_stack(layout, layers, id_top, id_bot, (box_v.width(), box_h.height()))
+    #cell.insert(db.DCellInstArray(v_st, db.DVector(0, 0)))
+    return

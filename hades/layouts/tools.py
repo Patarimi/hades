@@ -118,6 +118,12 @@ class LayerStack:
                 f"Layer {num} not found. Available layers are {self._stack}"
             )
 
+    def get_id(self, layer: int, datatype: int = 0):
+        for i, lyr in enumerate(self._stack):
+            if lyr.layer == layer and lyr.datatype == datatype:
+                return i
+        return None
+
     def get_pad_layer(self) -> Layer:
         return self._pad
 

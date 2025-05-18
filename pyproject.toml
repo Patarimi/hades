@@ -44,12 +44,11 @@ scikit-rf = "^1.0.0"
 matplotlib = "^3.8.2"
 lark = "^1.1.9"
 numpy = "^2.0.0"
-wget = "^3.2"
 klayout = "^0.30.0"
 ngsolve = "^6.2.2404.post51"
 pydantic = "^2.8.2"
-h5py = "^3.11.0"
 cyclopts = "^3.16.0"
+pandas = "^2.2.3"
 
 [tool.poetry.group.dev]
 optional = true

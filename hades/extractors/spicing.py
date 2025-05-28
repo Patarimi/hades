@@ -3,16 +3,13 @@ This module is used to extract the equivalent spice schematic of a gdsii file.
 """
 
 import logging
-import os
 from os.path import dirname
 from pathlib import Path
 from subprocess import CalledProcessError
 
 from klayout import db as kl
 from hades.layouts.tools import LayerStack
-from hades.wrappers.tools import nix_run
-
-logging.basicConfig(level=logging.INFO)
+from hades.wrappers.tools import nix_run, to_wsl
 
 
 def extract_spice(
@@ -45,6 +42,7 @@ def extract_spice_magic(
 ) -> Path:
     """
     Extract the equivalent spice schematic of a gdsii file using magic-vlsi.
+    :param cell_name: name of the cell in the gdsii file to be extracted.
     :param gds_file: Input file to be extracted.
     :param rc_file: RC file to be used in the extraction.
     :param output_path: Path to the output spice file.
@@ -56,8 +54,9 @@ def extract_spice_magic(
     :return: A spice schematic to be used by ngspice.
     """
     if output_path is None:
-        output_path = Path(f"{dirname(gds_file)}/{gds_file.stem}.cir").absolute()
-    output_path = output_path.relative_to(Path(os.curdir).absolute())
+        output_path = Path(f"{dirname(gds_file)}/{gds_file.stem}.cir")
+    root_path = dirname(output_path) if dirname(output_path) != "/" else "./"
+    logging.warning(f"working dir :{root_path}")
     if cell_name == "None":
         logging.warning("No cell name specified, using first cell in the layout.")
         layout = kl.Layout()
@@ -72,17 +71,16 @@ def extract_spice_magic(
         buff_out = []
         for line in f:
             if "{gds_file}" in line:
-                line = line.replace("{gds_file}", gds_file.as_posix())
+                line = line.replace("{gds_file}", to_wsl(gds_file))
             if "{top_cell}" in line:
                 line = line.replace("{top_cell}", cell_name)
             if "{output_file}" in line:
-                line = line.replace("{output_file}", output_path.as_posix())
+                line = line.replace("{output_file}", to_wsl(output_path))
             if "{root_path}" in line:
-                line = line.replace(
-                    "{root_path}", Path(dirname(output_path)).as_posix()
-                )
+                line = line.replace("{root_path}", to_wsl(root_path))
             buff_out.append(line)
-    tcl_file = Path(f"{dirname(output_path)}/{gds_file.stem}.tcl")
+    tcl_file = Path(root_path) / f"{gds_file.stem}.tcl"
+    logging.info(tcl_file)
     with open(tcl_file, "w") as f:
         f.writelines(buff_out)
     logging.info(f"Command file generated: {tcl_file}")
@@ -91,12 +89,13 @@ def extract_spice_magic(
         "-dnull",
         "-noconsole",
         "-rcfile",
-        rc_file.as_posix(),
-        tcl_file.as_posix(),
+        to_wsl(rc_file),
+        to_wsl(tcl_file),
     ]
     logging.info("Extraction with command: " + " ".join(cmd))
     proc = nix_run(cmd)
     logging.info(proc.stdout)
+    logging.error(proc.stderr)
     try:
         proc.check_returncode()
     except CalledProcessError as e:

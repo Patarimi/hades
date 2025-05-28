@@ -10,16 +10,6 @@ from skrf import Network
 from hades.wrappers.oems import compute, Frequency
 from hades.layouts.tools import Port
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    handlers=[
-        logging.FileHandler(os.path.join(os.path.curdir, f"{Path(__file__).stem}.log")),
-        logging.StreamHandler(),
-    ],
-    format="%(asctime)s | %(levelname)-7s | %(message)s",
-    datefmt="%d-%b-%Y %H:%M:%S",
-)
-
 if __name__ == "__main__":
     if os.getcwd() is not Path(dirname(__file__)):
         print(

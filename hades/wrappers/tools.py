@@ -1,5 +1,7 @@
 import logging
 import os
+from os.path import dirname
+from pathlib import Path
 from subprocess import run, CompletedProcess
 
 
@@ -19,6 +21,24 @@ def nix_check():
         return False
 
 
+def to_wsl(path: (Path | str)):
+    """
+    Convert a windows path to a linux path for WSL usage.
+    """
+    if os.name != "nt":
+        return path
+    if type(path) is not Path:
+        path = Path(path).absolute()
+    if ":" in str(path):
+        drive, tail = path.as_posix().split(":")
+        return "/mnt/" + drive.lower() + tail
+    if str(path)[0] == "\\":
+        path = "." + path.as_posix()
+    else:
+        path = path.as_posix()
+    return path
+
+
 def nix_run(cmd: list[str]) -> CompletedProcess:
     over_head = [
         "nix-shell",
@@ -27,6 +47,8 @@ def nix_run(cmd: list[str]) -> CompletedProcess:
     if os.name == "nt":
         over_head = ["wsl", "-d", "NixOS", "--shell-type", "login"] + over_head
     over_head.append(" ".join(cmd))
-    logging.info(" ".join(over_head))
+    shell_path = Path(dirname(dirname(dirname(__file__))) + "/shell.nix")
+    over_head.append(to_wsl(shell_path))
+    logging.info('" "'.join(over_head))
     proc = run(over_head, capture_output=True, text=True)
     return proc

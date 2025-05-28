@@ -33,6 +33,7 @@ logging.basicConfig(
     datefmt="%d-%b-%Y %H:%M:%S",
 )
 
+
 @app.command(name="generate")
 def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None:
     """Main command. Run the flow until convergence using _design.yaml_. The design can be stopped at a specific step using the _stop_ option."""

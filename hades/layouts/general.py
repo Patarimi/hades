@@ -20,14 +20,13 @@ def via(layout: db.Layout, layer: ViaLayer, size: tuple[float, float]) -> db.Cel
     v = layout.create_cell("via")
     lyr = layout.layer(layer.layer, layer.datatype)
     if layer.width == 0:
-        rec = layout.shapes(lyr).insert(db.DBox(0, 0, size[0], size[1]))
-        v.insert(rec)
+        v.shapes(lyr).insert(db.DBox(0, 0, size[0], size[1]))
     else:
         via_w = layer.width
         via_g = layer.spacing
         via_s = (
             layer.enclosure
-            if isinstance(layer.enclosure, float)
+            if isinstance(layer.enclosure, (float | int))
             else layer.enclosure[1]
         )
 
@@ -85,6 +84,32 @@ def via_stack(
         v.insert(db.DCellInstArray(via(layout, lyr, size), db.DVector(0, 0)))
     v.flatten(-1, True)
     return v
+
+
+def get_dtext(layout: db.Layout, label: str):
+    """
+    This function  return the dtext with the associated label in the layout.
+    :param layout: Layout to be explored.
+    :param label: label (string) to be found.
+    :return: DText
+    """
+    for cell in layout.each_cell():
+        for lyr in layout.layer_indexes():
+            for shape in cell.shapes(lyr):
+                if not shape.is_text():
+                    continue
+                if shape.dtext.string == label:
+                    return shape.dtext, lyr
+    logging.error(f"label {label} not found in layout")
+    return None
+
+
+def get_shape(layout: db.Layout, point: db.DPoint, layer: int):
+    for cell in layout.each_cell():
+        for shape in cell.shapes(layer):
+            if shape.is_box() and shape.dbox.contains(point):
+                return shape.dbox
+    return None
 
 
 def ground_plane(

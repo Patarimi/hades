@@ -1,20 +1,51 @@
 from os.path import dirname, join
-import pytest
 from klayout import db
 
-from hades.devices.mos import Mos, Dimensions
-from hades.layouts.tools import check_diff
+from hades.layouts.active import mosfet, line, connect
+from hades.layouts.tools import check_diff, LayerStack, Layer
 
 REF_PATH = dirname(__file__)
 
+stack = LayerStack("mock")
 
-@pytest.mark.skip(reason="To be rewrite with active branch")
+
 def test_mos(tmp_path):
-    mos = Mos()
     lib = db.Layout()
-    cell = mos.update_cell(
-        Dimensions(n=1, w=130e-9, le=2e-6), {"pplus": (1, 0), "poly": (2, 0)}
+    test = lib.create_cell("mos")
+    mosfet(
+        test,
+        stack,
+        nf=1,
+        doping_layer=Layer(1, 0, name="nplus"),
+        poly_layer=Layer(2, 0, spacing=0.5),
     )
-    lib = lib.add_cell(cell)
     lib.write(tmp_path / "mos.gds")
     assert check_diff(tmp_path / "mos.gds", join(REF_PATH, "ref_mos.gds"))
+
+
+def test_line(tmp_path):
+    lib = db.Layout()
+    lyr = stack.get_metal_layer(2)
+    top = lib.create_cell("top")
+    mosfet(
+        top,
+        stack,
+        nf=5,
+        doping_layer=Layer(1, 0, name="nplus"),
+        poly_layer=Layer(5, 0, spacing=0.5),
+    )
+    line(top, "vdd", lyr)
+    line(top, "gnd", lyr, below=True)
+    lib.write(tmp_path / "h_line.gds")
+    assert check_diff(tmp_path / "h_line.gds", join(REF_PATH, "ref_line.gds"))
+
+
+def test_connect(tmp_path):
+    lib = db.Layout()
+    lib.read(join(REF_PATH, "ref_line.gds"))
+    top_cell = lib.cell("top")
+    line(top_cell, "vout", stack.get_metal_layer(2))
+    connect(top_cell, stack, "vdd", "dr0")
+    connect(top_cell, stack, "vout", "g0")
+    connect(top_cell, stack, "gnd", "dr1")
+    lib.write(tmp_path / "connect.gds")

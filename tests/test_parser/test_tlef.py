@@ -19,7 +19,7 @@ def test_load_tlef():
         get_metal(0, path)
     assert get_via(1, path) == "CON"
 
-    assert layers.layers[2].width == 0.4
+    assert layers.layers[3].width == 0
 
     assert layers.unit == 5e-9
 

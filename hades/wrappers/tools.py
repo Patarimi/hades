@@ -14,7 +14,7 @@ def nix_check():
             return False
     try:
         proc = nix_run(["--version"])
-        logging.info(proc.stdout)
+        logging.info(f"{proc.stdout=}")
         return True
     except Exception as e:
         logging.error(e)

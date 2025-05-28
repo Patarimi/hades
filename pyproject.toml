@@ -34,7 +34,7 @@ log_file = "./pytest.log"
 
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11,<3.14"
 pyyaml = "^6.0"
 scipy = "^1.12.0"
 python-dotenv = "^1.0.0"
@@ -44,35 +44,21 @@ scikit-rf = "^1.0.0"
 matplotlib = "^3.8.2"
 lark = "^1.1.9"
 numpy = "^2.0.0"
-wget = "^3.2"
 klayout = "^0.30.0"
 ngsolve = "^6.2.2404.post51"
 pydantic = "^2.8.2"
-h5py = "^3.11.0"
-cyclopts = "^3.0.0"
-
-[tool.poetry.group.EMS]
-optional = true
-
-[tool.poetry.group.EMS.dependencies]
-openems = [
-    {path = "manifests/openEMS-0.0.36-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win32"},
-    {path = "manifests/openEMS-0.0.36-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win32"},
-    ]
-csxcad = [
-    {path = "manifests/CSXCAD-0.6.3-cp310-cp310-win_amd64.whl", python = "~3.10", platform = "win32"},
-    {path = "manifests/CSXCAD-0.6.3-cp311-cp311-win_amd64.whl", python = "~3.11", platform = "win32"},
-    ]
+cyclopts = "^3.16.0"
+pandas = "^2.2.3"
 
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-poethepoet = "^0.33.0"
+poethepoet = "^0.34.0"
 pytest = "^8.1.1"
 pytest-sugar = "^1.0.0"
-setuptools = "^78.0.0"
-ruff = "^0.11.0"
+setuptools = "^80.3.1"
+ruff = "^0.11.8"
 
 [tool.poetry.group.doc]
 optional = true

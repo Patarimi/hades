@@ -21,9 +21,9 @@ Mp1 out in cc cc pm W=4u L=0.18u
 * control language script
 .control                                    ; begin of control section
 unset askquit
-set filetype=ascii
+set filetype = ASCII
 run                                         ; run the .tran command
-write pp v(out) v(in) i(vcc)
+write C:\Users\JoPo\PycharmProjects\hades\tmp\test_ngspice0\out.raw v(out) v(in) i(vcc)
 .endc                                       ; end of control section
 
 .end

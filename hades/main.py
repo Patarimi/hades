@@ -1,3 +1,4 @@
+import logging
 import os
 import shutil
 import sys
@@ -9,7 +10,7 @@ from hades.devices.inductor import Inductor
 from hades.devices.micro_strip import MicroStrip
 from hades.devices.device import generate, Step
 import yaml
-from os.path import join
+from os.path import join, dirname
 from os import makedirs
 import hades.techno as techno
 import hades.wrappers.simulator as sim
@@ -22,6 +23,15 @@ if shutil.which("openEMS"):
 
     app.command(oems_app)
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    handlers=[
+        logging.FileHandler(os.path.join(os.path.curdir, f"{Path(__file__).stem}.log")),
+        logging.StreamHandler(),
+    ],
+    format="%(asctime)s | %(levelname)-7s | %(message)s",
+    datefmt="%d-%b-%Y %H:%M:%S",
+)
 
 @app.command(name="generate")
 def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None:
@@ -57,8 +67,15 @@ def run_cli(design_py: str = "design"):
 
     from hades.extractors.spicing import extract_spice_magic
 
-    print("extracting schematic...")
-    extract_spice_magic(Path("ms.gds"), "", "ms", options="RC")
+    logging.info("extracting schematic...")
+    extract_spice_magic(
+        Path("ms.gds"),
+        Path(dirname(dirname(__file__)))
+        / Path("pdk/sky130A/libs.tech/magic/sky130A.magicrc"),
+        "ms",
+        Path("./ms.cir"),
+        options="RC",
+    )
 
 
 @app.command(name="new")

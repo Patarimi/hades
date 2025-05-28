@@ -16,6 +16,16 @@ from os import makedirs
 import hades.techno as techno
 import hades.wrappers.simulator as sim
 
+logging.basicConfig(
+    level=logging.INFO,
+    handlers=[
+        logging.FileHandler(os.path.join(os.path.curdir, f"hades.log")),
+        logging.StreamHandler(),
+    ],
+    format="%(asctime)s | %(levelname)-7s | %(message)s",
+    datefmt="%d-%b-%Y %H:%M:%S",
+)
+
 app = App()
 app.command(techno.pkd_app)
 app.command(sim.sim_app)
@@ -23,17 +33,6 @@ if shutil.which("openEMS"):
     from hades.wrappers.oems import oems_app
 
     app.command(oems_app)
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    handlers=[
-        logging.FileHandler(os.path.join(os.path.curdir, f"{Path(__file__).stem}.log")),
-        logging.StreamHandler(),
-    ],
-    format="%(asctime)s | %(levelname)-7s | %(message)s",
-    datefmt="%d-%b-%Y %H:%M:%S",
-)
-
 
 @app.command(name="generate")
 def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None:
@@ -71,7 +70,7 @@ def run_cli(design_py: str = "design", sub_folder: str = ""):
     layerstack = LayerStack(design.techno)
     lib = db.Layout()
     lib.dbu = layerstack.grid * 1e6
-    design.layout(lib, layerstack)
+    design.layout(lib.create_cell("ms"), layerstack)
     lib.write("ms.gds")
 
     from hades.extractors.spicing import extract_spice_magic
@@ -85,6 +84,7 @@ def run_cli(design_py: str = "design", sub_folder: str = ""):
         Path("./ms.cir"),
         options="RC",
     )
+    shutil.copy("../hades.log", design_py+".log")
 
 
 @app.command(name="new")

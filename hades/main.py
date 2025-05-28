@@ -1,3 +1,4 @@
+import datetime
 import logging
 import os
 import shutil
@@ -53,13 +54,20 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None
 
 
 @app.command(name="run")
-def run_cli(design_py: str = "design"):
+def run_cli(design_py: str = "design", sub_folder: str = ""):
     from klayout import db
     from hades.layouts.tools import LayerStack
 
     sys.path.append(os.curdir)
     design = __import__(str(design_py), fromlist=("layout", "techno"))
 
+    run_dir = (
+        sub_folder
+        if sub_folder != ""
+        else design_py + "_" + datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
+    )
+    os.mkdir(run_dir)
+    os.chdir(run_dir)
     layerstack = LayerStack(design.techno)
     lib = db.Layout()
     lib.dbu = layerstack.grid * 1e6

@@ -34,6 +34,7 @@ if shutil.which("openEMS"):
 
     app.command(oems_app)
 
+
 @app.command(name="generate")
 def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None:
     """Main command. Run the flow until convergence using _design.yaml_. The design can be stopped at a specific step using the _stop_ option."""
@@ -84,7 +85,7 @@ def run_cli(design_py: str = "design", sub_folder: str = ""):
         Path("./ms.cir"),
         options="RC",
     )
-    shutil.copy("../hades.log", design_py+".log")
+    shutil.copy("../hades.log", design_py + ".log")
 
 
 @app.command(name="new")

@@ -1,5 +1,6 @@
 import logging
 import os
+from os.path import dirname
 from pathlib import Path
 from subprocess import run, CompletedProcess
 
@@ -46,6 +47,8 @@ def nix_run(cmd: list[str]) -> CompletedProcess:
     if os.name == "nt":
         over_head = ["wsl", "-d", "NixOS", "--shell-type", "login"] + over_head
     over_head.append(" ".join(cmd))
-    logging.info(" ".join(over_head))
+    shell_path = Path(dirname(dirname(dirname(__file__))) + "/shell.nix")
+    over_head.append(to_wsl(shell_path))
+    logging.info('" "'.join(over_head))
     proc = run(over_head, capture_output=True, text=True)
     return proc

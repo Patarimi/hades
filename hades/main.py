@@ -16,15 +16,15 @@ from os import makedirs
 import hades.techno as techno
 import hades.wrappers.simulator as sim
 
-logging.basicConfig(
-    level=logging.INFO,
-    handlers=[
-        logging.FileHandler(os.path.join(os.path.curdir, f"hades.log")),
-        logging.StreamHandler(),
-    ],
-    format="%(asctime)s | %(levelname)-7s | %(message)s",
-    datefmt="%d-%b-%Y %H:%M:%S",
-)
+if not logging.getLogger().hasHandlers():
+    logging.basicConfig(
+        level=logging.INFO,
+        handlers=[
+            logging.FileHandler(os.path.join(os.path.curdir, "hades.log")),
+            logging.StreamHandler(),
+        ],
+        format="|%(levelname)-7s| %(filename)s:%(lineno)d | %(message)s",
+    )
 
 app = App()
 app.command(techno.pkd_app)

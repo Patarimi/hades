@@ -146,7 +146,7 @@ class LayerStack:
             )
         pard = 1 if isinstance(self._stack[-1], ViaLayer) else 2
         paru = 0 if isinstance(self._stack[0], ViaLayer) else 1
-        return self._stack[2 * num - paru if num > 0 else 2 * num + pard]
+        return self._stack[2 * num - paru if num >= 0 else 2 * num + pard]
 
 
 @dataclass

@@ -16,10 +16,13 @@ END Poly
 
 LAYER CON
     TYPE CUT;
+    SPACING 0.15;
+    WIDTH 0.3;
 END CON
 
 LAYER Metal1
     TYPE ROUTING;
+    WIDTH 0.4;
 END Metal1
 
 LAYER Via1

@@ -5,7 +5,7 @@ Metal2  drawing 2   0
 Metal4  net     46  0
 Metal5  net     81  0 # inline comment
 Pad     net     1   0
-CON     VIA     42  0
+CON     VIA     33  0
 Via1    VIA     35  0   cut
 Via2    VIA     12  0 cut
 Vi_4    VIA     41  0

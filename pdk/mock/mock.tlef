@@ -16,6 +16,8 @@ END Poly
 
 LAYER CON
     TYPE CUT;
+    SPACING 0.15;
+    WIDTH 0.3;
 END CON
 
 LAYER Metal1

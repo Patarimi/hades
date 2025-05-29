@@ -1,5 +1,7 @@
+import logging
+
 import klayout.db as db
-from hades.layouts.tools import LayerStack, ViaLayer, Layer
+from hades.layouts.tools import LayerStack, Layer
 from hades.layouts.general import via, get_dtext, get_shape
 
 
@@ -9,9 +11,8 @@ def mosfet(
     nf: int = 5,
     width=2,
     length=0.13,
+    type: str = "N",
     active_layer: Layer = Layer(22, 0, "active", spacing=0.5),
-    doping_layer: Layer = Layer(32, 0, "nplus", spacing=0.38),
-    poly_layer: Layer = Layer(30, 0, "poly", spacing=0.5),
 ):
     """
     Create and insert a mosfet in the given cell
@@ -21,19 +22,21 @@ def mosfet(
     :param width: width of each finger in µm
     :param length: length of each finger in µm
     :param active_layer: Layer use for active region
-    :param doping_layer: Layer use for doping region
-    :param poly_layer: Layer use for gate drawing
+    :param type: mos type (P or N).
     :return:
     """
     layout = cell.layout()
-    doping_ext = doping_layer.spacing
+    poly_layer = layers.get_gate_layer()
     gate_ext = poly_layer.spacing
+    doping_layer = layers._pwell if type == "P" else layers._nwell
+    doping_ext = doping_layer.spacing
     m1_layer = layers.get_metal_layer(1)
     m1_width = m1_layer.width if m1_layer.width > 0 else 0.4
     diff_space = active_layer.spacing
-    via_layer = ViaLayer(33, 0, "con", 0.3, 0.15)
+    via_layer = layers.get_via_layer(0)
+    logging.error(f"via layer : {via_layer}")
 
-    mos = layout.create_cell(f"{doping_layer.name[0]}mos_{nf}")
+    mos = layout.create_cell(f"{type.lower()}mos_{nf}")
     gate = layout.create_cell("gate")
     gate.shapes(poly_layer.tuple).insert(db.DBox(0, 0, length, width + 2 * gate_ext))
     pitch = length + diff_space

@@ -22,6 +22,7 @@ END CON
 
 LAYER Metal1
     TYPE ROUTING;
+    WIDTH 0.4;
 END Metal1
 
 LAYER Via1

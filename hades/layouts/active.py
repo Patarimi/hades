@@ -31,7 +31,7 @@ def mosfet(
     doping_layer = layers._pwell if type == "P" else layers._nwell
     doping_ext = doping_layer.spacing
     m1_layer = layers.get_metal_layer(1)
-    m1_width = m1_layer.width if m1_layer.width > 0 else 0.4
+    m1_width = m1_layer.width
     diff_space = active_layer.spacing
     via_layer = layers.get_via_layer(0)
     logging.debug(f"via layer : {via_layer}")

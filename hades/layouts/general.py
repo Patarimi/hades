@@ -106,10 +106,31 @@ def get_dtext(layout: db.Layout, label: str):
 
 def get_shape(layout: db.Layout, point: db.DPoint, layer: int):
     for cell in layout.each_cell():
-        for shape in cell.shapes(layer):
-            if shape.is_box() and shape.dbox.contains(point):
-                return shape.dbox
+        for lyr in layout.layer_indexes():
+            for shape in cell.shapes(lyr):
+                ref_info = layout.layer_infos()[layer]
+                current_info = layout.layer_infos()[lyr]
+                if ref_info.layer != current_info.layer:
+                    continue
+                if shape.is_box() and shape.dbox.contains(point):
+                    return shape.dbox, lyr
     return None
+
+
+def set_as_port(cell: db.Cell, label: str):
+    """
+    Retrieve label in subcells and copy to cell.
+    :param cell:
+    :param label:
+    :return:
+    """
+    lay = cell.layout()
+    for subcell in cell.each_child_cell():
+        res = get_dtext(lay.cell(subcell).layout(), label)
+        if res is None:
+            continue
+        txt, lyr = res
+        cell.shapes(lyr).insert(txt)
 
 
 def ground_plane(

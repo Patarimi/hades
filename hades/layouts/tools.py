@@ -76,10 +76,12 @@ class LayerStack:
                 )
             if layer.type == "ROUTING":
                 try:
-                    pin = get_number(layer_map, layer.name, "label")
+                    pin = get_number(layer_map, layer.name, "pin")
                 except KeyError:
                     pin = dt
-                    logging.error(f"No 'pin' layer found for {layer.name}. Using {dt} instead.")
+                    logging.error(
+                        f"No 'pin' layer found for {layer.name}. Using {dt} instead."
+                    )
                 logging.debug(f"{pin=}")
                 lyr = Layer(
                     layer=dt[0],
@@ -102,10 +104,12 @@ class LayerStack:
                 stack.append(lyr)
             elif layer.type == "MASTERSLICE":
                 try:
-                    pin = get_number(layer_map, layer.name, "label")
+                    pin = get_number(layer_map, layer.name, "pin")
                 except KeyError:
                     pin = dt
-                    logging.error(f"No 'pin' layer found for {layer.name}. Using {dt} instead.")
+                    logging.error(
+                        f"No 'pin' layer found for {layer.name}. Using {dt} instead."
+                    )
                 self._gate = Layer(
                     layer=dt[0], datatype=dt[1], _pin=dt[1], name=layer.name
                 )

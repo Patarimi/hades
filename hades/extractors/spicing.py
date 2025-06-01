@@ -79,7 +79,7 @@ def extract_spice_magic(
             if "{root_path}" in line:
                 line = line.replace("{root_path}", to_wsl(root_path))
             buff_out.append(line)
-    tcl_file = gds_file.with_suffix(".tcl")
+    tcl_file = output_path.with_suffix(".tcl")
     logging.info(tcl_file)
     with open(tcl_file, "w") as f:
         f.writelines(buff_out)

@@ -117,6 +117,22 @@ def get_shape(layout: db.Layout, point: db.DPoint, layer: int):
     return None
 
 
+def set_as_port(cell: db.Cell, label: str):
+    """
+    Retrieve label in subcells and copy to cell.
+    :param cell:
+    :param label:
+    :return:
+    """
+    lay = cell.layout()
+    for subcell in cell.each_child_cell():
+        res = get_dtext(lay.cell(subcell).layout(), label)
+        if res is None:
+            continue
+        txt, lyr = res
+        cell.shapes(lyr).insert(txt)
+
+
 def ground_plane(
     layout: db.Layout, layers: LayerStack, size: tuple[float, float], id_gnd: int = 1
 ) -> db.Cell:

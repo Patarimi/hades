@@ -1,6 +1,6 @@
 sky130:
   source_url: volare
-  version: 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
+  version: 0fe599b2afb6708d281543108caf8310912f54af
   base_dir: ../pdk/sky130A/libs.tech
   layermap: klayout/tech/sky130A.map
   techlef: ../libs.ref/sky130_fd_sc_hvl/techlef/sky130_fd_sc_hvl__nom.tlef

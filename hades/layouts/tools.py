@@ -15,6 +15,7 @@ class Layer:
     name: str = ""
     width: float = 0
     spacing: float = 0
+    _pin: int = 0
 
     def __str__(self):
         return f"{self.name}: {self.layer}/{self.datatype}"
@@ -24,8 +25,12 @@ class Layer:
         return {"layer": self.layer, "datatype": self.datatype}
 
     @property
-    def tuple(self):
+    def drawing(self):
         return self.layer, self.datatype
+
+    @property
+    def pin(self):
+        return self.layer, self._pin
 
 
 @dataclass
@@ -70,9 +75,16 @@ class LayerStack:
                     f"Type not found for layer {layer.name}. Available type are {layer_map[layer.name]}."
                 )
             if layer.type == "ROUTING":
+                try:
+                    pin = get_number(layer_map, layer.name, "label")
+                except KeyError:
+                    pin = dt
+                    logging.error(f"No 'pin' layer found for {layer.name}. Using {dt} instead.")
+                logging.debug(f"{pin=}")
                 lyr = Layer(
                     layer=dt[0],
                     datatype=dt[1],
+                    _pin=pin[1],
                     name=layer.name,
                     width=layer.width,
                     spacing=layer.spacing,
@@ -89,7 +101,14 @@ class LayerStack:
                 )
                 stack.append(lyr)
             elif layer.type == "MASTERSLICE":
-                self._gate = Layer(layer=dt[0], datatype=dt[1], name=layer.name)
+                try:
+                    pin = get_number(layer_map, layer.name, "label")
+                except KeyError:
+                    pin = dt
+                    logging.error(f"No 'pin' layer found for {layer.name}. Using {dt} instead.")
+                self._gate = Layer(
+                    layer=dt[0], datatype=dt[1], _pin=dt[1], name=layer.name
+                )
             elif layer.type == "PWELL":
                 self._pwell = Layer(layer=dt[0], datatype=dt[1], name=layer.name)
             elif layer.type == "NWELL":

@@ -38,7 +38,7 @@ def mosfet(
 
     mos = layout.create_cell(f"{type.lower()}mos_{nf}")
     gate = layout.create_cell("gate")
-    gate.shapes(poly_layer.tuple).insert(db.DBox(0, 0, length, width + 2 * gate_ext))
+    gate.shapes(poly_layer.drawing).insert(db.DBox(0, 0, length, width + 2 * gate_ext))
     pitch = length + diff_space
     gates = db.DCellInstArray(
         gate.cell_index(),
@@ -50,7 +50,7 @@ def mosfet(
     )
     mos.insert(gates)
     dr_con = layout.create_cell("dr_con")
-    dr_con.shapes(m1_layer.tuple).insert(db.DBox(0, 0, m1_width, width))
+    dr_con.shapes(m1_layer.drawing).insert(db.DBox(0, 0, m1_width, width))
     con = via(layout, via_layer, (m1_width, width))
     dr_con.insert(db.DCellInstArray(con, db.DVector(0, 0)))
     dr_cons = db.DCellInstArray(
@@ -62,8 +62,10 @@ def mosfet(
         1,
     )
     mos.insert(dr_cons)
-    mos.shapes(active_layer.tuple).insert(db.DBox(0, 0, diff_space + nf * pitch, width))
-    mos.shapes(doping_layer.tuple).insert(
+    mos.shapes(active_layer.drawing).insert(
+        db.DBox(0, 0, diff_space + nf * pitch, width)
+    )
+    mos.shapes(doping_layer.drawing).insert(
         db.DBox(
             -doping_ext,
             -doping_ext,
@@ -72,13 +74,13 @@ def mosfet(
         )
     )
     for i in range(nf):
-        mos.shapes(poly_layer.tuple).insert(
+        mos.shapes(poly_layer.pin).insert(
             db.DText(f"g{i}", i * pitch + diff_space + length / 2, -gate_ext)
         )
-        mos.shapes(m1_layer.tuple).insert(
+        mos.shapes(m1_layer.pin).insert(
             db.DText(f"dr{i}", i * pitch + diff_space / 2, width / 2)
         )
-    mos.shapes(m1_layer.tuple).insert(
+    mos.shapes(m1_layer.pin).insert(
         db.DText(f"dr{nf}", nf * pitch + diff_space / 2, width / 2)
     )
     mos.flatten(-1, True)
@@ -106,13 +108,13 @@ def line(
     horz = layout.create_cell(f"h_{name}")
     bbox = layout.top_cells()[0].dbbox()
     if not below:
-        horz.shapes(layer.tuple).insert(
+        horz.shapes(layer.drawing).insert(
             db.DBox(
                 bbox.left, bbox.top + spacing, bbox.right, bbox.top + spacing + width
             )
         )
     else:
-        horz.shapes(layer.tuple).insert(
+        horz.shapes(layer.drawing).insert(
             db.DBox(
                 bbox.left,
                 bbox.bottom - spacing,
@@ -120,17 +122,17 @@ def line(
                 bbox.bottom - spacing - width,
             )
         )
-    horz.shapes(layer.tuple).insert(db.DText(name, bbox.left, horz.dbbox().center().y))
+    horz.shapes(layer.pin).insert(db.DText(name, bbox.left, horz.dbbox().center().y))
     cell.insert(db.DCellInstArray(horz, db.DVector(0, 0)))
     return horz
 
 
 def connect(cell: db.Cell, layers: LayerStack, label_line: str, label_mos: str):
     layout = cell.layout()
-    lbl_h, lyr_h = get_dtext(layout, label_line)
-    lbl_v, lyr_v = get_dtext(layout, label_mos)
-    box_v = get_shape(layout, lbl_v.position(), lyr_v)
-    box_h = get_shape(layout, lbl_h.position(), lyr_h)
+    lbl_h, lyr_hp = get_dtext(layout, label_line)
+    lbl_v, lyr_vp = get_dtext(layout, label_mos)
+    box_v, lyr_v = get_shape(layout, lbl_v.position(), lyr_vp)
+    box_h, lbl_h = get_shape(layout, lbl_h.position(), lyr_hp)
     if box_h.center().y > box_v.center().y:
         top, bottom = box_v.top, box_h.top
     else:

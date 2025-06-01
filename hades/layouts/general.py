@@ -106,9 +106,14 @@ def get_dtext(layout: db.Layout, label: str):
 
 def get_shape(layout: db.Layout, point: db.DPoint, layer: int):
     for cell in layout.each_cell():
-        for shape in cell.shapes(layer):
-            if shape.is_box() and shape.dbox.contains(point):
-                return shape.dbox
+        for lyr in layout.layer_indexes():
+            for shape in cell.shapes(lyr):
+                ref_info = layout.layer_infos()[layer]
+                current_info = layout.layer_infos()[lyr]
+                if ref_info.layer != current_info.layer:
+                    continue
+                if shape.is_box() and shape.dbox.contains(point):
+                    return shape.dbox, lyr
     return None
 
 

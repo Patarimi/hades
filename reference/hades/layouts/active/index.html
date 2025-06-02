@@ -1606,12 +1606,7 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\active.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
 <span class="normal"> 92</span>
 <span class="normal"> 93</span>
 <span class="normal"> 94</span>
@@ -1642,7 +1637,12 @@
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
-<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">line</span><span class="p">(</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">line</span><span class="p">(</span>
     <span class="n">cell</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;M2&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
@@ -1662,13 +1662,13 @@
     <span class="n">horz</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;h_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">bbox</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">top_cells</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dbbox</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">below</span><span class="p">:</span>
-        <span class="n">horz</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">horz</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">drawing</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
             <span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span>
                 <span class="n">bbox</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="n">spacing</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="n">spacing</span> <span class="o">+</span> <span class="n">width</span>
             <span class="p">)</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">horz</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">horz</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">drawing</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
             <span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span>
                 <span class="n">bbox</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
                 <span class="n">bbox</span><span class="o">.</span><span class="n">bottom</span> <span class="o">-</span> <span class="n">spacing</span><span class="p">,</span>
@@ -1676,7 +1676,7 @@
                 <span class="n">bbox</span><span class="o">.</span><span class="n">bottom</span> <span class="o">-</span> <span class="n">spacing</span> <span class="o">-</span> <span class="n">width</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
-    <span class="n">horz</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">horz</span><span class="o">.</span><span class="n">dbbox</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">horz</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">pin</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">horz</span><span class="o">.</span><span class="n">dbbox</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
     <span class="n">cell</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">horz</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
     <span class="k">return</span> <span class="n">horz</span>
 </code></pre></div></td></tr></table></div>
@@ -1689,7 +1689,7 @@
 
 
 <h2 id="hades.layouts.active.mosfet" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">mosfet</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">nf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.13</span><span class="p">,</span> <span class="n">active_layer</span><span class="o">=</span><span class="n">Layer</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">doping_layer</span><span class="o">=</span><span class="n">Layer</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;nplus&#39;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.38</span><span class="p">),</span> <span class="n">poly_layer</span><span class="o">=</span><span class="n">Layer</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span></code>
+            <code class="highlight language-python"><span class="n">mosfet</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">nf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.13</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="n">active_layer</span><span class="o">=</span><span class="n">Layer</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span></code>
 
 <a href="#hades.layouts.active.mosfet" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1806,34 +1806,18 @@
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>doping_layer</code>
+                <code>type</code>
             </td>
             <td>
-                  <code><span title="hades.layouts.tools.Layer">Layer</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Layer use for doping region</p>
-              </div>
-            </td>
-            <td>
-                  <code><span title="hades.layouts.tools.Layer">Layer</span>(32, 0, &#39;nplus&#39;, spacing=0.38)</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>poly_layer</code>
-            </td>
-            <td>
-                  <code><span title="hades.layouts.tools.Layer">Layer</span></code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Layer use for gate drawing</p>
+                <p>mos type (P or N).</p>
               </div>
             </td>
             <td>
-                  <code><span title="hades.layouts.tools.Layer">Layer</span>(30, 0, &#39;poly&#39;, spacing=0.5)</code>
+                  <code>&#39;N&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -1864,9 +1848,7 @@
 
             <details class="quote">
               <summary>Source code in <code>hades\layouts\active.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
@@ -1941,15 +1923,19 @@
 <span class="normal">80</span>
 <span class="normal">81</span>
 <span class="normal">82</span>
-<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">mosfet</span><span class="p">(</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">mosfet</span><span class="p">(</span>
     <span class="n">cell</span><span class="p">:</span> <span class="n">db</span><span class="o">.</span><span class="n">Cell</span><span class="p">,</span>
     <span class="n">layers</span><span class="p">:</span> <span class="n">LayerStack</span><span class="p">,</span>
     <span class="n">nf</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">length</span><span class="o">=</span><span class="mf">0.13</span><span class="p">,</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
     <span class="n">active_layer</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;active&quot;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
-    <span class="n">doping_layer</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;nplus&quot;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.38</span><span class="p">),</span>
-    <span class="n">poly_layer</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;poly&quot;</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create and insert a mosfet in the given cell</span>
@@ -1959,21 +1945,23 @@
 <span class="sd">    :param width: width of each finger in µm</span>
 <span class="sd">    :param length: length of each finger in µm</span>
 <span class="sd">    :param active_layer: Layer use for active region</span>
-<span class="sd">    :param doping_layer: Layer use for doping region</span>
-<span class="sd">    :param poly_layer: Layer use for gate drawing</span>
+<span class="sd">    :param type: mos type (P or N).</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">layout</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span>
-    <span class="n">doping_ext</span> <span class="o">=</span> <span class="n">doping_layer</span><span class="o">.</span><span class="n">spacing</span>
+    <span class="n">poly_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_gate_layer</span><span class="p">()</span>
     <span class="n">gate_ext</span> <span class="o">=</span> <span class="n">poly_layer</span><span class="o">.</span><span class="n">spacing</span>
+    <span class="n">doping_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">_pwell</span> <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span> <span class="k">else</span> <span class="n">layers</span><span class="o">.</span><span class="n">_nwell</span>
+    <span class="n">doping_ext</span> <span class="o">=</span> <span class="n">doping_layer</span><span class="o">.</span><span class="n">spacing</span>
     <span class="n">m1_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_metal_layer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">m1_width</span> <span class="o">=</span> <span class="n">m1_layer</span><span class="o">.</span><span class="n">width</span> <span class="k">if</span> <span class="n">m1_layer</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.4</span>
+    <span class="n">m1_width</span> <span class="o">=</span> <span class="n">m1_layer</span><span class="o">.</span><span class="n">width</span>
     <span class="n">diff_space</span> <span class="o">=</span> <span class="n">active_layer</span><span class="o">.</span><span class="n">spacing</span>
-    <span class="n">via_layer</span> <span class="o">=</span> <span class="n">ViaLayer</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;con&quot;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
+    <span class="n">via_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">get_via_layer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;via layer : </span><span class="si">{</span><span class="n">via_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">mos</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">doping_layer</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">mos_</span><span class="si">{</span><span class="n">nf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">mos</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">mos_</span><span class="si">{</span><span class="n">nf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">gate</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;gate&quot;</span><span class="p">)</span>
-    <span class="n">gate</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">poly_layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">gate_ext</span><span class="p">))</span>
+    <span class="n">gate</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">poly_layer</span><span class="o">.</span><span class="n">drawing</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">gate_ext</span><span class="p">))</span>
     <span class="n">pitch</span> <span class="o">=</span> <span class="n">length</span> <span class="o">+</span> <span class="n">diff_space</span>
     <span class="n">gates</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span>
         <span class="n">gate</span><span class="o">.</span><span class="n">cell_index</span><span class="p">(),</span>
@@ -1985,7 +1973,7 @@
     <span class="p">)</span>
     <span class="n">mos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">gates</span><span class="p">)</span>
     <span class="n">dr_con</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="s2">&quot;dr_con&quot;</span><span class="p">)</span>
-    <span class="n">dr_con</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">m1_layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m1_width</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
+    <span class="n">dr_con</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">m1_layer</span><span class="o">.</span><span class="n">drawing</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m1_width</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
     <span class="n">con</span> <span class="o">=</span> <span class="n">via</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">via_layer</span><span class="p">,</span> <span class="p">(</span><span class="n">m1_width</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
     <span class="n">dr_con</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">DVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
     <span class="n">dr_cons</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DCellInstArray</span><span class="p">(</span>
@@ -1997,8 +1985,10 @@
         <span class="mi">1</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">mos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">dr_cons</span><span class="p">)</span>
-    <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">active_layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">diff_space</span> <span class="o">+</span> <span class="n">nf</span> <span class="o">*</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
-    <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">doping_layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+    <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">active_layer</span><span class="o">.</span><span class="n">drawing</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">diff_space</span> <span class="o">+</span> <span class="n">nf</span> <span class="o">*</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">doping_layer</span><span class="o">.</span><span class="n">drawing</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
         <span class="n">db</span><span class="o">.</span><span class="n">DBox</span><span class="p">(</span>
             <span class="o">-</span><span class="n">doping_ext</span><span class="p">,</span>
             <span class="o">-</span><span class="n">doping_ext</span><span class="p">,</span>
@@ -2007,13 +1997,13 @@
         <span class="p">)</span>
     <span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nf</span><span class="p">):</span>
-        <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">poly_layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">poly_layer</span><span class="o">.</span><span class="n">pin</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
             <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;g</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">pitch</span> <span class="o">+</span> <span class="n">diff_space</span> <span class="o">+</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">gate_ext</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">m1_layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+        <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">m1_layer</span><span class="o">.</span><span class="n">pin</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
             <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dr</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">pitch</span> <span class="o">+</span> <span class="n">diff_space</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
         <span class="p">)</span>
-    <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">m1_layer</span><span class="o">.</span><span class="n">tuple</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+    <span class="n">mos</span><span class="o">.</span><span class="n">shapes</span><span class="p">(</span><span class="n">m1_layer</span><span class="o">.</span><span class="n">pin</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
         <span class="n">db</span><span class="o">.</span><span class="n">DText</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dr</span><span class="si">{</span><span class="n">nf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">nf</span> <span class="o">*</span> <span class="n">pitch</span> <span class="o">+</span> <span class="n">diff_space</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">mos</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>

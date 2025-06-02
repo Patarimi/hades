@@ -11,7 +11,7 @@ from hades.devices.inductor import Inductor
 from hades.devices.micro_strip import MicroStrip
 from hades.devices.device import generate, Step
 import yaml
-from os.path import join, dirname
+from os.path import join
 from os import makedirs
 import hades.techno as techno
 import hades.wrappers.simulator as sim
@@ -55,36 +55,36 @@ def generate_cli(design_yaml: Path = "./design.yml", stop: str = "full") -> None
 
 @app.command(name="run")
 def run_cli(design_py: str = "design", sub_folder: str = ""):
-    from klayout import db
-    from hades.layouts.tools import LayerStack
+    import hades.steps.step as steps
 
     sys.path.append(os.curdir)
-    design = __import__(str(design_py), fromlist=("layout", "techno"))
+    design = __import__(str(design_py), fromlist=("layout", "techno", "bench"))
 
+    starting_dir = os.getcwd()
     run_dir = (
         sub_folder
         if sub_folder != ""
         else design_py + "_" + datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
     )
-    os.mkdir(run_dir)
+    if not Path(run_dir).is_dir():
+        os.mkdir(run_dir)
     os.chdir(run_dir)
-    layerstack = LayerStack(design.techno)
-    lib = db.Layout()
-    lib.dbu = layerstack.grid * 1e6
-    design.layout(lib.create_cell("ms"), layerstack)
-    lib.write("ms.gds")
 
-    from hades.extractors.spicing import extract_spice_magic
+    logging.info("layout generation...")
+    steps.layout_generation(design.techno, design.layout)
 
     logging.info("extracting schematic...")
-    extract_spice_magic(
-        Path("ms.gds"),
-        Path(dirname(dirname(__file__)))
-        / Path("pdk/sky130A/libs.tech/magic/sky130A.magicrc"),
-        "ms",
-        Path("./ms.cir"),
-        options="RC",
-    )
+    steps.extract_from_layout()
+
+    logging.info("simulation of ")
+    if not Path(design.bench).is_absolute():
+        design.bench = Path(starting_dir) / design.bench
+    if not design.bench.is_file():
+        raise FileNotFoundError(
+            f"bench file {str(design.bench)} not found or is not a file."
+        )
+
+    steps.run_bench(design.bench, os.curdir)
     shutil.copy("../hades.log", design_py + ".log")
 
 

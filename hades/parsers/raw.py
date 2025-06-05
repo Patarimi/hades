@@ -28,6 +28,7 @@ def parse_raw(results: Path) -> pd.DataFrame:
     df = pd.DataFrame(data=data, dtype=float)
     return df
 
+
 def parse_out(results: Path) -> pd.DataFrame:
     """
     Read ngspice output (in multiline output format) and load it in a dataframe.

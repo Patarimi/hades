@@ -76,15 +76,18 @@ def run_cli(design_py: str = "design", sub_folder: str = ""):
     logging.info("extracting schematic...")
     steps.extract_from_layout(design.techno)
 
-    logging.info("simulation of ")
+    logging.info(f"simulation of {design.bench}")
     if not Path(design.bench).is_absolute():
         design.bench = Path(starting_dir) / design.bench
     if not design.bench.is_file():
         raise FileNotFoundError(
             f"bench file {str(design.bench)} not found or is not a file."
         )
-
     steps.run_bench(design.bench, os.curdir)
+
+    logging.info("loading simulation results...")
+    data = steps.load_result()
+
     shutil.copy("../hades.log", design_py + ".log")
 
 

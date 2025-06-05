@@ -74,7 +74,7 @@ def run_cli(design_py: str = "design", sub_folder: str = ""):
     steps.layout_generation(design.techno, design.layout)
 
     logging.info("extracting schematic...")
-    steps.extract_from_layout()
+    steps.extract_from_layout(design.techno)
 
     logging.info("simulation of ")
     if not Path(design.bench).is_absolute():

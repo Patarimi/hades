@@ -1,11 +1,11 @@
 from collections.abc import Callable
-from os.path import dirname
 from pathlib import Path
 
 from klayout import db
 from hades.layouts.tools import LayerStack
 from hades.extractors.spicing import extract_spice_magic
 from hades.wrappers.ngspice import NGSpice
+from hades.techno import get_file
 
 
 def layout_generation(techno: str, layout: Callable, top_cell_name: str = "top"):
@@ -17,11 +17,10 @@ def layout_generation(techno: str, layout: Callable, top_cell_name: str = "top")
     lib.write(f"{top_cell_name}.gds")
 
 
-def extract_from_layout(top_cell_name: str = "top"):
+def extract_from_layout(techno: str, top_cell_name: str = "top"):
     extract_spice_magic(
         Path(f"{top_cell_name}.gds"),
-        Path(dirname(dirname(__file__)))
-        / Path("pdk/sky130A/libs.tech/magic/sky130A.magicrc"),
+        get_file(techno, "magic_rc"),
         top_cell_name,
         Path(f"{top_cell_name}.cir"),
         options="RC",
